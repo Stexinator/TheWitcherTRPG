@@ -697,9 +697,8 @@ export default class WitcherActorSheet extends ActorSheet {
     this.actor.update({ "system.critWounds": newCritList });
   }
 
-  async _onNoteAdd(event) {
+  async _onNoteAdd() {
     let notes = this.actor.system.notes
-    console.log(notes)
     notes.push({
       title: '',
       details: ''
@@ -708,7 +707,10 @@ export default class WitcherActorSheet extends ActorSheet {
   }
 
   async _onNoteDelete(event) {
-    console.log(event)
+    let noteIndex = event.currentTarget.dataset.noteIndex;
+    let notes = this.actor.system.notes
+    notes.splice(noteIndex, 1)
+    this.actor.update({ "system.notes": notes });
   }
 
   async _onItemAdd(event) {
