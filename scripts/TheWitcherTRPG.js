@@ -1,5 +1,7 @@
 import { witcher } from "../module/config.js";
 import WitcherItemSheet from "../module/items/WitcherItemSheet.js";
+import WitcherWeaponSheet from "../module/items/WitcherWeaponSheet.js";
+import WitcherDiagramSheet from "../module/items/WitcherDiagramSheet.js";
 import WitcherItem from "../module/witcherItem.js";
 import WitcherActor from "../module/witcherActor.js";
 import * as Chat from "../module/chat.js";
@@ -50,6 +52,14 @@ Hooks.once("init", function () {
 
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("witcher", WitcherItemSheet, { makeDefault: true });
+    Items.registerSheet("witcher", WitcherWeaponSheet, { 
+        makeDefault: true,
+        types: ['weapon']
+    });
+    Items.registerSheet("witcher", WitcherDiagramSheet, { 
+        makeDefault: true,
+        types: ['diagrams']
+    });
 
     Actors.unregisterSheet("core", ActorSheet);
     Actors.registerSheet("witcher", WitcherCharacterSheet, { 

@@ -16,7 +16,22 @@ export default class WitcherMonsterSheet extends WitcherActorSheet {
    /** @override */
    getData() {
     let context = super.getData();
+    this._prepareLoot(context);
     return context;
+  }
+
+  _prepareLoot(context) {
+    let items = context.actor.items;
+    context.loots = items.filter(i => i.type == "component" ||
+        i.type == "crafting-material" ||
+        i.type == "enhancement" ||
+        i.type == "valuable" ||
+        i.type == "animal-parts" ||
+        i.type == "diagrams" ||
+        i.type == "armor" ||
+        i.type == "alchemical" ||
+        i.type == "enhancement" ||
+        i.type == "mutagen");
   }
 
   activateListeners(html) {
