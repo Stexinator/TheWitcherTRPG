@@ -26,22 +26,7 @@ export default class WitcherItemSheet extends ItemSheet {
     data.config = CONFIG.witcher;
 
     this.options.classes.push(`item-${this.item.type}`)
-    if (data.item) {
-      data.data = data.item.system
-    }
-
-    if (this.item.type == "weapon") {
-      let appliedId = false;
-      this.item.system.effects.forEach(element => {
-        if (element.id == undefined) {
-          appliedId = true
-          element.id = genId()
-        }
-      });
-      if (appliedId) {
-        this.item.system.effects = this.item.system.effects;
-      }
-    }
+    data.data = data.item?.system
     return data;
   }
 
@@ -91,26 +76,6 @@ export default class WitcherItemSheet extends ItemSheet {
     this._dragDrop.push(newDragDrop);
   }
 
-  async _onDrop(event) {
-    if (this.item.type == "diagrams") {
-      let dragEventData = TextEditor.getDragEventData(event)
-      let item = await fromUuid(dragEventData.uuid)
-
-      if (item) {
-        if (event.target.offsetParent.dataset.type == "associatedItem") {
-          this.item.update({ 'system.associatedItem': item });
-        } else {
-          let newComponentList = []
-          if (this.item.system.craftingComponents) {
-            newComponentList = this.item.system.craftingComponents
-          }
-          newComponentList.push({ id: genId(), name: item.name, quantity: 1 })
-          this.item.update({ 'system.craftingComponents': newComponentList });
-        }
-      }
-    }
-  }
-
   _onEffectEdit(event) {
     event.preventDefault();
     let element = event.currentTarget;
@@ -118,19 +83,13 @@ export default class WitcherItemSheet extends ItemSheet {
 
     let field = element.dataset.field;
     let value = element.value
-    if (this.item.type == "diagrams") {
-      let components = this.item.system.craftingComponents
-      let objIndex = components.findIndex((obj => obj.id == itemId));
-      components[objIndex][field] = value
-      this.item.update({ 'system.craftingComponents': components });
-    }
-    else {
-      let effects = this.item.system.effects
-      let objIndex = effects.findIndex((obj => obj.id == itemId));
-      effects[objIndex][field] = value
 
-      this.item.update({ 'system.effects': effects });
-    }
+    let effects = this.item.system.effects
+    let objIndex = effects.findIndex((obj => obj.id == itemId));
+    effects[objIndex][field] = value
+
+    this.item.update({ 'system.effects': effects });
+    
   }
 
   _onModifierEdit(event) {
@@ -251,10 +210,6 @@ export default class WitcherItemSheet extends ItemSheet {
 
   async _onRemoveAssociatedItem(event) {
     event.preventDefault();
-    if (this.item.type == "diagrams") {
-      let newAssociatedItem = { id: "", name: "", img: "" };
-      this.item.update({ 'system.associatedItem': newAssociatedItem });
-    }
   }
 
   _onAddModifierStat(event) {

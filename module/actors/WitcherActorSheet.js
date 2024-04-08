@@ -55,54 +55,31 @@ export default class WitcherActorSheet extends ActorSheet {
 
     const actorData = this.actor.toObject(false);
     context.system = actorData.system;
-    this._prepareCharacterData(context)
+
+    this._prepareWeapons(context)
+    this._prepareArmor(context)
     this._prepareItems(context);
 
     context.isGM = game.user.isGM
     return context;
-  }
-
-  _prepareCharacterData(context) {
-    let actor = context.actor;
-    context.spells = actor.getList("spell");
-
-    context.noviceSpells = context.spells.filter(s => s.system.level == "novice" &&
-      (s.system.class == "Spells" || s.system.class == "Invocations" || s.system.class == "Witcher"));
-    context.journeymanSpells = context.spells.filter(s => s.system.level == "journeyman" &&
-      (s.system.class == "Spells" || s.system.class == "Invocations" || s.system.class == "Witcher"));
-    context.masterSpells = context.spells.filter(s => s.system.level == "master" &&
-      (s.system.class == "Spells" || s.system.class == "Invocations" || s.system.class == "Witcher"));
-    context.hexes = context.spells.filter(s => s.system.class == "Hexes");
-    context.rituals = context.spells.filter(s => s.system.class == "Rituals");
-    context.magicalgift = context.spells.filter(s => s.system.class == "MagicalGift");
-
-    context.professions = actor.getList("profession");
-    context.profession = context.professions[0];
-
-    context.races = actor.getList("race");
-    context.race = context.races[0];
-
-    context.totalStats = this.calc_total_stats(context)
-    context.totalSkills = this.calc_total_skills(context)
-    context.totalProfSkills = this.calc_total_skills_profession(context)
-    
-    context.notes = actor.getList("note");
-
-    context.activeEffects = actor.getList("effect");
-
-    if (actor.system.pannels == undefined) {
-      actor.system.pannels = {};
-    }
-  }
+  }  
 
    /**
    * Organize and classify Items for Character sheets.
    */
    _prepareItems(context) {
-    let actor = context.actor;
-    let items = actor.items;
-    
-    context.weapons = actor.getList("weapon");
+    let items = context.actor.items;
+
+    context.enhancements = items.filter(i => i.type == "enhancement" && i.system.type != "armor" && !i.system.applied);
+    context.runeItems = context.enhancements.filter(e => e.system.type == "rune");
+    context.glyphItems = context.enhancements.filter(e => e.system.type == "glyph");
+
+    context.totalWeight = context.items.weight() + calc_currency_weight(context.actor.system.currency);
+    context.totalCost = context.items.cost();
+   }
+
+   _prepareWeapons(context) {
+    context.weapons = context.actor.getList("weapon");
     context.weapons.forEach((weapon) => {
       if (weapon.system.enhancements > 0 && weapon.system.enhancements != weapon.system.enhancementItems.length) {
         let newEnhancementList = []
@@ -114,15 +91,18 @@ export default class WitcherActorSheet extends ActorSheet {
             newEnhancementList.push({})
           }
         }
-        let item = actor.items.get(weapon._id);
+        let item = context.actor.items.get(weapon._id);
         item.system.enhancementItems = newEnhancementList
       }
     });
+   }
 
-    context.armors = items.filter(function (item) {
+   _prepareArmor(context) {
+    context.armors = context.actor.items.filter(function (item) {
       return item.type == "armor" ||
         (item.type == "enhancement" && item.system.type == "armor" && item.system.applied == false)
     });
+
     context.armors.forEach((armor) => {
       if (armor.system.enhancements > 0 && armor.system.enhancements != armor.system.enhancementItems.length) {
         let newEnhancementList = []
@@ -139,15 +119,11 @@ export default class WitcherActorSheet extends ActorSheet {
       }
     });
 
-    // Crafting section
-    context.allComponents = actor.getList("component");
-    context.craftingMaterials = context.allComponents.filter(i => i.system.type == "crafting-material" || i.system.type == "component");
-    context.ingotsAndMinerals = context.allComponents.filter(i => i.system.type == "minerals");
-    context.hidesAndAnimalParts = context.allComponents.filter(i => i.system.type == "animal-parts");
-    context.enhancements = items.filter(i => i.type == "enhancement" && i.system.type != "armor" && !i.system.applied);
+   }
 
-    // Valuables Section
-    context.valuables = items.filter(i => i.type == "valuable");
+   _prepareValuables(context) {
+    context.valuables = context.actor.items.filter(i => i.type == "valuable");
+
     context.clothingAndContainers = context.valuables.filter(i => i.system.type == "clothing" || i.system.type == "containers");
     context.general = context.valuables.filter(i => i.system.type == "genera" || !i.system.type);
     context.foodAndDrinks = context.valuables.filter(i => i.system.type == "food-drink");
@@ -155,66 +131,6 @@ export default class WitcherActorSheet extends ActorSheet {
     context.questItems = context.valuables.filter(i => i.system.type == "quest-item");
     context.mounts = items.filter(i => i.type == "mount");
     context.mountAccessories = items.filter(i => i.type == "valuable" && i.system.type == "mount-accessories");
-
-    context.runeItems = context.enhancements.filter(e => e.system.type == "rune");
-    context.glyphItems = context.enhancements.filter(e => e.system.type == "glyph");
-
-    // Alchemy section
-    context.alchemicalItems = items.filter(i => (i.type == "valuable" && i.system.type == "alchemical-item") || (i.type == "alchemical" && i.system.type == "alchemical"));
-    context.witcherPotions = items.filter(i => i.type == "alchemical" && (i.system.type == "decoction" || i.system.type == "potion"));
-    context.oils = items.filter(i => i.type == "alchemical" && i.system.type == "oil");
-    context.alchemicalTreatments = items.filter(i => i.type == "component" && i.system.type == "alchemical");
-    context.mutagens = items.filter(i => i.type == "mutagen");
-    
-    // Formulae
-    context.diagrams = actor.getList("diagrams");
-    context.alchemicalItemDiagrams = context.diagrams.filter(d => d.system.type == "alchemical" || !d.system.type).map(this.sanitizeDescription);
-    context.potionDiagrams = context.diagrams.filter(d => d.system.type == "potion").map(this.sanitizeDescription);
-    context.decoctionDiagrams = context.diagrams.filter(d => d.system.type == "decoction").map(this.sanitizeDescription);
-    context.oilDiagrams = context.diagrams.filter(d => d.system.type == "oil").map(this.sanitizeDescription);
-    
-    // Diagrams
-    context.ingredientDiagrams = context.diagrams.filter(d => d.system.type == "ingredients").map(this.sanitizeDescription);
-    context.weaponDiagrams = context.diagrams.filter(d => d.system.type == "weapon").map(this.sanitizeDescription);
-    context.armorDiagrams = context.diagrams.filter(d => d.system.type == "armor").map(this.sanitizeDescription);
-    context.elderfolkWeaponDiagrams = context.diagrams.filter(d => d.system.type == "armor-enhancement").map(this.sanitizeDescription);
-    context.elderfolkArmorDiagrams = context.diagrams.filter(d => d.system.type == "elderfolk-weapon").map(this.sanitizeDescription);
-    context.ammunitionDiagrams = context.diagrams.filter(d => d.system.type == "ammunition").map(this.sanitizeDescription);
-    context.bombDiagrams = context.diagrams.filter(d => d.system.type == "bomb").map(this.sanitizeDescription);
-    context.trapDiagrams = context.diagrams.filter(d => d.system.type == "traps").map(this.sanitizeDescription);
-
-    context.substancesVitriol = actor.getSubstance("vitriol");
-    context.vitriolCount = context.substancesVitriol.sum("quantity");
-    context.substancesRebis = actor.getSubstance("rebis");
-    context.rebisCount = context.substancesRebis.sum("quantity");
-    context.substancesAether = actor.getSubstance("aether");
-    context.aetherCount = context.substancesAether.sum("quantity");
-    context.substancesQuebrith = actor.getSubstance("quebrith");
-    context.quebrithCount = context.substancesQuebrith.sum("quantity");
-    context.substancesHydragenum = actor.getSubstance("hydragenum");
-    context.hydragenumCount = context.substancesHydragenum.sum("quantity");
-    context.substancesVermilion = actor.getSubstance("vermilion");
-    context.vermilionCount = context.substancesVermilion.sum("quantity");
-    context.substancesSol = actor.getSubstance("sol");
-    context.solCount = context.substancesSol.sum("quantity");
-    context.substancesCaelum = actor.getSubstance("caelum");
-    context.caelumCount = context.substancesCaelum.sum("quantity");
-    context.substancesFulgur = actor.getSubstance("fulgur");
-    context.fulgurCount = context.substancesFulgur.sum("quantity");
-
-    context.loots = items.filter(i => i.type == "component" ||
-                                   i.type == "crafting-material" ||
-                                   i.type == "enhancement" ||
-                                   i.type == "valuable" ||
-                                   i.type == "animal-parts" ||
-                                   i.type == "diagrams" ||
-                                   i.type == "armor" ||
-                                   i.type == "alchemical" ||
-                                   i.type == "enhancement" ||
-                                   i.type == "mutagen");
-
-    context.totalWeight = context.items.weight() + calc_currency_weight(context.actor.system.currency);
-    context.totalCost = context.items.cost();
    }
 
 
