@@ -1131,7 +1131,7 @@
       "maxReliability": 0,
       "hands": 0,
       "range": "",
-      "equiped": false,
+      "equipped": false,
       "effects": [],
       "conceal": "",
       "enhancements": 0,
@@ -1165,7 +1165,7 @@
       "effects": [],
       "encumb": 0,
       "location": "Head",
-      "equiped": false,
+      "equipped": false,
       "bludgeoning": false,
       "slashing": false,
       "piercing": false
