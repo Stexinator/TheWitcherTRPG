@@ -133,39 +133,29 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
 
 Hooks.once("polyglot.init", (LanguageProvider) => {
     class FictionalGameSystemLanguageProvider extends LanguageProvider {
-        get originalAlphabets() {
-            return {
-                "common": "130% Thorass",
-                "dwarven": "120% Dethek",
-                "elder": "150% Espruar",
-            };
-        }
-        get originalTongues() {
-            return {
-                "_default": "common",
-                "common": "common",
-                "dwarven": "dwarven",
-                "elder": "elder",
-            };
+        languages = { 
+            "common": { label: "Common", font: "Thorass", },
+            "dwarven": { label: "Dwarven", font: "Dethek", },
+            "elder": { label: "Elder Speech", font: "Espruar", }
         }
 
         getUserLanguages(actor) {
             let known_languages = new Set();
             let literate_languages = new Set();
             known_languages.add("common")
-            if (actor.system.skills.int.eldersp.isProfession || actor.system.skills.int.eldersp.isPickup || actor.system.skills.int.eldersp.isLearned || actor.system.skills.int.eldersp.value > 0) {
+            if (actor.system.skills.int.eldersp.isProffession || actor.system.skills.int.eldersp.isPickup || actor.system.skills.int.eldersp.isLearned || actor.system.skills.int.eldersp.value > 0) {
                 known_languages.add("elder")
             }
-            if (actor.system.skills.int.dwarven.isProfession || actor.system.skills.int.dwarven.isPickup || actor.system.skills.int.dwarven.isLearned || actor.system.skills.int.dwarven.value > 0) {
+            if (actor.system.skills.int.dwarven.isProffession || actor.system.skills.int.dwarven.isPickup || actor.system.skills.int.dwarven.isLearned || actor.system.skills.int.dwarven.value > 0) {
                 known_languages.add("dwarven")
             }
-            if (actor.system.skills.int.commonsp.isProfession || actor.system.skills.int.commonsp.isPickup || actor.system.skills.int.commonsp.isLearned || actor.system.skills.int.commonsp.value > 0) {
+            if (actor.system.skills.int.commonsp.isProffession || actor.system.skills.int.commonsp.isPickup || actor.system.skills.int.commonsp.isLearned || actor.system.skills.int.commonsp.value > 0) {
                 known_languages.add("common")
             }
             return [known_languages, literate_languages];
         }
     }
-    polyglot.registerSystem("TheWitcherTRPG", FictionalGameSystemLanguageProvider)
+    game.polyglot.api.registerSystem(FictionalGameSystemLanguageProvider)
 })
 
 Hooks.on("getChatLogEntryContext", Chat.addChatMessageContextOptions);
