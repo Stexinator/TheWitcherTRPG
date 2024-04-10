@@ -17,7 +17,34 @@ export default class WitcherMonsterSheet extends WitcherActorSheet {
    getData() {
     let context = super.getData();
     this._prepareLoot(context);
+    this._prepareCharacterData(context);
+    this._prepareSpells(context);
     return context;
+  }
+
+  _prepareCharacterData(context) {
+    let actor = context.actor;
+
+    context.notes = actor.getList("note");
+    context.activeEffects = actor.getList("effect");
+
+    if (actor.system.pannels == undefined) {
+      actor.system.pannels = {};
+    }
+  }
+
+  _prepareSpells(context) {
+    context.spells = context.actor.getList("spell");
+
+    context.noviceSpells = context.spells.filter(s => s.system.level == "novice" &&
+      (s.system.class == "Spells" || s.system.class == "Invocations" || s.system.class == "Witcher"));
+    context.journeymanSpells = context.spells.filter(s => s.system.level == "journeyman" &&
+      (s.system.class == "Spells" || s.system.class == "Invocations" || s.system.class == "Witcher"));
+    context.masterSpells = context.spells.filter(s => s.system.level == "master" &&
+      (s.system.class == "Spells" || s.system.class == "Invocations" || s.system.class == "Witcher"));
+    context.hexes = context.spells.filter(s => s.system.class == "Hexes");
+    context.rituals = context.spells.filter(s => s.system.class == "Rituals");
+    context.magicalgift = context.spells.filter(s => s.system.class == "MagicalGift");
   }
 
   _prepareLoot(context) {

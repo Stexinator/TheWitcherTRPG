@@ -21,6 +21,7 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
     this._prepareSubstances(context);
     this._prepareAlchemy(context);
     this._prepareValuables(context);
+    this._prepareCrafting(context);
 
     return context;
   }
@@ -124,7 +125,7 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
     context.valuables = items.filter(i => i.type == "valuable");
 
     context.clothingAndContainers = context.valuables.filter(i => i.system.type == "clothing" || i.system.type == "containers");
-    context.general = context.valuables.filter(i => i.system.type == "genera" || !i.system.type);
+    context.general = context.valuables.filter(i => i.system.type == "general" || !i.system.type);
     context.foodAndDrinks = context.valuables.filter(i => i.system.type == "food-drink");
     context.toolkits = context.valuables.filter(i => i.system.type == "toolkit");
     context.questItems = context.valuables.filter(i => i.system.type == "quest-item");
