@@ -20,6 +20,7 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
     this._prepareDiagramFormulas(context);
     this._prepareSubstances(context);
     this._prepareAlchemy(context);
+    this._prepareValuables(context);
 
     return context;
   }
@@ -117,4 +118,18 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
     context.substancesFulgur = actor.getSubstance("fulgur");
     context.fulgurCount = context.substancesFulgur.sum("quantity");
   }
+
+  _prepareValuables(context) {
+    let items = context.actor.items;
+    context.valuables = items.filter(i => i.type == "valuable");
+
+    context.clothingAndContainers = context.valuables.filter(i => i.system.type == "clothing" || i.system.type == "containers");
+    context.general = context.valuables.filter(i => i.system.type == "genera" || !i.system.type);
+    context.foodAndDrinks = context.valuables.filter(i => i.system.type == "food-drink");
+    context.toolkits = context.valuables.filter(i => i.system.type == "toolkit");
+    context.questItems = context.valuables.filter(i => i.system.type == "quest-item");
+
+    context.mounts = items.filter(i => i.type == "mount");
+    context.mountAccessories = items.filter(i => i.type == "valuable" && i.system.type == "mount-accessories");
+   }
 }
