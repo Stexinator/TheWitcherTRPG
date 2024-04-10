@@ -133,20 +133,10 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
 
 Hooks.once("polyglot.init", (LanguageProvider) => {
     class FictionalGameSystemLanguageProvider extends LanguageProvider {
-        get originalAlphabets() {
-            return {
-                "common": "130% Thorass",
-                "dwarven": "120% Dethek",
-                "elder": "150% Espruar",
-            };
-        }
-        get originalTongues() {
-            return {
-                "_default": "common",
-                "common": "common",
-                "dwarven": "dwarven",
-                "elder": "elder",
-            };
+        languages = { 
+            "common": { label: "Common", font: "Thorass", },
+            "dwarven": { label: "Dwarven", font: "Dethek", },
+            "elder": { label: "Elder Speech", font: "Espruar", }
         }
 
         getUserLanguages(actor) {
@@ -165,7 +155,7 @@ Hooks.once("polyglot.init", (LanguageProvider) => {
             return [known_languages, literate_languages];
         }
     }
-    polyglot.registerSystem("TheWitcherTRPG", FictionalGameSystemLanguageProvider)
+    game.polyglot.api.registerSystem(FictionalGameSystemLanguageProvider)
 })
 
 Hooks.on("getChatLogEntryContext", Chat.addChatMessageContextOptions);
