@@ -56,8 +56,8 @@ export default class WitcherActorSheet extends ActorSheet {
     const actorData = this.actor.toObject(false);
     context.system = actorData.system;
 
-    this._prepareWeapons(context)
-    this._prepareArmor(context)
+    this._prepareWeapons(context);
+    this._prepareArmor(context);
     this._prepareItems(context);
 
     context.isGM = game.user.isGM
@@ -120,19 +120,6 @@ export default class WitcherActorSheet extends ActorSheet {
     });
 
    }
-
-   _prepareValuables(context) {
-    context.valuables = context.actor.items.filter(i => i.type == "valuable");
-
-    context.clothingAndContainers = context.valuables.filter(i => i.system.type == "clothing" || i.system.type == "containers");
-    context.general = context.valuables.filter(i => i.system.type == "genera" || !i.system.type);
-    context.foodAndDrinks = context.valuables.filter(i => i.system.type == "food-drink");
-    context.toolkits = context.valuables.filter(i => i.system.type == "toolkit");
-    context.questItems = context.valuables.filter(i => i.system.type == "quest-item");
-    context.mounts = items.filter(i => i.type == "mount");
-    context.mountAccessories = items.filter(i => i.type == "valuable" && i.system.type == "mount-accessories");
-   }
-
 
   // Helping functions
   /** Sanitizes description if it contains forbidden html tags. */
