@@ -16,8 +16,8 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
     const context = super.getData();
 
     this._prepareCharacterData(context);
-    this._prepareSpells(context);
     this._prepareDiagramFormulas(context);
+    this._prepareCrafting(context);
     this._prepareSubstances(context);
     this._prepareAlchemy(context);
     this._prepareValuables(context);
@@ -37,28 +37,6 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
     context.totalStats = this.calc_total_stats(context)
     context.totalSkills = this.calc_total_skills(context)
     context.totalProfSkills = this.calc_total_skills_profession(context)
-    
-    context.notes = actor.getList("note");
-
-    context.activeEffects = actor.getList("effect");
-
-    if (actor.system.pannels == undefined) {
-      actor.system.pannels = {};
-    }
-  }
-
-  _prepareSpells(context) {
-    context.spells = context.actor.getList("spell");
-
-    context.noviceSpells = context.spells.filter(s => s.system.level == "novice" &&
-      (s.system.class == "Spells" || s.system.class == "Invocations" || s.system.class == "Witcher"));
-    context.journeymanSpells = context.spells.filter(s => s.system.level == "journeyman" &&
-      (s.system.class == "Spells" || s.system.class == "Invocations" || s.system.class == "Witcher"));
-    context.masterSpells = context.spells.filter(s => s.system.level == "master" &&
-      (s.system.class == "Spells" || s.system.class == "Invocations" || s.system.class == "Witcher"));
-    context.hexes = context.spells.filter(s => s.system.class == "Hexes");
-    context.rituals = context.spells.filter(s => s.system.class == "Rituals");
-    context.magicalgift = context.spells.filter(s => s.system.class == "MagicalGift");
   }
 
   _prepareDiagramFormulas(context) {
@@ -124,7 +102,7 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
     context.valuables = items.filter(i => i.type == "valuable");
 
     context.clothingAndContainers = context.valuables.filter(i => i.system.type == "clothing" || i.system.type == "containers");
-    context.general = context.valuables.filter(i => i.system.type == "genera" || !i.system.type);
+    context.general = context.valuables.filter(i => i.system.type == "genera" || i.system.type == "general" || !i.system.type);
     context.foodAndDrinks = context.valuables.filter(i => i.system.type == "food-drink");
     context.toolkits = context.valuables.filter(i => i.system.type == "toolkit");
     context.questItems = context.valuables.filter(i => i.system.type == "quest-item");
