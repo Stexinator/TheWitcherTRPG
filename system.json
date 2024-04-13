@@ -26,7 +26,6 @@
     "./lang/**",
     "./module/**",
     "./packs/**",
-    "./scripts/**",
     "./styles/**",
     "./templates/**",
     "./system.json",
@@ -35,7 +34,7 @@
   "scripts": [
   ],
   "esmodules": [
-    "scripts/TheWitcherTRPG.js"
+    "module/TheWitcherTRPG.js"
   ],
   "styles": [
     "styles/witcher-styles.css"

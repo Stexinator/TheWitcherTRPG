@@ -1,5 +1,5 @@
 
-import { genId } from "../witcher.js";
+import { genId } from "../../scripts/witcher.js";
 import WitcherItemSheet from "./WitcherItemSheet.js";
 
 export default class WitcherWeaponSheet extends WitcherItemSheet {

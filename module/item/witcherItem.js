@@ -1,6 +1,6 @@
-import { witcher } from "./config.js";
-import { extendedRoll } from "../module/chat.js";
-import { RollConfig } from "./rollConfig.js";
+import { witcher } from "../scripts/config.js";
+import { extendedRoll } from "../scripts/chat.js";
+import { RollConfig } from "../scripts/rollConfig.js";
 
 export default class WitcherItem extends Item {
   chatTemplate = {

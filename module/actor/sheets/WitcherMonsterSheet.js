@@ -1,5 +1,5 @@
 import WitcherActorSheet from "./WitcherActorSheet.js";
-import { buttonDialog } from "../chat.js";
+import { buttonDialog } from "../../scripts/chat.js";
 
 export default class WitcherMonsterSheet extends WitcherActorSheet {
   /** @override */

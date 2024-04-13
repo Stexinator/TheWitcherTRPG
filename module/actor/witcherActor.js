@@ -1,4 +1,4 @@
-import { getRandomInt } from "./witcher.js";
+import { getRandomInt } from "../scripts/witcher.js";
 
 export default class WitcherActor extends Actor {
   prepareData() {

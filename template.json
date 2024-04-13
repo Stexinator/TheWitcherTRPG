@@ -709,7 +709,24 @@
         "adrenaline": {
           "current": 0,
           "label": "WITCHER.Actor.Adrenaline"
-        }
+        },
+        "focus1": {
+          "name": "",
+          "value": 0
+        },
+        "focus2": {
+          "name": "",
+          "value": 0
+        },
+        "focus3": {
+          "name": "",
+          "value": 0
+        },
+        "focus4": {
+          "name": "",
+          "value": 0
+        },
+        "notes": []
       }
     },
     "character": {
@@ -950,22 +967,7 @@
           }
         }
       },
-      "focus1": {
-        "name": "",
-        "value": 0
-      },
-      "focus2": {
-        "name": "",
-        "value": 0
-      },
-      "focus3": {
-        "name": "",
-        "value": 0
-      },
-      "focus4": {
-        "name": "",
-        "value": 0
-      },
+      
       "attackStats": {
         "meleeBonus": "",
         "punch": {
@@ -1039,23 +1041,7 @@
       "monsterLoreSkillValue": "",
       "showMonsterLore": true,
       "customStat": false,
-      "dontAddAttr": false,
-      "focus1": {
-        "name": "",
-        "value": 0
-      },
-      "focus2": {
-        "name": "",
-        "value": 0
-      },
-      "focus3": {
-        "name": "",
-        "value": 0
-      },
-      "focus4": {
-        "name": "",
-        "value": 0
-      }
+      "dontAddAttr": false
     },
     "loot": {
       "templates": [

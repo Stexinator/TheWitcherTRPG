@@ -1,5 +1,5 @@
 
-import { genId } from "../witcher.js";
+import { genId } from "../../scripts/witcher.js";
 
 export default class WitcherItemSheet extends ItemSheet {
   /** @override */

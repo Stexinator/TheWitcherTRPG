@@ -1,13 +1,15 @@
-import { witcher } from "../module/config.js";
-import WitcherItemSheet from "../module/items/WitcherItemSheet.js";
-import WitcherWeaponSheet from "../module/items/WitcherWeaponSheet.js";
-import WitcherDiagramSheet from "../module/items/WitcherDiagramSheet.js";
-import WitcherItem from "../module/witcherItem.js";
-import WitcherActor from "../module/witcherActor.js";
-import * as Chat from "../module/chat.js";
-import { registerSettings } from "../module/settings.js";
-import WitcherCharacterSheet from "../module/actors/WitcherCharacterSheet.js";
-import WitcherMonsterSheet from "../module/actors/WitcherMonsterSheet.js";
+import { witcher } from "./scripts/config.js";
+import * as Chat from "./scripts/chat.js";
+import { registerSettings } from "./scripts/settings.js";
+
+import WitcherItem from "./item/witcherItem.js";
+import WitcherItemSheet from "./item/sheets/WitcherItemSheet.js";
+import WitcherWeaponSheet from "./item/sheets/WitcherWeaponSheet.js";
+import WitcherDiagramSheet from "./item/sheets/WitcherDiagramSheet.js";
+
+import WitcherActor from "./actor/witcherActor.js";
+import WitcherCharacterSheet from "./actor/sheets/WitcherCharacterSheet.js";
+import WitcherMonsterSheet from "./actor/sheets/WitcherMonsterSheet.js";
 
 
 async function preloadHandlebarsTemplates() {

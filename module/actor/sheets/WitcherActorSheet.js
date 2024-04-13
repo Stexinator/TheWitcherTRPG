@@ -1,7 +1,7 @@
-import { buttonDialog, rollDamage, extendedRoll } from "../chat.js";
-import { witcher } from "../config.js";
-import { updateDerived, rollSkillCheck, genId, calc_currency_weight, addModifiers } from "../witcher.js";
-import { RollConfig } from "../rollConfig.js";
+import { buttonDialog, rollDamage, extendedRoll } from "../../scripts/chat.js";
+import { witcher } from "../../scripts/config.js";
+import { updateDerived, rollSkillCheck, genId, calc_currency_weight, addModifiers } from "../../scripts/witcher.js";
+import { RollConfig } from "../../scripts/rollConfig.js";
 
 import { ExecuteDefence } from "../../scripts/actions.js";
 
@@ -69,7 +69,8 @@ export default class WitcherActorSheet extends ActorSheet {
   _prepareGeneralInformation(context) {
     let actor = context.actor;
 
-    context.notes = actor.getList("note");
+    context.oldNotes = actor.getList("note");
+    context.notes = actor.system.notes;
     context.activeEffects = actor.getList("effect");
 
     if (actor.system.pannels == undefined) {
@@ -210,8 +211,11 @@ export default class WitcherActorSheet extends ActorSheet {
     html.find(".alchemy-potion").on("click", this._alchemyCraft.bind(this));
     html.find(".crafting-craft").on("click", this._craftinCraft.bind(this));
 
+    //Background-Tab
     html.find(".add-crit").on("click", this._onCritAdd.bind(this));
     html.find(".delete-crit").on("click", this._onCritRemove.bind(this));
+    html.find(".add-note").on("click", this._onNoteAdd.bind(this));
+    html.find(".delete-note").on("click", this._onNoteDelete.bind(this));
 
     html.find(".add-skill-modifier").on("click", this._onAddSkillModifier.bind(this));
     html.find(".add-modifier").on("click", this._onAddModifier.bind(this));
@@ -700,6 +704,20 @@ export default class WitcherActorSheet extends ActorSheet {
     const idxToRm = newCritList.findIndex((v) => v.id === event.target.dataset.id);
     newCritList.splice(idxToRm, 1);
     this.actor.update({ "system.critWounds": newCritList });
+  }
+
+  async _onNoteAdd(event) {
+    let notes = this.actor.system.notes
+    console.log(notes)
+    notes.push({
+      title: '',
+      details: ''
+    })
+    this.actor.update({ "system.notes": notes });
+  }
+
+  async _onNoteDelete(event) {
+    console.log(event)
   }
 
   async _onItemAdd(event) {
@@ -1602,7 +1620,7 @@ export default class WitcherActorSheet extends ActorSheet {
   _onInlineEdit(event) {
     event.preventDefault();
     let element = event.currentTarget;
-    let itemId = element.closest(".item").dataset.itemId;
+    let itemId = element.closest(".item").dataset.itemId;   
     let item = this.actor.items.get(itemId);
     let field = element.dataset.field;
     // Edit checkbox values
