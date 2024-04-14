@@ -2,7 +2,7 @@ import WitcherActorSheet from "./WitcherActorSheet.js";
 import { buttonDialog } from "../../scripts/chat.js";
 
 export default class WitcherMonsterSheet extends WitcherActorSheet {
-  /** @override */
+
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["witcher", "sheet", "actor"],
@@ -13,7 +13,6 @@ export default class WitcherMonsterSheet extends WitcherActorSheet {
     });
   }
 
-   /** @override */
    getData() {
     let context = super.getData();
     this._prepareLoot(context);
@@ -163,9 +162,9 @@ export default class WitcherMonsterSheet extends WitcherActorSheet {
 
 async getOrCreateFolder() {
     let folderName = `${game.i18n.localize("WITCHER.Loot.Name")}`
-    let type = "Actor"
-    let folder = game.folders.filter(folder => folder.type = type && folder.name === folderName)
-    if (!folder || folder.length == 0) {
+    let type =  CONST.FOLDER_DOCUMENT_TYPES[0] //actor
+    let folder = game.folders?.find(folder => folder.type == type && folder.name === folderName)
+    if (!folder) {
         folder = await Folder.create({
             name: folderName,
             sorting: "a",
@@ -188,7 +187,7 @@ async exportLootExtended() {
    * @returns 
    */
   async exportLootNormal() {
-    this.exportLoot(false, null);
+    this.exportLoot(false);
   }
 
   async exportLoot(rollItems) {
