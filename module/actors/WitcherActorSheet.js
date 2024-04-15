@@ -141,7 +141,7 @@ export default class WitcherActorSheet extends ActorSheet {
             newEnhancementList.push({})
           }
         }
-        let item = actor.items.get(armor._id);
+        let item = context.actor.items.get(armor._id);
         item.system.enhancementItems = newEnhancementList
       }
     });
