@@ -328,6 +328,10 @@ export default class WitcherActorSheet extends ActorSheet {
     // Handle item sorting within the same Actor
     if (this.actor.uuid === item.parent?.uuid) return this._onSortItem(event, itemData);
 
+    if(this._isUniqueItem(itemData)) {
+      await this._removeItemsOfType(itemData.type)
+    }
+
     // dragData should exist for WitcherActorSheet, WitcherItemSheet.
     // It is populated during the activateListeners phase
     let witcherDragData = event.dataTransfer.getData("text/plain")
@@ -423,6 +427,15 @@ export default class WitcherActorSheet extends ActorSheet {
     } else {
       super._onDrop(event, data);
     }
+  }
+
+  _isUniqueItem(itemData) {
+    return false;
+  }
+
+  async _removeItemsOfType(type) {
+    let actor = this.actor;
+    actor.deleteEmbeddedDocuments("Item", actor.items.filter(item => item.type === type).map(item => item.id))
   }
 
   async _removeItem(actor, itemId, quantityToRemove) {
