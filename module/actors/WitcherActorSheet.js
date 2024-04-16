@@ -1111,7 +1111,7 @@ export default class WitcherActorSheet extends ActorSheet {
       if(spellItem.system.staminaIsVar && spellItem.system.damage) {
         let staminaMulti = parseInt(origStaCost)
         let diceAmount = spellItem.system.damage.split('d')[0];
-        let diceType = "d" + spellItem.system.damage.split('d')[1]
+        let diceType = "d" + spellItem.system.damage.split('d')[1].replace("/STA", '')
         dmg = (staminaMulti * diceAmount) + diceType;
       }
 
@@ -1124,8 +1124,10 @@ export default class WitcherActorSheet extends ActorSheet {
 
     let token = this.actor.getControlledToken();
 
-    await spellItem.createSpellVisualEffectIfApplicable(token);
-    await spellItem.deleteSpellVisualEffect();
+    if(token?.name) {
+      await spellItem.createSpellVisualEffectIfApplicable(token);
+      await spellItem.deleteSpellVisualEffect();
+    }
   }
 
   async _onProfessionRoll(event) {
