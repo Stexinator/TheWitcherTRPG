@@ -1,6 +1,9 @@
 import WitcherActorSheet from "./WitcherActorSheet.js";
 
 export default class WitcherCharacterSheet extends WitcherActorSheet {
+
+  uniqueTypes = ["profession", "race"]
+
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
@@ -10,6 +13,10 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
       template: "systems/TheWitcherTRPG/templates/sheets/actor/actor-sheet.html",
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }],
     });
+  }
+
+  _isUniqueItem(itemData) {
+    return this.uniqueTypes.includes(itemData.type);
   }
 
   getData() {
