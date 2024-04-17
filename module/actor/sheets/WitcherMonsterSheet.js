@@ -210,15 +210,12 @@ async exportLootExtended() {
     if (cancel) {
         return
     } else {
-        let newLoot = await Actor.create(this.actor)
         let folder = await this.getOrCreateFolder()
-        // todo render folder list after adding loot sheet to the folder
-        // can not find method to render folders in the menu list
-        // There is only one workaround for now - refresh the page in order to see all the loot actors in the separate directory
-        await newLoot.update({
-             "folder": folder?.id,
-             "name": newLoot.name + "--" + `${game.i18n.localize("WITCHER.Loot.Name")}`,
-             "type": "loot"
+        let newLoot = await Actor.create({
+            ...this.actor.toObject(),
+            type: "loot",
+            name: this.actor.name + "--" + `${game.i18n.localize("WITCHER.Loot.Name")}`,
+            folder: folder?.id,
         });
 
         newLoot.items.forEach(async item => {
