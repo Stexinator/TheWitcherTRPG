@@ -1,6 +1,12 @@
 .editor {
     border-style: solid;
     border-color: rgba(0, 0, 0, 0.308);
+    min-height: 100px;
+}
+
+.tox.tox-tinymce {
+    min-height: 200px;
+    min-width: 200px;
 }
 
 .lifeEvents {
@@ -12,9 +18,9 @@
 }
 
 .bg-note {
-    width: 32%;
+    width: 80%;
     float: left;
-    margin-right: 5px;
+    margin: 5px;
 }
 
 .item-delete {

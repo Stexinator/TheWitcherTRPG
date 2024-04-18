@@ -1,7 +1,7 @@
-import { buttonDialog, rollDamage, extendedRoll } from "../chat.js";
-import { witcher } from "../config.js";
-import { updateDerived, rollSkillCheck, genId, calc_currency_weight, addModifiers } from "../witcher.js";
-import { RollConfig } from "../rollConfig.js";
+import { buttonDialog, rollDamage, extendedRoll } from "../../scripts/chat.js";
+import { witcher } from "../../scripts/config.js";
+import { updateDerived, rollSkillCheck, genId, calc_currency_weight, addModifiers } from "../../scripts/witcher.js";
+import { RollConfig } from "../../scripts/rollConfig.js";
 
 import { ExecuteDefence } from "../../scripts/actions.js";
 
@@ -69,7 +69,8 @@ export default class WitcherActorSheet extends ActorSheet {
   _prepareGeneralInformation(context) {
     let actor = context.actor;
 
-    context.notes = actor.getList("note");
+    context.oldNotes = actor.getList("note");
+    context.notes = actor.system.notes;
     context.activeEffects = actor.getList("effect");
 
     if (actor.system.pannels == undefined) {
@@ -182,8 +183,6 @@ export default class WitcherActorSheet extends ActorSheet {
     html.find(".item-armor-display").on("click", this._onItemDisplayInfo.bind(this));
     html.find(".item-valuable-display").on("click", this._onItemDisplayInfo.bind(this));
     html.find(".item-delete").on("click", this._onItemDelete.bind(this));
-    html.find(".item-buy").on("click", this._onItemBuy.bind(this));
-    html.find(".item-hide").on("click", this._onItemHide.bind(this));
     html.find(".add-item").on("click", this._onItemAdd.bind(this));
     html.find(".add-active-effect").on("click", this._onAddActiveEffect.bind(this));
     html.find(".skill-display").on("click", this._onSkillDisplay.bind(this));
@@ -210,8 +209,11 @@ export default class WitcherActorSheet extends ActorSheet {
     html.find(".alchemy-potion").on("click", this._alchemyCraft.bind(this));
     html.find(".crafting-craft").on("click", this._craftinCraft.bind(this));
 
+    //Background-Tab
     html.find(".add-crit").on("click", this._onCritAdd.bind(this));
     html.find(".delete-crit").on("click", this._onCritRemove.bind(this));
+    html.find(".add-note").on("click", this._onNoteAdd.bind(this));
+    html.find(".delete-note").on("click", this._onNoteDelete.bind(this));
 
     html.find(".add-skill-modifier").on("click", this._onAddSkillModifier.bind(this));
     html.find(".add-modifier").on("click", this._onAddModifier.bind(this));
@@ -440,13 +442,6 @@ export default class WitcherActorSheet extends ActorSheet {
 
   async _removeItem(actor, itemId, quantityToRemove) {
     actor.removeItem(itemId, quantityToRemove)
-    //let foundItem = actor.items.get(itemId)
-    //let newQuantity = foundItem.system.quantity - quantityToRemove
-    //if (newQuantity <= 0) {
-    //  await actor.items.get(itemId).delete()
-    //} else {
-    //  await foundItem.update({ 'system.quantity': newQuantity < 0 ? 0 : newQuantity })
-    //}
   }
 
   async _addItem(actor, Additem, numberOfItem, forcecreate = false) {
@@ -700,6 +695,22 @@ export default class WitcherActorSheet extends ActorSheet {
     const idxToRm = newCritList.findIndex((v) => v.id === event.target.dataset.id);
     newCritList.splice(idxToRm, 1);
     this.actor.update({ "system.critWounds": newCritList });
+  }
+
+  async _onNoteAdd() {
+    let notes = this.actor.system.notes
+    notes.push({
+      title: '',
+      details: ''
+    })
+    this.actor.update({ "system.notes": notes });
+  }
+
+  async _onNoteDelete(event) {
+    let noteIndex = event.currentTarget.dataset.noteIndex;
+    let notes = this.actor.system.notes
+    notes.splice(noteIndex, 1)
+    this.actor.update({ "system.notes": notes });
   }
 
   async _onItemAdd(event) {
@@ -1602,7 +1613,7 @@ export default class WitcherActorSheet extends ActorSheet {
   _onInlineEdit(event) {
     event.preventDefault();
     let element = event.currentTarget;
-    let itemId = element.closest(".item").dataset.itemId;
+    let itemId = element.closest(".item").dataset.itemId;   
     let item = this.actor.items.get(itemId);
     let field = element.dataset.field;
     // Edit checkbox values
@@ -1644,117 +1655,6 @@ export default class WitcherActorSheet extends ActorSheet {
     event.preventDefault();
     let itemId = event.currentTarget.closest(".item").dataset.itemId;
     return await this.actor.items.get(itemId).delete();
-  }
-
-  async _onItemBuy(event) {
-    event.preventDefault();
-    let itemId = event.currentTarget.closest(".item").dataset.itemId;
-    let item = this.actor.items.get(itemId);
-    let coinOptions = `
-      <option value="crown" selected> ${game.i18n.localize("WITCHER.Currency.crown")} </option>
-      <option value="bizant"> ${game.i18n.localize("WITCHER.Currency.bizant")} </option>
-      <option value="ducat"> ${game.i18n.localize("WITCHER.Currency.ducat")} </option>
-      <option value="lintar"> ${game.i18n.localize("WITCHER.Currency.lintar")} </option>
-      <option value="floren"> ${game.i18n.localize("WITCHER.Currency.floren")} </option>
-      <option value="oren"> ${game.i18n.localize("WITCHER.Currency.oren")} </option>
-      `;
-    let percentOptions = `
-      <option value="50">50%</option>
-      <option value="100"selected>100%</option>
-      <option value="125">125%</option>
-      <option value="150">150%</option>
-      <option value="175">175%</option>
-      <option value="200">200%</option>
-      `;
-
-    let content = `
-      <script>
-        function calcTotalCost() {
-          var qtyInput = document.getElementById("itemQty");
-          var ItemCostInput = document.getElementById("customCost");
-          var costTotalInput = document.getElementById("costTotal");
-          costTotalInput.value = ItemCostInput.value * qtyInput.value
-        }
-        function applyPercentage() {
-          var qtyInput = document.getElementById("itemQty");
-          var percentage = document.getElementById("percent");
-          var ItemCostInput = document.getElementById("customCost");
-          ItemCostInput.value = Math.ceil(${item.system.cost} * (percentage.value / 100))
-
-          var costTotalInput = document.getElementById("costTotal");
-          costTotalInput.value = ItemCostInput.value * qtyInput.value
-        }
-      </script>
-
-      <label>${game.i18n.localize("WITCHER.Loot.InitialCost")}: ${item.system.cost}</label><br />
-      <label>${game.i18n.localize("WITCHER.Loot.HowMany")}: <input id="itemQty" onChange="calcTotalCost()" type="number" class="small" name="itemQty" value=1> /${item.system.quantity}</label> <br />
-      <label>${game.i18n.localize("WITCHER.Loot.ItemCost")}</label> <input id="customCost" onChange="calcTotalCost()" type="number" name="costPerItemValue" value=${item.system.cost}>${game.i18n.localize("WITCHER.Loot.Percent")}<select id="percent" onChange="applyPercentage()" name="percentage">${percentOptions}</select><br /><br />
-      <label>${game.i18n.localize("WITCHER.Loot.TotalCost")}</label> <input id="costTotal" type="number" class="small" name="costTotalValue" value=${item.system.cost}> <select name="coinType">${coinOptions}</select><br />
-      `
-    let Characteroptions = `<option value="">other</option>`
-    for (let actor of game.actors) {
-      if (actor.testUserPermission(game.user, "OWNER")) {
-        if (actor == game.user.character) {
-          Characteroptions += `<option value="${actor._id}" selected>${actor.name}</option>`
-        } else {
-          Characteroptions += `<option value="${actor._id}">${actor.name}</option>`
-        }
-      };
-    }
-    content += `To Character : <select name="character">${Characteroptions}</select>`
-    let cancel = true
-    let numberOfItem = 0;
-    let totalCost = 0;
-    let characterId = "";
-    let coinType = "";
-
-    let dialogData = {
-      buttons: [
-        [`${game.i18n.localize("WITCHER.Button.Continue")}`, (html) => {
-          numberOfItem = html.find("[name=itemQty]")[0].value;
-          totalCost = html.find("[name=costTotalValue]")[0].value;
-          coinType = html.find("[name=coinType]")[0].value;
-          characterId = html.find("[name=character]")[0].value;
-          cancel = false
-        }]],
-      title: game.i18n.localize("WITCHER.Loot.BuyTitle"),
-      content: content
-    }
-    await buttonDialog(dialogData)
-    if (cancel) {
-      return
-    }
-
-    let buyerActor = game.actors.get(characterId)
-    let token = buyerActor.token ?? buyerActor.getActiveTokens()[0]
-    if (token) {
-      buyerActor = token.actor
-    }
-    let hasEnoughMoney = true
-    if (buyerActor) {
-      hasEnoughMoney = buyerActor.system.currency[coinType] >= totalCost
-    }
-
-    if (!hasEnoughMoney) {
-      ui.notifications.error("Not Enough Coins");
-    } else {
-      this._removeItem(this.actor, itemId, numberOfItem)
-      if (buyerActor) {
-        this._addItem(buyerActor, item, numberOfItem)
-      }
-
-      if (buyerActor) {
-        buyerActor.update({ [`system.currency.${coinType}`]: buyerActor.system.currency[coinType] - totalCost }) 
-       }
-      this.actor.update({ [`system.currency.${coinType}`]: Number(this.actor.system.currency[coinType]) + Number(totalCost) })
-    }
-  }
-
-  _onItemHide(event) {
-    event.preventDefault();
-    let itemId = event.currentTarget.closest(".item").dataset.itemId;
-    let item = this.actor.items.get(itemId);
-    item.update({ "system.isHidden": !item.system.isHidden })
   }
 
   _onItemDisplayInfo(event) {

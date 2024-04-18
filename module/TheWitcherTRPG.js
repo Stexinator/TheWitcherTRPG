@@ -1,13 +1,22 @@
-import { witcher } from "../module/config.js";
-import WitcherItemSheet from "../module/items/WitcherItemSheet.js";
-import WitcherWeaponSheet from "../module/items/WitcherWeaponSheet.js";
-import WitcherDiagramSheet from "../module/items/WitcherDiagramSheet.js";
-import WitcherItem from "../module/witcherItem.js";
-import WitcherActor from "../module/witcherActor.js";
-import * as Chat from "../module/chat.js";
-import { registerSettings } from "../module/settings.js";
-import WitcherCharacterSheet from "../module/actors/WitcherCharacterSheet.js";
-import WitcherMonsterSheet from "../module/actors/WitcherMonsterSheet.js";
+import { witcher } from "./scripts/config.js";
+import * as Chat from "./scripts/chat.js";
+import { registerSettings } from "./scripts/settings.js";
+
+import CommonActorData from "./data/actor/commonActorData.js"
+import CharacterData from "./data/actor/characterData.js";
+
+import LootData from "./data/actor/lootData.js";
+
+import WitcherItem from "./item/witcherItem.js";
+import WitcherItemSheet from "./item/sheets/WitcherItemSheet.js";
+import WitcherWeaponSheet from "./item/sheets/WitcherWeaponSheet.js";
+import WitcherDiagramSheet from "./item/sheets/WitcherDiagramSheet.js";
+
+import WitcherActor from "./actor/witcherActor.js";
+import WitcherCharacterSheet from "./actor/sheets/WitcherCharacterSheet.js";
+import WitcherMonsterSheet from "./actor/sheets/WitcherMonsterSheet.js";
+import WitcherLootSheet from "./actor/sheets/WitcherLootSheet.js";
+import MonsterData from "./data/actor/monsterData.js";
 
 
 async function preloadHandlebarsTemplates() {
@@ -46,6 +55,14 @@ async function preloadHandlebarsTemplates() {
 Hooks.once("init", function () {
     console.log("TheWitcherTRPG | init system");
 
+   foundry.utils.mergeObject(CONFIG.Actor.dataModels, {
+       // The keys are the types defined in our template.json
+       baseActor: CommonActorData,
+       character: CharacterData,
+       monster: MonsterData,
+       loot: LootData
+     })
+
     CONFIG.witcher = witcher
     CONFIG.Item.documentClass = WitcherItem;
     CONFIG.Actor.documentClass = WitcherActor;
@@ -68,7 +85,11 @@ Hooks.once("init", function () {
     });
     Actors.registerSheet("witcher", WitcherMonsterSheet, { 
         makeDefault: true,
-        types: ['monster', 'loot']
+        types: ['monster']
+    });
+    Actors.registerSheet("witcher", WitcherLootSheet, { 
+        makeDefault: true,
+        types: ['loot']
     });
 
     preloadHandlebarsTemplates();

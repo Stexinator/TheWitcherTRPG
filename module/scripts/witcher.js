@@ -1,4 +1,4 @@
-import { extendedRoll } from "../module/chat.js";
+import { extendedRoll } from "./chat.js";
 import { RollConfig } from "./rollConfig.js";
 
 export function getRandomInt(max) {
