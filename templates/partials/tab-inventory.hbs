@@ -161,7 +161,7 @@
                                             {{#each weapon.system.enhancementItems as |enhancement id|}}
                                                 {{#if enhancement.img}}
                                                     <div class="item item-enhancement"
-                                                         data-item-id="{{enhancement._id}}">
+                                                         data-item-id="{{enhancement.id}}">
                                                         <img class="item-edit no-margin" src="{{enhancement.img}}"/>
                                                     </div>
                                                 {{/if}}
@@ -366,7 +366,7 @@
                                             {{#each armor.system.enhancementItems as |enhancement id|}}
                                                 {{#if enhancement.img}}
                                                     <div class="item item-enhancement"
-                                                         data-item-id="{{enhancement._id}}">
+                                                         data-item-id="{{enhancement.id}}">
                                                         <img class="item-edit no-margin" src="{{enhancement.img}}"/>
                                                     </div>
                                                 {{/if}}
@@ -477,6 +477,11 @@
         {{#if clothingAndContainers}}
         <h3>{{localize "WITCHER.Valuable.Clothings"}} &amp; {{localize "WITCHER.Valuable.Containers"}}</h3>
         {{> "systems/TheWitcherTRPG/templates/partials/tab-inventory-valuables.html" valuables=clothingAndContainers}}
+        {{/if}}
+
+        {{#if containers}}
+        <h3>{{localize "WITCHER.Valuable.Containers"}}</h3>
+        {{> "systems/TheWitcherTRPG/templates/partials/tab-inventory-valuables.html" valuables=containers}}
         {{/if}}
 
         {{#if mounts}}

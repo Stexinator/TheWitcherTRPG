@@ -1,6 +1,6 @@
-import { witcher } from "../scripts/config.js";
 import { extendedRoll } from "../scripts/chat.js";
 import { RollConfig } from "../scripts/rollConfig.js";
+import { witcher } from "../setup/config.js";
 
 export default class WitcherItem extends Item {
   chatTemplate = {
@@ -249,7 +249,7 @@ export default class WitcherItem extends Item {
 
     let result = roll.total > config.threshold;
     let craftedItemName;
-    if (this.system.associatedItem && this.system.associatedItem.name) {
+    if (this.system.associatedItem?.name) {
       let craftingComponents = this.isAlchemicalCraft()
         ? this.system.alchemyCraftComponents.filter(c => Number(c.quantity) > 0)
         : this.system.craftingComponents.filter(c => Number(c.quantity) > 0);
@@ -284,7 +284,7 @@ export default class WitcherItem extends Item {
       });
 
       if (result) {
-        let craftedItem = { ...this.system.associatedItem };
+        let craftedItem = await fromUuid(this.system.associatedItemUuid)
         Item.create(craftedItem, { parent: this.actor });
         craftedItemName = craftedItem.name;
       }

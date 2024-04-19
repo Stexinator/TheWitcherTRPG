@@ -1,5 +1,5 @@
 import { buttonDialog, rollDamage, extendedRoll } from "../../scripts/chat.js";
-import { witcher } from "../../scripts/config.js";
+import { witcher } from "../../setup/config.js";
 import { updateDerived, rollSkillCheck, genId, calc_currency_weight, addModifiers } from "../../scripts/witcher.js";
 import { RollConfig } from "../../scripts/rollConfig.js";
 
@@ -20,7 +20,7 @@ Array.prototype.sum = function (prop) {
 Array.prototype.weight = function () {
   var total = 0
   for (var i = 0, _len = this.length; i < _len; i++) {
-    if (this[i].system.weight && this[i].system.quantity) {
+    if (this[i].system.weight && this[i].system.quantity && !this[i].system.isStored) {
       total += Number(this[i].system.quantity) * Number(this[i].system.weight)
     }
   }
@@ -55,6 +55,7 @@ export default class WitcherActorSheet extends ActorSheet {
 
     const actorData = this.actor.toObject(false);
     context.system = actorData.system;
+    context.items = context.actor.items.filter(i => !i.system.isStored);
 
     this._prepareGeneralInformation(context);
     this._prepareWeapons(context);
@@ -72,10 +73,6 @@ export default class WitcherActorSheet extends ActorSheet {
     context.oldNotes = actor.getList("note");
     context.notes = actor.system.notes;
     context.activeEffects = actor.getList("effect");
-
-    if (actor.system.pannels == undefined) {
-      actor.system.pannels = {};
-    }
   }
 
   _prepareSpells(context) {
@@ -99,11 +96,12 @@ export default class WitcherActorSheet extends ActorSheet {
    * Organize and classify Items for Character sheets.
    */
    _prepareItems(context) {
-    let items = context.actor.items;
+    let items = context.items;
 
     context.enhancements = items.filter(i => i.type == "enhancement" && i.system.type != "armor" && !i.system.applied);
     context.runeItems = context.enhancements.filter(e => e.system.type == "rune");
     context.glyphItems = context.enhancements.filter(e => e.system.type == "glyph");
+    context.containers = items.filter(i => i.type == "container");
 
     context.totalWeight = context.items.weight() + calc_currency_weight(context.actor.system.currency);
     context.totalCost = context.items.cost();
@@ -112,11 +110,12 @@ export default class WitcherActorSheet extends ActorSheet {
    _prepareWeapons(context) {
     context.weapons = context.actor.getList("weapon");
     context.weapons.forEach((weapon) => {
-      if (weapon.system.enhancements > 0 && weapon.system.enhancements != weapon.system.enhancementItems.length) {
+      if (weapon.system.enhancements > 0 && weapon.system.enhancements != weapon.system.enhancementItemIds.length) {
         let newEnhancementList = []
+        let enhancementItems = weapon.system.enhancementItems ?? []
         for (let i = 0; i < weapon.system.enhancements; i++) {
-          let element = weapon.system.enhancementItems[i]
-          if (element && JSON.stringify(element) != '{}') {
+          let element = enhancementItems[i]
+          if (element) {
             newEnhancementList.push(element)
           } else {
             newEnhancementList.push({})
@@ -129,16 +128,17 @@ export default class WitcherActorSheet extends ActorSheet {
    }
 
    _prepareArmor(context) {
-    context.armors = context.actor.items.filter(function (item) {
+    context.armors = context.items.filter(function (item) {
       return item.type == "armor" ||
         (item.type == "enhancement" && item.system.type == "armor" && item.system.applied == false)
     });
 
     context.armors.forEach((armor) => {
-      if (armor.system.enhancements > 0 && armor.system.enhancements != armor.system.enhancementItems.length) {
+      if (armor.system.enhancements > 0 && armor.system.enhancements != armor.system.enhancementItemIds.length) {
         let newEnhancementList = []
+        let enhancementItems = armor.system.enhancementItems ?? []
         for (let i = 0; i < armor.system.enhancements; i++) {
-          let element = armor.system.enhancementItems[i]
+          let element = enhancementItems[i]
           if (element && JSON.stringify(element) != '{}') {
             newEnhancementList.push(element)
           } else {
@@ -200,8 +200,6 @@ export default class WitcherActorSheet extends ActorSheet {
    
     html.find(".profession-roll").on("click", this._onProfessionRoll.bind(this));
     html.find(".spell-roll").on("click", this._onSpellRoll.bind(this));
-    html.find(".alchemy-potion").on("click", this._alchemyCraft.bind(this));
-    html.find(".crafting-craft").on("click", this._craftinCraft.bind(this));
 
     //item
     html.find(".add-item").on("click", this._onItemAdd.bind(this));
@@ -777,176 +775,6 @@ export default class WitcherActorSheet extends ActorSheet {
     await Item.create(itemData, { parent: this.actor })
   }
 
-  async _alchemyCraft(event) {
-    let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
-    let itemId = event.currentTarget.closest(".item").dataset.itemId;
-    let item = this.actor.items.get(itemId);
-
-    let content = `<label>${game.i18n.localize("WITCHER.Dialog.Crafting")} ${item.name}</label> <br />`;
-
-    let messageData = {
-      speaker: ChatMessage.getSpeaker({actor: this.actor}),
-      flavor: `<h1>Crafting</h1>`,
-    }
-
-    let areCraftComponentsEnough = true;
-
-    content += `<div class="components-display">`
-    let alchemyCraftComponents = item.populateAlchemyCraftComponentsList();
-    alchemyCraftComponents
-      .filter(a => a.quantity > 0)
-      .forEach(a => {
-        content += `<div class="flex">${a.content}</div>`
-
-        let ownedSubstance = this.actor.getSubstance(a.name)
-        let ownedSubstanceCount = ownedSubstance.sum("quantity")
-        if (ownedSubstanceCount < Number(a.quantity)) {
-          let missing = a.quantity - ownedSubstanceCount
-          content += `<span class="error-display">${game.i18n.localize("WITCHER.Dialog.NoComponents")}: ${missing} ${a.alias}</span><br />`
-          areCraftComponentsEnough = false
-        }
-      });
-    content += `</div>`
-
-    content += `<label>${game.i18n.localize("WITCHER.Dialog.CraftingDiagram")}: <input type="checkbox" name="hasDiagram"></label> <br />`
-    content += `<label>${game.i18n.localize("WITCHER.Dialog.RealCrafting")}: <input type="checkbox" name="realCraft"></label> <br />`
-
-    new Dialog({
-      title: `${game.i18n.localize("WITCHER.Dialog.AlchemyTitle")}`,
-      content,
-      buttons: {
-        Craft: {
-          label: `${game.i18n.localize("WITCHER.Dialog.ButtonCraft")}`,
-          callback: async html => {
-            let stat = this.actor.system.stats.cra.current;
-            let statName = game.i18n.localize(this.actor.system.stats.cra.label);
-            let skill = this.actor.system.skills.cra.alchemy.value;
-            let skillName = game.i18n.localize(this.actor.system.skills.cra.alchemy.label);
-            let hasDiagram = html.find("[name=hasDiagram]").prop("checked");
-            let realCraft = html.find("[name=realCraft]").prop("checked");
-            skillName = skillName.replace(" (2)", "");
-            messageData.flavor = `<h1>${game.i18n.localize("WITCHER.Dialog.CraftingAlchemycal")}</h1>`,
-              messageData.flavor += `<label>${game.i18n.localize("WITCHER.Dialog.Crafting")}:</label> <b>${item.name}</b> <br />`,
-              messageData.flavor += `<label>${game.i18n.localize("WITCHER.Dialog.after")}:</label> <b>${item.system.craftingTime}</b> <br />`,
-              messageData.flavor += `${game.i18n.localize("WITCHER.Diagram.alchemyDC")} ${item.system.alchemyDC}`;
-
-            if (!item.isAlchemicalCraft()) {
-              stat = this.actor.system.stats.cra.current;
-              skill = this.actor.system.skills.cra.crafting.value;
-              messageData.flavor = `${game.i18n.localize("WITCHER.Diagram.craftingDC")} ${item.system.craftingDC}`;
-            }
-
-            let rollFormula = !displayRollDetails ? `1d10+${stat}+${skill}` : `1d10+${stat}[${statName}]+${skill}[${skillName}]`;
-
-            if (hasDiagram) {
-              rollFormula += !displayRollDetails ? `+2` : `+2[${game.i18n.localize("WITCHER.Dialog.Diagram")}]`
-            }
-
-            rollFormula = addModifiers(this.actor.system.skills.cra.alchemy.modifiers, rollFormula)
-
-            let config = new RollConfig();
-            config.showCrit = true
-            config.showSuccess = true
-            config.threshold = item.system.alchemyDC
-            config.thresholdDesc = skillName
-            config.messageOnSuccess = game.i18n.localize("WITCHER.craft.ItemsSuccessfullyCrafted")
-            config.messageOnFailure = game.i18n.localize("WITCHER.craft.ItemsNotCrafted")
-
-            if (realCraft) {
-              if (areCraftComponentsEnough) {
-                item.realCraft(rollFormula, messageData, config);
-              } else {
-                return ui.notifications.error(game.i18n.localize("WITCHER.Dialog.NoComponents") + " " + item.system.associatedItem.name)
-              }
-            } else {
-              // Craft without automatic removal components and without real crafting of an item
-              await extendedRoll(rollFormula, messageData, config)
-            }
-          }
-        }
-      }
-    }).render(true)
-  }
-
-  async _craftinCraft(event) {
-    let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
-    let itemId = event.currentTarget.closest(".item").dataset.itemId;
-    let item = this.actor.items.get(itemId);
-
-    let content = `<label>${game.i18n.localize("WITCHER.Dialog.Crafting")} ${item.name}</label> <br />`;
-
-    let messageData = {
-      speaker: ChatMessage.getSpeaker({actor: this.actor}),
-      flavor: `<h1>Crafting</h1>`,
-    }
-
-    let areCraftComponentsEnough = true;
-    content += `<div class="components-display">`
-    item.system.craftingComponents.forEach(element => {
-      content += `<div class="flex"><b>${element.name}</b>(${element.quantity}) </div>`
-      let ownedComponent = this.actor.findNeededComponent(element.name);
-      let componentQuantity = ownedComponent.sum("quantity");
-      if (componentQuantity < Number(element.quantity)) {
-        let missing = element.quantity - Number(componentQuantity)
-        areCraftComponentsEnough = false;
-        content += `<span class="error-display">${game.i18n.localize("WITCHER.Dialog.NoComponents")}: ${missing} ${element.name}</span><br />`
-      }
-    });
-    content += `</div>`
-
-    content += `<label>${game.i18n.localize("WITCHER.Dialog.CraftingDiagram")}: <input type="checkbox" name="hasDiagram"></label> <br />`
-    content += `<label>${game.i18n.localize("WITCHER.Dialog.RealCrafting")}: <input type="checkbox" name="realCraft"></label> <br />`
-
-    new Dialog({
-      title: `${game.i18n.localize("WITCHER.Dialog.CraftingTitle")}`,
-      content,
-      buttons: {
-        Craft: {
-          label: `${game.i18n.localize("WITCHER.Dialog.ButtonCraft")}`,
-          callback: async html => {
-            let stat = this.actor.system.stats.cra.current;
-            let statName = game.i18n.localize(this.actor.system.stats.cra.label);
-            let skill = this.actor.system.skills.cra.crafting.value;
-            let skillName = game.i18n.localize(this.actor.system.skills.cra.crafting.label);
-            let hasDiagram = html.find("[name=hasDiagram]").prop("checked");
-            let realCraft = html.find("[name=realCraft]").prop("checked");
-            skillName = skillName.replace(" (2)", "");
-            messageData.flavor = `<h1>${game.i18n.localize("WITCHER.Dialog.CraftingItem")}</h1>`,
-              messageData.flavor += `<label>${game.i18n.localize("WITCHER.Dialog.Crafting")}:</label> <b>${item.name}</b> <br />`,
-              messageData.flavor += `<label>${game.i18n.localize("WITCHER.Dialog.after")}:</label> <b>${item.system.craftingTime}</b> <br />`,
-              messageData.flavor += `${game.i18n.localize("WITCHER.Diagram.craftingDC")} ${item.system.craftingDC}`;
-
-            let rollFormula = !displayRollDetails ? `1d10+${stat}+${skill}` : `1d10+${stat}[${statName}]+${skill}[${skillName}]`;
-
-            if (hasDiagram) {
-              rollFormula += !displayRollDetails ? `+2` : `+2[${game.i18n.localize("WITCHER.Dialog.Diagram")}]`
-            }
-
-            rollFormula = addModifiers(this.actor.system.skills.cra.crafting.modifiers, rollFormula)
-
-            let config = new RollConfig();
-            config.showCrit = true
-            config.showSuccess = true
-            config.threshold = item.system.craftingDC
-            config.thresholdDesc = skillName
-            config.messageOnSuccess = game.i18n.localize("WITCHER.craft.ItemsSuccessfullyCrafted")
-            config.messageOnFailure = game.i18n.localize("WITCHER.craft.ItemsNotCrafted")
-
-            if (realCraft) {
-              if (areCraftComponentsEnough) {
-                item.realCraft(rollFormula, messageData, config);
-              } else {
-                return ui.notifications.error(game.i18n.localize("WITCHER.Dialog.NoComponents") + " " + item.system.associatedItem.name)
-              }
-            } else {
-              // Craft without automatic removal components and without real crafting of an item
-              await extendedRoll(rollFormula, messageData, config)
-            }
-          }
-        }
-      }
-    }).render(true)
-  }
 
   async _onSpellRoll(event, itemId = null) {
 
@@ -1108,8 +936,8 @@ export default class WitcherActorSheet extends ActorSheet {
     if (spellItem.system.preparationTime) {
       messageData.flavor += `<div><b>${game.i18n.localize("WITCHER.Spell.PrepTime")}: </b>${spellItem.system.preparationTime}</div>`
     }
-    if (spellItem.system.dificultyCheck) {
-      messageData.flavor += `<div><b>${game.i18n.localize("WITCHER.DC")}: </b>${spellItem.system.dificultyCheck}</div>`
+    if (spellItem.system.difficultyCheck) {
+      messageData.flavor += `<div><b>${game.i18n.localize("WITCHER.DC")}: </b>${spellItem.system.difficultyCheck}</div>`
     }
     if (spellItem.system.components) {
       messageData.flavor += `<div><b>${game.i18n.localize("WITCHER.Spell.Components")}: </b>${spellItem.system.components}</div>`

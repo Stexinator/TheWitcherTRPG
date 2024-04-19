@@ -62,11 +62,11 @@ export default class WitcherActor extends Actor {
   }
 
   getSubstance(name) {
-    return this.getList("component").filter(i => i.system.type == "substances" && i.system.substanceType == name);
+    return this.getList("component").filter(i => i.system.type == "substances" && i.system.substanceType == name && !i.system.isStored);
   }
 
   getList(name) {
-      return this.items.filter(i => i.type == name)
+      return this.items.filter(i => i.type == name && !i.system.isStored)
   }
 
   // Find needed component in the items list based on the component name or based on the exact name of the substance in the players compendium

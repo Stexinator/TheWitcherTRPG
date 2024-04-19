@@ -5,7 +5,7 @@ import WitcherItemSheet from "./WitcherItemSheet.js";
 export default class WitcherWeaponSheet extends WitcherItemSheet {
 
   get template() {
-    return `systems/TheWitcherTRPG/templates/sheets/weapon-sheet.html`;
+    return `systems/TheWitcherTRPG/templates/sheets/weapon-sheet.hbs`;
   }
 
   /** @override */
@@ -19,8 +19,6 @@ export default class WitcherWeaponSheet extends WitcherItemSheet {
         effect.id = genId()
       }
     });
-
-    console.log(data)
 
     return data;
   }

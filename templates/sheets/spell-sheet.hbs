@@ -44,7 +44,7 @@
             {{else}}
                 {{#if (eq item.system.class "Rituals")}}
                     <td><input name="system.preparationTime" type="text" value="{{item.system.preparationTime}}"/></td>
-                    <td><input name="system.dificultyCheck" type="text" value="{{item.system.dificultyCheck}}"/></td>
+                    <td><input name="system.difficultyCheck" type="text" value="{{item.system.difficultyCheck}}"/></td>
                 {{/if}}
                 {{#unless (or (eq item.system.class "Rituals")(eq item.system.class "MagicalGift"))}}
                     <td><input name="system.range" type="text" value="{{item.system.range}}"/></td>

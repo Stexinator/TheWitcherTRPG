@@ -1,7 +1,7 @@
-import { witcher } from "./config.js";
 import { buttonDialog, extendedRoll } from "./chat.js";
 import { addModifiers } from "./witcher.js";
 import { RollConfig } from "./rollConfig.js";
+import { witcher } from "../setup/config.js";
 
 async function ApplyDamage(actor, dmgType, location, totalDamage) {
   let armors = actor.getList("armor").filter(a => a.system.equipped);
