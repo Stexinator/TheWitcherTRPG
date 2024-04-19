@@ -8,6 +8,8 @@ import adrenaline from "./templates/common/adrenalineData.js";
 import skills from "./templates/common/skills/skillsData.js";
 import focus from "./templates/common/focusData.js";
 import note from "./templates/common/noteData.js";
+import attackStats from "./templates/character/attackStatsData.js";
+import pannels from "./templates/character/pannelsData.js";
 
 const fields = foundry.data.fields;
 
@@ -28,6 +30,7 @@ export default class CommonActorData extends foundry.abstract.TypeDataModel {
           adrenaline: new fields.SchemaField(adrenaline()),
 
           skills: new fields.SchemaField(skills()),
+          attackStats: new fields.SchemaField(attackStats()),
 
           focus1: new fields.SchemaField(focus()),
           focus2: new fields.SchemaField(focus()),
@@ -35,6 +38,7 @@ export default class CommonActorData extends foundry.abstract.TypeDataModel {
           focus4: new fields.SchemaField(focus()),
 
           notes: new fields.ArrayField(new fields.SchemaField(note())),
+          pannels: new fields.SchemaField(pannels()),
       }
   }
 }
