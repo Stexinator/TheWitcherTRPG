@@ -14,21 +14,8 @@ export default class WitcherActor extends Actor {
   }
 
   getControlledToken() {
-    let tokens = game.canvas.tokens.controlled.slice()
-    let token;
-    if (tokens.length == 0) {
-      if (game.user.character) {
-        token = game.user.character.token
-      } else if (this.token) {
-        token = this.token
-      } else {
-        return ui.notifications.error(game.i18n.localize("WITCHER.Context.SelectActor"));
-      }
-    } else {
-      token = tokens[0].document
-    }
-
-    return token;
+    let tokens = game.canvas.tokens.controlled
+    return tokens.length > 0 ? tokens[0].document : game.user.character?.token
   }
 
   getDamageFlags() {
@@ -90,8 +77,8 @@ export default class WitcherActor extends Actor {
   // which will indicate whether the component is substance or not.
   // Such modification may require either modification dozens of compendiums, or some additional parsers
   findNeededComponent(componentName) {
-    return this.items.filter(function (item) {
-      return item.type == "component" &&
+    return this.items.filter(item => 
+       item.type == "component" &&
         (item.name == componentName ||
           (item.system.type == "substances" &&
             ((game.i18n.localize("WITCHER.Inventory.Vitriol") == componentName
@@ -112,7 +99,7 @@ export default class WitcherActor extends Actor {
                 && item.system.substanceType == "caelum") ||
               (game.i18n.localize("WITCHER.Inventory.Fulgur") == componentName
                 && item.system.substanceType == "fulgur"))))
-    });
+        );
   }
 
   async removeItem(itemId, quantityToRemove) {

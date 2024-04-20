@@ -151,6 +151,7 @@
       "EncumbranceValue": "Encumbrance Value",
       "Resistances": "Resistances",
       "Res": "Res",
+      "unavailable": "N/A",
       "bludgeoning": "Bludgeoning",
       "slashing": "Slashing",
       "piercing": "Piercing",
