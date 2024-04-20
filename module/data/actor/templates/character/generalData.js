@@ -16,7 +16,6 @@ export default function general() {
         socialStanding:  new fields.StringField({ initial: ''}),
         name:  new fields.StringField({ initial: ''}),
         race:  new fields.StringField({ initial: ''}),
-        gender:  new fields.StringField({ initial: ''}),
         age:  new fields.NumberField({ initial: 0}),
         lifeEvents: new fields.SchemaField(lifeEvents()),
     }
