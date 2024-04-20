@@ -83,10 +83,13 @@ export default class WitcherActorSheet extends ActorSheet {
 
     context.noviceSpells = context.spells.filter(s => s.system.level == "novice" &&
       (s.system.class == "Spells" || s.system.class == "Invocations" || s.system.class == "Witcher"));
+
     context.journeymanSpells = context.spells.filter(s => s.system.level == "journeyman" &&
       (s.system.class == "Spells" || s.system.class == "Invocations" || s.system.class == "Witcher"));
+
     context.masterSpells = context.spells.filter(s => s.system.level == "master" &&
       (s.system.class == "Spells" || s.system.class == "Invocations" || s.system.class == "Witcher"));
+
     context.hexes = context.spells.filter(s => s.system.class == "Hexes");
     context.rituals = context.spells.filter(s => s.system.class == "Rituals");
     context.magicalgift = context.spells.filter(s => s.system.class == "MagicalGift");
@@ -174,20 +177,12 @@ export default class WitcherActorSheet extends ActorSheet {
     html.find("input.stat-max").on("change", updateDerived(this.actor));
 
     let thisActor = this.actor;
+    let skillMap = this.skillMap;
 
     html.find(".hp-value").change(this._onHPChanged.bind(this));
     html.find(".inline-edit").change(this._onInlineEdit.bind(this));
-    html.find(".item-edit").on("click", this._onItemEdit.bind(this));
-    html.find(".item-show").on("click", this._onItemShow.bind(this));
-    html.find(".item-weapon-display").on("click", this._onItemDisplayInfo.bind(this));
-    html.find(".item-armor-display").on("click", this._onItemDisplayInfo.bind(this));
-    html.find(".item-valuable-display").on("click", this._onItemDisplayInfo.bind(this));
-    html.find(".item-delete").on("click", this._onItemDelete.bind(this));
-    html.find(".add-item").on("click", this._onItemAdd.bind(this));
     html.find(".add-active-effect").on("click", this._onAddActiveEffect.bind(this));
     html.find(".skill-display").on("click", this._onSkillDisplay.bind(this));
-    html.find(".item-substance-display").on("click", this._onSubstanceDisplay.bind(this));
-    html.find(".item-spell-display").on("click", this._onItemDisplayInfo.bind(this));
     html.find(".spell-display").on("click", this._onSpellDisplay.bind(this));
     html.find(".life-event-display").on("click", this._onLifeEventDisplay.bind(this));
     html.find(".stat-modifier-display").on("click", this._onStatModifierDisplay.bind(this));
@@ -201,13 +196,25 @@ export default class WitcherActorSheet extends ActorSheet {
     html.find(".heal-button").on("click", this._onHeal.bind(this));
     html.find(".verbal-button").on("click", this._onVerbalCombat.bind(this));
     html.find(".reputation-roll").on("click", this._onReputation.bind(this));
-
     html.find(".stat-roll").on("click", this._onStatSaveRoll.bind(this));
-    html.find(".item-roll").on("click", this._onItemRoll.bind(this));
+   
     html.find(".profession-roll").on("click", this._onProfessionRoll.bind(this));
     html.find(".spell-roll").on("click", this._onSpellRoll.bind(this));
     html.find(".alchemy-potion").on("click", this._alchemyCraft.bind(this));
     html.find(".crafting-craft").on("click", this._craftinCraft.bind(this));
+
+    //item
+    html.find(".add-item").on("click", this._onItemAdd.bind(this));
+    html.find(".item-edit").on("click", this._onItemEdit.bind(this));
+    html.find(".item-show").on("click", this._onItemShow.bind(this));
+    html.find(".item-delete").on("click", this._onItemDelete.bind(this));
+
+    html.find(".item-weapon-display").on("click", this._onItemDisplayInfo.bind(this));
+    html.find(".item-armor-display").on("click", this._onItemDisplayInfo.bind(this));
+    html.find(".item-valuable-display").on("click", this._onItemDisplayInfo.bind(this));   
+    html.find(".item-spell-display").on("click", this._onItemDisplayInfo.bind(this));
+    html.find(".item-substance-display").on("click", this._onSubstanceDisplay.bind(this));
+    html.find(".item-roll").on("click", this._onItemRoll.bind(this));
 
     //Background-Tab
     html.find(".add-crit").on("click", this._onCritAdd.bind(this));
@@ -231,64 +238,64 @@ export default class WitcherActorSheet extends ActorSheet {
 
     html.find("input").focusin(ev => this._onFocusIn(ev));
 
-    html.find("#awareness-rollable").on("click", function () { rollSkillCheck(thisActor, 0, 0) });
-    html.find("#business-rollable").on("click", function () { rollSkillCheck(thisActor, 0, 1) });
-    html.find("#deduction-rollable").on("click", function () { rollSkillCheck(thisActor, 0, 2) });
-    html.find("#education-rollable").on("click", function () { rollSkillCheck(thisActor, 0, 3) });
-    html.find("#commonsp-rollable").on("click", function () { rollSkillCheck(thisActor, 0, 4) });
-    html.find("#eldersp-rollable").on("click", function () { rollSkillCheck(thisActor, 0, 5) });
-    html.find("#dwarven-rollable").on("click", function () { rollSkillCheck(thisActor, 0, 6) });
-    html.find("#monster-rollable").on("click", function () { rollSkillCheck(thisActor, 0, 7) });
-    html.find("#socialetq-rollable").on("click", function () { rollSkillCheck(thisActor, 0, 8) });
-    html.find("#streetwise-rollable").on("click", function () { rollSkillCheck(thisActor, 0, 9) });
-    html.find("#tactics-rollable").on("click", function () { rollSkillCheck(thisActor, 0, 10) });
-    html.find("#teaching-rollable").on("click", function () { rollSkillCheck(thisActor, 0, 11) });
-    html.find("#wilderness-rollable").on("click", function () { rollSkillCheck(thisActor, 0, 12) });
+    html.find("#awareness-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.awareness) });
+    html.find("#business-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.business) });
+    html.find("#deduction-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.deduction) });
+    html.find("#education-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.education) });
+    html.find("#commonsp-rollable").on("click", function () { rollSkillCheck(thisActor,skillMap.commonsp) });
+    html.find("#eldersp-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.eldersp) });
+    html.find("#dwarven-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.dwarven) });
+    html.find("#monster-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.monster) });
+    html.find("#socialetq-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.socialetq) });
+    html.find("#streetwise-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.streetwise) });
+    html.find("#tactics-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.tactics) });
+    html.find("#teaching-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.teaching) });
+    html.find("#wilderness-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.wilderness) });
     //ref skills
-    html.find("#brawling-rollable").on("click", function () { rollSkillCheck(thisActor, 1, 0) });
-    html.find("#dodge-rollable").on("click", function () { rollSkillCheck(thisActor, 1, 1) });
-    html.find("#melee-rollable").on("click", function () { rollSkillCheck(thisActor, 1, 2) });
-    html.find("#riding-rollable").on("click", function () { rollSkillCheck(thisActor, 1, 3) });
-    html.find("#sailing-rollable").on("click", function () { rollSkillCheck(thisActor, 1, 4) });
-    html.find("#smallblades-rollable").on("click", function () { rollSkillCheck(thisActor, 1, 5) });
-    html.find("#staffspear-rollable").on("click", function () { rollSkillCheck(thisActor, 1, 6) });
-    html.find("#swordsmanship-rollable").on("click", function () { rollSkillCheck(thisActor, 1, 7) });
+    html.find("#brawling-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.brawling) });
+    html.find("#dodge-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.dodge) });
+    html.find("#melee-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.melee) });
+    html.find("#riding-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.riding) });
+    html.find("#sailing-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.sailing) });
+    html.find("#smallblades-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.smallblades) });
+    html.find("#staffspear-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.staffspear) });
+    html.find("#swordsmanship-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.swordsmanship) });
     //dex skills
-    html.find("#archery-rollable").on("click", function () { rollSkillCheck(thisActor, 2, 0) });
-    html.find("#athletics-rollable").on("click", function () { rollSkillCheck(thisActor, 2, 1) });
-    html.find("#crossbow-rollable").on("click", function () { rollSkillCheck(thisActor, 2, 2) });
-    html.find("#sleight-rollable").on("click", function () { rollSkillCheck(thisActor, 2, 3) });
-    html.find("#stealth-rollable").on("click", function () { rollSkillCheck(thisActor, 2, 4) });
+    html.find("#archery-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.archery) });
+    html.find("#athletics-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.athletics) });
+    html.find("#crossbow-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.crossbow) });
+    html.find("#sleight-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.sleight) });
+    html.find("#stealth-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.stealth) });
     //body skills
-    html.find("#physique-rollable").on("click", function () { rollSkillCheck(thisActor, 3, 0) });
-    html.find("#endurance-rollable").on("click", function () { rollSkillCheck(thisActor, 3, 1) });
+    html.find("#physique-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.physique) });
+    html.find("#endurance-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.endurance) });
     //emp skills
-    html.find("#charisma-rollable").on("click", function () { rollSkillCheck(thisActor, 4, 0) });
-    html.find("#deceit-rollable").on("click", function () { rollSkillCheck(thisActor, 4, 1) });
-    html.find("#finearts-rollable").on("click", function () { rollSkillCheck(thisActor, 4, 2) });
-    html.find("#gambling-rollable").on("click", function () { rollSkillCheck(thisActor, 4, 3) });
-    html.find("#grooming-rollable").on("click", function () { rollSkillCheck(thisActor, 4, 4) });
-    html.find("#perception-rollable").on("click", function () { rollSkillCheck(thisActor, 4, 5) });
-    html.find("#leadership-rollable").on("click", function () { rollSkillCheck(thisActor, 4, 6) });
-    html.find("#persuasion-rollable").on("click", function () { rollSkillCheck(thisActor, 4, 7) });
-    html.find("#performance-rollable").on("click", function () { rollSkillCheck(thisActor, 4, 8) });
-    html.find("#seduction-rollable").on("click", function () { rollSkillCheck(thisActor, 4, 9) });
+    html.find("#charisma-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.charisma) });
+    html.find("#deceit-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.deceit) });
+    html.find("#finearts-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.finearts) });
+    html.find("#gambling-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.gambling) });
+    html.find("#grooming-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.grooming) });
+    html.find("#perception-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.perception) });
+    html.find("#leadership-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.leadership) });
+    html.find("#persuasion-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.persuasion) });
+    html.find("#performance-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.performance) });
+    html.find("#seduction-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.seduction) });
     //cra skills
-    html.find("#alchemy-rollable").on("click", function () { rollSkillCheck(thisActor, 5, 0) });
-    html.find("#crafting-rollable").on("click", function () { rollSkillCheck(thisActor, 5, 1) });
-    html.find("#disguise-rollable").on("click", function () { rollSkillCheck(thisActor, 5, 2) });
-    html.find("#firstaid-rollable").on("click", function () { rollSkillCheck(thisActor, 5, 3) });
-    html.find("#forgery-rollable").on("click", function () { rollSkillCheck(thisActor, 5, 4) });
-    html.find("#picklock-rollable").on("click", function () { rollSkillCheck(thisActor, 5, 5) });
-    html.find("#trapcraft-rollable").on("click", function () { rollSkillCheck(thisActor, 5, 6) });
+    html.find("#alchemy-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.alchemy) });
+    html.find("#crafting-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.crafting) });
+    html.find("#disguise-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.disguise) });
+    html.find("#firstaid-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.firstaid) });
+    html.find("#forgery-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.forgery) });
+    html.find("#picklock-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.picklock) });
+    html.find("#trapcraft-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.trapcraft) });
     //will skills
-    html.find("#courage-rollable").on("click", function () { rollSkillCheck(thisActor, 6, 0) });
-    html.find("#hexweave-rollable").on("click", function () { rollSkillCheck(thisActor, 6, 1) });
-    html.find("#intimidation-rollable").on("click", function () { rollSkillCheck(thisActor, 6, 2) });
-    html.find("#spellcast-rollable").on("click", function () { rollSkillCheck(thisActor, 6, 3) });
-    html.find("#resistmagic-rollable").on("click", function () { rollSkillCheck(thisActor, 6, 4) });
-    html.find("#resistcoerc-rollable").on("click", function () { rollSkillCheck(thisActor, 6, 5) });
-    html.find("#ritcraft-rollable").on("click", function () { rollSkillCheck(thisActor, 6, 6) });
+    html.find("#courage-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.courage) });
+    html.find("#hexweave-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.hexweave) });
+    html.find("#intimidation-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.intimidation) });
+    html.find("#spellcast-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.spellcast) });
+    html.find("#resistmagic-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.resistmagic) });
+    html.find("#resistcoerc-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.resistcoerc) });
+    html.find("#ritcraft-rollable").on("click", function () { rollSkillCheck(thisActor, skillMap.ritcraft) });
 
     html.find(".dragable").on("dragstart", (ev) => {
       let itemId = ev.target.dataset.id
@@ -567,7 +574,7 @@ export default class WitcherActorSheet extends ActorSheet {
     }
     newModifierList.push({ id: genId(), name: "Modifier", value: 0 })
 
-    this.actor.update({ [`system.skills.${this.skillMap[skill].attribute}.${skill}.modifiers`]: newModifierList });
+    this.actor.update({ [`system.skills.${this.skillMap[skill].attribute.name}.${skill}.modifiers`]: newModifierList });
   }
 
   async _onAddModifier(event) {
@@ -614,7 +621,7 @@ export default class WitcherActorSheet extends ActorSheet {
     let objIndex = modifiers.findIndex((obj => obj.id == itemId));
     modifiers[objIndex][field] = value
 
-    this.actor.update({ [`system.skills.${this.skillMap[skill].attribute}.${skill}.modifiers`]: modifiers });
+    this.actor.update({ [`system.skills.${this.skillMap[skill].attribute.name}.${skill}.modifiers`]: modifiers });
   }
 
   async _onModifierEdit(event) {
@@ -657,7 +664,7 @@ export default class WitcherActorSheet extends ActorSheet {
     const idxToRm = newModList.findIndex((v) => v.id === event.target.dataset.id);
     newModList.splice(idxToRm, 1);
 
-    this.actor.update({ [`system.skills.${this.skillMap[skill].attribute}.${skill}.modifiers`]: newModList });
+    this.actor.update({ [`system.skills.${this.skillMap[skill].attribute.name}.${skill}.modifiers`]: newModList });
   }
 
   async _onModifierRemove(event) {
@@ -1993,7 +2000,7 @@ export default class WitcherActorSheet extends ActorSheet {
     event.preventDefault();
     let skill = event.currentTarget.closest(".skill").dataset.skill;
 
-    this.actor.update({ [`system.skills.${this.skillMap[skill].attribute}.${skill}.isOpened`]: !this.actor.system.skills[this.skillMap[skill].attribute][skill].isOpened});
+    this.actor.update({ [`system.skills.${this.skillMap[skill].attribute.name}.${skill}.isOpened`]: !this.actor.system.skills[this.skillMap[skill].attribute.name][skill].isOpened});
   }
 
   _onSkillDisplay(event) {

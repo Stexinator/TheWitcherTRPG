@@ -1,5 +1,4 @@
 import CommonActorData from "./commonActorData.js"
-import config from "./templates/character/configData.js";
 import general from "./templates/character/generalData.js";
 import skillTraining from "./templates/character/skillTrainingData.js";
 
@@ -13,8 +12,6 @@ export default class CharacterData extends CommonActorData {
     return {
       // Using destructuring to effectively append our additional data here
       ...commonData,
-      
-      config: new fields.SchemaField(config()),
       
       general: new fields.SchemaField(general()),
       gender:  new fields.StringField({ initial: ''}),
