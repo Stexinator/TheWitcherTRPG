@@ -16,6 +16,6 @@ export default function int() {
         streetwise: new fields.SchemaField(skill("WITCHER.SkIntStreet")),
         tactics: new fields.SchemaField(skill("WITCHER.SkIntTactics")),
         teaching: new fields.SchemaField(skill("WITCHER.SkIntTeaching")),
-        skwildernessill: new fields.SchemaField(skill("WITCHER.SkIntWilderness")),
+        wilderness: new fields.SchemaField(skill("WITCHER.SkIntWilderness")),
     };
   }
