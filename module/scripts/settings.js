@@ -62,4 +62,12 @@ export const registerSettings = function() {
         type: Boolean,
         default: true
       });
+
+    game.settings.register("TheWitcherTRPG", "systemMigrationVersion", {
+        name: "System Migration Version",
+        scope: "world",
+        config: false,
+        type: Number,
+        default: 1.018
+    });
 }

@@ -102,8 +102,6 @@ Hooks.on("renderChatLog", (app, html, data) => Chat.addChatListeners(html));
 /* -------------------------------------------- */
 /*  Hotbar Macros                               */
 /* -------------------------------------------- */
-
-
 Hooks.once("ready", async function () {
     // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
     Hooks.on("hotbarDrop", (bar, data, slot) => createBoilerplateMacro(data, slot));
