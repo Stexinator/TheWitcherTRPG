@@ -16,8 +16,8 @@ export default class ArmorData extends CommonItemData {
           choices: ['Light', 'Medium', 'Heavy', 'Natural',]
         }),
         location: new fields.ArrayField(new fields.StringField({
-          initial: 'torso',
-          choices: ['torso', 'leftArm', 'rightArm', 'leftLeg', 'rightLeg']
+          initial: 'Torso',
+          choices: ['Head', 'Torso', 'Leg', 'FullCover']
         })),
         
         avail: new fields.StringField({initial: ''}),
