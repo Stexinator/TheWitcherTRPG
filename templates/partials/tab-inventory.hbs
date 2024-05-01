@@ -110,7 +110,7 @@
                                                  type="text" value="{{weapon.system.reliable}}"
                                                  data-dtype="Number"/>/{{weapon.system.maxReliability}}</div>
                     </td>
-                    <td><input class="inline-edit" data-field="system.equipped" type="checkbox" value={{checked weapon.system.equipped}} {{checked weapon.system.equipped}}/></td>
+                    <td><input class="inline-edit" data-field="system.equipped" type="checkbox" value={{weapon.system.equipped}} {{checked weapon.system.equipped}}/></td>
                 </tr>
                 <tr class="item-info invisible">
                     <td colspan="7">
@@ -242,7 +242,7 @@
                         <td colspan="2"></td>
                     {{/if}}
                     {{#unless (eq type "enhancement")}}
-                        <td><input class="inline-edit" data-field="system.equipped" type="checkbox" value={{checked armor.system.equipped}} {{checked armor.system.equipped}}/></td>
+                        <td><input class="inline-edit" data-field="system.equipped" type="checkbox" value={{armor.system.equipped}} {{checked armor.system.equipped}}/></td>
                         <td>
                             {{#if (eq armor.system.location "Head")}}
                                 <div class="flex sp">
