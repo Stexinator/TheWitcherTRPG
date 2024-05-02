@@ -96,7 +96,26 @@ async function ApplyDamage(actor, dmgType, location, totalDamage) {
     infoTotalDmg += `+5[${game.i18n.localize("WITCHER.Damage.oil")}]`
   }
 
-  //infoTotalDmg = totalDamage + ": " + infoTotalDmg;
+  let shield = actor.system.derivedStats.shield.value;
+  if(totalDamage < shield) {
+    actor.update({ 'system.derivedStats.shield.value': shield-totalDamage });
+    let messageContent = `${game.i18n.localize("WITCHER.Damage.initial")}: <span class="error-display">${infoTotalDmg}</span><br />
+    ${game.i18n.localize("WITCHER.Damage.shield")}: <span class="error-display">${shield}</span><br />
+    ${game.i18n.localize("WITCHER.Damage.ToMuchShield")}
+    `;
+    let messageData = {
+      user: game.user.id,
+      content: messageContent,
+      speaker: ChatMessage.getSpeaker({actor: actor}),
+      flags: actor.getNoDamageFlags(),
+    }
+    ChatMessage.create(messageData);
+    return;
+  }
+  else {
+    actor.update({ 'system.derivedStats.shield.value': 0 });
+    totalDamage -= shield;
+  }
 
   let armorSet = {};
   let totalSP = 0

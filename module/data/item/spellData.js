@@ -38,7 +38,10 @@ export default class SpellData extends CommonItemData {
         visualEffectDuration: new fields.NumberField(),
 
         causeDamages: new fields.BooleanField({initial: false}),
-        damage: new fields.StringField({initial: ''}),
+        damage: new fields.StringField({nullable: true, initial: null}),
+        createsShield: new fields.BooleanField({nullable: true, initial: null}),
+        amount: new fields.StringField({initial: ''}),
+
         effects: new fields.ArrayField(new fields.SchemaField(itemEffect())),
       }
     }

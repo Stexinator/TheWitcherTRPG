@@ -89,6 +89,10 @@
                 <label>{{localize "WITCHER.Spell.Damage"}}</label>
                 <input type="checkbox" name="system.causeDamages"  {{checked item.system.causeDamages}}/>
             </div>
+             <div>
+                <label>{{localize "WITCHER.Spell.createsShield"}}</label>
+                <input type="checkbox" name="system.createsShield"  {{checked item.system.createsShield}}/>
+            </div>
         </div>
         <table class="item-table">
             <tr>
@@ -99,6 +103,9 @@
                 {{/if}}
                 {{#if (eq item.system.causeDamages true)}}
                     <th>{{localize "WITCHER.Weapon.Short.Damage"}}</th>
+                {{/if}}
+                {{#if (eq item.system.createsShield true)}}
+                    <th>{{localize "WITCHER.Spell.Short.Shield"}}</th>
                 {{/if}}
             </tr>
             <tr>
@@ -126,6 +133,12 @@
                     <td>
                         <input class="medium" name="system.damage" type="text"
                                value="{{#unless item.system.damage}}1d6+0{{else}}{{item.system.damage}}{{/unless}}"/>
+                    </td>
+                {{/if}}
+                {{#if (eq item.system.createsShield true)}}
+                    <td>
+                        <input class="medium" name="system.amount" type="text"
+                               value="{{#unless item.system.amount}}1d6+0{{else}}{{item.system.amount}}{{/unless}}"/>
                     </td>
                 {{/if}}
             </tr>

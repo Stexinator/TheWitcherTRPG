@@ -242,8 +242,7 @@
     <div class="right-bottom">
         <div class="right-row">
             <div class="right-element">
-                <label>{{localize "WITCHER.Actor.Hp"}} ({{system.derivedStats.hp.max}}
-                    )/{{system.derivedStats.hp.unmodifiedMax}}</label>
+                <label>{{localize "WITCHER.Actor.Hp"}} ({{system.derivedStats.hp.max}})/{{system.derivedStats.hp.unmodifiedMax}}</label>
                 {{#if system.deathStateApplied}}
                     <img class="right-image" src="systems/TheWitcherTRPG/assets/images/health-dead.png"/>
                 {{/if}}
@@ -258,6 +257,12 @@
                 {{/if}}
                 <input class="right-value hp-value" name="system.derivedStats.hp.value" type="number"
                        value="{{system.derivedStats.hp.value}}" max="99" placeholder="0" data-dtype="Number"/>
+            </div>
+            <div class="right-element">
+                <label>{{localize "WITCHER.Actor.Shield"}}</label>
+                <img class="right-image" src="systems/TheWitcherTRPG/assets/images/health.png"/>
+                <input class="right-value hp-value" name="system.derivedStats.shield.value" type="number"
+                       value="{{system.derivedStats.shield.value}}" max="99" placeholder="0" data-dtype="Number"/>
             </div>
             <div class="right-element">
                 <label>{{localize "WITCHER.Actor.Stamina"}} ({{system.derivedStats.sta.max}})</label>

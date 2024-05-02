@@ -313,6 +313,7 @@
        "CoreStat.woundTreshold": "WT",
        "DerStat.Vigor": "Vigor",
        "DerStat.HP": "Max HP",
+       "DerStat.Shield": "Shield",
        "DerStat.Sta": "STA",
        "DerStat.Resolve": "Resolve",
        "DerStat.Focus": "Focus",
@@ -326,6 +327,7 @@
        "Stamina": "Stamina",
        "Resolve": "Resolve",
        "Hp": "HP",
+       "Shield": "Shield",
        "Skill.Intelligence": "Intelligence",
        "Skill.Reflex": "Reflex",
        "Skill.Willpower": "Willpower",
@@ -694,8 +696,7 @@
       "MajorGift": "Major Gift",
       "StaCost": "Stamina Cost",
       "Variable": "Variable Stamina",
-      "Short.StaCost": "STA Cost",
-      "Short.Variable": "V.STA",
+      
       "staminaDialog": "How many stamina do you use?",
       "notEnoughSta": "Not enough stamina.",
       "MagicCost": "Magic Costs",
@@ -710,7 +711,13 @@
       "Circle": "Circle",
       "Cone": "Cone",
       "Ray": "Ray",
-      "Damage": "Cause Damages"
+      "Damage": "Cause Damages",
+      "createsShield": "Creates Shield",
+      "Short": {
+        "StaCost": "STA Cost",
+        "Variable": "V.STA",
+        "Shield": "Shield"
+      }
     },
     "Chat": {
      "SaveText": "To succeed you need to roll below",
@@ -830,6 +837,9 @@
     "SKill.learn": "Learn",
     "Items.transferTitle": "Transferring Items",
     "Items.transferMany": "How many items to transfer",
+    "Combat": {
+      "shieldApplied": "gained shield:"
+    },
     "Damage": {
       "RemoveSP": "Remove SP before applying location modifier.",
       "damageType": "What type of damage",
@@ -844,8 +854,10 @@
       "afterResistances": "Damage after resistances/vulnerabilities",
       "totalApplied": "Total Damage Applied",
       "NotEnough": "Not enough damage to pierce the armor",
+      "ToMuchShield": "All damage was absorbed by shield or cover",
       "isVulnerable": "Vulnerable to the attack",
       "oilDmg": "Add Oil Damages (+5)",
+      "shield": "Shield",
       "silverDmg": "Add Silver Damages",
       "silver": "Silver",
       "oil": "Oil"
