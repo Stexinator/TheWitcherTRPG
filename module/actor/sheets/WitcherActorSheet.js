@@ -452,7 +452,7 @@ export default class WitcherActorSheet extends ActorSheet {
   }
 
   async _addItem(actor, Additem, numberOfItem, forcecreate = false) {
-    let foundItem = (actor.items).find(item => item.name == Additem.name);
+    let foundItem = (actor.items).find(item => item.name == Additem.name && item.type == Additem.type);
     if (foundItem && !forcecreate) {
       await foundItem.update({ 'system.quantity': Number(foundItem.system.quantity) + Number(numberOfItem) })
     }
