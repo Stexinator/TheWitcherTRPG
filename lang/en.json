@@ -961,6 +961,23 @@
     "err": {
       "CraftItemDeletion": "Incorrect amount of items were deleted from the actor",
       "NoItemsOfSpecificType": "No items of specific type are available for actor"
+    },
+
+    "Investigation": {
+      "clues": "Clues",
+      "obstacles": "Obstacles",
+      "Name": "Name",
+      "type": "Type",
+      "dc": "DC",
+      "skillsUsed": "Skills used",
+      "timeIncrement": "Time",
+      "timeBonus": "Time Bonus",
+      "damage": "Damage",
+      "obfuscation": "Obfuscation",
+      "penalty": "Penalty",
+      "focusDamage": "Damage to Focus",
+      "successDamage": "Success Damage",
+      "failDamage": "Fail Damage"
     }
   }
 }

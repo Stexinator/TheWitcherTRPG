@@ -13,6 +13,7 @@ async function preloadHandlebarsTemplates() {
         "systems/TheWitcherTRPG/templates/sheets/actor/character-sheet.html",
         "systems/TheWitcherTRPG/templates/sheets/actor/monster-sheet.html",
         "systems/TheWitcherTRPG/templates/sheets/actor/loot-sheet.hbs",
+
         "systems/TheWitcherTRPG/templates/partials/character-header.html",
         "systems/TheWitcherTRPG/templates/partials/tab-skills.html",
         "systems/TheWitcherTRPG/templates/partials/tab-profession.html",
@@ -35,6 +36,11 @@ async function preloadHandlebarsTemplates() {
         "systems/TheWitcherTRPG/templates/partials/item-header.html",
         "systems/TheWitcherTRPG/templates/partials/item-image.html",
         "systems/TheWitcherTRPG/templates/partials/associated-item.hbs",
+
+        "systems/TheWitcherTRPG/templates/sheets/investigation/mystery-sheet.hbs",
+        "systems/TheWitcherTRPG/templates/partials/investigation/clue-display.hbs",
+        "systems/TheWitcherTRPG/templates/partials/investigation/obstacle-display.hbs",
+
         "systems/TheWitcherTRPG/templates/sheets/verbal-combat.html",
         "systems/TheWitcherTRPG/templates/sheets/weapon-attack.hbs"
     ];

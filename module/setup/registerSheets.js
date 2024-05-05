@@ -6,6 +6,9 @@ import WitcherItemSheet from "../item/sheets/WitcherItemSheet.js";
 import WitcherWeaponSheet from "../item/sheets/WitcherWeaponSheet.js";
 import WitcherDiagramSheet from "../item/sheets/WitcherDiagramSheet.js";
 import WitcherContainerSheet from "../item/sheets/WitcherContainerSheet.js";
+import WitcherMysterySheet from "../actor/sheets/investigation/WitcherMysterySheet.js";
+import WitcherClueSheet from "../item/sheets/investigation/WitcherClueSheet.js";
+import WitcherObstacleSheet from "../item/sheets/investigation/WitcherObstacleSheet.js";
 
 export const registerSheets = () => {
     Items.unregisterSheet("core", ItemSheet);
@@ -35,5 +38,18 @@ export const registerSheets = () => {
     Actors.registerSheet("witcher", WitcherLootSheet, { 
         makeDefault: true,
         types: ['loot']
+    });
+
+    Actors.registerSheet("witcher", WitcherMysterySheet, { 
+        makeDefault: true,
+        types: ['mystery']
+    });
+    Items.registerSheet("witcher", WitcherClueSheet, { 
+        makeDefault: true,
+        types: ['clue']
+    });
+    Items.registerSheet("witcher", WitcherObstacleSheet, { 
+        makeDefault: true,
+        types: ['obstacle']
     });
 }
