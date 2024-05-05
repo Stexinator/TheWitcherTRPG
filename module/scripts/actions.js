@@ -102,7 +102,7 @@ async function ApplyDamage(actor, dmgType, location, totalDamage) {
   let totalSP = 0
   let displaySP = ""
   let values;
-  if (actor.type == "character") {
+  
     //todo refactor
     switch (location.name) {
       case "Head":
@@ -154,32 +154,33 @@ async function ApplyDamage(actor, dmgType, location, totalDamage) {
       }
       displaySP += `[${game.i18n.localize("WITCHER.Armor.Natural")}]`;
     })
-  } else {
+
+    if (actor.type == "monster") {
     //todo refactor
     switch (location.name) {
       case "Head":
-        totalSP = actor.system.armorHead;
-        displaySP = actor.system.armorHead;
+        totalSP += actor.system.armorHead;
+        displaySP += actor.system.armorHead;
         break;
       case "Torso":
       case "R. Arm":
       case "L. Arm":
-        totalSP = actor.system.armorUpper;
-        displaySP = actor.system.armorUpper;
+        totalSP += actor.system.armorUpper;
+        displaySP += actor.system.armorUpper;
         break;
       case "R. Leg":
       case "L. Leg":
-        totalSP = actor.system.armorLower;
-        displaySP = actor.system.armorLower;
+        totalSP += actor.system.armorLower;
+        displaySP += actor.system.armorLower;
         break;
       case "Tail/Wing":
-        totalSP = actor.system.armorTailWing;
-        displaySP = actor.system.armorTailWing;
+        totalSP += actor.system.armorTailWing;
+        displaySP += actor.system.armorTailWing;
         break;
     }
   }
 
-  if (actor.type == "character" && !armorSet) {
+  if (actor.type == "character" && !armorSet && !naturalArmors) {
     return
   }
 
@@ -214,22 +215,8 @@ async function ApplyDamage(actor, dmgType, location, totalDamage) {
   }
   let infoAfterLocation = totalDamage
 
-  switch (damageType) {
-    case "Slashing":
-      if (armorSet["lightArmor"]?.system.slashing || armorSet["mediumArmor"]?.system.slashing || armorSet["heavyArmor"]?.system.slashing) {
-        totalDamage *= 0.5
-      }
-      break;
-    case "Bludgeoning":
-      if (armorSet["lightArmor"]?.system.bludgeoning || armorSet["mediumArmor"]?.system.bludgeoning || armorSet["heavyArmor"]?.system.bludgeoning) {
-        totalDamage *= 0.5
-      }
-      break;
-    case "Piercing":
-      if (armorSet["lightArmor"]?.system.piercing || armorSet["mediumArmor"]?.system.piercing || armorSet["heavyArmor"]?.system.piercing) {
-        totalDamage *= 0.5
-      }
-      break;
+  if (armorSet["lightArmor"]?.system[dmgType] || armorSet["mediumArmor"]?.system[dmgType] || armorSet["heavyArmor"]?.system[dmgType]) {
+    totalDamage *= 0.5
   }
 
   if (resistSilver || resistMeteorite) {
@@ -239,8 +226,8 @@ async function ApplyDamage(actor, dmgType, location, totalDamage) {
     totalDamage *= 2
   }
   let infoAfterResistance = totalDamage
+
   //todo refactor
-  if (actor.type == "character") {
     switch (location.name) {
       case "Head":
         if (armorSet["lightArmor"]) {
@@ -381,31 +368,7 @@ async function ApplyDamage(actor, dmgType, location, totalDamage) {
         }
         break;
     }
-  } else {
-    //todo refactor
-    let newArmorSP = 0
-    switch (location.name) {
-      case "Head":
-        newArmorSP = actor.system.armorHead - 1;
-        actor.update({ 'system.armorHead': newArmorSP < 0 ? 0 : newArmorSP });
-        break;
-      case "Torso":
-      case "R. Arm":
-      case "L. Arm":
-        newArmorSP = actor.system.armorUpper - 1;
-        actor.update({ 'system.armorUpper': newArmorSP < 0 ? 0 : newArmorSP });
-        break;
-      case "R. Leg":
-      case "L. Leg":
-        newArmorSP = actor.system.armorLower - 1;
-        actor.update({ 'system.armorLower': newArmorSP < 0 ? 0 : newArmorSP });
-        break;
-      case "Tail/Wing":
-        newArmorSP = actor.system.armorTailWing - 1;
-        actor.update({ 'system.armorTailWing': newArmorSP < 0 ? 0 : newArmorSP });
-        break;
-    }
-  }
+  
   let messageContent = `${game.i18n.localize("WITCHER.Damage.initial")}: <span class="error-display">${infoTotalDmg}</span> <br />
     ${game.i18n.localize("WITCHER.Damage.totalSP")}: <span class="error-display">${displaySP}</span><br />
     ${game.i18n.localize("WITCHER.Damage.afterSPReduct")}: <span class="error-display">${infoAfterSPReduction}</span><br />

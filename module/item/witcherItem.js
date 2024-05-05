@@ -357,8 +357,8 @@ export default class WitcherItem extends Item {
         let roll = await compendiumPack[0].getDocument(tableId).then(el => el.roll())
         let res = roll.results[0]
         let pack = game.packs.get(res.documentCollection)
-        await pack.getIndex();
-        let genItem = await pack.getDocument(res.documentId)
+        await pack?.getIndex();
+        let genItem = await pack?.getDocument(res.documentId)
 
         if (!genItem) {
           return ui.notifications.error(`${game.i18n.localize("WITCHER.Monster.exportLootExtInvalidItemError")}`)

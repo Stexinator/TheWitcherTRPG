@@ -28,7 +28,6 @@ export default class WitcherMonsterSheet extends WitcherActorSheet {
         i.type == "valuable" ||
         i.type == "animal-parts" ||
         i.type == "diagrams" ||
-        i.type == "armor" ||
         i.type == "alchemical" ||
         i.type == "enhancement" ||
         i.type == "mutagen");
@@ -79,7 +78,7 @@ export default class WitcherMonsterSheet extends WitcherActorSheet {
 
     let skillConfig =
     `<hr>`+
-    `<input type="checkbox" name="dontAddAttr" ${this.actor.system.dontAddAttr ? "checked" : "unchecked"}> ${game.i18n.localize('WITCHER.Monster.DontAddAttr')}<br />`
+    `<input type="checkbox" name="dontAddAttr" ${this.actor.system.dontAddAttr ? "checked" : "unchecked"}> ${game.i18n.localize('WITCHER.Monster.dontAddAttr')}<br />`
     content += skillConfig
     
 
@@ -152,7 +151,7 @@ export default class WitcherMonsterSheet extends WitcherActorSheet {
                         'system.showAcademicKnowledge' : html.find("[name=showAcademicKnowledge]").prop("checked"),
                         'system.showMonsterLore' : html.find("[name=showMonsterLore]").prop("checked"),
 
-                        'system.dontAddAttr' : html.find("[name=dontAddAttr]").prop("checked")
+                        'system.dontAddAttr' : html.find("[name=dontAddAttr]").prop("checked"),
                     })
                 }
             }
