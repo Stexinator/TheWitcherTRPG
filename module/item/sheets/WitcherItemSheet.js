@@ -17,7 +17,7 @@ export default class WitcherItemSheet extends ItemSheet {
   }
 
   get template() {
-    return `systems/TheWitcherTRPG/templates/sheets/${this.object.type}-sheet.html`;
+    return `systems/TheWitcherTRPG/templates/sheets/${this.object.type}-sheet.hbs`;
   }
 
   /** @override */

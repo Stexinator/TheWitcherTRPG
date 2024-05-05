@@ -1,4 +1,7 @@
 import WitcherActorSheet from "./WitcherActorSheet.js";
+import { addModifiers } from "../../scripts/witcher.js";
+import { RollConfig } from "../../scripts/rollConfig.js";
+import { extendedRoll } from "../../scripts/chat.js";
 
 export default class WitcherCharacterSheet extends WitcherActorSheet {
 
@@ -18,6 +21,15 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
   _isUniqueItem(itemData) {
     return this.uniqueTypes.includes(itemData.type);
   }
+
+  activateListeners(html) {
+    super.activateListeners(html);
+
+    html.find(".alchemy-potion").on("click", this._alchemyCraft.bind(this));
+    html.find(".crafting-craft").on("click", this._craftinCraft.bind(this));   
+  }
+
+ 
 
   getData() {
     const context = super.getData();
@@ -73,7 +85,7 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
   }
 
   _prepareAlchemy(context) {
-    let items = context.actor.items;
+    let items = context.items;
     context.alchemicalItems = items.filter(i => (i.type == "valuable" && i.system.type == "alchemical-item") || (i.type == "alchemical" && i.system.type == "alchemical"));
     context.witcherPotions = items.filter(i => i.type == "alchemical" && (i.system.type == "decoction" || i.system.type == "potion"));
     context.oils = items.filter(i => i.type == "alchemical" && i.system.type == "oil");
@@ -105,7 +117,7 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
   }
 
   _prepareValuables(context) {
-    let items = context.actor.items;
+    let items = context.items;
     context.valuables = items.filter(i => i.type == "valuable");
 
     context.clothingAndContainers = context.valuables.filter(i => i.system.type == "clothing" || i.system.type == "containers");
@@ -117,4 +129,175 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
     context.mounts = items.filter(i => i.type == "mount");
     context.mountAccessories = items.filter(i => i.type == "valuable" && i.system.type == "mount-accessories");
    }
+
+   async _alchemyCraft(event) {
+    let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
+    let itemId = event.currentTarget.closest(".item").dataset.itemId;
+    let item = this.actor.items.get(itemId);
+
+    let content = `<label>${game.i18n.localize("WITCHER.Dialog.Crafting")} ${item.name}</label> <br />`;
+
+    let messageData = {
+      speaker: ChatMessage.getSpeaker({actor: this.actor}),
+      flavor: `<h1>Crafting</h1>`,
+    }
+
+    let areCraftComponentsEnough = true;
+
+    content += `<div class="components-display">`
+    let alchemyCraftComponents = item.populateAlchemyCraftComponentsList();
+    alchemyCraftComponents
+      .filter(a => a.quantity > 0)
+      .forEach(a => {
+        content += `<div class="flex">${a.content}</div>`
+
+        let ownedSubstance = this.actor.getSubstance(a.name)
+        let ownedSubstanceCount = ownedSubstance.sum("quantity")
+        if (ownedSubstanceCount < Number(a.quantity)) {
+          let missing = a.quantity - ownedSubstanceCount
+          content += `<span class="error-display">${game.i18n.localize("WITCHER.Dialog.NoComponents")}: ${missing} ${a.alias}</span><br />`
+          areCraftComponentsEnough = false
+        }
+      });
+    content += `</div>`
+
+    content += `<label>${game.i18n.localize("WITCHER.Dialog.CraftingDiagram")}: <input type="checkbox" name="hasDiagram"></label> <br />`
+    content += `<label>${game.i18n.localize("WITCHER.Dialog.RealCrafting")}: <input type="checkbox" name="realCraft"></label> <br />`
+
+    new Dialog({
+      title: `${game.i18n.localize("WITCHER.Dialog.AlchemyTitle")}`,
+      content,
+      buttons: {
+        Craft: {
+          label: `${game.i18n.localize("WITCHER.Dialog.ButtonCraft")}`,
+          callback: async html => {
+            let stat = this.actor.system.stats.cra.current;
+            let statName = game.i18n.localize(this.actor.system.stats.cra.label);
+            let skill = this.actor.system.skills.cra.alchemy.value;
+            let skillName = game.i18n.localize(this.actor.system.skills.cra.alchemy.label);
+            let hasDiagram = html.find("[name=hasDiagram]").prop("checked");
+            let realCraft = html.find("[name=realCraft]").prop("checked");
+            skillName = skillName.replace(" (2)", "");
+            messageData.flavor = `<h1>${game.i18n.localize("WITCHER.Dialog.CraftingAlchemycal")}</h1>`,
+              messageData.flavor += `<label>${game.i18n.localize("WITCHER.Dialog.Crafting")}:</label> <b>${item.name}</b> <br />`,
+              messageData.flavor += `<label>${game.i18n.localize("WITCHER.Dialog.after")}:</label> <b>${item.system.craftingTime}</b> <br />`,
+              messageData.flavor += `${game.i18n.localize("WITCHER.Diagram.alchemyDC")} ${item.system.alchemyDC}`;
+
+            if (!item.isAlchemicalCraft()) {
+              stat = this.actor.system.stats.cra.current;
+              skill = this.actor.system.skills.cra.crafting.value;
+              messageData.flavor = `${game.i18n.localize("WITCHER.Diagram.craftingDC")} ${item.system.craftingDC}`;
+            }
+
+            let rollFormula = !displayRollDetails ? `1d10+${stat}+${skill}` : `1d10+${stat}[${statName}]+${skill}[${skillName}]`;
+
+            if (hasDiagram) {
+              rollFormula += !displayRollDetails ? `+2` : `+2[${game.i18n.localize("WITCHER.Dialog.Diagram")}]`
+            }
+
+            rollFormula = addModifiers(this.actor.system.skills.cra.alchemy.modifiers, rollFormula)
+
+            let config = new RollConfig();
+            config.showCrit = true
+            config.showSuccess = true
+            config.threshold = item.system.alchemyDC
+            config.thresholdDesc = skillName
+            config.messageOnSuccess = game.i18n.localize("WITCHER.craft.ItemsSuccessfullyCrafted")
+            config.messageOnFailure = game.i18n.localize("WITCHER.craft.ItemsNotCrafted")
+
+            if (realCraft) {
+              if (areCraftComponentsEnough) {
+                item.realCraft(rollFormula, messageData, config);
+              } else {
+                return ui.notifications.error(game.i18n.localize("WITCHER.Dialog.NoComponents") + " " + item.system.associatedItem.name)
+              }
+            } else {
+              // Craft without automatic removal components and without real crafting of an item
+              await extendedRoll(rollFormula, messageData, config)
+            }
+          }
+        }
+      }
+    }).render(true)
+  }
+
+  async _craftinCraft(event) {
+    let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
+    let itemId = event.currentTarget.closest(".item").dataset.itemId;
+    let item = this.actor.items.get(itemId);
+
+    let content = `<label>${game.i18n.localize("WITCHER.Dialog.Crafting")} ${item.name}</label> <br />`;
+
+    let messageData = {
+      speaker: ChatMessage.getSpeaker({actor: this.actor}),
+      flavor: `<h1>Crafting</h1>`,
+    }
+
+    let areCraftComponentsEnough = true;
+    content += `<div class="components-display">`
+    item.system.craftingComponents.forEach(element => {
+      content += `<div class="flex"><b>${element.name}</b>(${element.quantity}) </div>`
+      let ownedComponent = this.actor.findNeededComponent(element.name);
+      let componentQuantity = ownedComponent.sum("quantity");
+      if (componentQuantity < Number(element.quantity)) {
+        let missing = element.quantity - Number(componentQuantity)
+        areCraftComponentsEnough = false;
+        content += `<span class="error-display">${game.i18n.localize("WITCHER.Dialog.NoComponents")}: ${missing} ${element.name}</span><br />`
+      }
+    });
+    content += `</div>`
+
+    content += `<label>${game.i18n.localize("WITCHER.Dialog.CraftingDiagram")}: <input type="checkbox" name="hasDiagram"></label> <br />`
+    content += `<label>${game.i18n.localize("WITCHER.Dialog.RealCrafting")}: <input type="checkbox" name="realCraft"></label> <br />`
+
+    new Dialog({
+      title: `${game.i18n.localize("WITCHER.Dialog.CraftingTitle")}`,
+      content,
+      buttons: {
+        Craft: {
+          label: `${game.i18n.localize("WITCHER.Dialog.ButtonCraft")}`,
+          callback: async html => {
+            let stat = this.actor.system.stats.cra.current;
+            let statName = game.i18n.localize(this.actor.system.stats.cra.label);
+            let skill = this.actor.system.skills.cra.crafting.value;
+            let skillName = game.i18n.localize(this.actor.system.skills.cra.crafting.label);
+            let hasDiagram = html.find("[name=hasDiagram]").prop("checked");
+            let realCraft = html.find("[name=realCraft]").prop("checked");
+            skillName = skillName.replace(" (2)", "");
+            messageData.flavor = `<h1>${game.i18n.localize("WITCHER.Dialog.CraftingItem")}</h1>`,
+              messageData.flavor += `<label>${game.i18n.localize("WITCHER.Dialog.Crafting")}:</label> <b>${item.name}</b> <br />`,
+              messageData.flavor += `<label>${game.i18n.localize("WITCHER.Dialog.after")}:</label> <b>${item.system.craftingTime}</b> <br />`,
+              messageData.flavor += `${game.i18n.localize("WITCHER.Diagram.craftingDC")} ${item.system.craftingDC}`;
+
+            let rollFormula = !displayRollDetails ? `1d10+${stat}+${skill}` : `1d10+${stat}[${statName}]+${skill}[${skillName}]`;
+
+            if (hasDiagram) {
+              rollFormula += !displayRollDetails ? `+2` : `+2[${game.i18n.localize("WITCHER.Dialog.Diagram")}]`
+            }
+
+            rollFormula = addModifiers(this.actor.system.skills.cra.crafting.modifiers, rollFormula)
+
+            let config = new RollConfig();
+            config.showCrit = true
+            config.showSuccess = true
+            config.threshold = item.system.craftingDC
+            config.thresholdDesc = skillName
+            config.messageOnSuccess = game.i18n.localize("WITCHER.craft.ItemsSuccessfullyCrafted")
+            config.messageOnFailure = game.i18n.localize("WITCHER.craft.ItemsNotCrafted")
+
+            if (realCraft) {
+              if (areCraftComponentsEnough) {
+                item.realCraft(rollFormula, messageData, config);
+              } else {
+                return ui.notifications.error(game.i18n.localize("WITCHER.Dialog.NoComponents") + " " + item.system.associatedItem.name)
+              }
+            } else {
+              // Craft without automatic removal components and without real crafting of an item
+              await extendedRoll(rollFormula, messageData, config)
+            }
+          }
+        }
+      }
+    }).render(true)
+  }
 }

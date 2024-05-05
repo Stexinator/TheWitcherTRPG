@@ -1,23 +1,12 @@
-import { witcher } from "./scripts/config.js";
+import { witcher } from "./setup/config.js";
 import * as Chat from "./scripts/chat.js";
-import { registerSettings } from "./scripts/settings.js";
-
-import CommonActorData from "./data/actor/commonActorData.js"
-import CharacterData from "./data/actor/characterData.js";
-
-import LootData from "./data/actor/lootData.js";
+import { registerSettings } from "./setup/settings.js";
 
 import WitcherItem from "./item/witcherItem.js";
-import WitcherItemSheet from "./item/sheets/WitcherItemSheet.js";
-import WitcherWeaponSheet from "./item/sheets/WitcherWeaponSheet.js";
-import WitcherDiagramSheet from "./item/sheets/WitcherDiagramSheet.js";
-
 import WitcherActor from "./actor/witcherActor.js";
-import WitcherCharacterSheet from "./actor/sheets/WitcherCharacterSheet.js";
-import WitcherMonsterSheet from "./actor/sheets/WitcherMonsterSheet.js";
-import WitcherLootSheet from "./actor/sheets/WitcherLootSheet.js";
-import MonsterData from "./data/actor/monsterData.js";
 
+import { registerDataModels } from "./setup/registerDataModels.js";
+import { registerSheets } from "./setup/registerSheets.js";
 
 async function preloadHandlebarsTemplates() {
     const templatePath = [
@@ -28,7 +17,7 @@ async function preloadHandlebarsTemplates() {
         "systems/TheWitcherTRPG/templates/partials/tab-skills.html",
         "systems/TheWitcherTRPG/templates/partials/tab-profession.html",
         "systems/TheWitcherTRPG/templates/partials/tab-background.hbs",
-        "systems/TheWitcherTRPG/templates/partials/tab-inventory.html",
+        "systems/TheWitcherTRPG/templates/partials/tab-inventory.hbs",
         "systems/TheWitcherTRPG/templates/partials/tab-inventory-diagrams.html",
         "systems/TheWitcherTRPG/templates/partials/tab-inventory-valuables.html",
         "systems/TheWitcherTRPG/templates/partials/tab-inventory-mounts.html",
@@ -45,7 +34,7 @@ async function preloadHandlebarsTemplates() {
         "systems/TheWitcherTRPG/templates/partials/loot-item-display.html",
         "systems/TheWitcherTRPG/templates/partials/item-header.html",
         "systems/TheWitcherTRPG/templates/partials/item-image.html",
-        "systems/TheWitcherTRPG/templates/partials/associated-item.html",
+        "systems/TheWitcherTRPG/templates/partials/associated-item.hbs",
         "systems/TheWitcherTRPG/templates/sheets/verbal-combat.html",
         "systems/TheWitcherTRPG/templates/sheets/weapon-attack.html"
     ];
@@ -55,49 +44,18 @@ async function preloadHandlebarsTemplates() {
 Hooks.once("init", function () {
     console.log("TheWitcherTRPG | init system");
 
-   foundry.utils.mergeObject(CONFIG.Actor.dataModels, {
-       // The keys are the types defined in our template.json
-       baseActor: CommonActorData,
-       character: CharacterData,
-       monster: MonsterData,
-       loot: LootData
-     })
-
     CONFIG.witcher = witcher
     CONFIG.Item.documentClass = WitcherItem;
     CONFIG.Actor.documentClass = WitcherActor;
 
-    Items.unregisterSheet("core", ItemSheet);
-    Items.registerSheet("witcher", WitcherItemSheet, { makeDefault: true });
-    Items.registerSheet("witcher", WitcherWeaponSheet, { 
-        makeDefault: true,
-        types: ['weapon']
-    });
-    Items.registerSheet("witcher", WitcherDiagramSheet, { 
-        makeDefault: true,
-        types: ['diagrams']
-    });
-
-    Actors.unregisterSheet("core", ActorSheet);
-    Actors.registerSheet("witcher", WitcherCharacterSheet, { 
-        makeDefault: true,
-        types: ['character']
-    });
-    Actors.registerSheet("witcher", WitcherMonsterSheet, { 
-        makeDefault: true,
-        types: ['monster']
-    });
-    Actors.registerSheet("witcher", WitcherLootSheet, { 
-        makeDefault: true,
-        types: ['loot']
-    });
-
+    registerDataModels();
+    registerSheets();
     preloadHandlebarsTemplates();
     registerSettings();
 });
 
-Hooks.on("renderChatLog", (app, html, data) => Chat.addChatListeners(html));
 
+Hooks.on("renderChatLog", (app, html, data) => Chat.addChatListeners(html));
 
 /* -------------------------------------------- */
 /*  Hotbar Macros                               */

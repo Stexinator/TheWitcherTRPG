@@ -110,7 +110,7 @@
                                                  type="text" value="{{weapon.system.reliable}}"
                                                  data-dtype="Number"/>/{{weapon.system.maxReliability}}</div>
                     </td>
-                    <td><input class="inline-edit" data-field="system.equipped" type="checkbox" value={{checked weapon.system.equipped}} {{checked weapon.system.equipped}}/></td>
+                    <td><input class="inline-edit" data-field="system.equipped" type="checkbox" value={{weapon.system.equipped}} {{checked weapon.system.equipped}}/></td>
                 </tr>
                 <tr class="item-info invisible">
                     <td colspan="7">
@@ -161,7 +161,7 @@
                                             {{#each weapon.system.enhancementItems as |enhancement id|}}
                                                 {{#if enhancement.img}}
                                                     <div class="item item-enhancement"
-                                                         data-item-id="{{enhancement._id}}">
+                                                         data-item-id="{{enhancement.id}}">
                                                         <img class="item-edit no-margin" src="{{enhancement.img}}"/>
                                                     </div>
                                                 {{/if}}
@@ -242,7 +242,7 @@
                         <td colspan="2"></td>
                     {{/if}}
                     {{#unless (eq type "enhancement")}}
-                        <td><input class="inline-edit" data-field="system.equipped" type="checkbox" value={{checked armor.system.equipped}} {{checked armor.system.equipped}}/></td>
+                        <td><input class="inline-edit" data-field="system.equipped" type="checkbox" value={{armor.system.equipped}} {{checked armor.system.equipped}}/></td>
                         <td>
                             {{#if (eq armor.system.location "Head")}}
                                 <div class="flex sp">
@@ -366,7 +366,7 @@
                                             {{#each armor.system.enhancementItems as |enhancement id|}}
                                                 {{#if enhancement.img}}
                                                     <div class="item item-enhancement"
-                                                         data-item-id="{{enhancement._id}}">
+                                                         data-item-id="{{enhancement.id}}">
                                                         <img class="item-edit no-margin" src="{{enhancement.img}}"/>
                                                     </div>
                                                 {{/if}}
@@ -475,8 +475,13 @@
         {{/if}}
 
         {{#if clothingAndContainers}}
-        <h3>{{localize "WITCHER.Valuable.Clothings"}} &amp; {{localize "WITCHER.Valuable.Containers"}}</h3>
+        <h3>{{localize "WITCHER.Valuable.Clothings"}}</h3>
         {{> "systems/TheWitcherTRPG/templates/partials/tab-inventory-valuables.html" valuables=clothingAndContainers}}
+        {{/if}}
+
+        {{#if containers}}
+        <h3>{{localize "WITCHER.Valuable.Containers"}}</h3>
+        {{> "systems/TheWitcherTRPG/templates/partials/tab-inventory-valuables.html" valuables=containers}}
         {{/if}}
 
         {{#if mounts}}

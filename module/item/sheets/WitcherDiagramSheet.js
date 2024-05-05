@@ -5,7 +5,7 @@ import WitcherItemSheet from "./WitcherItemSheet.js";
 export default class WitcherDiagramSheet extends WitcherItemSheet {
 
   get template() {
-    return `systems/TheWitcherTRPG/templates/sheets/diagrams-sheet.html`;
+    return `systems/TheWitcherTRPG/templates/sheets/diagrams-sheet.hbs`;
   }
 
   /** @override */
@@ -20,7 +20,7 @@ export default class WitcherDiagramSheet extends WitcherItemSheet {
 
     if (item) {
       if (event.target.offsetParent.dataset.type == "associatedItem") {
-        this.item.update({ 'system.associatedItem': item });
+        this.item.update({ 'system.associatedItemId': item.uuid });
       } else {
         let newComponentList = []
         if (this.item.system.craftingComponents) {

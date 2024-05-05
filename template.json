@@ -14,312 +14,38 @@
   },
   "Item": {
     "types": [
-      "weapon",
+      "alchemical",
       "armor",
+      "component",
+      "container",
+      "diagrams",
+      "effect",
       "enhancement",
       "mount",
-      "valuable",
-      "alchemical",
-      "component",
-      "diagrams",
       "mutagen",
-      "spell",
-      "profession",
       "note",
+      "profession",
       "race",
-      "effect"
+      "spell",
+      "valuable",
+      "weapon"
     ],
     "templates": {
-      "base": {
-        "description": "",
-        "quantity": 1,
-        "weight": 0,
-        "cost": 0,
-        "isHidden": false,
-        "associatedDiagram": {}
-      }
+      "base": {}
     },
-    "valuable": {
-      "templates": [
-        "base"
-      ],
-      "type": "",
-      "avail": "",
-      "effect": "",
-      "conceal": "",
-      "quality": ""
-    },
-    "weapon": {
-      "templates": [
-        "base"
-      ],
-      "type": {
-        "text": "",
-        "slashing": false,
-        "piercing": false,
-        "bludgeoning": false,
-        "elemental": false
-      },
-      "isAmmo": false,
-      "usingAmmo": false,
-      "accuracy": 0,
-      "avail": "",
-      "damage": "",
-      "reliable": 0,
-      "maxReliability": 0,
-      "hands": 0,
-      "range": "",
-      "equipped": false,
-      "effects": [],
-      "conceal": "",
-      "enhancements": 0,
-      "enhancementItems": [],
-      "rateOfFire": 1,
-      "attackSkill": "",
-      "rollOnlyDmg": false
-    },
-    "armor": {
-      "templates": [
-        "base"
-      ],
-      "reliability": 0,
-      "reliabilityMax": 0,
-      "headStopping": 0,
-      "headMaxStopping": 0,
-      "torsoStopping": 0,
-      "torsoMaxStopping": 0,
-      "leftArmStopping": 0,
-      "leftArmMaxStopping": 0,
-      "rightArmStopping": 0,
-      "rightArmMaxStopping": 0,
-      "leftLegStopping": 0,
-      "leftLegMaxStopping": 0,
-      "rightLegStopping": 0,
-      "rightLegMaxStopping": 0,
-      "type": "Light",
-      "avail": "",
-      "enhancements": 0,
-      "enhancementItems": [],
-      "effects": [],
-      "encumb": 0,
-      "location": "Head",
-      "equipped": false,
-      "bludgeoning": false,
-      "slashing": false,
-      "piercing": false
-    },
-    "enhancement": {
-      "templates": [
-        "base"
-      ],
-      "type": "",
-      "applied": false,
-      "avail": "",
-      "effects": [],
-      "stopping": 0,
-      "bludgeoning": false,
-      "slashing": false,
-      "piercing": false
-    },
-    "mount": {
-      "templates": [
-        "base"
-      ],
-      "dex": "",
-      "control": "",
-      "speed": "",
-      "hp": 0
-    },
-    "alchemical": {
-      "templates": [
-        "base"
-      ],
-      "type": "",
-      "avail": "",
-      "effect": "",
-      "time": "",
-      "toxicity": ""
-    },
-    "component": {
-      "templates": [
-        "base"
-      ],
-      "type": "",
-      "rarity": "",
-      "location": "",
-      "quantityObtainable": "",
-      "forage": "",
-      "substanceType": ""
-    },
-    "diagrams": {
-      "templates": [
-        "base"
-      ],
-      "type": "",
-      "level": "",
-      "isFormulae": false,
-      "craftingDC": 0,
-      "alchemyDC": 0,
-      "craftingTime": "",
-      "components": "",
-      "craftingComponents": [],
-      "investment": 0,
-      "learned": false,
-      "alchemyComponents": {
-        "vitriol": 0,
-        "rebis": 0,
-        "aether": 0,
-        "quebrith": 0,
-        "hydragenum": 0,
-        "vermilion": 0,
-        "sol": 0,
-        "caelum": 0,
-        "fulgur": 0
-      },
-      "associatedItem": {}
-    },
-    "mutagen": {
-      "templates": [
-        "base"
-      ],
-      "type": "",
-      "source": "",
-      "effect": "",
-      "alchemyDC": 0,
-      "minorMutation": ""
-    },
-    "spell": {
-      "class": "",
-      "level": "",
-      "source": "",
-      "domain": "",
-      "stamina": 0,
-      "staminaIsVar": false,
-      "effect": "",
-      "range": "",
-      "duration": "",
-      "defence": "",
-      "components": "",
-      "alternateComponents": "",
-      "preparationTime": "",
-      "dificultyCheck": "",
-      "danger": "",
-      "liftRequirement": "",
-      "sideEffect": "",
-      "createTemplate": false,
-      "templateSize": "",
-      "templateType": "",
-      "causeDamages": false,
-      "damage": "",
-      "effects": []
-    },
-    "profession": {
-      "notes": "",
-      "definingSkill": {
-        "skillName": "",
-        "stat": "",
-        "definition": "",
-        "level": ""
-      },
-      "skillPath1": {
-        "pathName": "",
-        "skill1": {
-          "skillName": "",
-          "stat": "",
-          "definition": "",
-          "level": ""
-        },
-        "skill2": {
-          "skillName": "",
-          "stat": "",
-          "definition": "",
-          "level": ""
-        },
-        "skill3": {
-          "skillName": "",
-          "stat": "",
-          "definition": "",
-          "level": ""
-        }
-      },
-      "skillPath2": {
-        "pathName": "",
-        "skill1": {
-          "skillName": "",
-          "stat": "",
-          "definition": "",
-          "level": ""
-        },
-        "skill2": {
-          "skillName": "",
-          "stat": "",
-          "definition": "",
-          "level": ""
-        },
-        "skill3": {
-          "skillName": "",
-          "stat": "",
-          "definition": "",
-          "level": ""
-        }
-      },
-      "skillPath3": {
-        "pathName": "",
-        "skill1": {
-          "skillName": "",
-          "stat": "",
-          "definition": "",
-          "level": ""
-        },
-        "skill2": {
-          "skillName": "",
-          "stat": "",
-          "definition": "",
-          "level": ""
-        },
-        "skill3": {
-          "skillName": "",
-          "stat": "",
-          "definition": "",
-          "level": ""
-        }
-      }
-    },
-    "note": {
-      "description": ""
-    },
-    "race": {
-      "description": "",
-      "perk1": {
-        "name": "",
-        "description": ""
-      },
-      "perk2": {
-        "name": "",
-        "description": ""
-      },
-      "perk3": {
-        "name": "",
-        "description": ""
-      },
-      "perk4": {
-        "name": "",
-        "description": ""
-      },
-      "socialStanding": {
-        "north": "",
-        "nilfgaard": "",
-        "skellige": "",
-        "dolBlathanna": "",
-        "mahakam": ""
-      }
-    },
-    "effect": {
-      "description": "",
-      "isActive": true,
-      "stats": [],
-      "derived": [],
-      "skills": []
-    }
+    "valuable": {},
+    "weapon": {},
+    "armor": {},
+    "enhancement": {},
+    "mount": {},
+    "alchemical": {},
+    "component": {},
+    "diagrams": {},
+    "mutagen": {},
+    "spell": {},
+    "profession": {},
+    "note": {},
+    "race": {},
+    "effect": {}
   }
 }
