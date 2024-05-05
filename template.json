@@ -3,7 +3,9 @@
     "types": [
       "character",
       "monster",
-      "loot"
+      "loot",
+
+      "mystery"
     ],
     "templates": {
       "baseActor": {}
@@ -28,7 +30,10 @@
       "race",
       "spell",
       "valuable",
-      "weapon"
+      "weapon",
+
+      "clue",
+      "obstacle"
     ],
     "templates": {
       "base": {}
