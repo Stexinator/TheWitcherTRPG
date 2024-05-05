@@ -23,6 +23,7 @@ export default class WitcherMonsterSheet extends WitcherActorSheet {
     let items = context.items;
     context.loots = items.filter(i => i.type == "component" ||
         i.type == "crafting-material" ||
+        i.type == "container" ||
         i.type == "enhancement" ||
         i.type == "valuable" ||
         i.type == "animal-parts" ||
