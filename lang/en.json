@@ -696,7 +696,6 @@
       "MajorGift": "Major Gift",
       "StaCost": "Stamina Cost",
       "Variable": "Variable Stamina",
-      
       "staminaDialog": "How many stamina do you use?",
       "notEnoughSta": "Not enough stamina.",
       "MagicCost": "Magic Costs",
@@ -713,10 +712,12 @@
       "Ray": "Ray",
       "Damage": "Cause Damages",
       "createsShield": "Creates Shield",
+      "doesHeal": "Applies Heal",
       "Short": {
         "StaCost": "STA Cost",
         "Variable": "V.STA",
-        "Shield": "Shield"
+        "Shield": "Shield",
+        "Heal": "Heal"
       }
     },
     "Chat": {
@@ -838,7 +839,8 @@
     "Items.transferTitle": "Transferring Items",
     "Items.transferMany": "How many items to transfer",
     "Combat": {
-      "shieldApplied": "gained shield:"
+      "shieldApplied": "gained shield:",
+      "healed": "healed {target} for {heal}"
     },
     "Damage": {
       "RemoveSP": "Remove SP before applying location modifier.",
