@@ -799,9 +799,11 @@ export default class WitcherActorSheet extends ActorSheet {
         rollFormula += !displayRollDetails ? `+${this.actor.system.skills.will.hexweave.value}` : `+${this.actor.system.skills.will.hexweave.value}[${game.i18n.localize("WITCHER.SkWillHexLable")}]`;
         break;
     }
+
     let staCostTotal = spellItem.system.stamina;
     let customModifier = 0;
     let isExtraAttack = false
+
     let content = `<label>${game.i18n.localize("WITCHER.Dialog.attackExtra")}: <input type="checkbox" name="isExtraAttack"></label> <br />`
     if (spellItem.system.staminaIsVar) {
       content += `${game.i18n.localize("WITCHER.Spell.staminaDialog")}<input class="small" name="staCost" value=1> <br />`
@@ -954,14 +956,20 @@ export default class WitcherActorSheet extends ActorSheet {
       let locationJSON = JSON.stringify(this.actor.getLocationObject("randomSpell"))
 
       let dmg = spellItem.system.damage || "0"
-      if(spellItem.system.staminaIsVar && spellItem.system.damage) {
-        let staminaMulti = parseInt(origStaCost)
-        let diceAmount = spellItem.system.damage.split('d')[0];
-        let diceType = "d" + spellItem.system.damage.split('d')[1].replace("/STA", '')
-        dmg = (staminaMulti * diceAmount) + diceType;
+      if(spellItem.system.staminaIsVar) {
+        dmg = this.calcStaminaMulti(origStaCost, dmg)
       }
 
       messageData.flavor += `<button class="damage" data-img="${spellItem.img}" data-name="${spellItem.name}" data-dmg="${dmg}" data-location='${locationJSON}' data-effects='${effects}'>${game.i18n.localize("WITCHER.table.Damage")}</button>`;
+    }
+
+    if (spellItem.system.createsShield) {
+      let shield = spellItem.system.amount || "0"
+      if(spellItem.system.staminaIsVar) {
+        shield = this.calcStaminaMulti(origStaCost, shield)
+      } 
+
+      messageData.flavor += `<button class="shield" data-img="${spellItem.img}" data-name="${spellItem.name}" data-shield="${shield}" data-actor="${this.actor.uuid}">${game.i18n.localize("WITCHER.Spell.Short.Shield")}</button>`;
     }
 
     let config = new RollConfig()
@@ -973,6 +981,18 @@ export default class WitcherActorSheet extends ActorSheet {
     if(token?.name) {
       await spellItem.createSpellVisualEffectIfApplicable(token);
       await spellItem.deleteSpellVisualEffect();
+    }
+  }
+
+  calcStaminaMulti(origStaCost, value) {
+    let staminaMulti = parseInt(origStaCost)
+    if(value.includes("d")) {
+      let diceAmount = value.split('d')[0];
+      let diceType = "d" + value.split('d')[1].replace("/STA", '')
+      return (staminaMulti * diceAmount) + diceType;
+    }
+    else {
+      return staminaMulti * value
     }
   }
 

@@ -3,6 +3,7 @@ import { getRandomInt } from "./witcher.js";
 
 export function addChatListeners(html) {
   html.on('click', "button.damage", onDamage)
+  html.on('click', "button.shield", onShield)
   html.on('click', "a.crit-roll", onCritRoll)
 }
 
@@ -80,6 +81,22 @@ function onDamage(event) {
   }
   let effects = JSON.parse(event.currentTarget.getAttribute("data-effects"))
   rollDamage(img, name, damageFormula, touchedLocation, locationFormula, strike, effects, damageType);
+}
+
+function onShield(event) {
+  let shield = event.currentTarget.getAttribute("data-shield")
+  let actorUuid = event.currentTarget.getAttribute("data-actor")
+
+  let actor = fromUuidSync(actorUuid);
+  actor?.update({ 'system.derivedStats.shield.value': shield });
+
+  let messageContent = `${actor.name} ${game.i18n.localize("WITCHER.Combat.shieldApplied")} ${shield}`;
+  let messageData = {
+    user: game.user.id,
+    content: messageContent,
+    speaker: ChatMessage.getSpeaker({actor: actor}),
+  }
+  ChatMessage.create(messageData);
 }
 
 export async function rollDamage(img, name, damageFormula, location, locationFormula, strike, effects, damageType) {
