@@ -964,12 +964,21 @@ export default class WitcherActorSheet extends ActorSheet {
     }
 
     if (spellItem.system.createsShield) {
-      let shield = spellItem.system.amount || "0"
+      let shield = spellItem.system.shield || "0"
       if(spellItem.system.staminaIsVar) {
         shield = this.calcStaminaMulti(origStaCost, shield)
       } 
 
       messageData.flavor += `<button class="shield" data-img="${spellItem.img}" data-name="${spellItem.name}" data-shield="${shield}" data-actor="${this.actor.uuid}">${game.i18n.localize("WITCHER.Spell.Short.Shield")}</button>`;
+    }
+
+    if (spellItem.system.doesHeal) {
+      let heal = spellItem.system.heal || "0"
+      if(spellItem.system.staminaIsVar) {
+        heal = this.calcStaminaMulti(origStaCost, heal)
+      } 
+
+      messageData.flavor += `<button class="heal" data-img="${spellItem.img}" data-name="${spellItem.name}" data-heal="${heal}" data-actor="${this.actor.uuid}">${game.i18n.localize("WITCHER.Spell.Short.Heal")}</button>`;
     }
 
     let config = new RollConfig()
@@ -986,6 +995,7 @@ export default class WitcherActorSheet extends ActorSheet {
 
   calcStaminaMulti(origStaCost, value) {
     let staminaMulti = parseInt(origStaCost)
+    value = value.replace("/STA", '')
     if(value.includes("d")) {
       let diceAmount = value.split('d')[0];
       let diceType = "d" + value.split('d')[1].replace("/STA", '')
