@@ -748,9 +748,7 @@
       "clickableImageItemTypes": "Show 'Zoomable' checkbox on item sheet",
       "clickableImageItemTypesHint": "A comma-separated list of item types, where a checkbox can be set. If it is checked, the players can click on the item image from their inventory to see a larger version of it. Possible types are 'valuable', 'weapon', 'armor', 'alchemical', 'diagrams', 'component'.",
       "clickableImageCheckboxForGMOnly": "Show 'Zoomable' checkbox to GM only",
-      "specialFont": "Use the witcher special font",
-      "loadCustomStatusesFromCompendium": "Redeclare HUD statuses from compendium",
-      "loadCustomStatusesFromCompendiumHint": "Redeclare HUD statuses from compendium"
+      "specialFont": "Use the witcher special font"
     },
     
     "background.other": "Other",
@@ -978,6 +976,21 @@
       "focusDamage": "Damage to Focus",
       "successDamage": "Success Damage",
       "failDamage": "Fail Damage"
+    },
+
+    "statusEffect": {
+      "fire": "Fire",
+      "stun": "Stun",
+      "poison": "Poison",
+      "bleed": "Bleed",
+      "freeze": "Freeze",
+      "staggered": "Staggered",
+      "intoxication": "Intoxication",
+      "hallucination": "Hallucination",
+      "nausea": "Nausea",
+      "suffocation": "Suffocation",
+      "blinded": "Blinded",
+      "shielded": "Shielded"
     }
   }
 }

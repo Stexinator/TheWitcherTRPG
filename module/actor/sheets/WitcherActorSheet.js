@@ -1,5 +1,5 @@
 import { buttonDialog, rollDamage, extendedRoll } from "../../scripts/chat.js";
-import { witcher } from "../../setup/config.js";
+import { WITCHER } from "../../setup/config.js";
 import { updateDerived, rollSkillCheck, genId, calc_currency_weight, addModifiers } from "../../scripts/witcher.js";
 import { RollConfig } from "../../scripts/rollConfig.js";
 
@@ -38,8 +38,8 @@ Array.prototype.cost = function () {
 
 export default class WitcherActorSheet extends ActorSheet {
 
-  statMap = witcher.statMap;
-  skillMap = witcher.skillMap;
+  statMap = WITCHER.statMap;
+  skillMap = WITCHER.skillMap;
 
   /** @override */
   getData() {
@@ -50,7 +50,7 @@ export default class WitcherActorSheet extends ActorSheet {
     context.useVerbalCombat = game.settings.get("TheWitcherTRPG", "useOptionalVerbalCombat")
     context.displayRep = game.settings.get("TheWitcherTRPG", "displayRep")
 
-    context.config = CONFIG.witcher;
+    context.config = CONFIG.WITCHER;
     CONFIG.Combat.initiative.formula = "1d10 + @stats.ref.current" + (context.displayRollDetails ? "[REF]" : "");
 
     const actorData = this.actor.toObject(false);
@@ -598,9 +598,9 @@ export default class WitcherActorSheet extends ActorSheet {
     const newCritList = Object.values(prevCritList).map((details) => details);
     newCritList.push({
       id: genId(),
-      effect: witcher.CritGravityDefaultEffect.Simple,
+      effect: WITCHER.CritGravityDefaultEffect.Simple,
       mod: "None",
-      description: witcher.CritDescription.SimpleCrackedJaw,
+      description: WITCHER.CritDescription.SimpleCrackedJaw,
       notes: "",
     });
     this.actor.update({ "system.critWounds": newCritList });

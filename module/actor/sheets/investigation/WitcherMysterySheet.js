@@ -1,4 +1,4 @@
-import { witcher } from "../../../setup/config.js";
+import { WITCHER } from "../../../setup/config.js";
 
 export default class WitcherMysterySheet extends ActorSheet {
 
@@ -22,7 +22,7 @@ export default class WitcherMysterySheet extends ActorSheet {
     context.obstacles = context.actor.getList("obstacle");
 
     context.isGM = game.user.isGM
-    context.skills = witcher.skillMap
+    context.skills = WITCHER.skillMap
 
     return context;
   }

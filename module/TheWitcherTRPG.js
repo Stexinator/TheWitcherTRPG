@@ -1,4 +1,4 @@
-import { witcher } from "./setup/config.js";
+import { WITCHER } from "./setup/config.js";
 import * as Chat from "./scripts/chat.js";
 import { registerSettings } from "./setup/settings.js";
 
@@ -50,7 +50,8 @@ async function preloadHandlebarsTemplates() {
 Hooks.once("init", function () {
     console.log("TheWitcherTRPG | init system");
 
-    CONFIG.witcher = witcher
+    CONFIG.WITCHER = WITCHER;
+    CONFIG.statusEffects = CONFIG.WITCHER.statusEffects;
     CONFIG.Item.documentClass = WitcherItem;
     CONFIG.Actor.documentClass = WitcherActor;
 
@@ -78,23 +79,15 @@ Hooks.once("ready", async function () {
         let chat = document.getElementById("chat-log")
         if (chat) { chat.classList.add("witcher-style") }
     }
-
-    // Override custom effects with HUD effects from the compendium
-    if (game.settings.get("TheWitcherTRPG", "loadCustomStatusesFromCompendium")) {
-        let result = await WitcherItem.prototype.getGameEffects();
-        if (result && result.length > 0) {
-            CONFIG.statusEffects = result;
-        }
-    }
 });
 
 Hooks.once("dragRuler.ready", (SpeedProvider) => {
     class FictionalGameSystemSpeedProvider extends SpeedProvider {
         get colors() {
             return [
-                { id: "walk", default: 0x00FF00, name: "my-module-id.speeds.walk" },
-                { id: "dash", default: 0xFFFF00, name: "my-module-id.speeds.dash" },
-                { id: "run", default: 0xFF8000, name: "my-module-id.speeds.run" }
+                { id: "walk", default: 0x00FF00, name: "witcher.speeds.walk" },
+                { id: "dash", default: 0xFFFF00, name: "witcher.speeds.dash" },
+                { id: "run", default: 0xFF8000, name: "witcher.speeds.run" }
             ]
         }
 

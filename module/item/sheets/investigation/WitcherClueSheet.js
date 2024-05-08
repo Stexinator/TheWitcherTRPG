@@ -1,4 +1,4 @@
-import { witcher } from "../../../setup/config.js";
+import { WITCHER } from "../../../setup/config.js";
 
 export default class WitcherClueSheet extends ItemSheet {
   /** @override */
