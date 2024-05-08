@@ -181,6 +181,7 @@ export default class WitcherActorSheet extends ActorSheet {
 
     html.find(".hp-value").change(this._onHPChanged.bind(this));
     html.find(".inline-edit").change(this._onInlineEdit.bind(this));
+    html.find(".inline-edit").on("click", e => e.stopPropagation())
     html.find(".add-active-effect").on("click", this._onAddActiveEffect.bind(this));
     html.find(".skill-display").on("click", this._onSkillDisplay.bind(this));
     html.find(".spell-display").on("click", this._onSpellDisplay.bind(this));
@@ -1477,6 +1478,7 @@ export default class WitcherActorSheet extends ActorSheet {
 
   _onInlineEdit(event) {
     event.preventDefault();
+    event.stopPropagation()
     let element = event.currentTarget;
     let itemId = element.closest(".item").dataset.itemId;   
     let item = this.actor.items.get(itemId);
@@ -1495,6 +1497,7 @@ export default class WitcherActorSheet extends ActorSheet {
 
   _onItemEdit(event) {
     event.preventDefault();
+    event.stopPropagation()
     let itemId = event.currentTarget.closest(".item").dataset.itemId;
     let item = this.actor.items.get(itemId);
 
@@ -1503,6 +1506,7 @@ export default class WitcherActorSheet extends ActorSheet {
 
   async _onItemShow(event) {
     event.preventDefault;
+    event.stopPropagation()
     let itemId = event.currentTarget.closest(".item").dataset.itemId;
     let item = this.actor.items.get(itemId);
 
@@ -1518,12 +1522,14 @@ export default class WitcherActorSheet extends ActorSheet {
 
   async _onItemDelete(event) {
     event.preventDefault();
+    event.stopPropagation()
     let itemId = event.currentTarget.closest(".item").dataset.itemId;
     return await this.actor.items.get(itemId).delete();
   }
 
   _onItemDisplayInfo(event) {
     event.preventDefault();
+    event.stopPropagation()
     let section = event.currentTarget.closest(".item");
     let editor = $(section).find(".item-info")
     editor.toggleClass("invisible");
