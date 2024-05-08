@@ -1581,7 +1581,7 @@ export default class WitcherActorSheet extends ActorSheet {
     let meleeBonus = this.actor.system.attackStats.meleeBonus
     let data = { item, attackSkill, displayDmgFormula, isMeleeAttack, noAmmo, noThrowable, ammunitionOption, ammunitions, meleeBonus: meleeBonus }
     const myDialogOptions = { width: 500 }
-    const dialogTemplate = await renderTemplate("systems/TheWitcherTRPG/templates/sheets/weapon-attack.html", data)
+    const dialogTemplate = await renderTemplate("systems/TheWitcherTRPG/templates/sheets/weapon-attack.hbs", data)
 
     new Dialog({
       title: `${game.i18n.localize("WITCHER.Dialog.attackWith")}: ${item.name}`,

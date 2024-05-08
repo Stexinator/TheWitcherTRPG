@@ -130,13 +130,6 @@
                 {{> "systems/TheWitcherTRPG/templates/partials/loot-item-display.html" item=item isGM=../isGM}}
             {{/each}}
         </table>
-        <h2>{{localize "WITCHER.Loot.Diagrams"}} <a class="add-item" data-itemType="diagrams"><i
-                class="fas fa-plus"></i></a></h2>
-        <table class="item-table item-list">
-            {{#each diagrams as |item id|}}
-                {{> "systems/TheWitcherTRPG/templates/partials/loot-item-display.html" item=item isGM=../isGM}}
-            {{/each}}
-        </table>
         <h2>{{localize "WITCHER.Loot.Components"}} <a class="add-item" data-itemType="component"><i
                 class="fas fa-plus"></i></a></h2>
         <table class="item-table item-list">
@@ -145,15 +138,15 @@
             {{/each}}
         </table>
 
-        <h2>{{localize "WITCHER.Loot.Runes"}}</h2>
+        <h2>{{localize "WITCHER.Loot.Runes"}} & {{localize "WITCHER.Loot.Glyphs"}}</h2>
         <table class="item-table item-list">
-            {{#each runeItems as |item id|}}
+            {{#each enhancements as |item id|}}
             {{> "systems/TheWitcherTRPG/templates/partials/loot-item-display.html" item=item isGM=../isGM}}
             {{/each}}
         </table>
-        <h2>{{localize "WITCHER.Loot.Glyphs"}}</h2>
+        <h2>{{localize "WITCHER.Loot.Name"}}</h2>
         <table class="item-table item-list">
-            {{#each glyphItems as |item id|}}
+            {{#each loot as |item id|}}
             {{> "systems/TheWitcherTRPG/templates/partials/loot-item-display.html" item=item isGM=../isGM}}
             {{/each}}
         </table>
