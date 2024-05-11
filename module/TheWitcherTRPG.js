@@ -10,8 +10,8 @@ import { registerSheets } from "./setup/registerSheets.js";
 
 async function preloadHandlebarsTemplates() {
     const templatePath = [
-        "systems/TheWitcherTRPG/templates/sheets/actor/character-sheet.html",
-        "systems/TheWitcherTRPG/templates/sheets/actor/monster-sheet.html",
+        "systems/TheWitcherTRPG/templates/sheets/actor/character-sheet.hbs",
+        "systems/TheWitcherTRPG/templates/sheets/actor/monster-sheet.hbs",
         "systems/TheWitcherTRPG/templates/sheets/actor/loot-sheet.hbs",
 
         "systems/TheWitcherTRPG/templates/partials/character-header.html",

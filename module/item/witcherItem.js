@@ -324,7 +324,7 @@ export default class WitcherItem extends Item {
         let genItem = await pack?.getDocument(res.documentId)
 
         if (!genItem) {
-          return ui.notifications.error(`${game.i18n.localize("WITCHER.Monster.exportLootExtInvalidItemError")}`)
+          return ui.notifications.error(`${game.i18n.localize("WITCHER.Monster.exportLootInvalidItemError")}`)
         }
 
         // add generated item to the loot sheet
@@ -338,7 +338,7 @@ export default class WitcherItem extends Item {
           itemToUpdate.update({ 'system.quantity': ++itemToUpdateCount })
         }
 
-        let successMessage = `${game.i18n.localize("WITCHER.Monster.exportLootExtGenerated")}: ${genItem.name}`
+        let successMessage = `${game.i18n.localize("WITCHER.Monster.exportLootGenerated")}: ${genItem.name}`
         ui.notifications.info(`${successMessage}`)
 
         //whisper info about generated items from the roll table
@@ -356,7 +356,7 @@ export default class WitcherItem extends Item {
 
       return true
     } else {
-      return ui.notifications.error(`${game.i18n.localize("WITCHER.Monster.exportLootExtToManyRollTablesError")}`)
+      return ui.notifications.error(`${game.i18n.localize("WITCHER.Monster.exportLootToManyRollTablesError")}`)
     }
   }
 }

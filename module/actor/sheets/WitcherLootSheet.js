@@ -19,7 +19,7 @@ export default class WitcherMonsterSheet extends ActorSheet {
     context.weapons = context.actor.getList("weapon");
     context.armors = context.actor.getList("armor");
 
-    context.valuables = context.actor.getList("valuables");
+    context.valuables = context.actor.getList("valuable");
     context.allComponents = context.actor.getList("component");
     context.enhancements = context.items?.filter(i => i.type == "enhancement" && !i.system.applied);
     context.loot = context.actor.getList("mount").concat(context.actor.getList("mutagens")).concat(context.actor.getList("container")).concat(context.actor.getList("alchemical")).concat(context.actor.getList("diagrams"));

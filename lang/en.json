@@ -579,10 +579,9 @@
       "Susceptibilities": "Susceptibilities",
       "Senses": "Senses",
       "exportLoot": "Export To loot",
-      "exportLootExt": "Export loot(ext)",
-      "exportLootExtGenerated": "Item was successfully generated with help of roll table. It was added to the Loot sheet",
-      "exportLootExtInvalidItemError": "Item doesn't exists in the compendium. Use standard loot generator instead",
-      "exportLootExtToManyRollTablesError": "Too many roll tables for the item found in the compendium. Use standard loot generator instead"
+      "exportLootGenerated": "Item was successfully generated with help of roll table. It was added to the Loot sheet",
+      "exportLootInvalidItemError": "Item doesn't exists in the compendium. Use standard loot generator instead",
+      "exportLootToManyRollTablesError": "Too many roll tables for the item found in the compendium. Use standard loot generator instead"
     },
     "Loot": {
       "Name": "Loot",
