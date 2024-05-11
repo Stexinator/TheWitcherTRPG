@@ -8,7 +8,7 @@ export default class WitcherMonsterSheet extends WitcherActorSheet {
       classes: ["witcher", "sheet", "actor"],
       width: 1120,
       height: 600,
-      template: "systems/TheWitcherTRPG/templates/sheets/actor/actor-sheet.html",
+      template: "systems/TheWitcherTRPG/templates/sheets/actor/actor-sheet.hbs",
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }],
     });
   }

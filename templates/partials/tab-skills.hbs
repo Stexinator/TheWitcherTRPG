@@ -3,7 +3,7 @@
         <h1>{{localize "WITCHER.Actor.Skill.Intelligence"}}</h1>
         <table class="table-skills">
             {{#each system.skills.int as |skill name|}}
-                {{> "systems/TheWitcherTRPG/templates/partials/skill-display.html" skill=skill name=name stat="int"}}
+                {{> "systems/TheWitcherTRPG/templates/partials/skill-display.hbs" skill=skill name=name stat="int"}}
             {{/each}}
         </table>
         <div class="skill-info">
@@ -43,13 +43,13 @@
         <h1>{{localize "WITCHER.Actor.Skill.Reflex"}}</h1>
         <table class="table-skills">
             {{#each system.skills.ref as |skill name|}}
-                {{> "systems/TheWitcherTRPG/templates/partials/skill-display.html" skill=skill name=name stat="ref"}}
+                {{> "systems/TheWitcherTRPG/templates/partials/skill-display.hbs" skill=skill name=name stat="ref"}}
             {{/each}}
         </table>
         <h1>{{localize "WITCHER.Actor.Skill.Willpower"}}</h1>
         <table class="table-skills">
             {{#each system.skills.will as |skill name|}}
-                {{> "systems/TheWitcherTRPG/templates/partials/skill-display.html" skill=skill name=name stat="will" skill-data=system}}
+                {{> "systems/TheWitcherTRPG/templates/partials/skill-display.hbs" skill=skill name=name stat="will" skill-data=system}}
             {{/each}}
         </table>
     </div>
@@ -57,13 +57,13 @@
         <h1>{{localize "WITCHER.Actor.Skill.Dexterity"}}</h1>
         <table class="table-skills">
             {{#each system.skills.dex as |skill name|}}
-                {{> "systems/TheWitcherTRPG/templates/partials/skill-display.html" skill=skill name=name stat="dex" skill-data=system}}
+                {{> "systems/TheWitcherTRPG/templates/partials/skill-display.hbs" skill=skill name=name stat="dex" skill-data=system}}
             {{/each}}
         </table>
         <h1>{{localize "WITCHER.Actor.Skill.Crafting"}}</h1>
         <table class="table-skills">
             {{#each system.skills.cra as |skill name|}}
-                {{> "systems/TheWitcherTRPG/templates/partials/skill-display.html" skill=skill name=name stat="cra" skill-data=system}}
+                {{> "systems/TheWitcherTRPG/templates/partials/skill-display.hbs" skill=skill name=name stat="cra" skill-data=system}}
             {{/each}}
         </table>
     </div>
@@ -71,13 +71,13 @@
         <h1>{{localize "WITCHER.Actor.Skill.Body"}}</h1>
         <table class="table-skills">
             {{#each system.skills.body as |skill name|}}
-                {{> "systems/TheWitcherTRPG/templates/partials/skill-display.html" skill=skill name=name stat="body" skill-data=system}}
+                {{> "systems/TheWitcherTRPG/templates/partials/skill-display.hbs" skill=skill name=name stat="body" skill-data=system}}
             {{/each}}
         </table>
         <h1>{{localize "WITCHER.Actor.Skill.Empathy"}}</h1>
         <table class="table-skills">
             {{#each system.skills.emp as |skill name|}}
-                {{> "systems/TheWitcherTRPG/templates/partials/skill-display.html" skill=skill name=name stat="emp" skill-data=system}}
+                {{> "systems/TheWitcherTRPG/templates/partials/skill-display.hbs" skill=skill name=name stat="emp" skill-data=system}}
             {{/each}}
         </table>
         <div>
