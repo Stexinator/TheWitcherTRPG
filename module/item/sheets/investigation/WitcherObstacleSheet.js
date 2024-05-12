@@ -1,3 +1,4 @@
+import { WITCHER } from "../../../setup/config.js";
 
 export default class WitcherObstacleSheet extends ItemSheet {
   /** @override */
@@ -21,6 +22,8 @@ export default class WitcherObstacleSheet extends ItemSheet {
   /** @override */
   getData() {
     const data = super.getData();
+
+    data.skills = WITCHER.skillMap
 
     return data;
   }

@@ -1,5 +1,6 @@
 {
   "WITCHER": {
+    "Name": "Name",
     "Type": "Type",
     "Percentage": "Percentage",
     "DC": "DC",
@@ -865,6 +866,8 @@
     "Context.Defense": "Defense",
     "Context.Blocked": "Blocked",
     "Context.SelectActor": "At least one actor must be selected",
+    "context.Result": "Result",
+    "context.unavailable": "N/A",
     
     "Heal": {
       "button": "Heal",
@@ -888,8 +891,6 @@
     "ReputationButton.FaceDown": "Face-Down",
     "ReputationSave.Title": "Save",
     "ReputationFaceDown.Title": "Reputation Face-Down",
-    "context.Result": "Result",
-    "context.unavailable": "N/A",
     "verbalCombat": {
       "Title": "Verbal Combat",
       "DialogTitle": "Performing a verbal combat action",
@@ -963,9 +964,6 @@
     "Investigation": {
       "clues": "Clues",
       "obstacles": "Obstacles",
-      "Name": "Name",
-      "type": "Type",
-      "dc": "DC",
       "skillsUsed": "Skills used",
       "timeIncrement": "Time",
       "timeBonus": "Time Bonus",

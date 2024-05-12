@@ -23,6 +23,8 @@ export default class WitcherClueSheet extends ItemSheet {
   getData() {
     const data = super.getData();
 
+    data.skills = WITCHER.skillMap
+
     return data;
   }
 
