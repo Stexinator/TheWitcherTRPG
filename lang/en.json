@@ -861,13 +861,14 @@
       "silver": "Silver",
       "oil": "Oil"
     },
-    
-    "Context.applyDmg": "Apply Damage",
-    "Context.Defense": "Defense",
-    "Context.Blocked": "Blocked",
-    "Context.SelectActor": "At least one actor must be selected",
-    "context.Result": "Result",
-    "context.unavailable": "N/A",
+    "Context": {
+      "applyDmg": "Apply Damage",
+      "Defense": "Defense",
+      "Blocked": "Blocked",
+      "SelectActor": "At least one actor must be selected",
+      "Result": "Result",
+      "unavailable": "N/A"
+    },
     
     "Heal": {
       "button": "Heal",
@@ -936,17 +937,20 @@
       "isHUD": "Is effect on HUD"
     },
     "character.socialStanding": "Social Standing",
-    "socialStanding.equal": "Equal",
-    "socialStanding.tolerated": "Tolerated",
-    "socialStanding.hated": "Hated",
-    "socialStanding.feared": "Feared",
-    "socialStanding.hatedFeared": "Hated & Feared",
-    "socialStanding.toleratedFeared": "Tolerated & Feared",
-    "socialStanding.north": "The North",
-    "socialStanding.nilfgaard": "Nilfgaard",
-    "socialStanding.skellige": "Skellige",
-    "socialStanding.dolBlathanna": "Dol Blathanna",
-    "socialStanding.mahakam": "Mahakam",
+    "socialStanding": {
+      "equal": "Equal",
+      "tolerated": "Tolerated",
+      "hated": "Hated",
+      "feared": "Feared",
+      "hatedFeared": "Hated & Feared",
+      "toleratedFeared": "Tolerated & Feared",
+      "north": "The North",
+      "nilfgaard": "Nilfgaard",
+      "skellige": "Skellige",
+      "dolBlathanna": "Dol Blathanna",
+      "mahakam": "Mahakam"
+    },
+
     "craft": {
       "InsufficientComponents": "Not enough components to perform real craft",
       "ItemsSuccessfullyDeleted": "Items were successfully deleted from actor",

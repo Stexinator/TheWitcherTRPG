@@ -1146,7 +1146,7 @@ export default class WitcherActorSheet extends ActorSheet {
             messageData.flavor = `
               <h2>${game.i18n.localize("WITCHER.ReputationTitle")}: ${game.i18n.localize("WITCHER.ReputationFaceDown.Title")}</h2>
               <div class="roll-summary">
-                <div class="dice-formula">${game.i18n.localize("WITCHER.context.Result")}: <b>${rollFormula}</b></div>
+                <div class="dice-formula">${game.i18n.localize("WITCHER.Context.Result")}: <b>${rollFormula}</b></div>
               </div>
               <hr />`
 
@@ -1340,9 +1340,9 @@ export default class WitcherActorSheet extends ActorSheet {
                 break;
               case "Counterargue":
                 vcName = "WITCHER.verbalCombat.Counterargue";
-                vcStatName = "WITCHER.context.unavailable";
+                vcStatName = "WITCHER.Context.unavailable";
                 vcStat = 0;
-                vcSkillName = "WITCHER.context.unavailable";
+                vcSkillName = "WITCHER.Context.unavailable";
                 vcSkill = 0;
                 modifiers = this.actor.system.skills.emp.persuasion.modifiers;
                 vcDmg = `${game.i18n.localize("WITCHER.verbalCombat.CounterargueDmg")}`
