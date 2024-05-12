@@ -1,7 +1,7 @@
 import { buttonDialog, extendedRoll } from "./chat.js";
 import { addModifiers } from "./witcher.js";
 import { RollConfig } from "./rollConfig.js";
-import { witcher } from "../setup/config.js";
+import { WITCHER } from "../setup/config.js";
 
 async function ApplyDamage(actor, dmgType, location, totalDamage) {
   let armors = actor.getList("armor").filter(a => a.system.equipped);
@@ -502,7 +502,7 @@ function getArmorDiffBonus(OverArmor, UnderArmor) {
 }
 
 function BlockAttack(actor) {
-  let weapons = actor.items.filter(function (item) { return item.type == "weapon" && !item.system.isAmmo && witcher.meleeSkills.includes(item.system.attackSkill) });
+  let weapons = actor.items.filter(function (item) { return item.type == "weapon" && !item.system.isAmmo && WITCHER.meleeSkills.includes(item.system.attackSkill) });
   let shields = actor.items.filter(function (item) { return item.type == "armor" && item.system.location == "Shield" });
   //todo do we need the ability to block with arm? Do we need to apply the damage to it?
   let options = `<option value="Brawling"> ${game.i18n.localize("WITCHER.SkRefBrawling")} </option>`;
@@ -544,7 +544,7 @@ function BlockAttack(actor) {
 function ExecuteDefence(actor, attackType, location, totalAttack) {
   let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
 
-  let weapons = actor.items.filter(function (item) { return item.type == "weapon" && !item.system.isAmmo && witcher.meleeSkills.includes(item.system.attackSkill) });
+  let weapons = actor.items.filter(function (item) { return item.type == "weapon" && !item.system.isAmmo && WITCHER.meleeSkills.includes(item.system.attackSkill) });
   let shields = actor.items.filter(function (item) { return item.type == "armor" && item.system.location == "Shield" });
   let options = `<option value="Brawling"> ${game.i18n.localize("WITCHER.SkRefBrawling")} </option>`;
   weapons.forEach(item => options += `<option value="${item.system.attackSkill}" itemId="${item.id}" type="Weapon"> ${item.name} (${item.getItemAttackSkill().alias})</option>`);

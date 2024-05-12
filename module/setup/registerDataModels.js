@@ -18,6 +18,9 @@ import SpellData from "../data/item/spellData.js";
 import DiagramData from "../data/item/diagramData.js";
 import EffectData from "../data/item/effectData.js";
 import ArmorData from "../data/item/armorData.js";
+import ClueData from "../data/investigation/clueData.js";
+import ObstacleData from "../data/investigation/obstacleData.js";
+import MysteryActorData from "../data/investigation/mysteryActorData.js";
 
 
 export const registerDataModels = () => {
@@ -26,7 +29,9 @@ export const registerDataModels = () => {
         baseActor: CommonActorData,
         character: CharacterData,
         monster: MonsterData,
-        loot: LootData
+        loot: LootData,
+
+        mystery: MysteryActorData
       })
  
       foundry.utils.mergeObject(CONFIG.Item.dataModels, {
@@ -47,5 +52,8 @@ export const registerDataModels = () => {
         spell: SpellData,
         valuable: ValuableData,
         weapon: WeaponData,
+
+        clue: ClueData,
+        obstacle: ObstacleData
        })
 }

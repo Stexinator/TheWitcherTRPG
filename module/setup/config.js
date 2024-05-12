@@ -1,6 +1,6 @@
-export const witcher = {};
+export const WITCHER = {};
 
-witcher.homelands = {
+WITCHER.homelands = {
     aedirn: "WITCHER.Homelands.aedirn",
     angren: "WITCHER.Homelands.angren",
     cidaris: "WITCHER.Homelands.cidaris",
@@ -28,7 +28,7 @@ witcher.homelands = {
     vicovaro: "WITCHER.Homelands.vicovaro"
 }
 
-witcher.statTypes = {
+WITCHER.statTypes = {
     none: "",
     int: "WITCHER.Actor.Stat.Int",
     ref: "WITCHER.Actor.Stat.Ref",
@@ -41,7 +41,7 @@ witcher.statTypes = {
     luck: "WITCHER.Actor.Stat.Luck",
 }
 
-witcher.substanceTypes = {
+WITCHER.substanceTypes = {
     vitriol: "WITCHER.Inventory.Vitriol",
     rebis: "WITCHER.Inventory.Rebis",
     aether: "WITCHER.Inventory.Aether",
@@ -53,21 +53,21 @@ witcher.substanceTypes = {
     fulgur: "WITCHER.Inventory.Fulgur",
 }
 
-witcher.Availability = {
+WITCHER.Availability = {
     Everywhere: "WITCHER.Item.AvailabilityEverywhere",
     Common: "WITCHER.Item.AvailabilityCommon",
     Poor: "WITCHER.Item.AvailabilityPoor",
     Rare: "WITCHER.Item.AvailabilityRare",
 }
 
-witcher.Concealment = {
+WITCHER.Concealment = {
     T: "WITCHER.Item.Tiny",
     S: "WITCHER.Item.Small",
     L: "WITCHER.Item.Large",
     NA: "WITCHER.Item.CantHide",
 }
 
-witcher.MonsterTypes = {
+WITCHER.MonsterTypes = {
     Humanoid: "WITCHER.Monster.Type.Humanoid",
     Necrophage: "WITCHER.Monster.Type.Necrophage",
     Specter: "WITCHER.Monster.Type.Specter",
@@ -82,27 +82,27 @@ witcher.MonsterTypes = {
     Vampire: "WITCHER.Monster.Type.Vampire",
 }
 
-witcher.CritGravity = {
+WITCHER.CritGravity = {
     Simple: "WITCHER.CritWound.Simple",
     Complex: "WITCHER.CritWound.Complex",
     Difficult: "WITCHER.CritWound.Difficult",
     Deadly: "WITCHER.CritWound.Deadly",
 };
 
-witcher.CritGravityDefaultEffect = {
+WITCHER.CritGravityDefaultEffect = {
     Simple: "SimpleCrackedJaw",
     Complex: "ComplexMinorHeadWound",
     Difficult: "DifficultSkullFracture",
     Deadly: "DeadlyDecapitated",
 };
 
-witcher.CritMod = {
+WITCHER.CritMod = {
     None: "WITCHER.CritWound.None",
     Stabilized: "WITCHER.CritWound.Stabilized",
     Treated: "WITCHER.CritWound.Treated",
 };
 
-witcher.CritDescription = {
+WITCHER.CritDescription = {
     SimpleCrackedJaw: "WITCHER.CritWound.SimpleCrackedJaw",
     SimpleDisfiguringScar: "WITCHER.CritWound.SimpleDisfiguringScar",
     SimpleCrackedRibs: "WITCHER.CritWound.SimpleCrackedRibs",
@@ -129,7 +129,7 @@ witcher.CritDescription = {
     DeadlyDismemberedLeg: "WITCHER.CritWound.DeadlyDismemberedLeg",
 };
 
-witcher.CritModDescription = {
+WITCHER.CritModDescription = {
     SimpleCrackedJaw: { None: "WITCHER.CritWound.Mod.SimpleCrackedJaw.None", Stabilized: "WITCHER.CritWound.Mod.SimpleCrackedJaw.Stabilized", Treated: "WITCHER.CritWound.Mod.SimpleCrackedJaw.Treated" },
     SimpleDisfiguringScar: { None: "WITCHER.CritWound.Mod.SimpleDisfiguringScar.None", Stabilized: "WITCHER.CritWound.Mod.SimpleDisfiguringScar.Stabilized", Treated: "WITCHER.CritWound.Mod.SimpleDisfiguringScar.Treated" },
     SimpleCrackedRibs: { None: "WITCHER.CritWound.Mod.SimpleCrackedRibs.None", Stabilized: "WITCHER.CritWound.Mod.SimpleCrackedRibs.Stabilized", Treated: "WITCHER.CritWound.Mod.SimpleCrackedRibs.Treated" },
@@ -156,7 +156,7 @@ witcher.CritModDescription = {
     DeadlyDismemberedLeg: { None: "WITCHER.CritWound.Mod.DeadlyDismemberedLeg.None", Stabilized: "WITCHER.CritWound.Mod.DeadlyDismemberedLeg.Stabilized", Treated: "WITCHER.CritWound.Mod.DeadlyDismemberedLeg.Treated" },
 };
 
-witcher.CritSimple = {
+WITCHER.CritSimple = {
     SimpleCrackedJaw: "WITCHER.CritWound.Name.SimpleCrackedJaw",
     SimpleDisfiguringScar: "WITCHER.CritWound.Name.SimpleDisfiguringScar",
     SimpleCrackedRibs: "WITCHER.CritWound.Name.SimpleCrackedRibs",
@@ -165,7 +165,7 @@ witcher.CritSimple = {
     SimpleSprainedLeg: "WITCHER.CritWound.Name.SimpleSprainedLeg",
 };
 
-witcher.CritComplex = {
+WITCHER.CritComplex = {
     ComplexMinorHeadWound: "WITCHER.CritWound.Name.ComplexMinorHeadWound",
     ComplexLostTeeth: "WITCHER.CritWound.Name.ComplexLostTeeth",
     ComplexRupturedSpleen: "WITCHER.CritWound.Name.ComplexRupturedSpleen",
@@ -174,7 +174,7 @@ witcher.CritComplex = {
     ComplexFracturedLeg: "WITCHER.CritWound.Name.ComplexFracturedLeg",
 };
 
-witcher.CritDifficult = {
+WITCHER.CritDifficult = {
     DifficultSkullFracture: "WITCHER.CritWound.Name.DifficultSkullFracture",
     DifficultConcussion: "WITCHER.CritWound.Name.DifficultConcussion",
     DifficultTornStomach: "WITCHER.CritWound.Name.DifficultTornStomach",
@@ -183,7 +183,7 @@ witcher.CritDifficult = {
     DifficultCompoundLegFracture: "WITCHER.CritWound.Name.DifficultCompoundLegFracture",
 };
 
-witcher.CritDeadly = {
+WITCHER.CritDeadly = {
     DeadlyDecapitated: "WITCHER.CritWound.Name.DeadlyDecapitated",
     DeadlyDamagedEye: "WITCHER.CritWound.Name.DeadlyDamagedEye",
     DeadlyHearthDamage: "WITCHER.CritWound.Name.DeadlyHearthDamage",
@@ -192,10 +192,10 @@ witcher.CritDeadly = {
     DeadlyDismemberedLeg: "WITCHER.CritWound.Name.DeadlyDismemberedLeg",
 };
 
-witcher.meleeSkills = ["Brawling", "Melee", "Small Blades", "Staff/Spear", "Swordsmanship", "Athletics"];
-witcher.rangedSkills = ["Athletics", "Archery", "Crossbow"];
+WITCHER.meleeSkills = ["Brawling", "Melee", "Small Blades", "Staff/Spear", "Swordsmanship", "Athletics"];
+WITCHER.rangedSkills = ["Athletics", "Archery", "Crossbow"];
 
-witcher.statMap = {
+WITCHER.statMap = {
     int: {
         origin: "stats",
         name: "int",
@@ -279,271 +279,335 @@ witcher.statMap = {
     }
 }
 
-witcher.skillMap = {
+WITCHER.skillMap = {
     awareness: {
-       attribute: witcher.statMap.int,
+       attribute: WITCHER.statMap.int,
        label: "WITCHER.SkIntAwareness",
        name: "awareness",
     },
     business: {
-        attribute: witcher.statMap.int,
+        attribute: WITCHER.statMap.int,
         label: "WITCHER.SkIntBusiness",
         name: "business",
     },
     deduction: {
-        attribute: witcher.statMap.int,
+        attribute: WITCHER.statMap.int,
         label: "WITCHER.SkIntDeduction",
         name: "deduction",
     },
     education: {
-        attribute: witcher.statMap.int,
+        attribute: WITCHER.statMap.int,
         label: "WITCHER.SkIntEducation",
         name: "education",
     },
     commonsp: {
-        attribute: witcher.statMap.int,
+        attribute: WITCHER.statMap.int,
         label: "WITCHER.SkIntCommon",
         name: "commonsp",
     },
     eldersp: {
-        attribute: witcher.statMap.int,
+        attribute: WITCHER.statMap.int,
         label: "WITCHER.SkIntElder",
         name: "eldersp",
     },
     dwarven: {
-        attribute: witcher.statMap.int,
+        attribute: WITCHER.statMap.int,
         label: "WITCHER.SkIntDwarven",
         name: "dwarven",
     },
     monster: {
-        attribute: witcher.statMap.int,
+        attribute: WITCHER.statMap.int,
         label: "WITCHER.SkIntMonster",
         name: "monster",
     },
     socialetq: {
-        attribute: witcher.statMap.int,
+        attribute: WITCHER.statMap.int,
         label: "WITCHER.SkIntSocialEt",
         name: "socialetq",
     },
     streetwise: {
-        attribute: witcher.statMap.int,
+        attribute: WITCHER.statMap.int,
         label: "WITCHER.SkIntStreet",
         name: "streetwise",
     },
     tactics: {
-        attribute: witcher.statMap.int,
+        attribute: WITCHER.statMap.int,
         label: "WITCHER.SkIntTactics",
         name: "tactics",
     },
     teaching: {
-        attribute: witcher.statMap.int,
+        attribute: WITCHER.statMap.int,
         label: "WITCHER.SkIntTeaching",
         name: "teaching",
     },
     wilderness: {
-        attribute: witcher.statMap.int,
+        attribute: WITCHER.statMap.int,
         label: "WITCHER.SkIntWilderness",
         name: "wilderness",
     },
 
     brawling: {
-        attribute: witcher.statMap.ref,
+        attribute: WITCHER.statMap.ref,
         label: "WITCHER.SkRefBrawling",
         name: "brawling",
     },
     dodge: {
-        attribute: witcher.statMap.ref,
+        attribute: WITCHER.statMap.ref,
         label: "WITCHER.SkRefDodge",
         name: "dodge",
     },
     melee: {
-        attribute: witcher.statMap.ref,
+        attribute: WITCHER.statMap.ref,
         label: "WITCHER.SkRefMelee",
         name: "melee",
     },
     riding: {
-        attribute: witcher.statMap.ref,
+        attribute: WITCHER.statMap.ref,
         label: "WITCHER.SkRefRiding",
         name: "riding",
     },
     sailing: {
-        attribute: witcher.statMap.ref,
+        attribute: WITCHER.statMap.ref,
         label: "WITCHER.SkRefSailing",
         name: "sailing",
     },
     smallblades: {
-        attribute: witcher.statMap.ref,
+        attribute: WITCHER.statMap.ref,
         label: "WITCHER.SkRefSmall",
         name: "smallblades",
     },
     staffspear: {
-        attribute: witcher.statMap.ref,
+        attribute: WITCHER.statMap.ref,
         label: "WITCHER.SkRefStaff",
         name: "staffspear",
     },
     swordsmanship: {
-        attribute: witcher.statMap.ref,
+        attribute: WITCHER.statMap.ref,
         label: "WITCHER.SkRefSwordsmanship",
         name: "swordsmanship",
     },
 
     courage: {
-        attribute: witcher.statMap.will,
+        attribute: WITCHER.statMap.will,
         label: "WITCHER.SkWillCourage",
         name: "courage",
     },
     hexweave: {
-        attribute: witcher.statMap.will,
+        attribute: WITCHER.statMap.will,
         label: "WITCHER.SkWillHex",
         name: "hexweave",
     },
     intimidation: {
-        attribute: witcher.statMap.will,
+        attribute: WITCHER.statMap.will,
         label: "WITCHER.SkWillIntim",
         name: "intimidation",
     },
     spellcast: {
-        attribute: witcher.statMap.will,
+        attribute: WITCHER.statMap.will,
         label: "WITCHER.SkWillSpellcast",
         name: "spellcast",
     },
     resistmagic: {
-        attribute: witcher.statMap.will,
+        attribute: WITCHER.statMap.will,
         label: "WITCHER.SkWillResistMag",
         name: "resistmagic",
     },
     resistcoerc: {
-        attribute: witcher.statMap.will,
+        attribute: WITCHER.statMap.will,
         label: "WITCHER.SkWillResistCoer",
         name: "resistcoerc",
     },
     ritcraft: {
-        attribute: witcher.statMap.will,
+        attribute: WITCHER.statMap.will,
         label: "WITCHER.SkWillRitCraft",
         name: "ritcraft",
     },
 
     archery: {
-        attribute: witcher.statMap.dex,
+        attribute: WITCHER.statMap.dex,
         label: "WITCHER.SkDexArchery",
         name: "archery",
     },
     athletics: {
-        attribute: witcher.statMap.dex,
+        attribute: WITCHER.statMap.dex,
         label: "WITCHER.SkDexAthletics",
         name: "athletics",
     },
     crossbow: {
-        attribute: witcher.statMap.dex,
+        attribute: WITCHER.statMap.dex,
         label: "WITCHER.SkDexCrossbow",
         name: "crossbow",
     },
     sleight: {
-        attribute: witcher.statMap.dex,
+        attribute: WITCHER.statMap.dex,
         label: "WITCHER.SkDexSleight",
         name: "sleight",
     },
     stealth: {
-        attribute: witcher.statMap.dex,
+        attribute: WITCHER.statMap.dex,
         label: "WITCHER.SkDexStealth",
         name: "stealth",
     },
 
     alchemy: {
-        attribute: witcher.statMap.cra,
+        attribute: WITCHER.statMap.cra,
         label: "WITCHER.SkCraAlchemy",
         name: "alchemy",
     },
     crafting: {
-        attribute: witcher.statMap.cra,
+        attribute: WITCHER.statMap.cra,
         label: "WITCHER.SkCraCrafting",
         name: "crafting",
     },
     disguise: {
-        attribute: witcher.statMap.cra,
+        attribute: WITCHER.statMap.cra,
         label: "WITCHER.SkCraDisguise",
         name: "disguise",
     },
     firstaid: {
-        attribute: witcher.statMap.cra,
+        attribute: WITCHER.statMap.cra,
         label: "WITCHER.SkCraAid",
         name: "firstaid",
     },
     forgery: {
-        attribute: witcher.statMap.cra,
+        attribute: WITCHER.statMap.cra,
         label: "WITCHER.SkCraForge",
         name: "forgery",
     },
     picklock: {
-        attribute: witcher.statMap.cra,
+        attribute: WITCHER.statMap.cra,
         label: "WITCHER.SkCraPick",
         name: "picklock",
     },
     trapcraft: {
-        attribute: witcher.statMap.cra,
+        attribute: WITCHER.statMap.cra,
         label: "WITCHER.SkCraTrapCraft",
         name: "trapcraft",
     },
 
     physique: {
-        attribute: witcher.statMap.body,
+        attribute: WITCHER.statMap.body,
         label: "WITCHER.SkBodyPhys",
         name: "physique",
     },
     endurance: {
-        attribute: witcher.statMap.body,
+        attribute: WITCHER.statMap.body,
         label: "WITCHER.SkBodyEnd",
         name: "endurance",
     },
 
     charisma: {
-        attribute: witcher.statMap.emp,
+        attribute: WITCHER.statMap.emp,
         label: "WITCHER.SkEmpCharisma",
         name: "charisma",
     },
     deceit: {
-        attribute: witcher.statMap.emp,
+        attribute: WITCHER.statMap.emp,
         label: "WITCHER.SkEmpDeceit",
         name: "deceit",
     },
     finearts: {
-        attribute: witcher.statMap.emp,
+        attribute: WITCHER.statMap.emp,
         label: "WITCHER.SkEmpArts",
         name: "finearts",
     },
     gambling: {
-        attribute: witcher.statMap.emp,
+        attribute: WITCHER.statMap.emp,
         label: "WITCHER.SkEmpGambling",
         name: "gambling",
     },
     grooming: {
-        attribute: witcher.statMap.emp,
+        attribute: WITCHER.statMap.emp,
         label: "WITCHER.SkEmpGrooming",
         name: "grooming",
     },
     perception: {
-        attribute: witcher.statMap.emp,
+        attribute: WITCHER.statMap.emp,
         label: "WITCHER.SkEmpHumanPerc",
         name: "perception",
     },
     leadership: {
-        attribute: witcher.statMap.emp,
+        attribute: WITCHER.statMap.emp,
         label: "WITCHER.SkEmpLeadership",
         name: "leadership",
     },
     persuasion: {
-        attribute: witcher.statMap.emp,
+        attribute: WITCHER.statMap.emp,
         label: "WITCHER.SkEmpPersuasion",
         name: "persuasion",
     },
     performance: {
-        attribute: witcher.statMap.emp,
+        attribute: WITCHER.statMap.emp,
         label: "WITCHER.SkEmpPerformance",
         name: "performance",
     },
     seduction: {
-        attribute: witcher.statMap.emp,
+        attribute: WITCHER.statMap.emp,
         label: "WITCHER.SkEmpSeduction",
         name: "seduction",
     },
 }
+
+WITCHER.statusEffects = [
+  {
+    id: 'fire',
+    label: 'WITCHER.statusEffect.fire',
+    icon: 'icons/svg/fire.svg',
+  },
+  {
+    id: 'stun',
+    label: 'WITCHER.statusEffect.stun',
+    icon: 'icons/svg/daze.svg',
+  },
+  {
+    id: 'poison',
+    label: 'WITCHER.statusEffect.poison',
+    icon: 'icons/svg/poison.svg',
+  },
+  {
+    id: 'bleed',
+    label: 'WITCHER.statusEffect.bleed',
+    icon: 'icons/svg/blood.svg',
+  },
+  {
+    id: 'freeze',
+    label: 'WITCHER.statusEffect.freeze',
+    icon: 'icons/svg/frozen.svg',
+  },
+  {
+    id: 'staggered',
+    label: 'WITCHER.statusEffect.staggered',
+    icon: 'icons/svg/falling.svg',
+  },
+  {
+    id: 'intoxication',
+    label: 'WITCHER.statusEffect.intoxication',
+    icon: 'icons/svg/tankard.svg',
+  },
+  {
+    id: 'hallucination',
+    label: 'WITCHER.statusEffect.hallucination',
+    icon: 'icons/svg/terror.svg',
+  },
+  {
+    id: 'nausea',
+    label: 'WITCHER.statusEffect.nausea',
+    icon: 'icons/svg/stoned.svg',
+  },
+  {
+    id: 'suffocation',
+    label: 'WITCHER.statusEffect.suffocation',
+    icon: 'icons/svg/silenced.svg',
+  },
+  {
+    id: 'blinded',
+    label: 'WITCHER.statusEffect.blinded',
+    icon: 'icons/svg/blind.svg',
+  },
+  {
+    id: 'shielded',
+    label: 'WITCHER.statusEffect.shielded',
+    icon: 'icons/svg/mage-shield.svg',
+  },
+ 
+]

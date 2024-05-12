@@ -8,7 +8,7 @@ export default class WitcherMonsterSheet extends ActorSheet {
       classes: ["witcher", "sheet", "actor"],
       width: 1120,
       height: 600,
-      template: "systems/TheWitcherTRPG/templates/sheets/actor/actor-sheet.html",
+      template: "systems/TheWitcherTRPG/templates/sheets/actor/actor-sheet.hbs",
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }],
     });
   }
@@ -17,29 +17,21 @@ export default class WitcherMonsterSheet extends ActorSheet {
     let context = super.getData();
     context.system = context.actor.system;
     context.weapons = context.actor.getList("weapon");
-    context.armors = context.actor.items.filter(function (item) {
-      return item.type == "armor" ||
-        (item.type == "enhancement" && item.system.type == "armor" && item.system.applied == false)
-    });
-    context.enhancements = context.items.filter(i => i.type == "enhancement" && i.system.type != "armor" && !i.system.applied);
-    context.runeItems = context.enhancements.filter(e => e.system.type == "rune");
-    context.glyphItems = context.enhancements.filter(e => e.system.type == "glyph");
+    context.armors = context.actor.getList("armor");
+
+    context.valuables = context.actor.getList("valuable");
+    context.allComponents = context.actor.getList("component");
+    context.enhancements = context.items?.filter(i => i.type == "enhancement" && !i.system.applied);
+    context.loot = context.actor.getList("mount").concat(context.actor.getList("mutagens")).concat(context.actor.getList("container")).concat(context.actor.getList("alchemical")).concat(context.actor.getList("diagrams"));
 
     context.totalWeight = context.items.weight() + calc_currency_weight(context.actor.system.currency);
     context.totalCost = context.items.cost();
 
-    this._prepareCrafting(context);
-
     context.isGM = game.user.isGM
 
-    return context;
-  }
+    console.log(context)
 
-  _prepareCrafting(context) {
-    context.allComponents = context.actor.getList("component");
-    context.craftingMaterials = context.allComponents.filter(i => i.system.type == "crafting-material" || i.system.type == "component");
-    context.ingotsAndMinerals = context.allComponents.filter(i => i.system.type == "minerals");
-    context.hidesAndAnimalParts = context.allComponents.filter(i => i.system.type == "animal-parts");
+    return context;
   }
 
    activateListeners(html) {

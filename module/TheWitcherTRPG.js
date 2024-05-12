@@ -1,4 +1,4 @@
-import { witcher } from "./setup/config.js";
+import { WITCHER } from "./setup/config.js";
 import * as Chat from "./scripts/chat.js";
 import { registerSettings } from "./setup/settings.js";
 
@@ -10,33 +10,39 @@ import { registerSheets } from "./setup/registerSheets.js";
 
 async function preloadHandlebarsTemplates() {
     const templatePath = [
-        "systems/TheWitcherTRPG/templates/sheets/actor/character-sheet.html",
-        "systems/TheWitcherTRPG/templates/sheets/actor/monster-sheet.html",
-        "systems/TheWitcherTRPG/templates/sheets/actor/loot-sheet.html",
-        "systems/TheWitcherTRPG/templates/partials/character-header.html",
-        "systems/TheWitcherTRPG/templates/partials/tab-skills.html",
-        "systems/TheWitcherTRPG/templates/partials/tab-profession.html",
+        "systems/TheWitcherTRPG/templates/sheets/actor/character-sheet.hbs",
+        "systems/TheWitcherTRPG/templates/sheets/actor/monster-sheet.hbs",
+        "systems/TheWitcherTRPG/templates/sheets/actor/loot-sheet.hbs",
+
+        "systems/TheWitcherTRPG/templates/partials/character-header.hbs",
+        "systems/TheWitcherTRPG/templates/partials/tab-skills.hbs",
+        "systems/TheWitcherTRPG/templates/partials/tab-profession.hbs",
         "systems/TheWitcherTRPG/templates/partials/tab-background.hbs",
         "systems/TheWitcherTRPG/templates/partials/tab-inventory.hbs",
-        "systems/TheWitcherTRPG/templates/partials/tab-inventory-diagrams.html",
-        "systems/TheWitcherTRPG/templates/partials/tab-inventory-valuables.html",
-        "systems/TheWitcherTRPG/templates/partials/tab-inventory-mounts.html",
-        "systems/TheWitcherTRPG/templates/partials/tab-inventory-runes-glyphs.html",
-        "systems/TheWitcherTRPG/templates/partials/tab-magic.html",
-        "systems/TheWitcherTRPG/templates/partials/crit-wounds-table.html",
-        "systems/TheWitcherTRPG/templates/partials/substances.html",
-        "systems/TheWitcherTRPG/templates/partials/monster-skill-tab.html",
-        "systems/TheWitcherTRPG/templates/partials/monster-inventory-tab.html",
-        "systems/TheWitcherTRPG/templates/partials/monster-details-tab.html",
-        "systems/TheWitcherTRPG/templates/partials/monster-spell-tab.html",
-        "systems/TheWitcherTRPG/templates/partials/skill-display.html",
-        "systems/TheWitcherTRPG/templates/partials/monster-skill-display.html",
-        "systems/TheWitcherTRPG/templates/partials/loot-item-display.html",
-        "systems/TheWitcherTRPG/templates/partials/item-header.html",
-        "systems/TheWitcherTRPG/templates/partials/item-image.html",
+        "systems/TheWitcherTRPG/templates/partials/tab-inventory-diagrams.hbs",
+        "systems/TheWitcherTRPG/templates/partials/tab-inventory-valuables.hbs",
+        "systems/TheWitcherTRPG/templates/partials/tab-inventory-mounts.hbs",
+        "systems/TheWitcherTRPG/templates/partials/tab-inventory-runes-glyphs.hbs",
+        "systems/TheWitcherTRPG/templates/partials/tab-magic.hbs",
+        "systems/TheWitcherTRPG/templates/partials/crit-wounds-table.hbs",
+        "systems/TheWitcherTRPG/templates/partials/substances.hbs",
+        "systems/TheWitcherTRPG/templates/partials/monster-skill-tab.hbs",
+        "systems/TheWitcherTRPG/templates/partials/monster-inventory-tab.hbs",
+        "systems/TheWitcherTRPG/templates/partials/monster-details-tab.hbs",
+        "systems/TheWitcherTRPG/templates/partials/monster-spell-tab.hbs",
+        "systems/TheWitcherTRPG/templates/partials/skill-display.hbs",
+        "systems/TheWitcherTRPG/templates/partials/monster-skill-display.hbs",
+        "systems/TheWitcherTRPG/templates/partials/loot-item-display.hbs",
+        "systems/TheWitcherTRPG/templates/partials/item-header.hbs",
+        "systems/TheWitcherTRPG/templates/partials/item-image.hbs",
         "systems/TheWitcherTRPG/templates/partials/associated-item.hbs",
-        "systems/TheWitcherTRPG/templates/sheets/verbal-combat.html",
-        "systems/TheWitcherTRPG/templates/sheets/weapon-attack.html"
+
+        "systems/TheWitcherTRPG/templates/sheets/investigation/mystery-sheet.hbs",
+        "systems/TheWitcherTRPG/templates/partials/investigation/clue-display.hbs",
+        "systems/TheWitcherTRPG/templates/partials/investigation/obstacle-display.hbs",
+
+        "systems/TheWitcherTRPG/templates/sheets/verbal-combat.hbs",
+        "systems/TheWitcherTRPG/templates/sheets/weapon-attack.hbs"
     ];
     return loadTemplates(templatePath);
 }
@@ -44,7 +50,8 @@ async function preloadHandlebarsTemplates() {
 Hooks.once("init", function () {
     console.log("TheWitcherTRPG | init system");
 
-    CONFIG.witcher = witcher
+    CONFIG.WITCHER = WITCHER;
+    CONFIG.statusEffects = CONFIG.WITCHER.statusEffects;
     CONFIG.Item.documentClass = WitcherItem;
     CONFIG.Actor.documentClass = WitcherActor;
 
@@ -72,23 +79,15 @@ Hooks.once("ready", async function () {
         let chat = document.getElementById("chat-log")
         if (chat) { chat.classList.add("witcher-style") }
     }
-
-    // Override custom effects with HUD effects from the compendium
-    if (game.settings.get("TheWitcherTRPG", "loadCustomStatusesFromCompendium")) {
-        let result = await WitcherItem.prototype.getGameEffects();
-        if (result && result.length > 0) {
-            CONFIG.statusEffects = result;
-        }
-    }
 });
 
 Hooks.once("dragRuler.ready", (SpeedProvider) => {
     class FictionalGameSystemSpeedProvider extends SpeedProvider {
         get colors() {
             return [
-                { id: "walk", default: 0x00FF00, name: "my-module-id.speeds.walk" },
-                { id: "dash", default: 0xFFFF00, name: "my-module-id.speeds.dash" },
-                { id: "run", default: 0xFF8000, name: "my-module-id.speeds.run" }
+                { id: "walk", default: 0x00FF00, name: "witcher.speeds.walk" },
+                { id: "dash", default: 0xFFFF00, name: "witcher.speeds.dash" },
+                { id: "run", default: 0xFF8000, name: "witcher.speeds.run" }
             ]
         }
 

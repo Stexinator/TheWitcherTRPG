@@ -1,5 +1,6 @@
 {
   "WITCHER": {
+    "Name": "Name",
     "Type": "Type",
     "Percentage": "Percentage",
     "DC": "DC",
@@ -579,10 +580,9 @@
       "Susceptibilities": "Susceptibilities",
       "Senses": "Senses",
       "exportLoot": "Export To loot",
-      "exportLootExt": "Export loot(ext)",
-      "exportLootExtGenerated": "Item was successfully generated with help of roll table. It was added to the Loot sheet",
-      "exportLootExtInvalidItemError": "Item doesn't exists in the compendium. Use standard loot generator instead",
-      "exportLootExtToManyRollTablesError": "Too many roll tables for the item found in the compendium. Use standard loot generator instead"
+      "exportLootGenerated": "Item was successfully generated with help of roll table. It was added to the Loot sheet",
+      "exportLootInvalidItemError": "Item doesn't exists in the compendium. Use standard loot generator instead",
+      "exportLootToManyRollTablesError": "Too many roll tables for the item found in the compendium. Use standard loot generator instead"
     },
     "Loot": {
       "Name": "Loot",
@@ -592,7 +592,6 @@
       "Weapons": "Weapons",
       "Armors": "Armors",
       "Valuables": "Valuables",
-      "Diagrams": "Diagrams",
       "Components": "Components",
       "Runes": "Runes",
       "Glyphs": "Glyphs",
@@ -749,9 +748,7 @@
       "clickableImageItemTypes": "Show 'Zoomable' checkbox on item sheet",
       "clickableImageItemTypesHint": "A comma-separated list of item types, where a checkbox can be set. If it is checked, the players can click on the item image from their inventory to see a larger version of it. Possible types are 'valuable', 'weapon', 'armor', 'alchemical', 'diagrams', 'component'.",
       "clickableImageCheckboxForGMOnly": "Show 'Zoomable' checkbox to GM only",
-      "specialFont": "Use the witcher special font",
-      "loadCustomStatusesFromCompendium": "Redeclare HUD statuses from compendium",
-      "loadCustomStatusesFromCompendiumHint": "Redeclare HUD statuses from compendium"
+      "specialFont": "Use the witcher special font"
     },
     
     "background.other": "Other",
@@ -864,11 +861,14 @@
       "silver": "Silver",
       "oil": "Oil"
     },
-    
-    "Context.applyDmg": "Apply Damage",
-    "Context.Defense": "Defense",
-    "Context.Blocked": "Blocked",
-    "Context.SelectActor": "At least one actor must be selected",
+    "Context": {
+      "applyDmg": "Apply Damage",
+      "Defense": "Defense",
+      "Blocked": "Blocked",
+      "SelectActor": "At least one actor must be selected",
+      "Result": "Result",
+      "unavailable": "N/A"
+    },
     
     "Heal": {
       "button": "Heal",
@@ -892,8 +892,6 @@
     "ReputationButton.FaceDown": "Face-Down",
     "ReputationSave.Title": "Save",
     "ReputationFaceDown.Title": "Reputation Face-Down",
-    "context.Result": "Result",
-    "context.unavailable": "N/A",
     "verbalCombat": {
       "Title": "Verbal Combat",
       "DialogTitle": "Performing a verbal combat action",
@@ -939,17 +937,20 @@
       "isHUD": "Is effect on HUD"
     },
     "character.socialStanding": "Social Standing",
-    "socialStanding.equal": "Equal",
-    "socialStanding.tolerated": "Tolerated",
-    "socialStanding.hated": "Hated",
-    "socialStanding.feared": "Feared",
-    "socialStanding.hatedFeared": "Hated & Feared",
-    "socialStanding.toleratedFeared": "Tolerated & Feared",
-    "socialStanding.north": "The North",
-    "socialStanding.nilfgaard": "Nilfgaard",
-    "socialStanding.skellige": "Skellige",
-    "socialStanding.dolBlathanna": "Dol Blathanna",
-    "socialStanding.mahakam": "Mahakam",
+    "socialStanding": {
+      "equal": "Equal",
+      "tolerated": "Tolerated",
+      "hated": "Hated",
+      "feared": "Feared",
+      "hatedFeared": "Hated & Feared",
+      "toleratedFeared": "Tolerated & Feared",
+      "north": "The North",
+      "nilfgaard": "Nilfgaard",
+      "skellige": "Skellige",
+      "dolBlathanna": "Dol Blathanna",
+      "mahakam": "Mahakam"
+    },
+
     "craft": {
       "InsufficientComponents": "Not enough components to perform real craft",
       "ItemsSuccessfullyDeleted": "Items were successfully deleted from actor",
@@ -962,6 +963,35 @@
     "err": {
       "CraftItemDeletion": "Incorrect amount of items were deleted from the actor",
       "NoItemsOfSpecificType": "No items of specific type are available for actor"
+    },
+
+    "Investigation": {
+      "clues": "Clues",
+      "obstacles": "Obstacles",
+      "skillsUsed": "Skills used",
+      "timeIncrement": "Time",
+      "timeBonus": "Time Bonus",
+      "damage": "Damage",
+      "obfuscation": "Obfuscation",
+      "penalty": "Penalty",
+      "focusDamage": "Damage to Focus",
+      "successDamage": "Success Damage",
+      "failDamage": "Fail Damage"
+    },
+
+    "statusEffect": {
+      "fire": "Fire",
+      "stun": "Stun",
+      "poison": "Poison",
+      "bleed": "Bleed",
+      "freeze": "Freeze",
+      "staggered": "Staggered",
+      "intoxication": "Intoxication",
+      "hallucination": "Hallucination",
+      "nausea": "Nausea",
+      "suffocation": "Suffocation",
+      "blinded": "Blinded",
+      "shielded": "Shielded"
     }
   }
 }

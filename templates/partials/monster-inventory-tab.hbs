@@ -48,7 +48,6 @@
         </tbody>
     {{/each}}
 </table>
-{{log this }}
 <h2>{{localize "WITCHER.Inventory.Armor"}}
             <a class="add-item" data-itemType="armor">
                 <i class="fas fa-plus"></i>
@@ -74,7 +73,7 @@
                         <a class="item-armor-display"><i class="fas fa-info"></i></a>
                     </td>
                     <td>
-                      {{> "systems/TheWitcherTRPG/templates/partials/item-image.html" item=armor}}
+                      {{> "systems/TheWitcherTRPG/templates/partials/item-image.hbs" item=armor}}
                     </td>
                     <td><input class="inline-edit item-quantity" data-field="system.quantity" type="text"
                                value="{{armor.system.quantity}}" data-dtype="Number"/></td>
@@ -291,7 +290,6 @@
     <h2 class="flex1">{{localize "WITCHER.Loot.Name"}} <a class="add-item" data-itemType="valuable"><i
             class="fas fa-plus"></i></a></h2>
     <a class="button-roll export-loot">{{localize "WITCHER.Monster.exportLoot"}}</a>
-    <a class="button-roll export-loot-ext">{{localize "WITCHER.Monster.exportLootExt"}}</a>
 </div>
 <table class="item-list">
     {{#each loots as |valuable id|}}

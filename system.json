@@ -7,7 +7,7 @@
     "verified": "11",
     "maximum": "11"
   },
-  "version": 1.022,
+  "version": 1.023,
   "authors": [
     {
       "name": "Stexinator",
@@ -39,6 +39,25 @@
   ],
   "styles": [
     "styles/witcher-styles.css"
+  ],
+  "packFolders": [
+    {
+      "name": "Witcher TRPG System",
+      "sorting": "m",
+      "packs": ["gear", "crafting", "magic", "bestiary", "combat", "loot"],
+      "folders": [
+        {
+          "name": "Character Generation",
+          "sorting": "a",
+          "packs": ["Character-gen", "Character-gen Sub-tables", "Witcher Lifepath and BG Sub-tables", "Life Event Sub-tables", "races", "professions"]
+        },
+        {
+          "name": "Bonus Material",
+          "sorting": "a",
+          "packs": ["journal-entries", "scenes", "adventures"]
+        }
+      ]
+    }
   ],
   "packs": [
     {

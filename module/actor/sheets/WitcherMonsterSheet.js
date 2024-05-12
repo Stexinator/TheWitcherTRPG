@@ -8,7 +8,7 @@ export default class WitcherMonsterSheet extends WitcherActorSheet {
       classes: ["witcher", "sheet", "actor"],
       width: 1120,
       height: 600,
-      template: "systems/TheWitcherTRPG/templates/sheets/actor/actor-sheet.html",
+      template: "systems/TheWitcherTRPG/templates/sheets/actor/actor-sheet.hbs",
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }],
     });
   }
@@ -36,8 +36,7 @@ export default class WitcherMonsterSheet extends WitcherActorSheet {
   activateListeners(html) {
     super.activateListeners(html)
 
-    html.find(".export-loot").on("click", this.exportLootNormal.bind(this));
-    html.find(".export-loot-ext").on("click", this.exportLootExtended.bind(this));
+    html.find(".export-loot").on("click", this.exportLoot.bind(this));
 
     html.find(".change-skill-list").on("click", this.onChangeSkillList.bind(this));
   }
@@ -176,21 +175,8 @@ async getOrCreateFolder() {
     return folder ? (folder[0] ? folder[0]: folder) : null
 }
 
-async exportLootExtended() {
-    this.exportLoot(true)
-  }
 
-  /**
-   * 
-   * @param WitcherActor actor 
-   * @param Boolean extended 
-   * @returns 
-   */
-  async exportLootNormal() {
-    this.exportLoot(false);
-  }
-
-  async exportLoot(rollItems) {
+  async exportLoot() {
     let content = `${game.i18n.localize("WITCHER.Loot.MultipleExport")} <input type="number" class="small" name="multiple" value=1><br />`
     let cancel = true
     let multiplier = 0
@@ -231,10 +217,7 @@ async exportLootExtended() {
                 newQuantity = Number(newQuantity) * multiplier
             }
 
-            let itemGeneratedFromRollTable = false
-            if (rollItems) {
-                itemGeneratedFromRollTable = await item.checkIfItemHasRollTable(newQuantity)
-            }
+            let itemGeneratedFromRollTable = await item.checkIfItemHasRollTable(newQuantity)
 
             if (!itemGeneratedFromRollTable) {
                 item.update({ 'system.quantity': newQuantity })

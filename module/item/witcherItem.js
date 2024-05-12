@@ -1,11 +1,8 @@
 import { extendedRoll } from "../scripts/chat.js";
 import { RollConfig } from "../scripts/rollConfig.js";
-import { witcher } from "../setup/config.js";
+import { WITCHER } from "../setup/config.js";
 
 export default class WitcherItem extends Item {
-  chatTemplate = {
-    "weapon": "systems/TheWitcherTRPG/templates/partials/chat/weapon-chat.html"
-  }
 
   async roll() {
   }
@@ -121,8 +118,8 @@ export default class WitcherItem extends Item {
       //Check whether item attack skill is melee
       //Since actor can throw bombs relying on Athletic which is also a melee attack skill
       //We need specific logic for bomb throws
-      let meleeSkill = witcher.meleeSkills.includes(this.system.attackSkill)
-      let rangedSkill = witcher.rangedSkills.includes(this.system.attackSkill)
+      let meleeSkill = WITCHER.meleeSkills.includes(this.system.attackSkill)
+      let rangedSkill = WITCHER.rangedSkills.includes(this.system.attackSkill)
 
       if (meleeSkill && rangedSkill) {
         return meleeSkill && !this.system.usingAmmo && !this.system.isThrowable;
@@ -296,43 +293,6 @@ export default class WitcherItem extends Item {
     roll.toMessage(messageData);
   }
 
-  async getGameEffects() {
-    // search for the compendium pack in the world roll tables by name of the generator
-    const effectPacks = game.packs
-      .filter(p => p.metadata.type === "Item")
-      // Haven't found and easy and proper way of filtering compendiums by different fields
-      // than _id, img, folder, name, sort, type
-      // So now I see 2 ways of filtering effects with eligible HUD candidates:
-      // 1 - Implement new type for the effects rather than keep them in WitcherItem - this will cause massive code rewriting
-      // 2 - Open compendiums with effects, load data from them and filter collections one by one. - this is the easiest ways
-      // If you know other simpler approach - feel free to modify
-      .filter(c => c.index.find(r => r.type === "effect"))
-
-    if (!effectPacks || effectPacks.length == 0) {
-      // Provided world does not have associated active HUD effects
-      // We should use embedded HUD statuses
-      return false
-    } else {
-        let effectsWithHUDEnabled = []
-
-        for (const ep of effectPacks) {
-            let effects = await ep.getDocuments({type:"effect"});
-            let r = effects.filter(e => e.system.isActive && e.system.isHUD).
-                            flatMap(e => ({
-                                id: "@Compendium[" + e.pack + "." + e._id + "]",
-                                name: e.name,
-                                description: "@Compendium[" + e.pack + "." + e._id + "] - " + e.system.description,
-                                label: e.name,
-                                icon: e.img
-                             }));
-            if (r && r.length > 0) {
-                effectsWithHUDEnabled = effectsWithHUDEnabled.concat(r);
-            }
-        }
-
-      return effectsWithHUDEnabled
-    }
-  }
 
   /**
    * 
@@ -361,7 +321,7 @@ export default class WitcherItem extends Item {
         let genItem = await pack?.getDocument(res.documentId)
 
         if (!genItem) {
-          return ui.notifications.error(`${game.i18n.localize("WITCHER.Monster.exportLootExtInvalidItemError")}`)
+          return ui.notifications.error(`${game.i18n.localize("WITCHER.Monster.exportLootInvalidItemError")}`)
         }
 
         // add generated item to the loot sheet
@@ -375,7 +335,7 @@ export default class WitcherItem extends Item {
           itemToUpdate.update({ 'system.quantity': ++itemToUpdateCount })
         }
 
-        let successMessage = `${game.i18n.localize("WITCHER.Monster.exportLootExtGenerated")}: ${genItem.name}`
+        let successMessage = `${game.i18n.localize("WITCHER.Monster.exportLootGenerated")}: ${genItem.name}`
         ui.notifications.info(`${successMessage}`)
 
         //whisper info about generated items from the roll table
@@ -393,7 +353,7 @@ export default class WitcherItem extends Item {
 
       return true
     } else {
-      return ui.notifications.error(`${game.i18n.localize("WITCHER.Monster.exportLootExtToManyRollTablesError")}`)
+      return ui.notifications.error(`${game.i18n.localize("WITCHER.Monster.exportLootToManyRollTablesError")}`)
     }
   }
 }
