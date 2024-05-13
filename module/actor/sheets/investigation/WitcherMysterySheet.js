@@ -12,7 +12,7 @@ export default class WitcherMysterySheet extends ActorSheet {
     });
   }
 
-   getData() {
+  getData() {
     let context = super.getData();
 
     const actorData = this.actor.toObject(false);
@@ -28,7 +28,7 @@ export default class WitcherMysterySheet extends ActorSheet {
   }
 
 
-   activateListeners(html) {
+  activateListeners(html) {
     super.activateListeners(html);
 
     html.find(".add-item").on("click", this._onItemAdd.bind(this));
@@ -74,7 +74,7 @@ export default class WitcherMysterySheet extends ActorSheet {
   _onInlineEdit(event) {
     event.preventDefault();
     let element = event.currentTarget;
-    let itemId = element.closest(".item").dataset.itemId;   
+    let itemId = element.closest(".item").dataset.itemId;
     let item = this.actor.items.get(itemId);
     let field = element.dataset.field;
     // Edit checkbox values
