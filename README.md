@@ -7,6 +7,7 @@ Current Maintainers: Stexinator
 Compendium by Siryphas
 
 The system uses art by CD Project Red and R. Talsorian Games
+
 The system uses icon from https://game-icons.net/ under https://creativecommons.org/licenses/by/3.0/
 
 ## Character Sheet ##
