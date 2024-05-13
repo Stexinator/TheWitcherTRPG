@@ -4,21 +4,21 @@
         <div class="item-column">
             <div class="item-option-tickbox">
                 <label>{{localize "WITCHER.Weapon.onlyDmg"}}</label>
-                <input type="checkbox" name="system.rollOnlyDmg" {{checked item.system.rollOnlyDmg}}/>
+                <input type="checkbox" name="system.rollOnlyDmg" {{checked item.system.rollOnlyDmg}} />
             </div>
             <div class="item-option-tickbox">
                 <label>{{localize "WITCHER.Weapon.useAmmo"}}</label>
-                <input type="checkbox" name="system.usingAmmo" {{checked item.system.usingAmmo}}/>
+                <input type="checkbox" name="system.usingAmmo" {{checked item.system.usingAmmo}} />
             </div>
         </div>
         <div class="item-column">
             <div class="item-option-tickbox">
                 <label>{{localize "WITCHER.Weapon.isAmmunition"}}</label>
-                <input type="checkbox" name="system.isAmmo" {{checked item.system.isAmmo}}/>
+                <input type="checkbox" name="system.isAmmo" {{checked item.system.isAmmo}} />
             </div>
             <div class="item-option-tickbox">
                 <label>{{localize "WITCHER.Weapon.isThrowable"}}</label>
-                <input type="checkbox" name="system.isThrowable" {{checked item.system.isThrowable}}/>
+                <input type="checkbox" name="system.isThrowable" {{checked item.system.isThrowable}} />
             </div>
         </div>
         <div class="item-column">
@@ -64,24 +64,21 @@
         <tr>
             <td class="weapon-dmg-type">
                 <label>{{localize "WITCHER.Enhancement.Slashing"}}<input class="damage-type"
-                                                                         title="{{localize 'WITCHER.Armor.slashing'}}"
-                                                                         type="checkbox" id="slashing" {{checked
-                            item.system.type.slashing}}/></label>
+                        title="{{localize 'WITCHER.Armor.slashing'}}" type="checkbox" id="slashing" {{checked
+                            item.system.type.slashing}} /></label>
                 <label>{{localize "WITCHER.Enhancement.Piercing"}}<input class="damage-type"
-                                                                         title="{{localize 'WITCHER.Armor.piercing'}}"
-                                                                         type="checkbox" id="piercing" {{checked
-                            item.system.type.piercing}}/></label>
+                        title="{{localize 'WITCHER.Armor.piercing'}}" type="checkbox" id="piercing" {{checked
+                            item.system.type.piercing}} /></label>
                 <label>{{localize "WITCHER.Enhancement.Bludgeoning"}}<input class="damage-type" title="{{localize
                         'WITCHER.Armor.bludgeoning'}}" type="checkbox" id="bludgeoning" {{checked
-                        item.system.type.bludgeoning}}/></label>
+                        item.system.type.bludgeoning}} /></label>
                 <label>{{localize "WITCHER.Enhancement.Elemental"}}<input class="damage-type"
-                                                                          title="{{localize 'WITCHER.Armor.elemental'}}"
-                                                                          type="checkbox" id="elemental" {{checked
-                            item.system.type.elemental}}/></label>
+                        title="{{localize 'WITCHER.Armor.elemental'}}" type="checkbox" id="elemental" {{checked
+                            item.system.type.elemental}} /></label>
             </td>
             {{#unless item.system.isAmmo}}
                 <td>
-                    <input type="number" name="system.accuracy" value="{{item.system.accuracy}}" data-dtype="Number"/>
+                    <input type="number" name="system.accuracy" value="{{item.system.accuracy}}" data-dtype="Number" />
                 </td>
             {{/unless}}
             <td>
@@ -93,9 +90,9 @@
                     {{/select}}
                 </select>
             </td>
-            <td><input type="number" name="system.reliable" value="{{item.system.reliable}}" data-dtype="Number"/></td>
+            <td><input type="number" name="system.reliable" value="{{item.system.reliable}}" data-dtype="Number" /></td>
             <td><input type="number" name="system.maxReliability" value="{{item.system.maxReliability}}"
-                       data-dtype="Number"/></td>
+                    data-dtype="Number" /></td>
             {{#unless item.system.isAmmo}}
                 <td>
                     <select name="system.hands" id="hands-select">
@@ -117,9 +114,9 @@
             </td>
             {{#unless item.system.isAmmo}}
                 <td><input type="number" name="system.enhancements" value="{{item.system.enhancements}}"
-                           data-dtype="Number"/></td>
+                        data-dtype="Number" /></td>
                 <td><input type="number" name="system.rateOfFire" value="{{item.system.rateOfFire}}"
-                           data-dtype="Number"/></td>
+                        data-dtype="Number" /></td>
             {{/unless}}
         </tr>
     </table>
@@ -132,10 +129,10 @@
                 </tr>
                 <tr>
                     <td>
-                        <input type="text" name="system.damage" placeholder="1d6+0" value="{{item.system.damage}}"/>
+                        <input type="text" name="system.damage" placeholder="1d6+0" value="{{item.system.damage}}" />
                     </td>
                     <td>
-                        <b><input type="text" name="system.range" placeholder="0m" value="{{item.system.range}}"/></b>
+                        <b><input type="text" name="system.range" placeholder="0m" value="{{item.system.range}}" /></b>
                     </td>
                 </tr>
             </table>
@@ -158,16 +155,16 @@
                     </th>
                     <td class="list-item" data-id="{{effect.id}}">
                         <input class="list-edit item-effect" data-field="name"
-                               placeholder="{{localize 'WITCHER.table.Name'}}" type="text" value="{{effect.name}}"/>
+                            placeholder="{{localize 'WITCHER.table.Name'}}" type="text" value="{{effect.name}}" />
                     </td>
                     <td class="list-item" data-id="{{effect.id}}">
-                        <select class="list-edit item-effect" data-field="statusEffect"> 
+                        <select class="list-edit item-effect" data-field="statusEffect">
                             {{selectOptions ../config.statusEffects blank='' selected=effect.statusEffect nameAttr='id' valueAttr="id" labelAttr="label" localize=true}}
                         </select>
                     </td>
                     <td class="list-item" data-id="{{effect.id}}">
                         <input class="list-edit" data-field="percentage" type="number" placeholder="%"
-                               value="{{effect.percentage}}" data-dtype="Number"/>
+                            value="{{effect.percentage}}" data-dtype="Number" />
                     </td>
                 </tr>
             {{/each}}
