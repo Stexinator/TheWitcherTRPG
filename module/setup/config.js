@@ -565,6 +565,11 @@ WITCHER.statusEffects = [
     icon: 'icons/svg/poison.svg',
   },
   {
+    id: 'prone',
+    label: 'WITCHER.statusEffect.prone',
+    icon: 'icons/svg/falling.svg',
+  },
+  {
     id: 'bleed',
     label: 'WITCHER.statusEffect.bleed',
     icon: 'icons/svg/blood.svg',
@@ -577,7 +582,7 @@ WITCHER.statusEffects = [
   {
     id: 'staggered',
     label: 'WITCHER.statusEffect.staggered',
-    icon: 'icons/svg/falling.svg',
+    icon: 'icons/svg/sword.svg',
   },
   {
     id: 'intoxication',
@@ -609,5 +614,49 @@ WITCHER.statusEffects = [
     label: 'WITCHER.statusEffect.shielded',
     icon: 'icons/svg/mage-shield.svg',
   },
- 
+  {
+    id: 'invisible',
+    label: 'WITCHER.statusEffect.invisible',
+    icon: 'icons/svg/invisible.svg',
+  },
+  {
+    id: 'unconscious',
+    label: 'WITCHER.statusEffect.unconscious',
+    icon: 'icons/svg/unconscious.svg',
+  },
+  {
+    id: 'grappled',
+    label: 'WITCHER.statusEffect.grappled',
+    icon: 'icons/svg/net.svg',
+  },
+  {
+    id: 'flying',
+    label: 'WITCHER.statusEffect.flying',
+    icon: 'icons/svg/wing.svg',
+  },
+  {
+    id: 'frightened',
+    label: 'WITCHER.statusEffect.frightened',
+    icon: 'icons/svg/terror.svg',
+  },
+  {
+    id: 'aiming',
+    label: 'WITCHER.statusEffect.aiming',
+    icon: 'icons/svg/target.svg',
+  },
+  {
+    id: 'deaf',
+    label: 'WITCHER.statusEffect.deaf',
+    icon: 'icons/svg/deaf.svg',
+  },
+  {
+    id: 'reducedVision',
+    label: 'WITCHER.statusEffect.reducedVision',
+    icon: 'systems/TheWitcherTRPG/assets/images/statusEffects/visored-helm.svg',
+  },
+  {
+    id: 'holdAction',
+    label: 'WITCHER.statusEffect.holdAction',
+    icon: 'systems/TheWitcherTRPG/assets/images/statusEffects/uncertainty.svg',
+  },
 ]

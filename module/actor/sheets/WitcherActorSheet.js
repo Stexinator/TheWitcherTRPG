@@ -1655,7 +1655,7 @@ export default class WitcherActorSheet extends ActorSheet {
             if (item.system.enhancementItems) {
               item.system.enhancementItems.forEach(element => {
                 if (element && JSON.stringify(element) != '{}') {
-                  let enhancement = this.actor.items.get(element._id);
+                  let enhancement = this.actor.items.get(element.id);
                   allEffects.push(...enhancement.system.effects)
                 }
               });

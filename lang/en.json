@@ -983,6 +983,7 @@
       "fire": "Fire",
       "stun": "Stun",
       "poison": "Poison",
+      "prone": "Prone",
       "bleed": "Bleed",
       "freeze": "Freeze",
       "staggered": "Staggered",
@@ -991,7 +992,16 @@
       "nausea": "Nausea",
       "suffocation": "Suffocation",
       "blinded": "Blinded",
-      "shielded": "Shielded"
+      "shielded": "Shielded",
+      "invisible": "Invisible",
+      "unconscious" : "Unconscious",
+      "grappled" : "Grappled",
+      "flying" : "Flying",
+      "frightened" : "Frightened",
+      "aiming" : "Aiming",
+      "deaf" : "Deaf",
+      "reducedVision" : "Reduced Vision",
+      "holdAction" : "Hold Action"
     }
   }
 }
