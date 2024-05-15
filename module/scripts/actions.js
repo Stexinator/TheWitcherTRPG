@@ -49,7 +49,6 @@ async function ApplyDamage(actor, dmgType, location, totalDamage) {
     <label>${game.i18n.localize("WITCHER.Damage.silverDmg")}: <select name="silverDmg">${silverOptions}</select></label><br />`
 
   let cancel = true;
-  let damageType = dmgType.capitalize();
   let resistSilver = false;
   let resistMeteorite = false;
   let newLocation = false;

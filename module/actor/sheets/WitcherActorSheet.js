@@ -1635,7 +1635,7 @@ export default class WitcherActorSheet extends ActorSheet {
               });
             }
 
-            let allEffects = item.system.effects
+            let allEffects = foundry.utils.deepClone(item.system.effects)
             if (ammunition) {
               let item = this.actor.items.get(ammunition);
               let newQuantity = item.system.quantity - 1;

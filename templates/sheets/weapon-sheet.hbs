@@ -140,11 +140,14 @@
                 </tr>
             </table>
         {{/unless}}
+    </div>
+    <div class="flex">
         <table class="item-bottom-table">
             <tr>
                 <th><a class="add-effect" title="{{localize 'WITCHER.Item.AddEffect'}}"><i class="fas fa-plus"></i></a>
                 </th>
                 <th>{{localize "WITCHER.Item.Effect"}}</th>
+                <th>{{localize "WITCHER.Item.statusEffect"}}</th>
                 <th><label>{{localize "WITCHER.Percentage"}}</label></th>
             </tr>
             {{#each item.system.effects as |effect name|}}
@@ -156,6 +159,11 @@
                     <td class="list-item" data-id="{{effect.id}}">
                         <input class="list-edit item-effect" data-field="name"
                                placeholder="{{localize 'WITCHER.table.Name'}}" type="text" value="{{effect.name}}"/>
+                    </td>
+                    <td class="list-item" data-id="{{effect.id}}">
+                        <select class="list-edit item-effect" data-field="statusEffect"> 
+                            {{selectOptions ../config.statusEffects blank='' selected=effect.statusEffect nameAttr='id' valueAttr="id" labelAttr="label" localize=true}}
+                        </select>
                     </td>
                     <td class="list-item" data-id="{{effect.id}}">
                         <input class="list-edit" data-field="percentage" type="number" placeholder="%"

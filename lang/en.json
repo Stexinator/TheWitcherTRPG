@@ -11,6 +11,7 @@
       "Weight": "Weight",
       "Cost": "Cost",
       "Effect": "Effects",
+      "statusEffect" : "Status Effect",
       "Quantity": "Quantity",
       "Description": "Description",
       "Attribute": "Attributes",

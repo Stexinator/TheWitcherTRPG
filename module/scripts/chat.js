@@ -137,17 +137,28 @@ export async function rollDamage(img, name, damageFormula, location, locationFor
   let damageTypeloc = damageType ? "WITCHER.Armor." + damageType : ""
   messageData.flavor += `<div><b>${game.i18n.localize("WITCHER.Dialog.damageType")}:</b> ${game.i18n.localize(damageTypeloc)} </div>`;
   messageData.flavor += `<div>${game.i18n.localize("WITCHER.Damage.RemoveSP")}</div>`;
+  
   if (effects && effects.length > 0) {
     messageData.flavor += `<b>${game.i18n.localize("WITCHER.Item.Effect")}:</b>`;
+    
     effects.forEach(element => {
-      messageData.flavor += `<div class="flex">${element.name}`;
+      messageData.flavor += `<div class="flex">`;
+      if(element.name != '') {
+        messageData.flavor += `<span>${element.name}</span>`;
+      }
+      if(element.statusEffect) {
+        let statusEffect = CONFIG.WITCHER.statusEffects.find(status => status.id == element.statusEffect);
+        messageData.flavor += `<img class='chat-icon' src='${statusEffect.icon}' /> <span>${game.i18n.localize(statusEffect.label)}</span>`;
+      }
       if (element.percentage) {
         let rollPercentage = getRandomInt(100);
         messageData.flavor += `<div>(${element.percentage}%) <b>${game.i18n.localize("WITCHER.Effect.Rolled")}:</b> ${rollPercentage}</div>`;
       }
+
       messageData.flavor += `</div>`;
     });
   }
+
   (await new Roll(damageFormula).evaluate()).toMessage(messageData)
 }
 

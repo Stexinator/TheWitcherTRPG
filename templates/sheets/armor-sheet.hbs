@@ -197,6 +197,11 @@
                                placeholder="{{localize "WITCHER.Item.Effect"}} {{localize "WITCHER.table.Name"}}"
                                data-field="name" type="text" value="{{effect.name}}"/>
                     </td>
+                    <td class="list-item" data-id="{{effect.id}}">
+                        <select class="list-edit item-effect" data-field="statusEffect"> 
+                            {{selectOptions ../config.statusEffects blank='' selected=effect.statusEffect nameAttr='id' valueAttr="id" labelAttr="label" localize=true}}
+                        </select>
+                    </td>
                 </tr>
             {{/each}}
         </table>
