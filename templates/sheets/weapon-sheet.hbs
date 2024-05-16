@@ -136,6 +136,18 @@
                     </td>
                 </tr>
             </table>
+            <div>
+                <input type="checkbox" id="armorPiercing" name="system.armorPiercing"
+                    {{checked item.system.armorPiercing}} />
+                <label for="armorPiercing">{{localize "WITCHER.Weapon.armorPiercing"}}</label>
+
+                <input type="checkbox" id="improvedArmorPiercing" name="system.improvedArmorPiercing"
+                    {{checked item.system.improvedArmorPiercing}} />
+                <label for="improvedArmorPiercing">{{localize "WITCHER.Weapon.improvedArmorPiercing"}}</label>
+
+                <input type="checkbox" id="ablating" name="system.ablating" {{checked item.system.ablating}} />
+                <label for="ablating">{{localize "WITCHER.Weapon.ablating"}}</label>
+            </div>
         {{/unless}}
     </div>
     <div class="flex">

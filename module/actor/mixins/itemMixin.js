@@ -1,4 +1,5 @@
-import { buttonDialog, rollDamage, extendedRoll } from "../../scripts/chat.js";
+import { buttonDialog, extendedRoll } from "../../scripts/chat.js";
+import { rollDamage } from "../../scripts/attack.js";
 import { addModifiers } from "../../scripts/witcher.js";
 import { RollConfig } from "../../scripts/rollConfig.js";
 
@@ -590,7 +591,6 @@ export let itemMixin = {
     let messageData = {
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flavor: `<h1> ${game.i18n.localize("WITCHER.Dialog.attack")}: ${item.name}</h1>`,
-      flags: item.getAttackSkillFlags(),
     }
 
     let ammunitions = ``
@@ -822,7 +822,6 @@ export let itemMixin = {
                 damageFormula += !displayRollDetails ? `+${customDmg}` : `+${customDmg}[${game.i18n.localize("WITCHER.Settings.Custom")}]`;
               }
               let touchedLocation = this.actor.getLocationObject(location);
-              let LocationFormula = touchedLocation.locationFormula;
               attFormula += !displayRollDetails
                 ? `${touchedLocation.modifier}`
                 : `${touchedLocation.modifier}[${touchedLocation.alias}]`;
@@ -833,21 +832,29 @@ export let itemMixin = {
 
               attFormula = addModifiers(modifiers, attFormula)
 
-              let effects = JSON.stringify(allEffects)
               messageData.flavor = `<div class="attack-message"><h1><img src="${item.img}" class="item-img" />${game.i18n.localize("WITCHER.Attack")}: ${item.name}</h1>`;
-              messageData.flavor += `<span>  ${game.i18n.localize("WITCHER.Armor.Location")}: ${touchedLocation.alias} = ${LocationFormula} </span>`;
+              messageData.flavor += `<span>  ${game.i18n.localize("WITCHER.Armor.Location")}: ${touchedLocation.alias} = ${touchedLocation.locationFormula} </span>`;
 
-              let touchedLocationJSON = JSON.stringify(touchedLocation);
-              messageData.flavor += `<button class="damage" data-img="${item.img}" data-dmg-type="${damageType}" data-name="${item.name}" data-dmg="${damageFormula}" data-location='${touchedLocationJSON}'  data-location-formula="${LocationFormula}" data-strike="${strike}" data-effects='${effects}'>${game.i18n.localize("WITCHER.table.Damage")}</button>`;
+              messageData.flavor += `<button class="damage">${game.i18n.localize("WITCHER.table.Damage")}</button>`;
 
               let config = new RollConfig()
               config.showResult = false
               let roll = await extendedRoll(attFormula, messageData, config)
 
+              let damage = {
+                formula: damageFormula,
+                type: damageType,
+                location: touchedLocation,
+                strike: strike,
+                effects: allEffects
+              }
               if (item.system.rollOnlyDmg) {
-                rollDamage(item.img, item.name, damageFormula, touchedLocation, LocationFormula, strike, allEffects, damageType)
+                rollDamage(item, damage)
               } else {
-                roll.toMessage(messageData);
+                let message = await roll.toMessage(messageData);
+
+                message.setFlag('TheWitcherTRPG', 'attack', item.getAttackSkillFlags())
+                message.setFlag('TheWitcherTRPG', 'damage', damage)
               }
             }
           }

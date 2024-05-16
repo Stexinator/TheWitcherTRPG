@@ -1,5 +1,6 @@
 import { WITCHER } from "./setup/config.js";
 import * as Chat from "./scripts/chat.js";
+import * as Attack from "./scripts/attack.js"
 import { registerSettings } from "./setup/settings.js";
 
 import WitcherItem from "./item/witcherItem.js";
@@ -62,7 +63,14 @@ Hooks.once("init", function () {
 });
 
 
-Hooks.on("renderChatLog", (app, html, data) => Chat.addChatListeners(html));
+Hooks.on("renderChatLog", (app, html, data) => {
+    Chat.addChatListeners(html)
+}
+);
+
+Hooks.on('renderChatMessage', (message, html, data) => {
+    Attack.chatMessageListeners(message, html)
+});
 
 /* -------------------------------------------- */
 /*  Hotbar Macros                               */
@@ -109,7 +117,7 @@ Hooks.once("dragRuler.ready", (SpeedProvider) => {
 
 Hooks.once("polyglot.init", (LanguageProvider) => {
     class FictionalGameSystemLanguageProvider extends LanguageProvider {
-        languages = { 
+        languages = {
             "common": { label: "Common", font: "Thorass", },
             "dwarven": { label: "Dwarven", font: "Dethek", },
             "elder": { label: "Elder Speech", font: "Espruar", }
@@ -181,8 +189,7 @@ async function createBoilerplateMacro(data, slot) {
             return ui.notifications.warn("You can only create macro buttons with the original character");
         }
         const command =
-            `actor = game.actors.get('${foundActor.id}');
-actor.rollItem("${weapon._id}")`;
+            `actor = game.actors.get('${foundActor.id}'); actor.rollItem("${weapon._id}")`;
         let macro = game.macros.find(m => (m.name === weapon.name) && (m.command === command));
         if (!macro) {
             macro = await Macro.create({
@@ -210,8 +217,7 @@ actor.rollItem("${weapon._id}")`;
             return ui.notifications.warn("You can only create macro buttons with the original character");
         }
         const command =
-            `actor = game.actors.get('${foundActor.id}');
-actor.rollSpell("${spell._id}")`;
+            `actor = game.actors.get('${foundActor.id}'); actor.rollSpell("${spell._id}")`;
         let macro = game.macros.find(m => (m.name === spell.name) && (m.command === command));
         if (!macro) {
             macro = await Macro.create({
@@ -237,14 +243,14 @@ Handlebars.registerHelper("getOwnedComponentCount", function (actor, componentNa
 });
 
 Handlebars.registerHelper("getSetting", function (setting) {
-  return game.settings.get("TheWitcherTRPG", setting);
+    return game.settings.get("TheWitcherTRPG", setting);
 });
 
 Handlebars.registerHelper("window", function (...props) {
-  props.pop();
-  return props.reduce((result, prop) => result[prop], window);
+    props.pop();
+    return props.reduce((result, prop) => result[prop], window);
 });
 
 Handlebars.registerHelper("includes", function (csv, substr) {
-  return csv.split(",").map(v => v.trim()).includes(substr);
+    return csv.split(",").map(v => v.trim()).includes(substr);
 });
