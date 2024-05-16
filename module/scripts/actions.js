@@ -127,37 +127,37 @@ async function ApplyDamage(actor, totalDamage, messageId) {
   switch (location.name) {
     case "Head":
       armorSet = getArmors(headArmors)
-      values = getArmorSp(armorSet["lightArmor"]?.system.headStopping, armorSet["mediumArmor"]?.system.headStopping, armorSet["heavyArmor"]?.system.headStopping)
+      values = getArmorSp(armorSet, "headStopping")
       displaySP = values[0]
       totalSP = values[1]
       break;
     case "Torso":
       armorSet = getArmors(torsoArmors)
-      values = getArmorSp(armorSet["lightArmor"]?.system.torsoStopping, armorSet["mediumArmor"]?.system.torsoStopping, armorSet["heavyArmor"]?.system.torsoStopping)
+      values = getArmorSp(armorSet, "torsoStopping")
       displaySP = values[0]
       totalSP = values[1]
       break;
     case "R. Arm":
       armorSet = getArmors(torsoArmors)
-      values = getArmorSp(armorSet["lightArmor"]?.system.rightArmStopping, armorSet["mediumArmor"]?.system.rightArmStopping, armorSet["heavyArmor"]?.system.rightArmStopping)
+      values = getArmorSp(armorSet, "rightArmStopping")
       displaySP = values[0]
       totalSP = values[1]
       break;
     case "L. Arm":
       armorSet = getArmors(torsoArmors)
-      values = getArmorSp(armorSet["lightArmor"]?.system.leftArmStopping, armorSet["mediumArmor"]?.system.leftArmStopping, armorSet["heavyArmor"]?.system.leftArmStopping)
+      values = getArmorSp(armorSet, "leftArmStopping")
       displaySP = values[0]
       totalSP = values[1]
       break;
     case "R. Leg":
       armorSet = getArmors(legArmors)
-      values = getArmorSp(armorSet["lightArmor"]?.system.rightLegStopping, armorSet["mediumArmor"]?.system.rightLegStopping, armorSet["heavyArmor"]?.system.rightLegStopping)
+      values = getArmorSp(armorSet, "rightLegStopping")
       displaySP = values[0]
       totalSP = values[1]
       break;
     case "L. Leg":
       armorSet = getArmors(legArmors)
-      values = getArmorSp(armorSet["lightArmor"]?.system.leftLegStopping, armorSet["mediumArmor"]?.system.leftLegStopping, armorSet["heavyArmor"]?.system.leftLegStopping)
+      values = getArmorSp(armorSet, "leftLegStopping")
       displaySP = values[0]
       totalSP = values[1]
       break;
@@ -229,15 +229,8 @@ async function ApplyDamage(actor, totalDamage, messageId) {
     rollResult.toMessage(messageData)
     return
   }
-  //todo use location.locationFormula
-  switch (location.name) {
-    case "Head": totalDamage *= 3; break;
-    case "R. Arm":
-    case "L. Arm":
-    case "R. Leg":
-    case "L. Leg":
-    case "Tail/Wing": totalDamage *= 0.5; break;
-  }
+
+  totalDamage *= location.locationFormula
   let infoAfterLocation = totalDamage
 
   let ignoreArmorResistance = damageOptions.armorPiercing || damageOptions.improvedArmorPiercing;
@@ -449,7 +442,11 @@ function getArmors(armors) {
   };
 }
 
-function getArmorSp(lightArmorSP, mediumArmorSP, heavyArmorSP) {
+function getArmorSp(armorSet, location) {
+  return getStackedArmorSp(armorSet["lightArmor"]?.system[location], armorSet["mediumArmor"]?.system[location], armorSet["heavyArmor"]?.system[location])
+}
+
+function getStackedArmorSp(lightArmorSP, mediumArmorSP, heavyArmorSP) {
   let totalSP = 0
   let displaySP = ""
 
