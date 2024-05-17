@@ -1,3 +1,6 @@
+import { genId } from "../../scripts/witcher.js";
+import { WITCHER } from "../../setup/config.js";
+
 export let critMixin = {
 
     async _onCritAdd(event) {
