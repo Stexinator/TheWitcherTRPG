@@ -302,17 +302,17 @@ WITCHER.skillMap = {
     },
     commonsp: {
         attribute: WITCHER.statMap.int,
-        label: "WITCHER.SkIntCommon",
+        label: "WITCHER.SkIntCommonLable",
         name: "commonsp",
     },
     eldersp: {
         attribute: WITCHER.statMap.int,
-        label: "WITCHER.SkIntElder",
+        label: "WITCHER.SkIntElderLable",
         name: "eldersp",
     },
     dwarven: {
         attribute: WITCHER.statMap.int,
-        label: "WITCHER.SkIntDwarven",
+        label: "WITCHER.SkIntDwarvenLable",
         name: "dwarven",
     },
     monster: {
@@ -332,7 +332,7 @@ WITCHER.skillMap = {
     },
     tactics: {
         attribute: WITCHER.statMap.int,
-        label: "WITCHER.SkIntTactics",
+        label: "WITCHER.SkIntTacticsLable",
         name: "tactics",
     },
     teaching: {
@@ -394,7 +394,7 @@ WITCHER.skillMap = {
     },
     hexweave: {
         attribute: WITCHER.statMap.will,
-        label: "WITCHER.SkWillHex",
+        label: "WITCHER.SkWillHexLable",
         name: "hexweave",
     },
     intimidation: {
@@ -404,12 +404,12 @@ WITCHER.skillMap = {
     },
     spellcast: {
         attribute: WITCHER.statMap.will,
-        label: "WITCHER.SkWillSpellcast",
+        label: "WITCHER.SkWillSpellcastLable",
         name: "spellcast",
     },
     resistmagic: {
         attribute: WITCHER.statMap.will,
-        label: "WITCHER.SkWillResistMag",
+        label: "WITCHER.SkWillResistMagLable",
         name: "resistmagic",
     },
     resistcoerc: {
@@ -419,7 +419,7 @@ WITCHER.skillMap = {
     },
     ritcraft: {
         attribute: WITCHER.statMap.will,
-        label: "WITCHER.SkWillRitCraft",
+        label: "WITCHER.SkWillRitCraftLable",
         name: "ritcraft",
     },
 
@@ -451,12 +451,12 @@ WITCHER.skillMap = {
 
     alchemy: {
         attribute: WITCHER.statMap.cra,
-        label: "WITCHER.SkCraAlchemy",
+        label: "WITCHER.SkCraAlchemyLable",
         name: "alchemy",
     },
     crafting: {
         attribute: WITCHER.statMap.cra,
-        label: "WITCHER.SkCraCrafting",
+        label: "WITCHER.SkCraCraftingLable",
         name: "crafting",
     },
     disguise: {
@@ -481,7 +481,7 @@ WITCHER.skillMap = {
     },
     trapcraft: {
         attribute: WITCHER.statMap.cra,
-        label: "WITCHER.SkCraTrapCraft",
+        label: "WITCHER.SkCraTrapCraftLable",
         name: "trapcraft",
     },
 
