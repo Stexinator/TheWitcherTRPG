@@ -972,7 +972,7 @@
       "successDamage": "Success Damage",
       "failDamage": "Fail Damage"
     },
-    "statusEffect": {
+    "statusEffects": {
       "fire": "Fire",
       "stun": "Stun",
       "poison": "Poison",
@@ -995,6 +995,11 @@
       "deaf": "Deaf",
       "reducedVision": "Reduced Vision",
       "holdAction": "Hold Action"
+    },
+    "armorEffects": {
+      "fireResistance": "Fire Resistance",
+      "poisonResistance": "Poison Resistance",
+      "bleedResistance": "Bleed Resistance"
     }
   }
 }
