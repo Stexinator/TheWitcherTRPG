@@ -579,6 +579,7 @@
       "Type.Vampire": "Vampire",
       "Resistances": "Resistances",
       "Immunities": "Immunities",
+      "ImmunitiesStatusEffects": "Immunities to Status Effects",
       "Susceptibilities": "Susceptibilities",
       "Senses": "Senses",
       "exportLoot": "Export To loot",
