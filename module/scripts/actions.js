@@ -14,7 +14,7 @@ async function ApplyDamage(actor, totalDamage, messageId) {
 
   let naturalArmors = armors.filter(n => n.system.type == "Natural")
 
-  let damageTypeloc = `WITCHER.Armor.${damage.damageType}`;
+  let damageTypeloc = `WITCHER.Armor.${damage.type}`;
 
   const locationOptions = `
     <option value="Empty"></option>
@@ -162,18 +162,6 @@ async function ApplyDamage(actor, totalDamage, messageId) {
       totalSP = values[1]
       break;
   }
-  naturalArmors.forEach(armor => {
-    //todo refactor
-    switch (location.name) {
-      case "Head": totalSP = Number(totalSP) + Number(armor?.system.headStopping); displaySP += `+${armor?.system.headStopping}`; break;
-      case "Torso": totalSP = Number(totalSP) + Number(armor?.system.torsoStopping); displaySP += `+${armor?.system.torsoStopping}`; break;
-      case "R. Arm": totalSP = Number(totalSP) + Number(armor?.system.rightArmStopping); displaySP += `+${armor?.system.rightArmStopping}`; break;
-      case "L. Arm": totalSP = Number(totalSP) + Number(armor?.system.leftArmStopping); displaySP += `+${armor?.system.leftArmStopping}`; break;
-      case "R. Leg": totalSP = Number(totalSP) + Number(armor?.system.rightLegStopping); displaySP += `+${armor?.system.rightLegStopping}`; break;
-      case "L. Leg": totalSP = Number(totalSP) + Number(armor?.system.leftLegStopping); displaySP += `+${armor?.system.leftLegStopping}`; break;
-    }
-    displaySP += `[${game.i18n.localize("WITCHER.Armor.Natural")}]`;
-  })
 
   if (actor.type == "monster") {
     //todo refactor
@@ -199,6 +187,19 @@ async function ApplyDamage(actor, totalDamage, messageId) {
         break;
     }
   }
+
+  naturalArmors.forEach(armor => {
+    //todo refactor
+    switch (location.name) {
+      case "Head": totalSP = Number(totalSP) + Number(armor?.system.headStopping); displaySP += `+${armor?.system.headStopping}`; break;
+      case "Torso": totalSP = Number(totalSP) + Number(armor?.system.torsoStopping); displaySP += `+${armor?.system.torsoStopping}`; break;
+      case "R. Arm": totalSP = Number(totalSP) + Number(armor?.system.rightArmStopping); displaySP += `+${armor?.system.rightArmStopping}`; break;
+      case "L. Arm": totalSP = Number(totalSP) + Number(armor?.system.leftArmStopping); displaySP += `+${armor?.system.leftArmStopping}`; break;
+      case "R. Leg": totalSP = Number(totalSP) + Number(armor?.system.rightLegStopping); displaySP += `+${armor?.system.rightLegStopping}`; break;
+      case "L. Leg": totalSP = Number(totalSP) + Number(armor?.system.leftLegStopping); displaySP += `+${armor?.system.leftLegStopping}`; break;
+    }
+    displaySP += `[${game.i18n.localize("WITCHER.Armor.Natural")}]`;
+  })
 
   if (actor.type == "character" && !armorSet && !naturalArmors) {
     return
@@ -234,7 +235,7 @@ async function ApplyDamage(actor, totalDamage, messageId) {
   let infoAfterLocation = totalDamage
 
   let ignoreArmorResistance = damageOptions.armorPiercing || damageOptions.improvedArmorPiercing;
-  if (!ignoreArmorResistance && (armorSet["lightArmor"]?.system[damage.damageType] || armorSet["mediumArmor"]?.system[damage.damageType] || armorSet["heavyArmor"]?.system[damage.damageType])) {
+  if (!ignoreArmorResistance && (armorSet["lightArmor"]?.system[damage.type] || armorSet["mediumArmor"]?.system[damage.type] || armorSet["heavyArmor"]?.system[damage.type] || naturalArmors.find(armor => armor.system[damage.type]))) {
     totalDamage *= 0.5
   }
 
