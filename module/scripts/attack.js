@@ -58,18 +58,25 @@ export async function rollDamage(item, damage) {
     if (damage.effects && damage.effects.length > 0) {
         messageData.flavor += `<b>${game.i18n.localize("WITCHER.Item.Effect")}:</b>`;
 
-        damage.effects.forEach(element => {
+        damage.effects.forEach(effect => {
             messageData.flavor += `<div class="flex gap">`;
-            if (element.name != '') {
-                messageData.flavor += `<span>${element.name}</span>`;
+            if (effect.name != '') {
+                messageData.flavor += `<span>${effect.name}</span>`;
             }
-            if (element.statusEffect) {
-                let statusEffect = CONFIG.WITCHER.statusEffects.find(status => status.id == element.statusEffect);
+            if (effect.statusEffect) {
+                let statusEffect = CONFIG.WITCHER.statusEffects.find(status => status.id == effect.statusEffect);
                 messageData.flavor += `<img class='chat-icon' src='${statusEffect.icon}' /> <span>${game.i18n.localize(statusEffect.label)}</span>`;
             }
-            if (element.percentage) {
+            if (effect.percentage) {
                 let rollPercentage = getRandomInt(100);
-                messageData.flavor += `<div>(${element.percentage}%) <b>${game.i18n.localize("WITCHER.Effect.Rolled")}:</b> ${rollPercentage}</div>`;
+                messageData.flavor += `<div data-tooltip='${game.i18n.localize("WITCHER.Effect.Rolled")}: ${rollPercentage}'>(${effect.percentage}%) `;
+                if (rollPercentage > effect.percentage) {
+                    messageData.flavor += `<span class="percentageFailed">${game.i18n.localize("WITCHER.Effect.Failed")}</span>`
+                }
+                else {
+                    messageData.flavor += `<span class="percentageSuccess">${game.i18n.localize("WITCHER.Effect.Applied")}</span>`;
+                }
+                messageData.flavor += '</div>'
             }
 
             messageData.flavor += `</div>`;

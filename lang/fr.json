@@ -576,6 +576,6 @@
     "Shield.Broken": "Votre bouclier est maintenant brisée",
     "Settings.Adrenaline": "Utiliser la règle optionnelle de l'Adrénaline",
     "Settings.AdrenalineDetails": "l'adrénaline est la volonté de continuer a vous battre dans des situations difficiles.",
-    "effect.isActive": "Est Actif"    
+    "Effect.isActive": "Est Actif"
   }
 }

@@ -826,7 +826,6 @@
     "Reputation": "Reputation",
     "NoDamageSpecified": "Damage is not specified",
     "Shield.Broken": "Your shield is now broken",
-    "Effect.Rolled": "Rolled",
     "SKill.profession": "Prof",
     "SKill.pickup": "Pick",
     "SKill.learn": "Learn",
@@ -928,9 +927,12 @@
       "BribeEffect": "For every 50 Crowns you offer, you gain +1 to your empathetic Verbal Combat rolls for the rest of the fight if you succeed on your Gambling roll.",
       "None": "NONE"
     },
-    "effect": {
+    "Effect": {
       "isActive": "Is Active",
-      "isHUD": "Is effect on HUD"
+      "isHUD": "Is effect on HUD",
+      "Rolled": "Rolled",
+      "Applied": "Applied",
+      "Failed": "Failed"
     },
     "character.socialStanding": "Social Standing",
     "socialStanding": {

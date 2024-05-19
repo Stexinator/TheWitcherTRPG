@@ -760,6 +760,6 @@
     "verbalCombat.Bribe": "Sobornar",
     "verbalCombat.BribeEffect": "Si tienes éxito, por cada 50 coronas que ofrezcas, recibes un +1 a tus tiradas de Combate Verbal durante el resto del enfrentamiento.",
     "verbalCombat.None": "Ninguno",
-    "effect.isActive": "Está activo"    
+    "Effect.isActive": "Está activo"
   }
 }
