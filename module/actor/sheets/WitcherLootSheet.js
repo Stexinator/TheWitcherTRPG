@@ -13,7 +13,7 @@ export default class WitcherMonsterSheet extends ActorSheet {
     });
   }
 
-   getData() {
+  getData() {
     let context = super.getData();
     context.system = context.actor.system;
     context.weapons = context.actor.getList("weapon");
@@ -34,7 +34,7 @@ export default class WitcherMonsterSheet extends ActorSheet {
     return context;
   }
 
-   activateListeners(html) {
+  activateListeners(html) {
     super.activateListeners(html);
 
     html.find(".inline-edit").change(this._onInlineEdit.bind(this));
@@ -122,7 +122,7 @@ export default class WitcherMonsterSheet extends ActorSheet {
   _onInlineEdit(event) {
     event.preventDefault();
     let element = event.currentTarget;
-    let itemId = element.closest(".item").dataset.itemId;   
+    let itemId = element.closest(".item").dataset.itemId;
     let item = this.actor.items.get(itemId);
     let field = element.dataset.field;
     // Edit checkbox values
@@ -268,8 +268,8 @@ export default class WitcherMonsterSheet extends ActorSheet {
       }
 
       if (buyerActor) {
-        buyerActor.update({ [`system.currency.${coinType}`]: buyerActor.system.currency[coinType] - totalCost }) 
-       }
+        buyerActor.update({ [`system.currency.${coinType}`]: buyerActor.system.currency[coinType] - totalCost })
+      }
       this.actor.update({ [`system.currency.${coinType}`]: Number(this.actor.system.currency[coinType]) + Number(totalCost) })
     }
   }

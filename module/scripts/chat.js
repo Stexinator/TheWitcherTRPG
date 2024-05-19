@@ -1,8 +1,6 @@
 import { ExecuteDefence, BlockAttack, ApplyDamage } from "../scripts/actions.js";
-import { getRandomInt } from "./witcher.js";
 
 export function addChatListeners(html) {
-  html.on('click', "button.damage", onDamage)
   html.on('click', "button.shield", onShield)
   html.on('click', "button.heal", onHeal)
   html.on('click', "a.crit-roll", onCritRoll)
@@ -63,27 +61,6 @@ async function onCritRoll(event) {
   rollResult.toMessage(messageData)
 }
 
-function onDamage(event) {
-  let img = event.currentTarget.getAttribute("data-img")
-  let name = event.currentTarget.getAttribute("data-name")
-  let damageFormula = event.currentTarget.getAttribute("data-dmg")
-  let touchedLocation = JSON.parse(event.currentTarget.getAttribute("data-location"))
-  let damageType = event.currentTarget.getAttribute("data-dmg-type")
-  let locationFormula = ""
-  let strike = ""
-  if (touchedLocation.name != "randomSpell") {
-    locationFormula = event.currentTarget.getAttribute("data-location-formula")
-    strike = event.currentTarget.getAttribute("data-strike")
-  } else {
-    let actorName = event.currentTarget.closest("header").getElementsByClassName("message-sender")[0].innerHTML;
-    let actor = game.actors.getName(actorName) || game.actors[0];
-    touchedLocation = actor.getLocationObject("randomHuman");
-    locationFormula = touchedLocation.locationFormula;
-  }
-  let effects = JSON.parse(event.currentTarget.getAttribute("data-effects"))
-  rollDamage(img, name, damageFormula, touchedLocation, locationFormula, strike, effects, damageType);
-}
-
 function onShield(event) {
   let shield = event.currentTarget.getAttribute("data-shield")
   let actorUuid = event.currentTarget.getAttribute("data-actor")
@@ -95,7 +72,7 @@ function onShield(event) {
   let messageData = {
     user: game.user.id,
     content: messageContent,
-    speaker: ChatMessage.getSpeaker({actor: actor}),
+    speaker: ChatMessage.getSpeaker({ actor: actor }),
   }
   ChatMessage.create(messageData);
 }
@@ -110,45 +87,13 @@ function onHeal(event) {
   heal = (target.system.derivedStats.hp.value + heal) > target.system.derivedStats.hp.max ? (target.system.derivedStats.hp.max - target.system.derivedStats.hp.value) : heal;
   target?.update({ 'system.derivedStats.hp.value': target.system.derivedStats.hp.value + heal });
 
-  let messageContent = `${actor.name} ${game.i18n.format("WITCHER.Combat.healed", {heal: heal, target: target.name})}`;
+  let messageContent = `${actor.name} ${game.i18n.format("WITCHER.Combat.healed", { heal: heal, target: target.name })}`;
   let messageData = {
     user: game.user.id,
     content: messageContent,
-    speaker: ChatMessage.getSpeaker({actor: actor}),
+    speaker: ChatMessage.getSpeaker({ actor: actor }),
   }
   ChatMessage.create(messageData);
-}
-
-export async function rollDamage(img, name, damageFormula, location, locationFormula, strike, effects, damageType) {
-  let messageData = {}
-  let locationJSON = JSON.stringify(location);
-  messageData.flavor = `<div class="damage-message" data-location='${locationJSON}' data-dmg-type="${damageType}" data-strike="${strike}" data-effects='${effects}'><h1><img src="${img}" class="item-img" />${game.i18n.localize("WITCHER.table.Damage")}: ${name} </h1>`;
-
-  if (damageFormula == "") {
-    damageFormula = "0"
-    ui.notifications.error(`${game.i18n.localize("WITCHER.NoDamageSpecified")}`)
-  }
-
-  if (strike == "strong") {
-    damageFormula = `(${damageFormula})*2`;
-    messageData.flavor += `<div>${game.i18n.localize("WITCHER.Dialog.strikeStrong")}</div>`;
-  }
-  messageData.flavor += `<div><b>${game.i18n.localize("WITCHER.Dialog.attackLocation")}:</b> ${location.alias} = ${locationFormula} </div>`;
-  let damageTypeloc = damageType ? "WITCHER.Armor." + damageType : ""
-  messageData.flavor += `<div><b>${game.i18n.localize("WITCHER.Dialog.damageType")}:</b> ${game.i18n.localize(damageTypeloc)} </div>`;
-  messageData.flavor += `<div>${game.i18n.localize("WITCHER.Damage.RemoveSP")}</div>`;
-  if (effects && effects.length > 0) {
-    messageData.flavor += `<b>${game.i18n.localize("WITCHER.Item.Effect")}:</b>`;
-    effects.forEach(element => {
-      messageData.flavor += `<div class="flex">${element.name}`;
-      if (element.percentage) {
-        let rollPercentage = getRandomInt(100);
-        messageData.flavor += `<div>(${element.percentage}%) <b>${game.i18n.localize("WITCHER.Effect.Rolled")}:</b> ${rollPercentage}</div>`;
-      }
-      messageData.flavor += `</div>`;
-    });
-  }
-  (await new Roll(damageFormula).evaluate()).toMessage(messageData)
 }
 
 /**
@@ -232,6 +177,7 @@ function isFumble(roll) {
 export function addChatMessageContextOptions(html, options) {
   let canDefend = li => li.find(".attack-message").length
   let canApplyDamage = li => li.find(".damage-message").length
+
   options.push(
     {
       name: `${game.i18n.localize("WITCHER.Context.applyDmg")}`,
@@ -250,9 +196,9 @@ export function addChatMessageContextOptions(html, options) {
           defenderActor = defender[0].actor
         }
         ApplyDamage(defenderActor,
-          li.find(".damage-message")[0].dataset.dmgType,
-          li.find(".damage-message")[0].dataset.location,
-          li.find(".dice-total")[0].innerText)
+          li.find(".dice-total")[0].innerText,
+          li[0].dataset.messageId
+        )
       }
     },
     {

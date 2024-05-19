@@ -12,10 +12,8 @@ export default class WitcherWeaponSheet extends WitcherItemSheet {
   getData() {
     const data = super.getData();
 
-    let appliedId = false;
     this.item.system.effects.forEach(effect => {
       if (effect.id == undefined) {
-        appliedId = true
         effect.id = genId()
       }
     });

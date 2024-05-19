@@ -32,9 +32,9 @@
                         {{/select}}
                     </select>
                 </td>
-                <td><input type="text" name="system.stopping" value="{{item.system.stopping}}" data-dtype="Number"/>
+                <td><input type="text" name="system.stopping" value="{{item.system.stopping}}" data-dtype="Number" />
                 </td>
-                <td><input type="checkbox" name="system.bludgeoning" {{checked item.system.bludgeoning}}/></td>
+                <td><input type="checkbox" name="system.bludgeoning" {{checked item.system.bludgeoning}} /></td>
                 <td><input type="checkbox" name="system.slashing" {{checked item.system.slashing}} /></td>
                 <td><input type="checkbox" name="system.piercing" {{checked item.system.piercing}} /></td>
             </tr>
@@ -51,10 +51,13 @@
         <div class="flex list-item" data-id="{{effect.id}}">
             <a class="remove-effect"><i class="fas fa-minus"></i></a>
             <textarea class="list-edit" rows=3 data-field="name">{{effect.name}}</textarea>
+            <select class="list-edit item-effect" data-field="statusEffect">
+                {{selectOptions ../config.statusEffects blank='' selected=effect.statusEffect nameAttr='id' valueAttr="id" labelAttr="label" localize=true}}
+            </select>
             <div class="flex">
                 <label>{{localize "WITCHER.Percentage"}}:</label>
                 <input class="list-edit" data-field="percentage" type="text" value="{{effect.percentage}}"
-                       data-dtype="Number"/>
+                    data-dtype="Number" />
                 %
             </div>
         </div>

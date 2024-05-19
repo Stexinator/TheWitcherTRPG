@@ -1,0 +1,8 @@
+.percentageFailed {
+    background-color: firebrick;
+    color: wheat;
+}
+
+.percentageSuccess {
+    background-color: greenyellow;
+}

@@ -26,10 +26,8 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
     super.activateListeners(html);
 
     html.find(".alchemy-potion").on("click", this._alchemyCraft.bind(this));
-    html.find(".crafting-craft").on("click", this._craftinCraft.bind(this));   
+    html.find(".crafting-craft").on("click", this._craftinCraft.bind(this));
   }
-
- 
 
   getData() {
     const context = super.getData();
@@ -128,9 +126,9 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
 
     context.mounts = items.filter(i => i.type == "mount");
     context.mountAccessories = items.filter(i => i.type == "valuable" && i.system.type == "mount-accessories");
-   }
+  }
 
-   async _alchemyCraft(event) {
+  async _alchemyCraft(event) {
     let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
     let itemId = event.currentTarget.closest(".item").dataset.itemId;
     let item = this.actor.items.get(itemId);
@@ -138,7 +136,7 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
     let content = `<label>${game.i18n.localize("WITCHER.Dialog.Crafting")} ${item.name}</label> <br />`;
 
     let messageData = {
-      speaker: ChatMessage.getSpeaker({actor: this.actor}),
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flavor: `<h1>Crafting</h1>`,
     }
 
@@ -229,7 +227,7 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
     let content = `<label>${game.i18n.localize("WITCHER.Dialog.Crafting")} ${item.name}</label> <br />`;
 
     let messageData = {
-      speaker: ChatMessage.getSpeaker({actor: this.actor}),
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
       flavor: `<h1>Crafting</h1>`,
     }
 

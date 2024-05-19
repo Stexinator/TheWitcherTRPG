@@ -15,12 +15,13 @@
 @import "./substances.css";
 @import "./weapon-roll.css";
 @import "./container-sheet.css";
+@import "./chat.css";
 
 @font-face {
-    font-family:'Thewitcher';
-    src:url('./fonts/thewitcher2.ttf');
+    font-family: 'Thewitcher';
+    src: url('./fonts/thewitcher2.ttf');
 }
 
-.witcher-style{
+.witcher-style {
     font-family: Thewitcher;
 }

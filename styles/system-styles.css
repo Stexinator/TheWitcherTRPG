@@ -2,8 +2,16 @@
   display: flex;
 }
 
+.gap {
+  gap: 10px;
+}
+
 .flex1 {
   flex: 1;
+}
+
+.chat-icon {
+  width: 2em;
 }
 
 

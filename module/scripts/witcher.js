@@ -294,13 +294,12 @@ function rollSkillCheck(actor, skillMapEntry) {
 	let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
 
 	let messageData = {
-		speaker: ChatMessage.getSpeaker({actor: actor}),
+		speaker: ChatMessage.getSpeaker({ actor: actor }),
 		flavor: `${attributeLabel}: ${skillLabel} Check`,
 	}
 
 	let rollFormula;
-
-	if(actor.system.dontAddAttr) {
+	if (actor.system.dontAddAttr) {
 		rollFormula = !displayRollDetails ? `1d10+${skillValue}` : `1d10+${skillValue}[${skillLabel}]`;
 	}
 	else {
@@ -328,21 +327,25 @@ function rollSkillCheck(actor, skillMapEntry) {
 		rollFormula = addModifiers(skill.modifiers, rollFormula)
 	}
 
-	let activeEffects = actor.getList("effect").filter(e => e.system.isActive);
-	activeEffects.forEach(item => {
-		item.system.skills.forEach(skill => {
-			if (skillLabel == game.i18n.localize(skill.skill)) {
-				if (skill.modifier.includes("/")) { rollFormula += !displayRollDetails ? `/${Number(skill.modifier.replace("/", ''))}` : `/${Number(skill.modifier.replace("/", ''))}[${item.name}]` }
-				else { rollFormula += !displayRollDetails ? `+${skill.modifier}` : `+${skill.modifier}[${item.name}]` }
-			}
-		})
-	});
-
 	let armorEnc = getArmorEcumbrance(actor)
 	if (armorEnc > 0 && (skillName == "hexweave" || skillName == "ritcraft" || skillName == "spellcast")) {
 		rollFormula += !displayRollDetails ? `-${armorEnc}` : `-${armorEnc}[${game.i18n.localize("WITCHER.Armor.EncumbranceValue")}]`
 	}
-	
+
+	let activeEffects = actor.getList("effect").filter(e => e.system.isActive);
+	activeEffects.forEach(item => {
+		item.system.skills.forEach(effectSkill => {
+			if (skillLabel == game.i18n.localize(effectSkill.skill)) {
+				if (effectSkill.modifier.includes("/")) {
+					rollFormula += !displayRollDetails ? `/${Number(effectSkill.modifier.replace("/", ''))}` : `/${Number(effectSkill.modifier.replace("/", ''))}[${item.name}]`
+				}
+				else {
+					rollFormula += !displayRollDetails ? `+${effectSkill.modifier}` : `+${effectSkill.modifier}[${item.name}]`
+				}
+			}
+		})
+	});
+
 	new Dialog({
 		title: `${game.i18n.localize("WITCHER.Dialog.Skill")}: ${skillLabel}`,
 		content: `<label>${game.i18n.localize("WITCHER.Dialog.attackCustom")}: <input name="customModifiers" value=0></label>`,
@@ -385,12 +388,12 @@ function calc_currency_weight(currency) {
 
 function addModifiers(modifiers, formula) {
 	let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
-	modifiers?.forEach(item => {
-		if (item.value < 0) {
-			formula += !displayRollDetails ? `${item.value}` : `${item.value}[${item.name}]`
+	modifiers?.forEach(mod => {
+		if (mod.value < 0) {
+			formula += !displayRollDetails ? `${mod.value}` : `${mod.value}[${mod.name}]`
 		}
-		if (item.value > 0) {
-			formula += !displayRollDetails ? `+${item.value}` : `+${item.value}[${item.name}]`
+		if (mod.value > 0) {
+			formula += !displayRollDetails ? `+${mod.value}` : `+${mod.value}[${mod.name}]`
 		}
 	});
 	return formula;
