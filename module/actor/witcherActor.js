@@ -1,6 +1,31 @@
 import { getRandomInt } from "../scripts/witcher.js";
+import { WITCHER } from "../setup/config.js";
 
 export default class WitcherActor extends Actor {
+
+  // prepareDerivedData() {
+  //   super.prepareDerivedData()
+
+  //   let armorEffects = this.getList("armor")
+  //     .filter(armor => armor.system.equipped)
+  //     .map(armor => armor.system.effects)
+  //     .flat()
+  //     .filter(effect => effect.statusEffect)
+  //     .map(effect => WITCHER.armorEffects.find(armorEffect => armorEffect.id == effect.statusEffect))
+
+  //   armorEffects.forEach(effect => {
+  //     if (effect.refersStatusEffect && !effect.addsResistance && !this.statuses.find(effect.id)) {
+  //       this.statuses.add(effect.id)
+  //       const condition = CONFIG.statusEffects.find(e => e.id === "reducedVision");
+  //       console.log(this)
+  //       console.log(this.token)
+  //       //starts working with v12
+  //       this.toggleActiveEffect(condition);
+  //     }
+  //   });
+
+  // }
+
   prepareData() {
     super.prepareData();
   }
@@ -108,7 +133,7 @@ export default class WitcherActor extends Actor {
     if (newQuantity <= 0) {
       await this.items.get(itemId).delete()
     } else {
-      await foundItem.update({ 'system.quantity': newQuantity < 0 ? 0 : newQuantity })
+      await foundItem.update({ 'system.quantity': newQuantity })
     }
   }
 

@@ -59,7 +59,7 @@ export async function rollDamage(item, damage) {
         messageData.flavor += `<b>${game.i18n.localize("WITCHER.Item.Effect")}:</b>`;
 
         damage.effects.forEach(element => {
-            messageData.flavor += `<div class="flex">`;
+            messageData.flavor += `<div class="flex gap">`;
             if (element.name != '') {
                 messageData.flavor += `<span>${element.name}</span>`;
             }

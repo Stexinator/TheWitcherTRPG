@@ -414,8 +414,6 @@ export let itemMixin = {
     let itemId = element.closest(".item").dataset.itemId;
     let item = this.actor.items.get(itemId);
     let field = element.dataset.field;
-    console.log(item)
-    console.log(element.value)
     // Edit checkbox values
     let value = element.value
     if (value == "false") {

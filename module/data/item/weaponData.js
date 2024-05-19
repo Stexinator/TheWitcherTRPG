@@ -54,12 +54,14 @@ export default class WeaponData extends CommonItemData {
 
       enhancementItemIds.forEach(itemId => {
         let item = items.get(itemId);
-        this.enhancementItems.push({
-          name: item.name,
-          img: item.img,
-          system: item.system,
-          id: itemId,
-        })
+        if (item) {
+          this.enhancementItems.push({
+            name: item.name,
+            img: item.img,
+            system: item.system,
+            id: itemId,
+          })
+        }
       });
     }
   }
@@ -76,5 +78,7 @@ export default class WeaponData extends CommonItemData {
         }
       });
     }
+
+    this.effects?.forEach(effect => effect.percentage = parseInt(effect.percentage))
   }
 }
