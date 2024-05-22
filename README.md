@@ -46,6 +46,7 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 ### 1.028 ###
 #### General #####
 - v12 compatibility
+- when using v12 armor effects are automatically applied
 
 ### 1.027 ###
 #### General #####

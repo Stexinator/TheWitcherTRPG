@@ -3,28 +3,26 @@ import { WITCHER } from "../setup/config.js";
 
 export default class WitcherActor extends Actor {
 
-  // prepareDerivedData() {
-  //   super.prepareDerivedData()
+  prepareDerivedData() {
+    super.prepareDerivedData()
 
-  //   let armorEffects = this.getList("armor")
-  //     .filter(armor => armor.system.equipped)
-  //     .map(armor => armor.system.effects)
-  //     .flat()
-  //     .filter(effect => effect.statusEffect)
-  //     .map(effect => WITCHER.armorEffects.find(armorEffect => armorEffect.id == effect.statusEffect))
+    //v12 only functionality
+    if (this.toggleStatusEffect) {
+      let armorEffects = this.getList("armor")
+        .filter(armor => armor.system.equipped)
+        .map(armor => armor.system.effects)
+        .flat()
+        .filter(effect => effect.statusEffect)
+        .map(effect => WITCHER.armorEffects.find(armorEffect => armorEffect.id == effect.statusEffect))
 
-  //   armorEffects.forEach(effect => {
-  //     if (effect.refersStatusEffect && !effect.addsResistance && !this.statuses.find(effect.id)) {
-  //       this.statuses.add(effect.id)
-  //       const condition = CONFIG.statusEffects.find(e => e.id === "reducedVision");
-  //       console.log(this)
-  //       console.log(this.token)
-  //       //starts working with v12
-  //       this.toggleActiveEffect(condition);
-  //     }
-  //   });
+      armorEffects.forEach(effect => {
+        if (effect.refersStatusEffect && !effect.addsResistance && !this.statuses.find(status => status == effect.id)) {
+          this.toggleStatusEffect(effect.id);
+        }
+      });
+    }
 
-  // }
+  }
 
   prepareData() {
     super.prepareData();
