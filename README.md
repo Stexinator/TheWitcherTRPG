@@ -40,3 +40,58 @@ It also keeps tracks of your current stamina and Focuses
 This tab is used to choose your origin and create your background. 
 You can keep tracks of your life events, and also you can add multiple notes for your characters.  
 Those could be anything, maybe notes on specific NPC that they encounter, your critical wounds, short stories in your backgrounds, etc. 
+
+## Version History ##
+
+### 1.027 ###
+#### General #####
+- status effects from chat cards can be applied to selected token or user character with click on status (immunities are respected)
+
+#### Equipment #####
+- enhancement items can get the same status configuration like armor/weapon
+- ammunition can have weapon properties and contributes them
+
+### 1.026 ###
+
+#### General #####
+
+- chat templates show the result of effect rolls instead of the roll (hover for seeing the roll)
+- fixed issue with activating active effects
+- fixed HP of Barbegazi
+- monster immunities can be configured to contain status effects
+- adrenaline and notes should work as intended again
+- natural armor now applies resistances like other armor items
+
+#### Equipment #####
+- armor can be configured to have an armor specific effect
+- weapons and enchantments can be configured to apply an effect
+
+### 1.025 and older ###
+#### General #####
+- added custom status effects for system
+- various bug fixes
+- added shields for actors
+- added configuration to spells for heal and shield
+- effect per stamina (/STA) will automatically be calculated for you
+- added investigation sheet
+- unique item types (e.g. profession, race) will replace existing ones when dropping onto character
+- items with same name but different types can be dragged onto the character sheet (before the second items was ignored when of a different type)
+
+#### Monster & Loot ####
+- loot sheet shows missing lootable items
+- Monsters can equip armor like characters
+- added academic knowledge to monsters
+- added options to configure which knowledge boxes to show
+- added option to ignore attributes of monsters when rolling for skills (this will ignore modifiers to attributes)
+
+#### Equipment #####
+- add container (open the container items and drag & drop items in it)
+- glyphs can be added to armor
+- 
+
+#### Compendium #####
+- compendium added by Siryphas
+
+#### Code ####
+- overhaul of code base
+- migration to data types

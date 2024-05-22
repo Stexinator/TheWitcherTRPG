@@ -6,3 +6,8 @@
 .percentageSuccess {
     background-color: greenyellow;
 }
+
+.apply-status {
+    display: flex;
+    gap: 5px;
+}

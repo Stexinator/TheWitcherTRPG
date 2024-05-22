@@ -649,6 +649,11 @@ export let itemMixin = {
             let customDmg = html.find("[name=customDmg]")[0].value;
             let attacknumber = 1;
 
+            let damage = {
+              strike: strike,
+              type: damageType
+            };
+
             if (isExtraAttack) {
               let newSta = this.actor.system.derivedStats.sta.value - 3
 
@@ -666,6 +671,7 @@ export let itemMixin = {
               let newQuantity = item.system.quantity - 1;
               item.update({ "system.quantity": newQuantity })
               allEffects.push(...item.system.effects)
+              damage.ammunition = item;
             }
 
             if (item.isWeaponThrowable()) {
@@ -685,6 +691,7 @@ export let itemMixin = {
                 }
               });
             }
+            damage.effects = allEffects;
 
             if (strike == "fast") {
               attacknumber = 2;
@@ -821,10 +828,13 @@ export let itemMixin = {
               if (customDmg != "0") {
                 damageFormula += !displayRollDetails ? `+${customDmg}` : `+${customDmg}[${game.i18n.localize("WITCHER.Settings.Custom")}]`;
               }
+              damage.formula = damageFormula
+
               let touchedLocation = this.actor.getLocationObject(location);
               attFormula += !displayRollDetails
                 ? `${touchedLocation.modifier}`
                 : `${touchedLocation.modifier}[${touchedLocation.alias}]`;
+              damage.location = touchedLocation;
 
               if (strike == "joint" || strike == "strong") {
                 attFormula = !displayRollDetails ? `${attFormula}-3` : `${attFormula}-3[${game.i18n.localize("WITCHER.Dialog.attackStrike")}]`;
@@ -841,13 +851,6 @@ export let itemMixin = {
               config.showResult = false
               let roll = await extendedRoll(attFormula, messageData, config)
 
-              let damage = {
-                formula: damageFormula,
-                type: damageType,
-                location: touchedLocation,
-                strike: strike,
-                effects: allEffects
-              }
               if (item.system.rollOnlyDmg) {
                 rollDamage(item, damage)
               } else {

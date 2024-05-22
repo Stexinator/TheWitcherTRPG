@@ -7,12 +7,11 @@
     "verified": "11",
     "maximum": "11"
   },
-  "version": 1.026,
+  "version": 1.027,
   "authors": [
     {
       "name": "Stexinator",
-      "discord": "Stexinator",
-      "url": "https://ko-fi.com/stexinator"
+      "discord": "Stexinator"
     },
     {
       "name": "TechAntho"
