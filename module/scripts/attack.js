@@ -35,9 +35,9 @@ function onDamage(message) {
 
 export async function rollDamage(item, damage) {
     let damageOptions = {
-        armorPiercing: item.system.armorPiercing,
-        improvedArmorPiercing: item.system.improvedArmorPiercing,
-        ablating: item.system.ablating
+        armorPiercing: item.system.armorPiercing || damage.ammunition?.system.armorPiercing,
+        improvedArmorPiercing: item.system.improvedArmorPiercing || damage.ammunition?.system.improvedArmorPiercing,
+        ablating: item.system.ablating || damage.ammunition?.system.ablating
     }
 
     let messageData = {}

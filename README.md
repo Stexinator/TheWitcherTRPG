@@ -47,6 +47,10 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 #### General #####
 - status effects from chat cards can be applied to selected token or user character with click on status (immunities are respected)
 
+#### Equipment #####
+- enhancement items can get the same status configuration like armor/weapon
+- ammunition can have weapon properties and contributes them
+
 ### 1.026 ###
 
 #### General #####
