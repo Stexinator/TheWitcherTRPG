@@ -43,6 +43,10 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 
 ## Version History ##
 
+### 1.027 ###
+#### General #####
+- status effects from chat cards can be applied to selected token or user character with click on status (immunities are respected)
+
 ### 1.026 ###
 
 #### General #####
