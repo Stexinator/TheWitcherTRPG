@@ -48,6 +48,9 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 - v12 compatibility
 - when using v12 armor effects are automatically applied
 
+#### Equipment #####
+- weapons and armors have a description field
+
 ### 1.027 ###
 #### General #####
 - status effects from chat cards can be applied to selected token or user character with click on status (immunities are respected)
