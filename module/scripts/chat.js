@@ -1,4 +1,4 @@
-import { ExecuteDefence, BlockAttack, ApplyDamage } from "../scripts/actions.js";
+import { ExecuteDefence, BlockAttack, ApplyNormalDamage, ApplyNonLethalDamage } from "../scripts/actions.js";
 
 export function addChatListeners(html) {
   html.on('click', "button.shield", onShield)
@@ -195,7 +195,29 @@ export function addChatMessageContextOptions(html, options) {
         } else {
           defenderActor = defender[0].actor
         }
-        ApplyDamage(defenderActor,
+        ApplyNormalDamage(defenderActor,
+          li.find(".dice-total")[0].innerText,
+          li[0].dataset.messageId
+        )
+      }
+    },
+    {
+      name: `${game.i18n.localize("WITCHER.Context.applyNonLethal")}`,
+      icon: '<i class="fas fa-user-minus"></i>',
+      condition: canApplyDamage,
+      callback: li => {
+        let defender = canvas.tokens.controlled.slice()
+        let defenderActor;
+        if (defender.length == 0) {
+          if (game.user.character) {
+            defenderActor = game.user.character
+          } else {
+            return ui.notifications.error(game.i18n.localize("WITCHER.Context.SelectActor"));
+          }
+        } else {
+          defenderActor = defender[0].actor
+        }
+        ApplyNonLethalDamage(defenderActor,
           li.find(".dice-total")[0].innerText,
           li[0].dataset.messageId
         )

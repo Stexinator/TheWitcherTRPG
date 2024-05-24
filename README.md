@@ -47,6 +47,7 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 #### General #####
 - v12 compatibility
 - when using v12 armor effects are automatically applied
+- added non-lethal damage to context menu
 
 #### Equipment #####
 - weapons and armors have a description field

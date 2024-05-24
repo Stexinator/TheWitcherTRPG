@@ -3,7 +3,15 @@ import { addModifiers } from "./witcher.js";
 import { RollConfig } from "./rollConfig.js";
 import { WITCHER } from "../setup/config.js";
 
-async function ApplyDamage(actor, totalDamage, messageId) {
+async function ApplyNormalDamage(actor, totalDamage, messageId) {
+  applyDamage(actor, totalDamage, messageId, "hp")
+}
+
+async function ApplyNonLethalDamage(actor, totalDamage, messageId) {
+  applyDamage(actor, totalDamage, messageId, "sta")
+}
+
+async function applyDamage(actor, totalDamage, messageId, derivedStat) {
   let damageOptions = game.messages.get(messageId).getFlag('TheWitcherTRPG', 'damageOptions')
   let damage = game.messages.get(messageId).getFlag('TheWitcherTRPG', 'damage')
   let armors = actor.getList("armor").filter(a => a.system.equipped);
@@ -411,7 +419,7 @@ async function ApplyDamage(actor, totalDamage, messageId) {
   rollResult.toMessage(messageData)
 
   actor?.update({
-    'system.derivedStats.hp.value': actor.system.derivedStats.hp.value - Math.floor(totalDamage)
+    [`system.derivedStats.${derivedStat}.value`]: actor.system.derivedStats.hp.value - Math.floor(totalDamage)
   });
 }
 
@@ -877,4 +885,4 @@ function ExecuteDefence(actor, attackType, location, totalAttack) {
   }).render(true)
 }
 
-export { ExecuteDefence, BlockAttack, ApplyDamage };
+export { ExecuteDefence, BlockAttack, ApplyNormalDamage, ApplyNonLethalDamage };
