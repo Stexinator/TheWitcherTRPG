@@ -1,6 +1,7 @@
 import { WITCHER } from "./setup/config.js";
 import * as Chat from "./scripts/chat.js";
 import * as Attack from "./scripts/attack.js"
+import * as VerbalCombat from "./scripts/verbalCombat.js"
 import { registerSettings } from "./setup/settings.js";
 
 import WitcherItem from "./item/witcherItem.js";
@@ -70,6 +71,7 @@ Hooks.on("renderChatLog", (app, html, data) => {
 
 Hooks.on('renderChatMessage', (message, html, data) => {
     Attack.chatMessageListeners(message, html)
+    VerbalCombat.chatMessageListeners(message, html)
 });
 
 /* -------------------------------------------- */

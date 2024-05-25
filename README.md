@@ -48,6 +48,7 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 - v12 compatibility
 - when using v12 armor effects are automatically applied
 - added non-lethal damage to context menu
+- verbal combat can now roll and apply damage
 
 #### Equipment #####
 - weapons and armors have a description field

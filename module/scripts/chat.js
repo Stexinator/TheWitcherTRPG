@@ -1,4 +1,5 @@
 import { ExecuteDefence, BlockAttack, ApplyNormalDamage, ApplyNonLethalDamage } from "../scripts/actions.js";
+import * as VerbalCombat from "./verbalCombat.js";
 
 export function addChatListeners(html) {
   html.on('click', "button.shield", onShield)
@@ -100,8 +101,9 @@ function onHeal(event) {
  * @param {string} rollFormula rollFormula to apply
  * @param {*} messageData messageData to display
  * @param {RollConfig} config Configuration for Extended roll
+ * @param {Flag} flags an object/array of objects of flags to be set
  */
-export async function extendedRoll(rollFormula, messageData, config) {
+export async function extendedRoll(rollFormula, messageData, config, flags) {
   let roll = await new Roll(rollFormula).evaluate()
   let rollTotal = Number(roll.total);
 
@@ -161,8 +163,17 @@ export async function extendedRoll(rollFormula, messageData, config) {
   }
 
   if (config.showResult) {
-    roll.toMessage(messageData)
+    let message = await roll.toMessage(messageData)
+    if (flags) {
+      if (Array.isArray(flags)) {
+        flags.forEach(flag => message.setFlag('TheWitcherTRPG', flag.key, flag.value))
+      }
+      else {
+        message.setFlag('TheWitcherTRPG', flags.key, flags.value)
+      }
+    }
   }
+
   return config.showResult ? roll.total : roll
 }
 
@@ -177,6 +188,7 @@ function isFumble(roll) {
 export function addChatMessageContextOptions(html, options) {
   let canDefend = li => li.find(".attack-message").length
   let canApplyDamage = li => li.find(".damage-message").length
+  let canApplyVcDamage = li => li.find(".verbalcombat-damage-message").length
 
   options.push(
     {
@@ -184,18 +196,8 @@ export function addChatMessageContextOptions(html, options) {
       icon: '<i class="fas fa-user-minus"></i>',
       condition: canApplyDamage,
       callback: li => {
-        let defender = canvas.tokens.controlled.slice()
-        let defenderActor;
-        if (defender.length == 0) {
-          if (game.user.character) {
-            defenderActor = game.user.character
-          } else {
-            return ui.notifications.error(game.i18n.localize("WITCHER.Context.SelectActor"));
-          }
-        } else {
-          defenderActor = defender[0].actor
-        }
-        ApplyNormalDamage(defenderActor,
+        ApplyNormalDamage(
+          getInteractActor(),
           li.find(".dice-total")[0].innerText,
           li[0].dataset.messageId
         )
@@ -206,18 +208,8 @@ export function addChatMessageContextOptions(html, options) {
       icon: '<i class="fas fa-user-minus"></i>',
       condition: canApplyDamage,
       callback: li => {
-        let defender = canvas.tokens.controlled.slice()
-        let defenderActor;
-        if (defender.length == 0) {
-          if (game.user.character) {
-            defenderActor = game.user.character
-          } else {
-            return ui.notifications.error(game.i18n.localize("WITCHER.Context.SelectActor"));
-          }
-        } else {
-          defenderActor = defender[0].actor
-        }
-        ApplyNonLethalDamage(defenderActor,
+        ApplyNonLethalDamage(
+          getInteractActor(),
           li.find(".dice-total")[0].innerText,
           li[0].dataset.messageId
         )
@@ -228,18 +220,8 @@ export function addChatMessageContextOptions(html, options) {
       icon: '<i class="fas fa-shield-alt"></i>',
       condition: canDefend,
       callback: li => {
-        let defender = canvas.tokens.controlled.slice()
-        let defenderActor;
-        if (defender.length == 0) {
-          if (game.user.character) {
-            defenderActor = game.user.character
-          } else {
-            return ui.notifications.error(game.i18n.localize("WITCHER.Context.SelectActor"));
-          }
-        } else {
-          defenderActor = defender[0].actor
-        }
-        ExecuteDefence(defenderActor,
+        ExecuteDefence(
+          getInteractActor(),
           li.find(".attack-message")[0].dataset.dmgType,
           li.find(".attack-message")[0].dataset.location,
           li.find(".dice-total")[0].innerText)
@@ -250,20 +232,30 @@ export function addChatMessageContextOptions(html, options) {
       icon: '<i class="fas fa-shield-alt"></i>',
       condition: canDefend,
       callback: li => {
-        let defender = canvas.tokens.controlled.slice()
-        let defenderActor;
-        if (defender.length == 0) {
-          if (game.user.character) {
-            defenderActor = game.user.character
-          } else {
-            return ui.notifications.error(game.i18n.localize("WITCHER.Context.SelectActor"));
-          }
-        } else {
-          defenderActor = defender[0].actor
-        }
-        BlockAttack(defenderActor)
+        BlockAttack(getInteractActor())
+      }
+    },
+    {
+      name: `${game.i18n.localize("WITCHER.Context.applyDmg")}`,
+      icon: '<i class="fas fa-user-minus"></i>',
+      condition: canApplyVcDamage,
+      callback: li => {
+        VerbalCombat.applyDamage(
+          getInteractActor(),
+          li.find(".dice-total")[0].innerText,
+          li[0].dataset.messageId
+        )
       }
     }
   );
   return options;
+}
+
+function getInteractActor() {
+  let actor = canvas.tokens.controlled[0]?.actor ?? game.user.character
+  if (!actor) {
+    return ui.notifications.error(game.i18n.localize("WITCHER.Context.SelectActor"));
+  }
+
+  return actor;
 }

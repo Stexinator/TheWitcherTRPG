@@ -308,177 +308,24 @@ export default class WitcherActorSheet extends ActorSheet {
           label: "Roll",
           callback: async (html) => {
             let verbal = document.querySelector('input[name="verbalCombat"]:checked').value;
-            console.log(verbal)
-            let vcName;
-            let vcStatName;
-            let vcStat;
-            let vcSkillName;
-            let vcSkill;
-            let vcDmg;
-            let effect;
-            let modifiers;
-            switch (verbal) {
-              case "Seduce":
-                vcName = "WITCHER.verbalCombat.Seduce";
-                vcStatName = "WITCHER.Actor.Stat.Emp";
-                vcStat = this.actor.system.stats.emp.current;
-                vcSkillName = "WITCHER.SkEmpSeduction";
-                vcSkill = this.actor.system.skills.emp.seduction.value;
-                modifiers = this.actor.system.skills.emp.seduction.modifiers
-                vcDmg = `1d6+${this.actor.system.stats.emp.current}[${game.i18n.localize(vcStatName)}]`
-                effect = "WITCHER.verbalCombat.SeduceEffect"
-                break;
-              case "Persuade":
-                vcName = "WITCHER.verbalCombat.Persuade";
-                vcStatName = "WITCHER.Actor.Stat.Emp";
-                vcStat = this.actor.system.stats.emp.current;
-                vcSkillName = "WITCHER.SkEmpPersuasion";
-                vcSkill = this.actor.system.skills.emp.persuasion.value;
-                modifiers = this.actor.system.skills.emp.persuasion.modifiers;
-                vcDmg = `1d6/2+${this.actor.system.stats.emp.current}[${game.i18n.localize(vcStatName)}]`
-                effect = "WITCHER.verbalCombat.PersuadeEffect"
-                break;
-              case "Appeal":
-                vcName = "WITCHER.verbalCombat.Appeal";
-                vcStatName = "WITCHER.Actor.Stat.Emp";
-                vcStat = this.actor.system.stats.emp.current;
-                vcSkillName = "WITCHER.SkEmpLeadership";
-                vcSkill = this.actor.system.skills.emp.leadership.value;
-                modifiers = this.actor.system.skills.emp.leadership.modifiers;
-                vcDmg = `1d10+${this.actor.system.stats.emp.current}[${game.i18n.localize(vcStatName)}]`
-                effect = "WITCHER.verbalCombat.AppealEffect"
-                break;
-              case "Befriend":
-                vcName = "WITCHER.verbalCombat.Befriend";
-                vcStatName = "WITCHER.Actor.Stat.Emp";
-                vcStat = this.actor.system.stats.emp.current;
-                vcSkillName = "WITCHER.SkEmpCharisma";
-                vcSkill = this.actor.system.skills.emp.charisma.value;
-                modifiers = this.actor.system.skills.emp.charisma.modifiers;
-                vcDmg = `1d6+${this.actor.system.stats.emp.current}[${game.i18n.localize(vcStatName)}]`
-                effect = "WITCHER.verbalCombat.BefriendEffect"
-                break;
-              case "Deceive":
-                vcName = "WITCHER.verbalCombat.Deceive";
-                vcStatName = "WITCHER.Actor.Stat.Emp";
-                vcStat = this.actor.system.stats.emp.current;
-                vcSkillName = "WITCHER.SkEmpDeceit";
-                vcSkill = this.actor.system.skills.emp.deceit.value;
-                modifiers = this.actor.system.skills.emp.deceit.modifiers;
-                vcDmg = `1d6+${this.actor.system.stats.int.current}[${game.i18n.localize("WITCHER.Actor.Stat.Int")}]`
-                effect = "WITCHER.verbalCombat.DeceiveEffect"
-                break;
-              case "Ridicule":
-                vcName = "WITCHER.verbalCombat.Ridicule";
-                vcStatName = "WITCHER.Actor.Stat.Int";
-                vcStat = this.actor.system.stats.int.current;
-                vcSkillName = "WITCHER.SkIntSocialEt";
-                vcSkill = this.actor.system.skills.int.socialetq.value;
-                modifiers = this.actor.system.skills.int.socialetq.modifiers;
-                vcDmg = `1d6+${this.actor.system.stats.will.current}[${game.i18n.localize("WITCHER.Actor.Stat.Will")}]`
-                effect = "WITCHER.verbalCombat.RidiculeEffect"
-                break;
-              case "Intimidate":
-                vcName = "WITCHER.verbalCombat.Intimidate";
-                vcStatName = "WITCHER.Actor.Stat.Will";
-                vcStat = this.actor.system.stats.will.current;
-                vcSkillName = "WITCHER.SkWillIntim";
-                vcSkill = this.actor.system.skills.will.intimidation.value;
-                modifiers = this.actor.system.skills.will.intimidation.modifiers;
-                vcDmg = `1d10+${this.actor.system.stats.will.current}[${game.i18n.localize("WITCHER.Actor.Stat.Will")}]`
-                effect = "WITCHER.verbalCombat.IntimidateEffect"
-                break;
-              case "Ignore":
-                vcName = "WITCHER.verbalCombat.Ignore";
-                vcStatName = "WITCHER.Actor.Stat.Will";
-                vcStat = this.actor.system.stats.will.current;
-                vcSkillName = "WITCHER.SkWillResistCoer";
-                vcSkill = this.actor.system.skills.will.resistcoerc.value;
-                modifiers = [];
-                vcDmg = `1d10+${this.actor.system.stats.emp.current}[${game.i18n.localize("WITCHER.Actor.Stat.Emp")}]`
-                effect = "WITCHER.verbalCombat.None"
-                break;
-              case "Counterargue":
-                vcName = "WITCHER.verbalCombat.Counterargue";
-                vcStatName = "WITCHER.Context.unavailable";
-                vcStat = 0;
-                vcSkillName = "WITCHER.Context.unavailable";
-                vcSkill = 0;
-                modifiers = this.actor.system.skills.emp.persuasion.modifiers;
-                vcDmg = `${game.i18n.localize("WITCHER.verbalCombat.CounterargueDmg")}`
-                effect = "WITCHER.verbalCombat.CounterargueEffect"
-                break;
-              case "ChangeSubject":
-                vcName = "WITCHER.verbalCombat.ChangeSubject";
-                vcStatName = "WITCHER.Actor.Stat.Emp";
-                vcStat = this.actor.system.stats.emp.current;
-                vcSkillName = "WITCHER.SkEmpPersuasion";
-                vcSkill = this.actor.system.skills.emp.persuasion.value;
-                modifiers = this.actor.system.skills.emp.persuasion.modifiers;
-                vcDmg = `1d6+${this.actor.system.stats.int.current}[${game.i18n.localize("WITCHER.Actor.Stat.Int")}]`
-                effect = "WITCHER.verbalCombat.None"
-                break;
-              case "Disengage":
-                vcName = "WITCHER.verbalCombat.Disengage";
-                vcStatName = "WITCHER.Actor.Stat.Will";
-                vcStat = this.actor.system.stats.will.current;
-                vcSkillName = "WITCHER.SkWillResistCoer";
-                vcSkill = this.actor.system.skills.will.resistcoerc.value;
-                modifiers = this.actor.system.skills.will.resistcoerc.modifiers;
-                vcDmg = game.i18n.localize("WITCHER.verbalCombat.None")
-                effect = "WITCHER.verbalCombat.DisengageEffect"
-                break;
-              case "Romance":
-                vcName = "WITCHER.verbalCombat.Romance";
-                vcStatName = "WITCHER.Actor.Stat.Emp";
-                vcStat = this.actor.system.stats.emp.current;
-                vcSkillName = "WITCHER.SkEmpCharisma";
-                vcSkill = this.actor.system.skills.emp.charisma.value;
-                modifiers = this.actor.system.skills.emp.charisma.modifiers;
-                vcDmg = game.i18n.localize("WITCHER.verbalCombat.None")
-                effect = "WITCHER.verbalCombat.RomanceEffect"
-                break;
-              case "Study":
-                vcName = "WITCHER.verbalCombat.Study";
-                vcStatName = "WITCHER.Actor.Stat.Emp";
-                vcStat = this.actor.system.stats.emp.current;
-                vcSkillName = "WITCHER.SkEmpHumanPerc";
-                vcSkill = this.actor.system.skills.emp.perception.value;
-                modifiers = this.actor.system.skills.emp.perception.modifiers;
-                vcDmg = game.i18n.localize("WITCHER.verbalCombat.None")
-                effect = "WITCHER.verbalCombat.StudyEffect"
-                break;
-              case "ImplyPersuade":
-                vcName = "WITCHER.verbalCombat.ImplyPersuade";
-                vcStatName = "WITCHER.Actor.Stat.Emp";
-                vcStat = this.actor.system.stats.emp.current;
-                vcSkillName = "WITCHER.SkEmpPersuasion";
-                vcSkill = this.actor.system.skills.emp.persuasion.value;
-                modifiers = this.actor.system.skills.emp.persuasion.modifiers;
-                vcDmg = game.i18n.localize("WITCHER.verbalCombat.None")
-                effect = "WITCHER.verbalCombat.ImplyEffect"
-                break;
-              case "ImplyDeceit":
-                vcName = "WITCHER.verbalCombat.ImplyDeceit";
-                vcStatName = "WITCHER.Actor.Stat.Emp";
-                vcStat = this.actor.system.stats.emp.current;
-                vcSkillName = "WITCHER.SkEmpDeceit";
-                vcSkill = this.actor.system.skills.emp.deceit.value;
-                modifiers = this.actor.system.skills.emp.deceit.modifiers;
-                vcDmg = game.i18n.localize("WITCHER.verbalCombat.None")
-                effect = "WITCHER.verbalCombat.ImplyEffect"
-                break;
-              case "Bribe":
-                vcName = "WITCHER.verbalCombat.Bribe";
-                vcStatName = "WITCHER.Actor.Stat.Emp";
-                vcStat = this.actor.system.stats.emp.current;
-                vcSkillName = "WITCHER.SkEmpGambling";
-                vcSkill = this.actor.system.skills.emp.gambling.value;
-                modifiers = this.actor.system.skills.emp.gambling.modifiers;
-                vcDmg = game.i18n.localize("WITCHER.verbalCombat.None")
-                effect = "WITCHER.verbalCombat.BribeEffect"
-                break;
+
+            let verbalCombat = WITCHER.verbalCombat[verbal]
+            let vcName = verbalCombat.name;
+
+            let vcStatName = verbalCombat.skill?.attribute.label ?? "WITCHER.Context.unavailable";
+            let vcStat = verbalCombat.skill ? this.actor.system.stats[verbalCombat.skill.attribute.name]?.current : 0;
+
+            let vcSkillName = verbalCombat.skill?.label ?? "WITCHER.Context.unavailable";
+            let vcSkill = verbalCombat.skill ? this.actor.system.skills[verbalCombat.skill.attribute.name][verbalCombat.skill.name]?.value : 0
+            let modifiers = verbalCombat.skill ? this.actor.system.skills[verbalCombat.skill.attribute.name][verbalCombat.skill.name].modifiers : null;
+
+            let vcDmg = verbalCombat.baseDmg ? `${verbalCombat.baseDmg}+${this.actor.system.stats[verbalCombat.dmgStat.name].current}[${game.i18n.localize(verbalCombat.dmgStat?.label)}]` : game.i18n.localize("WITCHER.verbalCombat.None")
+            if (verbal == "Counterargue") {
+              vcDmg = `${game.i18n.localize("WITCHER.verbalCombat.CounterargueDmg")}`
             }
+
+            let effect = verbalCombat.effect
+
             let rollFormula = !displayRollDetails ? `1d10+${vcStat}+${vcSkill}` : `1d10+${vcStat}[${game.i18n.localize(vcStatName)}]+${vcSkill}[${game.i18n.localize(vcSkillName)}]`
 
             rollFormula = addModifiers(modifiers, rollFormula)
@@ -491,16 +338,19 @@ export default class WitcherActorSheet extends ActorSheet {
               rollFormula += !displayRollDetails ? `+${customAtt}` : `+${customAtt}[${game.i18n.localize("WITCHER.Settings.Custom")}]`
             }
 
-            let messageData = { speaker: ChatMessage.getSpeaker({ actor: this.actor }) }
+            let messageData = {
+              speaker: ChatMessage.getSpeaker({ actor: this.actor })
+            }
             messageData.flavor = `
               <h2>${game.i18n.localize("WITCHER.verbalCombat.Title")}: ${game.i18n.localize(vcName)}</h2>
               <b>${game.i18n.localize("WITCHER.Weapon.Damage")}</b>: ${vcDmg} <br />
               ${game.i18n.localize(effect)}
               <hr />`
+            messageData.flavor += vcDmg.includes("d") ? `<button class="vcDamage" > ${game.i18n.localize("WITCHER.table.Damage")}</button>` : ''
 
             let config = new RollConfig()
             config.showCrit = true
-            await extendedRoll(rollFormula, messageData, config)
+            await extendedRoll(rollFormula, messageData, config, this.createVerbalCombatFlags(verbalCombat, vcDmg))
           }
         },
         t2: {
@@ -508,6 +358,21 @@ export default class WitcherActorSheet extends ActorSheet {
         }
       },
     }).render(true);
+  }
+
+  createVerbalCombatFlags(verbalCombat, vcDamage) {
+    return [
+      {
+        key: 'verbalCombat',
+        value: verbalCombat
+      },
+      {
+        key: 'damage',
+        value: {
+          formula: vcDamage
+        }
+      },
+    ]
   }
 
   _onFocusIn(event) {
