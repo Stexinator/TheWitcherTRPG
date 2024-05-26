@@ -1,5 +1,9 @@
 <form class="{{cssClass}}" autocomplete="off">
     {{>"systems/TheWitcherTRPG/templates/partials/item-header.hbs"}}
+    <details class="description">
+        <summary>{{localize "WITCHER.Item.Description"}}</summary>
+        <textarea rows=5 name="system.description">{{item.system.description}}</textarea>
+    </details>
     <div class="item-options">
         <div class="item-column">
             <div class="item-option-tickbox">

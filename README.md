@@ -43,6 +43,16 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 
 ## Version History ##
 
+### 1.028 ###
+#### General #####
+- v12 compatibility
+- when using v12 armor effects are automatically applied
+- added non-lethal damage to context menu
+- verbal combat can now roll and apply damage
+
+#### Equipment #####
+- weapons and armors have a description field
+
 ### 1.027 ###
 #### General #####
 - status effects from chat cards can be applied to selected token or user character with click on status (immunities are respected)
@@ -52,7 +62,6 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 - ammunition can have weapon properties and contributes them
 
 ### 1.026 ###
-
 #### General #####
 
 - chat templates show the result of effect rolls instead of the roll (hover for seeing the roll)

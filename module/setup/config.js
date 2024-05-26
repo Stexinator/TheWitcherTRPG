@@ -1,4 +1,4 @@
-export const WITCHER = {};
+export const WITCHER = {}
 
 WITCHER.homelands = {
     aedirn: "WITCHER.Homelands.aedirn",
@@ -87,20 +87,20 @@ WITCHER.CritGravity = {
     Complex: "WITCHER.CritWound.Complex",
     Difficult: "WITCHER.CritWound.Difficult",
     Deadly: "WITCHER.CritWound.Deadly",
-};
+}
 
 WITCHER.CritGravityDefaultEffect = {
     Simple: "SimpleCrackedJaw",
     Complex: "ComplexMinorHeadWound",
     Difficult: "DifficultSkullFracture",
     Deadly: "DeadlyDecapitated",
-};
+}
 
 WITCHER.CritMod = {
     None: "WITCHER.CritWound.None",
     Stabilized: "WITCHER.CritWound.Stabilized",
     Treated: "WITCHER.CritWound.Treated",
-};
+}
 
 WITCHER.CritDescription = {
     SimpleCrackedJaw: "WITCHER.CritWound.SimpleCrackedJaw",
@@ -127,34 +127,34 @@ WITCHER.CritDescription = {
     DeadlySepticShock: "WITCHER.CritWound.DeadlySepticShock",
     DeadlyDismemberedArm: "WITCHER.CritWound.DeadlyDismemberedArm",
     DeadlyDismemberedLeg: "WITCHER.CritWound.DeadlyDismemberedLeg",
-};
+},
 
-WITCHER.CritModDescription = {
-    SimpleCrackedJaw: { None: "WITCHER.CritWound.Mod.SimpleCrackedJaw.None", Stabilized: "WITCHER.CritWound.Mod.SimpleCrackedJaw.Stabilized", Treated: "WITCHER.CritWound.Mod.SimpleCrackedJaw.Treated" },
-    SimpleDisfiguringScar: { None: "WITCHER.CritWound.Mod.SimpleDisfiguringScar.None", Stabilized: "WITCHER.CritWound.Mod.SimpleDisfiguringScar.Stabilized", Treated: "WITCHER.CritWound.Mod.SimpleDisfiguringScar.Treated" },
-    SimpleCrackedRibs: { None: "WITCHER.CritWound.Mod.SimpleCrackedRibs.None", Stabilized: "WITCHER.CritWound.Mod.SimpleCrackedRibs.Stabilized", Treated: "WITCHER.CritWound.Mod.SimpleCrackedRibs.Treated" },
-    SimpleForeignObject: { None: "WITCHER.CritWound.Mod.SimpleForeignObject.None", Stabilized: "WITCHER.CritWound.Mod.SimpleForeignObject.Stabilized", Treated: "WITCHER.CritWound.Mod.SimpleForeignObject.Treated" },
-    SimpleSprainedArm: { None: "WITCHER.CritWound.Mod.SimpleSprainedArm.None", Stabilized: "WITCHER.CritWound.Mod.SimpleSprainedArm.Stabilized", Treated: "WITCHER.CritWound.Mod.SimpleSprainedArm.Treated" },
-    SimpleSprainedLeg: { None: "WITCHER.CritWound.Mod.SimpleSprainedLeg.None", Stabilized: "WITCHER.CritWound.Mod.SimpleSprainedLeg.Stabilized", Treated: "WITCHER.CritWound.Mod.SimpleSprainedLeg.Treated" },
-    ComplexMinorHeadWound: { None: "WITCHER.CritWound.Mod.ComplexMinorHeadWound.None", Stabilized: "WITCHER.CritWound.Mod.ComplexMinorHeadWound.Stabilized", Treated: "WITCHER.CritWound.Mod.ComplexMinorHeadWound.Treated" },
-    ComplexLostTeeth: { None: "WITCHER.CritWound.Mod.ComplexLostTeeth.None", Stabilized: "WITCHER.CritWound.Mod.ComplexLostTeeth.Stabilized", Treated: "WITCHER.CritWound.Mod.ComplexLostTeeth.Treated" },
-    ComplexRupturedSpleen: { None: "WITCHER.CritWound.Mod.ComplexRupturedSpleen.None", Stabilized: "WITCHER.CritWound.Mod.ComplexRupturedSpleen.Stabilized", Treated: "WITCHER.CritWound.Mod.ComplexRupturedSpleen.Treated" },
-    ComplexBrokenRibs: { None: "WITCHER.CritWound.Mod.ComplexBrokenRibs.None", Stabilized: "WITCHER.CritWound.Mod.ComplexBrokenRibs.Stabilized", Treated: "WITCHER.CritWound.Mod.ComplexBrokenRibs.Treated" },
-    ComplexFracturedArm: { None: "WITCHER.CritWound.Mod.ComplexFracturedArm.None", Stabilized: "WITCHER.CritWound.Mod.ComplexFracturedArm.Stabilized", Treated: "WITCHER.CritWound.Mod.ComplexFracturedArm.Treated" },
-    ComplexFracturedLeg: { None: "WITCHER.CritWound.Mod.ComplexFracturedLeg.None", Stabilized: "WITCHER.CritWound.Mod.ComplexFracturedLeg.Stabilized", Treated: "WITCHER.CritWound.Mod.ComplexFracturedLeg.Treated" },
-    DifficultSkullFracture: { None: "WITCHER.CritWound.Mod.DifficultSkullFracture.None", Stabilized: "WITCHER.CritWound.Mod.DifficultSkullFracture.Stabilized", Treated: "WITCHER.CritWound.Mod.DifficultSkullFracture.Treated" },
-    DifficultConcussion: { None: "WITCHER.CritWound.Mod.DifficultConcussion.None", Stabilized: "WITCHER.CritWound.Mod.DifficultConcussion.Stabilized", Treated: "WITCHER.CritWound.Mod.DifficultConcussion.Treated" },
-    DifficultTornStomach: { None: "WITCHER.CritWound.Mod.DifficultTornStomach.None", Stabilized: "WITCHER.CritWound.Mod.DifficultTornStomach.Stabilized", Treated: "WITCHER.CritWound.Mod.DifficultTornStomach.Treated" },
-    DifficultSuckingChestWound: { None: "WITCHER.CritWound.Mod.DifficultSuckingChestWound.None", Stabilized: "WITCHER.CritWound.Mod.DifficultSuckingChestWound.Stabilized", Treated: "WITCHER.CritWound.Mod.DifficultSuckingChestWound.Treated" },
-    DifficultCompoundArmFracture: { None: "WITCHER.CritWound.Mod.DifficultCompoundArmFracture.None", Stabilized: "WITCHER.CritWound.Mod.DifficultCompoundArmFracture.Stabilized", Treated: "WITCHER.CritWound.Mod.DifficultCompoundArmFracture.Treated" },
-    DifficultCompoundLegFracture: { None: "WITCHER.CritWound.Mod.DifficultCompoundLegFracture.None", Stabilized: "WITCHER.CritWound.Mod.DifficultCompoundLegFracture.Stabilized", Treated: "WITCHER.CritWound.Mod.DifficultCompoundLegFracture.Treated" },
-    DeadlyDecapitated: { None: "WITCHER.CritWound.Mod.DeadlyDecapitated.None", Stabilized: "WITCHER.CritWound.Mod.DeadlyDecapitated.Stabilized", Treated: "WITCHER.CritWound.Mod.DeadlyDecapitated.Treated" },
-    DeadlyDamagedEye: { None: "WITCHER.CritWound.Mod.DeadlyDamagedEye.None", Stabilized: "WITCHER.CritWound.Mod.DeadlyDamagedEye.Stabilized", Treated: "WITCHER.CritWound.Mod.DeadlyDamagedEye.Treated" },
-    DeadlyHearthDamage: { None: "WITCHER.CritWound.Mod.DeadlyHearthDamage.None", Stabilized: "WITCHER.CritWound.Mod.DeadlyHearthDamage.Stabilized", Treated: "WITCHER.CritWound.Mod.DeadlyHearthDamage.Treated" },
-    DeadlySepticShock: { None: "WITCHER.CritWound.Mod.DeadlySepticShock.None", Stabilized: "WITCHER.CritWound.Mod.DeadlySepticShock.Stabilized", Treated: "WITCHER.CritWound.Mod.DeadlySepticShock.Treated" },
-    DeadlyDismemberedArm: { None: "WITCHER.CritWound.Mod.DeadlyDismemberedArm.None", Stabilized: "WITCHER.CritWound.Mod.DeadlyDismemberedArm.Stabilized", Treated: "WITCHER.CritWound.Mod.DeadlyDismemberedArm.Treated" },
-    DeadlyDismemberedLeg: { None: "WITCHER.CritWound.Mod.DeadlyDismemberedLeg.None", Stabilized: "WITCHER.CritWound.Mod.DeadlyDismemberedLeg.Stabilized", Treated: "WITCHER.CritWound.Mod.DeadlyDismemberedLeg.Treated" },
-};
+    WITCHER.CritModDescription = {
+        SimpleCrackedJaw: { None: "WITCHER.CritWound.Mod.SimpleCrackedJaw.None", Stabilized: "WITCHER.CritWound.Mod.SimpleCrackedJaw.Stabilized", Treated: "WITCHER.CritWound.Mod.SimpleCrackedJaw.Treated" },
+        SimpleDisfiguringScar: { None: "WITCHER.CritWound.Mod.SimpleDisfiguringScar.None", Stabilized: "WITCHER.CritWound.Mod.SimpleDisfiguringScar.Stabilized", Treated: "WITCHER.CritWound.Mod.SimpleDisfiguringScar.Treated" },
+        SimpleCrackedRibs: { None: "WITCHER.CritWound.Mod.SimpleCrackedRibs.None", Stabilized: "WITCHER.CritWound.Mod.SimpleCrackedRibs.Stabilized", Treated: "WITCHER.CritWound.Mod.SimpleCrackedRibs.Treated" },
+        SimpleForeignObject: { None: "WITCHER.CritWound.Mod.SimpleForeignObject.None", Stabilized: "WITCHER.CritWound.Mod.SimpleForeignObject.Stabilized", Treated: "WITCHER.CritWound.Mod.SimpleForeignObject.Treated" },
+        SimpleSprainedArm: { None: "WITCHER.CritWound.Mod.SimpleSprainedArm.None", Stabilized: "WITCHER.CritWound.Mod.SimpleSprainedArm.Stabilized", Treated: "WITCHER.CritWound.Mod.SimpleSprainedArm.Treated" },
+        SimpleSprainedLeg: { None: "WITCHER.CritWound.Mod.SimpleSprainedLeg.None", Stabilized: "WITCHER.CritWound.Mod.SimpleSprainedLeg.Stabilized", Treated: "WITCHER.CritWound.Mod.SimpleSprainedLeg.Treated" },
+        ComplexMinorHeadWound: { None: "WITCHER.CritWound.Mod.ComplexMinorHeadWound.None", Stabilized: "WITCHER.CritWound.Mod.ComplexMinorHeadWound.Stabilized", Treated: "WITCHER.CritWound.Mod.ComplexMinorHeadWound.Treated" },
+        ComplexLostTeeth: { None: "WITCHER.CritWound.Mod.ComplexLostTeeth.None", Stabilized: "WITCHER.CritWound.Mod.ComplexLostTeeth.Stabilized", Treated: "WITCHER.CritWound.Mod.ComplexLostTeeth.Treated" },
+        ComplexRupturedSpleen: { None: "WITCHER.CritWound.Mod.ComplexRupturedSpleen.None", Stabilized: "WITCHER.CritWound.Mod.ComplexRupturedSpleen.Stabilized", Treated: "WITCHER.CritWound.Mod.ComplexRupturedSpleen.Treated" },
+        ComplexBrokenRibs: { None: "WITCHER.CritWound.Mod.ComplexBrokenRibs.None", Stabilized: "WITCHER.CritWound.Mod.ComplexBrokenRibs.Stabilized", Treated: "WITCHER.CritWound.Mod.ComplexBrokenRibs.Treated" },
+        ComplexFracturedArm: { None: "WITCHER.CritWound.Mod.ComplexFracturedArm.None", Stabilized: "WITCHER.CritWound.Mod.ComplexFracturedArm.Stabilized", Treated: "WITCHER.CritWound.Mod.ComplexFracturedArm.Treated" },
+        ComplexFracturedLeg: { None: "WITCHER.CritWound.Mod.ComplexFracturedLeg.None", Stabilized: "WITCHER.CritWound.Mod.ComplexFracturedLeg.Stabilized", Treated: "WITCHER.CritWound.Mod.ComplexFracturedLeg.Treated" },
+        DifficultSkullFracture: { None: "WITCHER.CritWound.Mod.DifficultSkullFracture.None", Stabilized: "WITCHER.CritWound.Mod.DifficultSkullFracture.Stabilized", Treated: "WITCHER.CritWound.Mod.DifficultSkullFracture.Treated" },
+        DifficultConcussion: { None: "WITCHER.CritWound.Mod.DifficultConcussion.None", Stabilized: "WITCHER.CritWound.Mod.DifficultConcussion.Stabilized", Treated: "WITCHER.CritWound.Mod.DifficultConcussion.Treated" },
+        DifficultTornStomach: { None: "WITCHER.CritWound.Mod.DifficultTornStomach.None", Stabilized: "WITCHER.CritWound.Mod.DifficultTornStomach.Stabilized", Treated: "WITCHER.CritWound.Mod.DifficultTornStomach.Treated" },
+        DifficultSuckingChestWound: { None: "WITCHER.CritWound.Mod.DifficultSuckingChestWound.None", Stabilized: "WITCHER.CritWound.Mod.DifficultSuckingChestWound.Stabilized", Treated: "WITCHER.CritWound.Mod.DifficultSuckingChestWound.Treated" },
+        DifficultCompoundArmFracture: { None: "WITCHER.CritWound.Mod.DifficultCompoundArmFracture.None", Stabilized: "WITCHER.CritWound.Mod.DifficultCompoundArmFracture.Stabilized", Treated: "WITCHER.CritWound.Mod.DifficultCompoundArmFracture.Treated" },
+        DifficultCompoundLegFracture: { None: "WITCHER.CritWound.Mod.DifficultCompoundLegFracture.None", Stabilized: "WITCHER.CritWound.Mod.DifficultCompoundLegFracture.Stabilized", Treated: "WITCHER.CritWound.Mod.DifficultCompoundLegFracture.Treated" },
+        DeadlyDecapitated: { None: "WITCHER.CritWound.Mod.DeadlyDecapitated.None", Stabilized: "WITCHER.CritWound.Mod.DeadlyDecapitated.Stabilized", Treated: "WITCHER.CritWound.Mod.DeadlyDecapitated.Treated" },
+        DeadlyDamagedEye: { None: "WITCHER.CritWound.Mod.DeadlyDamagedEye.None", Stabilized: "WITCHER.CritWound.Mod.DeadlyDamagedEye.Stabilized", Treated: "WITCHER.CritWound.Mod.DeadlyDamagedEye.Treated" },
+        DeadlyHearthDamage: { None: "WITCHER.CritWound.Mod.DeadlyHearthDamage.None", Stabilized: "WITCHER.CritWound.Mod.DeadlyHearthDamage.Stabilized", Treated: "WITCHER.CritWound.Mod.DeadlyHearthDamage.Treated" },
+        DeadlySepticShock: { None: "WITCHER.CritWound.Mod.DeadlySepticShock.None", Stabilized: "WITCHER.CritWound.Mod.DeadlySepticShock.Stabilized", Treated: "WITCHER.CritWound.Mod.DeadlySepticShock.Treated" },
+        DeadlyDismemberedArm: { None: "WITCHER.CritWound.Mod.DeadlyDismemberedArm.None", Stabilized: "WITCHER.CritWound.Mod.DeadlyDismemberedArm.Stabilized", Treated: "WITCHER.CritWound.Mod.DeadlyDismemberedArm.Treated" },
+        DeadlyDismemberedLeg: { None: "WITCHER.CritWound.Mod.DeadlyDismemberedLeg.None", Stabilized: "WITCHER.CritWound.Mod.DeadlyDismemberedLeg.Stabilized", Treated: "WITCHER.CritWound.Mod.DeadlyDismemberedLeg.Treated" },
+    }
 
 WITCHER.CritSimple = {
     SimpleCrackedJaw: "WITCHER.CritWound.Name.SimpleCrackedJaw",
@@ -163,7 +163,7 @@ WITCHER.CritSimple = {
     SimpleForeignObject: "WITCHER.CritWound.Name.SimpleForeignObject",
     SimpleSprainedArm: "WITCHER.CritWound.Name.SimpleSprainedArm",
     SimpleSprainedLeg: "WITCHER.CritWound.Name.SimpleSprainedLeg",
-};
+}
 
 WITCHER.CritComplex = {
     ComplexMinorHeadWound: "WITCHER.CritWound.Name.ComplexMinorHeadWound",
@@ -172,7 +172,7 @@ WITCHER.CritComplex = {
     ComplexBrokenRibs: "WITCHER.CritWound.Name.ComplexBrokenRibs",
     ComplexFracturedArm: "WITCHER.CritWound.Name.ComplexFracturedArm",
     ComplexFracturedLeg: "WITCHER.CritWound.Name.ComplexFracturedLeg",
-};
+}
 
 WITCHER.CritDifficult = {
     DifficultSkullFracture: "WITCHER.CritWound.Name.DifficultSkullFracture",
@@ -181,7 +181,7 @@ WITCHER.CritDifficult = {
     DifficultSuckingChestWound: "WITCHER.CritWound.Name.DifficultSuckingChestWound",
     DifficultCompoundArmFracture: "WITCHER.CritWound.Name.DifficultCompoundArmFracture",
     DifficultCompoundLegFracture: "WITCHER.CritWound.Name.DifficultCompoundLegFracture",
-};
+}
 
 WITCHER.CritDeadly = {
     DeadlyDecapitated: "WITCHER.CritWound.Name.DeadlyDecapitated",
@@ -190,10 +190,10 @@ WITCHER.CritDeadly = {
     DeadlySepticShock: "WITCHER.CritWound.Name.DeadlySepticShock",
     DeadlyDismemberedArm: "WITCHER.CritWound.Name.DeadlyDismemberedArm",
     DeadlyDismemberedLeg: "WITCHER.CritWound.Name.DeadlyDismemberedLeg",
-};
+}
 
-WITCHER.meleeSkills = ["Brawling", "Melee", "Small Blades", "Staff/Spear", "Swordsmanship", "Athletics"];
-WITCHER.rangedSkills = ["Athletics", "Archery", "Crossbow"];
+WITCHER.meleeSkills = ["Brawling", "Melee", "Small Blades", "Staff/Spear", "Swordsmanship", "Athletics"]
+WITCHER.rangedSkills = ["Athletics", "Archery", "Crossbow"]
 
 WITCHER.statMap = {
     int: {
@@ -545,6 +545,115 @@ WITCHER.skillMap = {
         attribute: WITCHER.statMap.emp,
         label: "WITCHER.SkEmpSeduction",
         name: "seduction",
+    },
+}
+
+WITCHER.verbalCombat = {
+    //empathic attacks
+    Seduce: {
+        name: "WITCHER.verbalCombat.Seduce",
+        skill: WITCHER.skillMap.seduction,
+        baseDmg: '1d6',
+        dmgStat: WITCHER.statMap.emp,
+        effect: "WITCHER.verbalCombat.SeduceEffect"
+    },
+    Persuade: {
+        name: "WITCHER.verbalCombat.Persuade",
+        skill: WITCHER.skillMap.persuasion,
+        baseDmg: '1d6/2',
+        dmgStat: WITCHER.statMap.emp,
+        effect: "WITCHER.verbalCombat.PersuadeEffect"
+    },
+    Appeal: {
+        name: "WITCHER.verbalCombat.Appeal",
+        skill: WITCHER.skillMap.leadership,
+        baseDmg: '1d10',
+        dmgStat: WITCHER.statMap.emp,
+        effect: "WITCHER.verbalCombat.AppealEffect"
+    },
+    Befriend: {
+        name: "WITCHER.verbalCombat.Befriend",
+        skill: WITCHER.skillMap.charisma,
+        baseDmg: '1d6',
+        dmgStat: WITCHER.statMap.emp,
+        effect: "WITCHER.verbalCombat.BefriendEffect"
+    },
+
+    //antagonistic attacks
+    Deceive: {
+        name: "WITCHER.verbalCombat.Deceive",
+        skill: WITCHER.skillMap.deceit,
+        baseDmg: '1d6',
+        dmgStat: WITCHER.statMap.int,
+        effect: "WITCHER.verbalCombat.DeceiveEffect"
+    },
+    Ridicule: {
+        name: "WITCHER.verbalCombat.Ridicule",
+        skill: WITCHER.skillMap.socialetq,
+        baseDmg: '1d6',
+        dmgStat: WITCHER.statMap.will,
+        effect: "WITCHER.verbalCombat.RidiculeEffect"
+    },
+    Intimidate: {
+        name: "WITCHER.verbalCombat.Intimidate",
+        skill: WITCHER.skillMap.intimidation,
+        baseDmg: '1d10',
+        dmgStat: WITCHER.statMap.will,
+        effect: "WITCHER.verbalCombat.IntimidateEffect"
+    },
+
+    //Defenses
+    Ignore: {
+        name: "WITCHER.verbalCombat.Ignore",
+        skill: WITCHER.skillMap.resistcoerc,
+        baseDmg: '1d10',
+        dmgStat: WITCHER.statMap.emp,
+        effect: "WITCHER.verbalCombat.None"
+    },
+    Counterargue: {
+        name: "WITCHER.verbalCombat.Counterargue",
+        effect: "WITCHER.verbalCombat.CounterargueEffect"
+    },
+    ChangeSubject: {
+        name: "WITCHER.verbalCombat.ChangeSubject",
+        skill: WITCHER.skillMap.persuasion,
+        baseDmg: '1d6',
+        dmgStat: WITCHER.statMap.int,
+        effect: "WITCHER.verbalCombat.None"
+    },
+    Disengage: {
+        name: "WITCHER.verbalCombat.Disengage",
+        skill: WITCHER.skillMap.resistcoerc,
+        effect: "WITCHER.verbalCombat.DisengageEffect"
+    },
+
+    //empathetic tools
+    Romance: {
+        name: "WITCHER.verbalCombat.Romance",
+        skill: WITCHER.skillMap.charisma,
+        effect: "WITCHER.verbalCombat.RomanceEffect"
+    },
+    Study: {
+        name: "WITCHER.verbalCombat.Study",
+        skill: WITCHER.skillMap.perception,
+        effect: "WITCHER.verbalCombat.StudyEffect"
+    },
+
+    //antagonistic tools
+    ImplyPersuade: {
+        name: "WITCHER.verbalCombat.ImplyPersuade",
+        skill: WITCHER.skillMap.persuasion,
+        effect: "WITCHER.verbalCombat.ImplyEffect"
+    },
+    ImplyDeceit: {
+        name: "WITCHER.verbalCombat.ImplyDeceit",
+        skill: WITCHER.skillMap.deceit,
+        effect: "WITCHER.verbalCombat.ImplyEffect"
+    },
+    Bribe: {
+        name: "WITCHER.verbalCombat.Bribe",
+        skill: WITCHER.skillMap.gambling,
+        effect: "WITCHER.verbalCombat.BribeEffect"
     },
 }
 

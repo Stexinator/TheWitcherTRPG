@@ -862,6 +862,7 @@
     },
     "Context": {
       "applyDmg": "Apply Damage",
+      "applyNonLethal": "Apply Non-lethal Damage",
       "Defense": "Defense",
       "Blocked": "Blocked",
       "SelectActor": "At least one actor must be selected",
