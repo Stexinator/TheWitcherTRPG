@@ -4,7 +4,7 @@ import { calc_currency_weight } from "../../scripts/witcher.js";
 export default class WitcherMonsterSheet extends ActorSheet {
 
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["witcher", "sheet", "actor"],
       width: 1120,
       height: 600,
@@ -28,8 +28,6 @@ export default class WitcherMonsterSheet extends ActorSheet {
     context.totalCost = context.items.cost();
 
     context.isGM = game.user.isGM
-
-    console.log(context)
 
     return context;
   }

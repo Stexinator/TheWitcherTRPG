@@ -3,7 +3,7 @@ import { WITCHER } from "../../../setup/config.js";
 export default class WitcherObstacleSheet extends ItemSheet {
   /** @override */
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["witcher", "sheet", "item"],
       width: 520,
       height: 480,

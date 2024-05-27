@@ -2,16 +2,10 @@
     <div class="flexrow BackgroundDescription">
         <div class="flexcol background scrollable">
             {{localize "WITCHER.Homeland"}}
-
             <select name="system.general.homeland.value" id="homeland-select">
-                {{#select system.general.homeland.value}}
-                    <option value="Other">{{localize "WITCHER.background.other"}}</option>
-                    {{#each config.homelands as |name value|}}
-                        <option value="{{name}}">{{localize name}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions config.homelands selected=system.general.homeland.value localize=true}}
             </select>
-            {{#if (eq system.general.homeland.value "Other")}}
+            {{#if (eq system.general.homeland.value "other")}}
                 <input class="details hometailOther" name="system.general.homeland.otherValue" type="text"
                     value="{{system.general.homeland.otherValue}}" />
             {{/if}}
