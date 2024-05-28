@@ -1,4 +1,3 @@
-
 import { genId } from "../../scripts/witcher.js";
 
 export default class WitcherItemSheet extends ItemSheet {
@@ -89,7 +88,7 @@ export default class WitcherItemSheet extends ItemSheet {
     effects[objIndex][field] = value
 
     this.item.update({ 'system.effects': effects });
-    
+
   }
 
   _onModifierEdit(event) {

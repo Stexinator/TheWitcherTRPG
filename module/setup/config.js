@@ -275,35 +275,55 @@ WITCHER.statMap = {
     },
 
     stun: {
-        origin: "coreStats"
+        origin: "coreStats",
+        name: "stun",
+        labelShort: "WITCHER.Actor.CoreStat.Stun",
     },
     run: {
-        origin: "coreStats"
+        origin: "coreStats",
+        name: "run",
+        labelShort: "WITCHER.Actor.CoreStat.Run",
     },
     leap: {
-        origin: "coreStats"
+        origin: "coreStats",
+        name: "leap",
+        labelShort: "WITCHER.Actor.CoreStat.Leap",
     },
     enc: {
-        origin: "coreStats"
+        origin: "coreStats",
+        name: "enc",
+        labelShort: "WITCHER.Actor.CoreStat.Enc",
     },
     rec: {
-        origin: "coreStats"
+        origin: "coreStats",
+        name: "rec",
+        labelShort: "WITCHER.Actor.CoreStat.Rec",
     },
     woundTreshold: {
-        origin: "coreStats"
+        origin: "coreStats",
+        name: "woundTreshold",
+        labelShort: "WITCHER.Actor.CoreStat.woundTreshold",
     },
 
     hp: {
-        origin: "derivedStats"
+        origin: "derivedStats",
+        name: "hp",
+        labelShort: "WITCHER.Actor.DerStat.HP",
     },
     sta: {
-        origin: "derivedStats"
+        origin: "derivedStats",
+        name: "sta",
+        labelShort: "WITCHER.Actor.DerStat.Sta",
     },
     resolve: {
-        origin: "derivedStats"
+        origin: "derivedStats",
+        name: "resolve",
+        labelShort: "WITCHER.Actor.DerStat.Resolve",
     },
     focus: {
-        origin: "derivedStats"
+        origin: "derivedStats",
+        name: "focus",
+        labelShort: "WITCHER.Actor.DerStat.Focus",
     },
 
     reputation: {

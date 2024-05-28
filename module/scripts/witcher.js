@@ -20,24 +20,26 @@ function updateDerived(actor) {
 	const baseMax = Math.floor((stats.body.max + stats.will.max) / 2);
 	const meleeBonus = Math.ceil((stats.body.current - 6) / 2) * 2;
 
-	let intTotalModifiers = 0;
-	let refTotalModifiers = 0;
-	let dexTotalModifiers = 0;
-	let bodyTotalModifiers = 0;
-	let spdTotalModifiers = 0;
-	let empTotalModifiers = 0;
-	let craTotalModifiers = 0;
-	let willTotalModifiers = 0;
-	let luckTotalModifiers = 0;
-	let intDivider = 1;
-	let refDivider = 1;
-	let dexDivider = 1;
-	let bodyDivider = 1;
-	let spdDivider = 1;
-	let empDivider = 1;
-	let craDivider = 1;
-	let willDivider = 1;
-	let luckDivider = 1;
+	let activeEffects = thisActor.getList("effect").filter(e => e.system.isActive);
+
+	let intTotalModifiers = getActiveEffectModifier(activeEffects, "int").totalModifiers;
+	let refTotalModifiers = getActiveEffectModifier(activeEffects, "ref").totalModifiers;
+	let dexTotalModifiers = getActiveEffectModifier(activeEffects, "dex").totalModifiers;
+	let bodyTotalModifiers = getActiveEffectModifier(activeEffects, "body").totalModifiers;
+	let spdTotalModifiers = getActiveEffectModifier(activeEffects, "spd").totalModifiers;
+	let empTotalModifiers = getActiveEffectModifier(activeEffects, "emp").totalModifiers;
+	let craTotalModifiers = getActiveEffectModifier(activeEffects, "cra").totalModifiers;
+	let willTotalModifiers = getActiveEffectModifier(activeEffects, "will").totalModifiers;
+	let luckTotalModifiers = getActiveEffectModifier(activeEffects, "luck").totalModifiers;
+	let intDivider = getActiveEffectModifier(activeEffects, "int").totalDivider;
+	let refDivider = getActiveEffectModifier(activeEffects, "ref").totalDivider;
+	let dexDivider = getActiveEffectModifier(activeEffects, "dex").totalDivider;
+	let bodyDivider = getActiveEffectModifier(activeEffects, "body").totalDivider;
+	let spdDivider = getActiveEffectModifier(activeEffects, "spd").totalDivider;
+	let empDivider = getActiveEffectModifier(activeEffects, "emp").totalDivider;
+	let craDivider = getActiveEffectModifier(activeEffects, "cra").totalDivider;
+	let willDivider = getActiveEffectModifier(activeEffects, "will").totalDivider;
+	let luckDivider = getActiveEffectModifier(activeEffects, "luck").totalDivider;
 	thisActor.system.stats.int.modifiers.forEach(item => intTotalModifiers += Number(item.value));
 	thisActor.system.stats.ref.modifiers.forEach(item => refTotalModifiers += Number(item.value));
 	thisActor.system.stats.dex.modifiers.forEach(item => dexTotalModifiers += Number(item.value));
@@ -48,62 +50,18 @@ function updateDerived(actor) {
 	thisActor.system.stats.will.modifiers.forEach(item => willTotalModifiers += Number(item.value));
 	thisActor.system.stats.luck.modifiers.forEach(item => luckTotalModifiers += Number(item.value));
 
-	let activeEffects = thisActor.getList("effect").filter(e => e.system.isActive);
-	activeEffects.forEach(item => {
-		item.system.stats.forEach(stat => {
-			switch (stat.stat) {
-				case "WITCHER.Actor.Stat.Int":
-					if (stat.modifier.includes("/")) { intDivider = Number(stat.modifier.replace("/", '')); }
-					else { intTotalModifiers += Number(stat.modifier) }
-					break;
-				case "WITCHER.Actor.Stat.Ref":
-					if (stat.modifier.includes("/")) { refDivider = Number(stat.modifier.replace("/", '')); }
-					else { refTotalModifiers += Number(stat.modifier) }
-					break;
-				case "WITCHER.Actor.Stat.Dex":
-					if (stat.modifier.includes("/")) { dexDivider = Number(stat.modifier.replace("/", '')); }
-					else { dexTotalModifiers += Number(stat.modifier) }
-					break;
-				case "WITCHER.Actor.Stat.Body":
-					if (stat.modifier.includes("/")) { bodyDivider = Number(stat.modifier.replace("/", '')); }
-					else { bodyTotalModifiers += Number(stat.modifier) }
-					break;
-				case "WITCHER.Actor.Stat.Spd":
-					if (stat.modifier.includes("/")) { spdDivider = Number(stat.modifier.replace("/", '')); }
-					else { spdTotalModifiers += Number(stat.modifier) }
-					break;
-				case "WITCHER.Actor.Stat.Emp":
-					if (stat.modifier.includes("/")) { empDivider = Number(stat.modifier.replace("/", '')); }
-					else { empTotalModifiers += Number(stat.modifier) }
-					break;
-				case "WITCHER.Actor.Stat.Cra":
-					if (stat.modifier.includes("/")) { craDivider = Number(stat.modifier.replace("/", '')); }
-					else { craTotalModifiers += Number(stat.modifier) }
-					break;
-				case "WITCHER.Actor.Stat.Will":
-					if (stat.modifier.includes("/")) { willDivider = Number(stat.modifier.replace("/", '')); }
-					else { willTotalModifiers += Number(stat.modifier) }
-					break;
-				case "WITCHER.Actor.Stat.Luck":
-					if (stat.modifier.includes("/")) { luckDivider = Number(stat.modifier.replace("/", '')); }
-					else { luckTotalModifiers += Number(stat.modifier) }
-					break;
-			}
-		})
-	});
-
-	let stunTotalModifiers = 0;
-	let runTotalModifiers = 0;
-	let leapTotalModifiers = 0;
-	let encTotalModifiers = 0;
-	let recTotalModifiers = 0;
-	let wtTotalModifiers = 0;
-	let stunDivider = 1;
-	let runDivider = 1;
-	let leapDivider = 1;
-	let encDivider = 1;
-	let recDivider = 1;
-	let wtDivider = 1;
+	let stunTotalModifiers = getActiveEffectModifier(activeEffects, "stun").totalModifiers;;
+	let runTotalModifiers = getActiveEffectModifier(activeEffects, "run").totalModifiers;
+	let leapTotalModifiers = getActiveEffectModifier(activeEffects, "leap").totalModifiers;
+	let encTotalModifiers = getActiveEffectModifier(activeEffects, "enc").totalModifiers;
+	let recTotalModifiers = getActiveEffectModifier(activeEffects, "rec").totalModifiers;
+	let wtTotalModifiers = getActiveEffectModifier(activeEffects, "woundTreshold").totalModifiers;
+	let stunDivider = getActiveEffectModifier(activeEffects, "stun").totalDivider;
+	let runDivider = getActiveEffectModifier(activeEffects, "run").totalDivider;
+	let leapDivider = getActiveEffectModifier(activeEffects, "leap").totalDivider;
+	let encDivider = getActiveEffectModifier(activeEffects, "enc").totalDivider;
+	let recDivider = getActiveEffectModifier(activeEffects, "rec").totalDivider;
+	let wtDivider = getActiveEffectModifier(activeEffects, "woundTreshold").totalDivider;
 	thisActor.system.coreStats.stun.modifiers.forEach(item => stunTotalModifiers += Number(item.value));
 	thisActor.system.coreStats.run.modifiers.forEach(item => runTotalModifiers += Number(item.value));
 	thisActor.system.coreStats.leap.modifiers.forEach(item => leapTotalModifiers += Number(item.value));
@@ -120,37 +78,6 @@ function updateDerived(actor) {
 		encDiff = Math.ceil((totalWeights - curentEncumbrance) / 5)
 	}
 	let armorEnc = getArmorEcumbrance(thisActor)
-
-	activeEffects.forEach(item => {
-		item.system.derived.forEach(derived => {
-			switch (derived.derivedStat) {
-				case "WITCHER.Actor.CoreStat.Stun":
-					if (derived.modifier.includes("/")) { stunDivider = Number(derived.modifier.replace("/", '')); }
-					else { stunTotalModifiers += Number(derived.modifier) }
-					break;
-				case "WITCHER.Actor.CoreStat.Run":
-					if (derived.modifier.includes("/")) { runDivider = Number(derived.modifier.replace("/", '')); }
-					else { runTotalModifiers += Number(derived.modifier) }
-					break;
-				case "WITCHER.Actor.CoreStat.Leap":
-					if (derived.modifier.includes("/")) { leapDivider = Number(derived.modifier.replace("/", '')); }
-					else { leapTotalModifiers += Number(derived.modifier) }
-					break;
-				case "WITCHER.Actor.CoreStat.Enc":
-					if (derived.modifier.includes("/")) { encDivider = Number(derived.modifier.replace("/", '')); }
-					else { encTotalModifiers += Number(derived.modifier) }
-					break;
-				case "WITCHER.Actor.CoreStat.Rec":
-					if (derived.modifier.includes("/")) { recDivider = Number(derived.modifier.replace("/", '')); }
-					else { recTotalModifiers += Number(derived.modifier) }
-					break;
-				case "WITCHER.Actor.CoreStat.woundTreshold":
-					if (derived.modifier.includes("/")) { wtDivider = Number(derived.modifier.replace("/", '')); }
-					else { wtTotalModifiers += Number(derived.modifier) }
-					break;
-			}
-		})
-	});
 
 	let curInt = Math.floor((thisActor.system.stats.int.max + intTotalModifiers) / intDivider);
 	let curRef = Math.floor((thisActor.system.stats.ref.max + refTotalModifiers - armorEnc - encDiff) / refDivider);
@@ -184,30 +111,16 @@ function updateDerived(actor) {
 		curWill = Math.floor((thisActor.system.stats.will.max + willTotalModifiers) / 2 / willDivider)
 	}
 
-	let hpTotalModifiers = 0;
-	let staTotalModifiers = 0;
-	let resTotalModifiers = 0;
-	let focusTotalModifiers = 0;
-	let hpDivider = 1;
-	let staDivider = 1;
+	let hpTotalModifiers = getActiveEffectModifier(activeEffects, "hp").totalModifiers;
+	let staTotalModifiers = getActiveEffectModifier(activeEffects, "sta").totalModifiers;
+	let resTotalModifiers = getActiveEffectModifier(activeEffects, "resolve").totalModifiers;
+	let focusTotalModifiers = getActiveEffectModifier(activeEffects, "focus").totalModifiers;
+	let hpDivider = getActiveEffectModifier(activeEffects, "hp").totalDivider;
+	let staDivider = getActiveEffectModifier(activeEffects, "sta").totalDivider;
 	thisActor.system.derivedStats.hp.modifiers.forEach(item => hpTotalModifiers += Number(item.value));
 	thisActor.system.derivedStats.sta.modifiers.forEach(item => staTotalModifiers += Number(item.value));
 	thisActor.system.derivedStats.resolve.modifiers.forEach(item => resTotalModifiers += Number(item.value));
 	thisActor.system.derivedStats.focus.modifiers.forEach(item => focusTotalModifiers += Number(item.value));
-	activeEffects.forEach(item => {
-		item.system.derived.forEach(derived => {
-			switch (derived.derivedStat) {
-				case "WITCHER.Actor.DerStat.HP":
-					if (derived.modifier.includes("/")) { hpDivider = Number(derived.modifier.replace("/", '')); }
-					else { hpTotalModifiers += Number(derived.modifier) }
-					break;
-				case "WITCHER.Actor.DerStat.Sta":
-					if (derived.modifier.includes("/")) { staDivider = Number(derived.modifier.replace("/", '')); }
-					else { staTotalModifiers += Number(derived.modifier) }
-					break;
-			}
-		})
-	});
 
 	let curHp = thisActor.system.derivedStats.hp.max + hpTotalModifiers;
 	let curSta = thisActor.system.derivedStats.sta.max + staTotalModifiers;
@@ -265,6 +178,39 @@ function updateDerived(actor) {
 		'system.attackStats.punch.value': `1d6+${meleeBonus}`,
 		'system.attackStats.kick.value': `1d6+${4 + meleeBonus}`,
 	});
+}
+
+function getActiveEffectModifier(activeEffects, checkedStat) {
+	let totalModifiers = 0;
+	let totalDivider = 1;
+	activeEffects?.forEach(item => {
+		item.system.stats?.forEach(stat => {
+			if (stat.stat == checkedStat) {
+				if (stat.modifier.includes("/")) {
+					totalDivider = Number(stat.modifier.replace("/", ''));
+				}
+				else {
+					totalModifiers += Number(stat.modifier)
+				}
+			}
+		})
+
+		item.system.derived?.forEach(derived => {
+			if (derived.derivedStat == checkedStat) {
+				if (derived.modifier.includes("/")) {
+					totalDivider = Number(derived.modifier.replace("/", ''));
+				}
+				else {
+					totalModifiers += Number(derived.modifier)
+				}
+			}
+		})
+	});
+
+	return {
+		totalModifiers,
+		totalDivider
+	}
 }
 
 function getArmorEcumbrance(actor) {
