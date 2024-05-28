@@ -9,9 +9,9 @@ export default class WitcherItem extends Item {
 
   async createSpellVisualEffectIfApplicable(token) {
     if (this.type == "spell" && token &&
-        this.system.createTemplate &&
-        this.system.templateType &&
-        this.system.templateSize) {
+      this.system.createTemplate &&
+      this.system.templateType &&
+      this.system.templateSize) {
 
       token = token.document ? token : token._object
       // todo need to  create some property indicating the initial rotation of the token
@@ -20,14 +20,14 @@ export default class WitcherItem extends Item {
 
       // Prepare template data
       const templateData = {
-            t: this.system.templateType,
-            user: game.user.id,
-            distance: this.system.templateSize,
-            direction: token.document.rotation - tokenRotation,
-            x: token.center.x,
-            y: token.center.y,
-            fillColor: game.user.color,
-            flags: this.getSpellFlags()
+        t: this.system.templateType,
+        user: game.user.id,
+        distance: this.system.templateSize,
+        direction: token.document.rotation - tokenRotation,
+        x: token.center.x,
+        y: token.center.y,
+        fillColor: game.user.color,
+        flags: this.getSpellFlags()
       };
 
       switch (this.system.templateType) {
@@ -61,39 +61,9 @@ export default class WitcherItem extends Item {
   }
 
   getItemAttackSkill() {
-    let alias = "";
-    switch (this.system.attackSkill) {
-      case "Brawling":
-        alias = game.i18n.localize("WITCHER.SkRefBrawling")
-        break;
-      case "Melee":
-        alias = game.i18n.localize("WITCHER.SkRefMelee");
-        break;
-      case "Small Blades":
-        alias = game.i18n.localize("WITCHER.SkRefSmall");
-        break;
-      case "Staff/Spear":
-        alias = game.i18n.localize("WITCHER.SkRefStaff");
-        break;
-      case "Swordsmanship":
-        alias = game.i18n.localize("WITCHER.SkRefSwordsmanship");
-        break;
-      case "Archery":
-        alias = game.i18n.localize("WITCHER.SkDexArchery");
-        break;
-      case "Athletics":
-        alias = game.i18n.localize("WITCHER.SkDexAthletics");
-        break;
-      case "Crossbow":
-        alias = game.i18n.localize("WITCHER.SkDexCrossbow");
-        break;
-      default:
-        break;
-    }
-
     return {
       "name": this.system.attackSkill,
-      "alias": alias
+      "alias": WITCHER.skillMap[this.system.attackSkill].label
     };
   }
 
@@ -325,7 +295,7 @@ export default class WitcherItem extends Item {
         }
 
         // add generated item to the loot sheet
-        let itemInLoot = this.actor.items.find(i=> i.name === genItem.name && i.type === genItem.type)
+        let itemInLoot = this.actor.items.find(i => i.name === genItem.name && i.type === genItem.type)
         if (!itemInLoot) {
           await Item.create(genItem, { parent: this.actor })
         } else {

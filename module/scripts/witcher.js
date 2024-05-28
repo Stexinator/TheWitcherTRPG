@@ -414,10 +414,9 @@ function addSkillModifiers(skill, formula) {
 function addActiveEffects(actor, skill, rollFormula) {
 	let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
 	let activeEffects = actor.getList("effect").filter(e => e.system.isActive);
-	let skillMapEntry = WITCHER.skillMap[skill]
 	activeEffects.forEach(activeEffect => {
 		activeEffect.system.skills.forEach(effectSkill => {
-			if (skillMapEntry.label == effectSkill.skill) {
+			if (skill == effectSkill.skill) {
 				if (effectSkill.modifier.includes("/")) {
 					rollFormula += !displayRollDetails ? `/${Number(effectSkill.modifier.replace("/", ''))}` : `/${Number(effectSkill.modifier.replace("/", ''))}[${activeEffect.name}]`
 				}
