@@ -194,11 +194,13 @@ export let itemMixin = {
   async _onSpellRoll(event, itemId = null) {
 
     let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
+    let damage = {};
 
     if (!itemId) {
       itemId = event.currentTarget.closest(".item").dataset.itemId;
     }
     let spellItem = this.actor.items.get(itemId);
+    damage.item = spellItem;
     let rollFormula = `1d10`
     rollFormula += !displayRollDetails ? `+${this.actor.system.stats.will.current}` : `+${this.actor.system.stats.will.current}[${game.i18n.localize("WITCHER.StWill")}]`;
     switch (spellItem.system.class) {
@@ -334,7 +336,6 @@ export let itemMixin = {
 
     let messageData = {
       speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flags: spellItem.getSpellFlags(),
       flavor: `<h2><img src="${spellItem.img}" class="item-img" />${spellItem.name}</h2>
             <div><b>${game.i18n.localize("WITCHER.Spell.StaCost")}: </b>${staCostDisplay}</div>
             <div><b>${game.i18n.localize("WITCHER.Mutagen.Source")}: </b>${game.i18n.localize(spellSource)}</div>
@@ -366,15 +367,16 @@ export let itemMixin = {
     }
 
     if (spellItem.system.causeDamages) {
-      let effects = JSON.stringify(spellItem.system.effects)
-      let locationJSON = JSON.stringify(this.actor.getLocationObject("randomSpell"))
-
       let dmg = spellItem.system.damage || "0"
       if (spellItem.system.staminaIsVar) {
         dmg = this.calcStaminaMulti(origStaCost, dmg)
       }
 
-      messageData.flavor += `<button class="damage" data-img="${spellItem.img}" data-name="${spellItem.name}" data-dmg="${dmg}" data-location='${locationJSON}' data-effects='${effects}'>${game.i18n.localize("WITCHER.table.Damage")}</button>`;
+      damage.effects = spellItem.system.effects;
+      damage.formula = dmg;
+
+      messageData.flavor += `<button class="damage" data-img="${spellItem.img}" data-name="${spellItem.name}">${game.i18n.localize("WITCHER.table.Damage")}</button>`;
+      damage.location = this.actor.getLocationObject("randomSpell")
     }
 
     if (spellItem.system.createsShield) {
@@ -397,7 +399,13 @@ export let itemMixin = {
 
     let config = new RollConfig()
     config.showCrit = true
-    await extendedRoll(rollFormula, messageData, config)
+    config.showResult = false;
+
+    let roll = await extendedRoll(rollFormula, messageData, config)
+    let message = await roll.toMessage(messageData);
+
+    message.setFlag('TheWitcherTRPG', 'attack', spellItem.getSpellFlags())
+    message.setFlag('TheWitcherTRPG', 'damage', damage)
 
     let token = this.actor.getControlledToken();
 
