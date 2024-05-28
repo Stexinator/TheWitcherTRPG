@@ -1,3 +1,4 @@
+import { WITCHER } from "../setup/config.js";
 import { extendedRoll } from "./chat.js";
 import { RollConfig } from "./rollConfig.js";
 
@@ -323,9 +324,7 @@ function rollSkillCheck(actor, skillMapEntry) {
 		}
 	}
 
-	if (skill.modifiers) {
-		rollFormula = addModifiers(skill.modifiers, rollFormula)
-	}
+	rollFormula = addModifiers(skill.modifiers, rollFormula)
 
 	let armorEnc = getArmorEcumbrance(actor)
 	if (armorEnc > 0 && (skillName == "hexweave" || skillName == "ritcraft" || skillName == "spellcast")) {
@@ -399,4 +398,37 @@ function addModifiers(modifiers, formula) {
 	return formula;
 }
 
-export { updateDerived, rollSkillCheck, genId, calc_currency_weight, addModifiers };
+function addSkillModifiers(skill, formula) {
+	let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
+	skill.modifiers?.forEach(mod => {
+		if (mod.value < 0) {
+			formula += !displayRollDetails ? `${mod.value}` : `${mod.value}[${mod.name}]`
+		}
+		if (mod.value > 0) {
+			formula += !displayRollDetails ? `+${mod.value}` : `+${mod.value}[${mod.name}]`
+		}
+	});
+	return formula;
+}
+
+function addActiveEffects(actor, skill, rollFormula) {
+	let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
+	let activeEffects = actor.getList("effect").filter(e => e.system.isActive);
+	let skillMapEntry = WITCHER.skillMap[skill]
+	activeEffects.forEach(activeEffect => {
+		activeEffect.system.skills.forEach(effectSkill => {
+			if (skillMapEntry.label == effectSkill.skill) {
+				if (effectSkill.modifier.includes("/")) {
+					rollFormula += !displayRollDetails ? `/${Number(effectSkill.modifier.replace("/", ''))}` : `/${Number(effectSkill.modifier.replace("/", ''))}[${activeEffect.name}]`
+				}
+				else {
+					rollFormula += !displayRollDetails ? `+${effectSkill.modifier}` : `+${effectSkill.modifier}[${activeEffect.name}]`
+				}
+			}
+		})
+	});
+
+	return rollFormula;
+}
+
+export { updateDerived, rollSkillCheck, genId, calc_currency_weight, addModifiers, addSkillModifiers, addActiveEffects };

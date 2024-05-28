@@ -45,11 +45,9 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
   _prepareCharacterData(context) {
     let actor = context.actor;
 
-    context.professions = actor.getList("profession");
-    context.profession = context.professions[0];
+    context.profession = actor.getList("profession")[0];
 
-    context.races = actor.getList("race");
-    context.race = context.races[0];
+    context.race = actor.getList("race")[0];
 
     context.totalStats = this.calc_total_stats(context)
     context.totalSkills = this.calc_total_skills(context)
