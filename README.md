@@ -43,6 +43,10 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 
 ## Version History ##
 
+### 1.029 ###
+- fix spells cannot roll damage
+- fix status effects for spells
+
 ### 1.028 ###
 #### General #####
 - v12 compatibility
