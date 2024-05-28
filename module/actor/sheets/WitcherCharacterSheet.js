@@ -1,5 +1,5 @@
 import WitcherActorSheet from "./WitcherActorSheet.js";
-import { addModifiers } from "../../scripts/witcher.js";
+import { addAllModifiers } from "../../scripts/witcher.js";
 import { RollConfig } from "../../scripts/rollConfig.js";
 import { extendedRoll } from "../../scripts/chat.js";
 
@@ -192,7 +192,7 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
               rollFormula += !displayRollDetails ? `+2` : `+2[${game.i18n.localize("WITCHER.Dialog.Diagram")}]`
             }
 
-            rollFormula = addModifiers(this.actor.system.skills.cra.alchemy.modifiers, rollFormula)
+            rollFormula = addAllModifiers(this.actor, "alchemy", rollFormula)
 
             let config = new RollConfig();
             config.showCrit = true
@@ -279,7 +279,7 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
               rollFormula += !displayRollDetails ? `+2` : `+2[${game.i18n.localize("WITCHER.Dialog.Diagram")}]`
             }
 
-            rollFormula = addModifiers(this.actor.system.skills.cra.crafting.modifiers, rollFormula)
+            rollFormula = addAllModifiers(this.actor, "crafting", rollFormula)
 
             let config = new RollConfig();
             config.showCrit = true

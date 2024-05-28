@@ -215,54 +215,63 @@ WITCHER.CritDeadly = {
     DeadlyDismemberedLeg: "WITCHER.CritWound.Name.DeadlyDismemberedLeg",
 }
 
-WITCHER.meleeSkills = ["Brawling", "Melee", "Small Blades", "Staff/Spear", "Swordsmanship", "Athletics"]
-WITCHER.rangedSkills = ["Athletics", "Archery", "Crossbow"]
+WITCHER.meleeSkills = ["brawling", "melee", "smallblades", "staffspear", "swordsmanship", "athletics"]
+WITCHER.rangedSkills = ["athletics", "archery", "crossbow"]
 
 WITCHER.statMap = {
     int: {
         origin: "stats",
         name: "int",
-        label: "WITCHER.StInt"
+        label: "WITCHER.StInt",
+        labelShort: "WITCHER.Actor.Stat.Int"
     },
     ref: {
         origin: "stats",
         name: "ref",
-        label: "WITCHER.StRef"
+        label: "WITCHER.StRef",
+        labelShort: "WITCHER.Actor.Stat.Ref"
     },
     dex: {
         origin: "stats",
         name: "dex",
-        label: "WITCHER.StDex"
+        label: "WITCHER.StDex",
+        labelShort: "WITCHER.Actor.Stat.Dex"
     },
     body: {
         origin: "stats",
         name: "body",
-        label: "WITCHER.StBody"
+        label: "WITCHER.StBody",
+        labelShort: "WITCHER.Actor.Stat.Body"
     },
     spd: {
         origin: "stats",
         name: "spd",
-        label: "WITCHER.StSpd"
+        label: "WITCHER.StSpd",
+        labelShort: "WITCHER.Actor.Stat.Spd"
     },
     emp: {
         origin: "stats",
         name: "emp",
-        label: "WITCHER.StEmp"
+        label: "WITCHER.StEmp",
+        labelShort: "WITCHER.Actor.Stat.Emp"
     },
     cra: {
         origin: "stats",
         name: "cra",
-        label: "WITCHER.StCra"
+        label: "WITCHER.StCra",
+        labelShort: "WITCHER.Actor.Stat.Cra"
     },
     will: {
         origin: "stats",
         name: "will",
-        label: "WITCHER.StWill"
+        label: "WITCHER.StWill",
+        labelShort: "WITCHER.Actor.Stat.Will"
     },
     luck: {
         origin: "stats",
         name: "luck",
-        label: "WITCHER.StLuck"
+        label: "WITCHER.StLuck",
+        labelShort: "WITCHER.Actor.Stat.Luck"
     },
 
     stun: {

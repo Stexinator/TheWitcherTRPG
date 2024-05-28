@@ -290,7 +290,6 @@ function rollSkillCheck(actor, skillMapEntry) {
 	let skillName = skillMapEntry.name;
 	let skillLabel = game.i18n.localize(skillMapEntry.label)
 	let skillValue = actor.system.skills[attribute.name][skillName].value;
-	let skill = actor.system.skills[attribute.name][skillName]
 
 	let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
 
@@ -324,7 +323,7 @@ function rollSkillCheck(actor, skillMapEntry) {
 		}
 	}
 
-	rollFormula = addModifiers(skill.modifiers, rollFormula)
+	rollFormula = addAllModifiers(actor, skillMapEntry.name, rollFormula)
 
 	let armorEnc = getArmorEcumbrance(actor)
 	if (armorEnc > 0 && (skillName == "hexweave" || skillName == "ritcraft" || skillName == "spellcast")) {
@@ -385,9 +384,16 @@ function calc_currency_weight(currency) {
 	return Number(totalPieces * 0.001)
 }
 
-function addModifiers(modifiers, formula) {
+function addAllModifiers(actor, skillName, formula) {
+	formula = addSkillModifiers(actor, skillName, formula);
+	formula = addActiveEffects(actor, skillName, formula);
+	return formula;
+}
+
+function addSkillModifiers(actor, skillName, formula) {
+	let skill = WITCHER.skillMap[skillName];
 	let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
-	modifiers?.forEach(mod => {
+	actor.system.skills[skill.attribute.name][skill.name].modifiers?.forEach(mod => {
 		if (mod.value < 0) {
 			formula += !displayRollDetails ? `${mod.value}` : `${mod.value}[${mod.name}]`
 		}
@@ -398,25 +404,12 @@ function addModifiers(modifiers, formula) {
 	return formula;
 }
 
-function addSkillModifiers(skill, formula) {
-	let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
-	skill.modifiers?.forEach(mod => {
-		if (mod.value < 0) {
-			formula += !displayRollDetails ? `${mod.value}` : `${mod.value}[${mod.name}]`
-		}
-		if (mod.value > 0) {
-			formula += !displayRollDetails ? `+${mod.value}` : `+${mod.value}[${mod.name}]`
-		}
-	});
-	return formula;
-}
-
-function addActiveEffects(actor, skill, rollFormula) {
+function addActiveEffects(actor, skillName, rollFormula) {
 	let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
 	let activeEffects = actor.getList("effect").filter(e => e.system.isActive);
 	activeEffects.forEach(activeEffect => {
 		activeEffect.system.skills.forEach(effectSkill => {
-			if (skill == effectSkill.skill) {
+			if (skillName == effectSkill.skill) {
 				if (effectSkill.modifier.includes("/")) {
 					rollFormula += !displayRollDetails ? `/${Number(effectSkill.modifier.replace("/", ''))}` : `/${Number(effectSkill.modifier.replace("/", ''))}[${activeEffect.name}]`
 				}
@@ -430,4 +423,4 @@ function addActiveEffects(actor, skill, rollFormula) {
 	return rollFormula;
 }
 
-export { updateDerived, rollSkillCheck, genId, calc_currency_weight, addModifiers, addSkillModifiers, addActiveEffects };
+export { updateDerived, rollSkillCheck, genId, calc_currency_weight, addAllModifiers, addSkillModifiers, addActiveEffects };

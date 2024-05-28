@@ -1,6 +1,6 @@
 import { buttonDialog, extendedRoll } from "../../scripts/chat.js";
 import { rollDamage } from "../../scripts/attack.js";
-import { addModifiers, addSkillModifiers, addActiveEffects } from "../../scripts/witcher.js";
+import { addAllModifiers } from "../../scripts/witcher.js";
 import { RollConfig } from "../../scripts/rollConfig.js";
 import { WITCHER } from "../../setup/config.js";
 
@@ -551,7 +551,6 @@ export let itemMixin = {
               attFormula += !displayRollDetails ?
                 `+${this.actor.system.stats[skill.attribute.name].current}+${this.actor.system.skills[skill.attribute.name][skill.name].value}` :
                 `+${this.actor.system.stats[skill.attribute.name].current}[${game.i18n.localize(skill.attribute.label)}]+${this.actor.system.skills[skill.attribute.name][skill.name].value}[${game.i18n.localize(skill.label)}]`;
-              let modifiers = this.actor.system.skills[skill.attribute.name][skill.name].modifiers;
 
               if (customAtt != "0") {
                 attFormula += !displayRollDetails ? `+${customAtt}` : `+${customAtt}[${game.i18n.localize("WITCHER.Settings.Custom")}]`;
@@ -587,8 +586,7 @@ export let itemMixin = {
                 attFormula = !displayRollDetails ? `${attFormula}-3` : `${attFormula}-3[${game.i18n.localize("WITCHER.Dialog.attackStrike")}]`;
               }
 
-              attFormula = addModifiers(modifiers, attFormula)
-              attFormula = addActiveEffects(this.actor, attackSkill.name, attFormula)
+              attFormula = addAllModifiers(this.actor, attackSkill.name, attFormula)
 
               messageData.flavor = `<div class="attack-message"><h1><img src="${item.img}" class="item-img" />${game.i18n.localize("WITCHER.Attack")}: ${item.name}</h1>`;
               messageData.flavor += `<span>  ${game.i18n.localize("WITCHER.Armor.Location")}: ${touchedLocation.alias} = ${touchedLocation.locationFormula} </span>`;
@@ -631,19 +629,15 @@ export let itemMixin = {
       case "Invocations":
       case "Spells":
         rollFormula += !displayRollDetails ? `+${this.actor.system.skills.will.spellcast.value}` : `+${this.actor.system.skills.will.spellcast.value}[${game.i18n.localize("WITCHER.SkWillSpellcastLable")}]`;
-
-        rollFormula = addSkillModifiers(this.actor.system.skills.will.spellcast, rollFormula)
-        rollFormula = addActiveEffects(this.actor, "spellcast", rollFormula)
+        rollFormula = addAllModifiers(this.actor, "spellcast", rollFormula)
         break;
       case "Rituals":
         rollFormula += !displayRollDetails ? `+${this.actor.system.skills.will.ritcraft.value}` : `+${this.actor.system.skills.will.ritcraft.value}[${game.i18n.localize("WITCHER.SkWillRitCraftLable")}]`;
-        rollFormula = addSkillModifiers(this.actor.system.skills.will.ritcraft, rollFormula)
-        rollFormula = addActiveEffects(this.actor, "ritcraft", rollFormula)
+        rollFormula = addAllModifiers(this.actor, "ritcraft", rollFormula)
         break;
       case "Hexes":
         rollFormula += !displayRollDetails ? `+${this.actor.system.skills.will.hexweave.value}` : `+${this.actor.system.skills.will.hexweave.value}[${game.i18n.localize("WITCHER.SkWillHexLable")}]`;
-        rollFormula = addSkillModifiers(this.actor.system.skills.will.hexweave, rollFormula)
-        rollFormula = addActiveEffects(this.actor, "hexweave", rollFormula)
+        rollFormula = addAllModifiers(this.actor, "hexweave", rollFormula)
         break;
     }
 

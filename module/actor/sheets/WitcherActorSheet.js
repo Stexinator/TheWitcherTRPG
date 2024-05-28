@@ -1,9 +1,9 @@
 import { extendedRoll } from "../../scripts/chat.js";
 import { WITCHER } from "../../setup/config.js";
-import { calc_currency_weight, addModifiers } from "../../scripts/witcher.js";
+import { calc_currency_weight, addAllModifiers } from "../../scripts/witcher.js";
 import { RollConfig } from "../../scripts/rollConfig.js";
 
-import { ExecuteDefence } from "../../scripts/actions.js";
+import { ExecuteDefense } from "../../scripts/defenses.js";
 import { sanitizeMixin } from "../mixins/sanitizeMixin.js"
 import { deathsaveMixin } from "../mixins/deathSaveMixin.js";
 import { critMixin } from "../mixins/critMixin.js";
@@ -168,7 +168,7 @@ export default class WitcherActorSheet extends ActorSheet {
 
     html.find(".init-roll").on("click", this._onInitRoll.bind(this));
     html.find(".crit-roll").on("click", this._onCritRoll.bind(this));
-    html.find(".defence-roll").on("click", this._onDefenceRoll.bind(this));
+    html.find(".defence-roll").on("click", this._onDefenseRoll.bind(this));
     html.find(".heal-button").on("click", this._onHeal.bind(this));
     html.find(".verbal-button").on("click", this._onVerbalCombat.bind(this));
 
@@ -213,8 +213,8 @@ export default class WitcherActorSheet extends ActorSheet {
     rollResult.toMessage(messageData)
   }
 
-  async _onDefenceRoll(event) {
-    ExecuteDefence(this.actor)
+  async _onDefenseRoll(event) {
+    ExecuteDefense(this.actor)
   }
 
   async _onHeal() {
@@ -317,7 +317,6 @@ export default class WitcherActorSheet extends ActorSheet {
 
             let vcSkillName = verbalCombat.skill?.label ?? "WITCHER.Context.unavailable";
             let vcSkill = verbalCombat.skill ? this.actor.system.skills[verbalCombat.skill.attribute.name][verbalCombat.skill.name]?.value : 0
-            let modifiers = verbalCombat.skill ? this.actor.system.skills[verbalCombat.skill.attribute.name][verbalCombat.skill.name].modifiers : null;
 
             let vcDmg = verbalCombat.baseDmg ? `${verbalCombat.baseDmg}+${this.actor.system.stats[verbalCombat.dmgStat.name].current}[${game.i18n.localize(verbalCombat.dmgStat?.label)}]` : game.i18n.localize("WITCHER.verbalCombat.None")
             if (verbal == "Counterargue") {
@@ -328,7 +327,9 @@ export default class WitcherActorSheet extends ActorSheet {
 
             let rollFormula = !displayRollDetails ? `1d10+${vcStat}+${vcSkill}` : `1d10+${vcStat}[${game.i18n.localize(vcStatName)}]+${vcSkill}[${game.i18n.localize(vcSkillName)}]`
 
-            rollFormula = addModifiers(modifiers, rollFormula)
+            if (verbalCombat.skill) {
+              rollFormula = addAllModifiers(this.actor, verbalCombat.skill, rollFormula)
+            }
 
             let customAtt = html.find("[name=customModifiers]")[0].value;
             if (customAtt < 0) {
