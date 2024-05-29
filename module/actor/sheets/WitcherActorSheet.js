@@ -76,6 +76,16 @@ export default class WitcherActorSheet extends ActorSheet {
     return context;
   }
 
+  /** @inheritdoc */
+  _canDragStart(selector) {
+    return true;
+  }
+
+  /** @inheritdoc */
+  _canDragDrop(selector) {
+    return true;
+  }
+
   _prepareGeneralInformation(context) {
     let actor = context.actor;
 

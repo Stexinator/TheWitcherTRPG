@@ -24,6 +24,11 @@ export default class WitcherContainerSheet extends WitcherItemSheet {
     html.find(".remove-item").on("click", this._onRemoveItem.bind(this));
   }
 
+  /** @inheritdoc */
+  _canDragDrop(selector) {
+    return true;
+  }
+
   async _onDrop(event) {
     let dragEventData = TextEditor.getDragEventData(event)
     let item = fromUuidSync(dragEventData.uuid)
