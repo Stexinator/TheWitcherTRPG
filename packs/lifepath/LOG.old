@@ -1,5 +1,5 @@
-2024/03/27-19:40:48.156 5bc Log #20: 0 ops saved to Table #21 OK
-2024/03/27-19:40:48.157 5bc Archiving D:\Tools\FoundryVTT\FoundryVTT\Data\systems\TheWitcherTRPG\packs\lifepath/000020.log: OK
-2024/03/27-19:40:48.166 5bc Table #9: 160 entries OK
-2024/03/27-19:40:48.303 5bc Archiving D:\Tools\FoundryVTT\FoundryVTT\Data\systems\TheWitcherTRPG\packs\lifepath/MANIFEST-000018: OK
-2024/03/27-19:40:48.350 5bc **** Repaired leveldb D:\Tools\FoundryVTT\FoundryVTT\Data\systems\TheWitcherTRPG\packs\lifepath; recovered 1 files; 16702 bytes. Some data may have been lost. ****
+2024/05/29-17:49:04.028 3210 Recovering log #26
+2024/05/29-17:49:04.028 3210 Level-0 table #28: started
+2024/05/29-17:49:04.074 3210 Level-0 table #28: 17569 bytes OK
+2024/05/29-17:49:04.180 3210 Delete type=0 #26
+2024/05/29-17:49:04.180 3210 Delete type=3 #25
