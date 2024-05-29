@@ -20,17 +20,6 @@
       "url": "https://startplaying.games/gm/siryphas"
     }
   ],
-  "includes": [
-    "./assets/**",
-    "./lang/**",
-    "./module/**",
-    "./packs/**",
-    "./styles/**",
-    "./templates/**",
-    "./system.json",
-    "./template.json",
-    "./README.md"
-  ],
   "scripts": [],
   "esmodules": [
     "module/TheWitcherTRPG.js"
