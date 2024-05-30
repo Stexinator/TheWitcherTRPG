@@ -1,61 +1,25 @@
 import { extendedRoll } from "../scripts/chat.js";
 import { RollConfig } from "../scripts/rollConfig.js";
 import { WITCHER } from "../setup/config.js";
+import AbilityTemplate from "./ability-template.js";
 
 export default class WitcherItem extends Item {
 
   async roll() {
   }
 
-  async createSpellVisualEffectIfApplicable(token) {
-    if (this.type == "spell" && token &&
-      this.system.createTemplate &&
-      this.system.templateType &&
-      this.system.templateSize) {
+  async createSpellVisualEffectIfApplicable() {
+    if (this.system.createTemplate && this.system.templateType && this.system.templateSize) {
 
-      token = token.document ? token : token._object
-      // todo need to  create some property indicating the initial rotation of the token
-      // token can be classic south oriented or user avatar which may look to the different direction
-      let tokenRotation = 0
-
-      // Prepare template data
-      const templateData = {
-        t: this.system.templateType,
-        user: game.user.id,
-        distance: this.system.templateSize,
-        direction: token.document.rotation - tokenRotation,
-        x: token.center.x,
-        y: token.center.y,
-        fillColor: game.user.color,
-        flags: this.getSpellFlags()
-      };
-
-      switch (this.system.templateType) {
-        case "rect":
-          templateData.distance = Math.hypot(this.system.templateSize, this.system.templateSize);
-          templateData.width = this.system.templateSize;
-          templateData.direction = 45;
-          //distance = Math.hypot(Number(this.system.templateSize))
-          //width = token?.target?.value ?? width
-          break;
-        case "cone":
-          templateData.angle = 45;
-          break;
-        case "ray":
-          templateData.width = 1;
-          break;
-      }
-
-      let effect = await canvas.scene.createEmbeddedDocuments("MeasuredTemplate", [templateData], { keepId: true });
-
-      this.visualEffectId = effect[0]._id;
+      let template = await (AbilityTemplate.fromItem(this))?.drawPreview();
+      this.visualEffect = template
     }
   }
 
   async deleteSpellVisualEffect() {
-    if (this.visualEffectId && this.system.visualEffectDuration > 0) {
+    if (this.visualEffect && this.system.visualEffectDuration > 0) {
       setTimeout(() => {
-        canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", [this.visualEffectId])
+        canvas.scene.deleteEmbeddedDocuments("MeasuredTemplate", this.visualEffect.map(effect => effect.id))
       }, this.system.visualEffectDuration * 1000);
     }
   }

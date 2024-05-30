@@ -615,7 +615,7 @@ export let itemMixin = {
   async _onSpellRoll(event, itemId = null) {
 
     let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
- let damage = {};
+    let damage = {};
 
     if (!itemId) {
       itemId = event.currentTarget.closest(".item").dataset.itemId;
@@ -791,17 +791,17 @@ export let itemMixin = {
     }
 
     if (spellItem.system.causeDamages) {
-          let dmg = spellItem.system.damage || "0"
-          if (spellItem.system.staminaIsVar) {
-            dmg = this.calcStaminaMulti(origStaCost, dmg)
-          }
+      let dmg = spellItem.system.damage || "0"
+      if (spellItem.system.staminaIsVar) {
+        dmg = this.calcStaminaMulti(origStaCost, dmg)
+      }
 
-          damage.effects = spellItem.system.effects;
-          damage.formula = dmg;
+      damage.effects = spellItem.system.effects;
+      damage.formula = dmg;
 
-          messageData.flavor += `<button class="damage" data-img="${spellItem.img}" data-name="${spellItem.name}">${game.i18n.localize("WITCHER.table.Damage")}</button>`;
-          damage.location = this.actor.getLocationObject("randomSpell")
-        }
+      messageData.flavor += `<button class="damage" data-img="${spellItem.img}" data-name="${spellItem.name}">${game.i18n.localize("WITCHER.table.Damage")}</button>`;
+      damage.location = this.actor.getLocationObject("randomSpell")
+    }
 
     if (spellItem.system.createsShield) {
       let shield = spellItem.system.shield || "0"
@@ -823,20 +823,18 @@ export let itemMixin = {
 
     let config = new RollConfig()
     config.showCrit = true
-     config.showResult = false;
+    config.showResult = false;
 
-        let roll = await extendedRoll(rollFormula, messageData, config)
-        let message = await roll.toMessage(messageData);
+    await spellItem.createSpellVisualEffectIfApplicable();
+    await spellItem.deleteSpellVisualEffect();
 
-        message.setFlag('TheWitcherTRPG', 'attack', spellItem.getSpellFlags())
-        message.setFlag('TheWitcherTRPG', 'damage', damage)
+    let roll = await extendedRoll(rollFormula, messageData, config)
+    let message = await roll.toMessage(messageData);
+
+    message.setFlag('TheWitcherTRPG', 'attack', spellItem.getSpellFlags())
+    message.setFlag('TheWitcherTRPG', 'damage', damage)
 
     let token = this.actor.getControlledToken();
-
-    if (token?.name) {
-      await spellItem.createSpellVisualEffectIfApplicable(token);
-      await spellItem.deleteSpellVisualEffect();
-    }
   },
 
   _onSpellDisplay(event) {
