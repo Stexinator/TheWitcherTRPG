@@ -223,8 +223,7 @@ export function addChatMessageContextOptions(html, options) {
       callback: li => {
         ExecuteDefense(
           getInteractActor(),
-          li.find(".attack-message")[0].dataset.dmgType,
-          li.find(".attack-message")[0].dataset.location,
+          li[0].dataset.messageId,
           li.find(".dice-total")[0].innerText)
       }
     },
@@ -255,7 +254,8 @@ export function addChatMessageContextOptions(html, options) {
 function getInteractActor() {
   let actor = canvas.tokens.controlled[0]?.actor ?? game.user.character
   if (!actor) {
-    return ui.notifications.error(game.i18n.localize("WITCHER.Context.SelectActor"));
+    ui.notifications.error(game.i18n.localize("WITCHER.Context.SelectActor"));
+    return null;
   }
 
   return actor;

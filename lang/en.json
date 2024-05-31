@@ -875,6 +875,9 @@
       "Result": "Result",
       "unavailable": "N/A"
     },
+    "Defense": {
+      "Crit": "You received a crit"
+    },
     "Heal": {
       "button": "Heal",
       "dialogTitle": "Heal After Rest",

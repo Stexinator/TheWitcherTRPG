@@ -43,7 +43,10 @@ function BlockAttack(actor) {
     }).render(true)
 }
 
-function ExecuteDefense(actor, attackType, location, totalAttack) {
+function ExecuteDefense(actor, messageId, totalAttack) {
+    if (!actor) return;
+
+    let location = game.messages.get(messageId).getFlag('TheWitcherTRPG', 'damage').location
     let weapons = actor.items.filter(function (item) { return item.type == "weapon" && !item.system.isAmmo && WITCHER.meleeSkills.includes(item.system.attackSkill) });
     let shields = actor.items.filter(function (item) { return item.type == "armor" && item.system.location == "Shield" });
     let options = `<option value="brawling"> ${game.i18n.localize("WITCHER.SkRefBrawling")} </option>`;
@@ -64,47 +67,47 @@ function ExecuteDefense(actor, attackType, location, totalAttack) {
             Dodge: {
                 label: `${game.i18n.localize("WITCHER.Dialog.ButtonDodge")}`,
                 callback: async html => {
-                    defense(actor, "dodge", 0, totalAttack, html, "ButtonDodge")
+                    defense(actor, "dodge", 0, totalAttack, location, html, "ButtonDodge")
                 }
             },
             Reposition: {
                 label: `${game.i18n.localize("WITCHER.Dialog.ButtonReposition")}`,
                 callback: async html => {
-                    defense(actor, "athletics", 0, totalAttack, html, "ButtonReposition")
+                    defense(actor, "athletics", 0, totalAttack, location, html, "ButtonReposition")
                 }
             },
             Block: {
                 label: `${game.i18n.localize("WITCHER.Dialog.ButtonBlock")}`,
                 callback: async html => {
                     let defenseSkill = html.find("[name=form]")[0].value;
-                    defense(actor, defenseSkill, 0, totalAttack, html, "ButtonBlock")
+                    defense(actor, defenseSkill, 0, totalAttack, location, html, "ButtonBlock")
                 }
             },
             Parry: {
                 label: `${game.i18n.localize("WITCHER.Dialog.ButtonParry")}`,
                 callback: async html => {
                     let defenseSkill = html.find("[name=form]")[0].value;
-                    defense(actor, defenseSkill, -3, totalAttack, html, "ButtonParry")
+                    defense(actor, defenseSkill, -3, totalAttack, location, html, "ButtonParry")
                 }
             },
             ParryAgainstThrown: {
                 label: `${game.i18n.localize("WITCHER.Dialog.ButtonParryThrown")}`,
                 callback: async html => {
                     let defenseSkill = html.find("[name=form]")[0].value;
-                    defense(actor, defenseSkill, -5, totalAttack, html, "ButtonParryThrown")
+                    defense(actor, defenseSkill, -5, totalAttack, location, html, "ButtonParryThrown")
                 }
             },
             MagicResist: {
                 label: `${game.i18n.localize("WITCHER.Dialog.ButtonMagicResist")}`,
                 callback: async html => {
-                    defense(actor, "resistmagic", 0, totalAttack, html, "ButtonMagicResist")
+                    defense(actor, "resistmagic", 0, totalAttack, location, html, "ButtonMagicResist")
                 }
             },
         }
     }).render(true)
 }
 
-async function defense(actor, skillName, modifier, totalAttack, html, buttonName) {
+async function defense(actor, skillName, modifier, totalAttack, attackLocation, html, buttonName) {
     let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
 
     if (!handleExtraDefense(html, actor)) {
@@ -138,7 +141,16 @@ async function defense(actor, skillName, modifier, totalAttack, html, buttonName
     }
     messageData.flavor = `<h1>${game.i18n.localize("WITCHER.Dialog.Defense")}: ${game.i18n.localize("WITCHER.Dialog." + buttonName)}</h1><p>${displayFormula}</p>`;
 
-    await extendedRoll(rollFormula, messageData, config)
+    let roll = await extendedRoll(rollFormula, messageData, config)
+    let crit = checkForCrit(roll.total, totalAttack)
+    if (crit) {
+        messageData.flavor += `<h3 class='center-important'>${game.i18n.localize("WITCHER.Defense.Crit")}</h3>`
+        crit.location = attackLocation
+    }
+
+    let message = await roll.toMessage(messageData);
+    message.setFlag('TheWitcherTRPG', 'crit', crit)
+
 }
 
 function handleExtraDefense(html, actor) {
@@ -159,8 +171,7 @@ function handleExtraDefense(html, actor) {
 
 function createRollConfig(actor, skill, totalAttack) {
     let config = new RollConfig()
-    config.showCrit = true
-    config.showSuccess = true
+    config.showResult = false;
     config.defence = true
     config.threshold = totalAttack
     config.thresholdDesc = skill.label
@@ -168,6 +179,47 @@ function createRollConfig(actor, skill, totalAttack) {
     config.flagsOnFailure = actor.getDefenceFailFlags(skill)
 
     return config;
+}
+
+function checkForCrit(defenseRoll, totalAttack) {
+    // 7 - Simple - +3 dmg
+    // 10 - Complex - +5 dmg
+    // 13 - Difficult - +8 dmg
+    // 15 - Deadly - +10 dmg
+    let simple = totalAttack - 7;
+    let complex = totalAttack - 10;
+    let difficult = totalAttack - 13;
+    let deadly = totalAttack - 15;
+
+    if (defenseRoll < deadly) {
+        return {
+            severity: "deadly",
+            bonusdamage: 10
+        }
+    }
+
+    if (defenseRoll < difficult) {
+        return {
+            severity: "difficult",
+            bonusdamage: 8
+        }
+    }
+
+    if (defenseRoll < complex) {
+        return {
+            severity: "complex",
+            bonusdamage: 5
+        }
+    }
+
+    if (defenseRoll < simple) {
+        return {
+            severity: "simple",
+            bonusdamage: 3
+        }
+    }
+
+    return null;
 }
 
 export { ExecuteDefense, BlockAttack };
