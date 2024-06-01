@@ -43,6 +43,13 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 
 ## Version History ##
 
+### 1.030 ###
+- deprecated active effects, use global modifier instead -> you have a transition time before active effects will be deleted
+- spell templates can now be placed via preview
+- non-GMs can not also drag & drop
+- global modifiers will be respected when using items/spells
+- !!! weapons need their skills to be reset !!! -> if you dont do this they wont work 
+
 ### 1.029 ###
 - fix spells cannot roll damage
 - fix status effects for spells
