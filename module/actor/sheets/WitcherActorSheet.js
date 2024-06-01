@@ -8,7 +8,7 @@ import { sanitizeMixin } from "../mixins/sanitizeMixin.js"
 import { deathsaveMixin } from "../mixins/deathSaveMixin.js";
 import { critMixin } from "../mixins/critMixin.js";
 import { noteMixin } from "../mixins/noteMixin.js";
-import { activeEffectMixin } from "../mixins/activeEffectMixin.js";
+import { globalModifierMixin } from "../mixins/globalModifierMixin.js";
 import { skillModifierMixin } from "../mixins/skillModifierMixin.js";
 import { skillMixin } from "../mixins/skillMixin.js";
 import { statMixin } from "../mixins/statMixin.js";
@@ -91,7 +91,7 @@ export default class WitcherActorSheet extends ActorSheet {
 
     context.oldNotes = actor.getList("note");
     context.notes = actor.system.notes;
-    context.activeEffects = actor.getList("effect");
+    context.globalModifiers = actor.getList("effect").concat(actor.getList("globalModifier"));
   }
 
   _prepareSpells(context) {
@@ -194,7 +194,7 @@ export default class WitcherActorSheet extends ActorSheet {
     this.deathSaveListener(html)
     this.critListener(html)
     this.noteListener(html)
-    this.activeEffectListener(html)
+    this.globalModifierListener(html)
   }
 
 
@@ -338,7 +338,7 @@ export default class WitcherActorSheet extends ActorSheet {
             let rollFormula = !displayRollDetails ? `1d10+${vcStat}+${vcSkill}` : `1d10+${vcStat}[${game.i18n.localize(vcStatName)}]+${vcSkill}[${game.i18n.localize(vcSkillName)}]`
 
             if (verbalCombat.skill) {
-              rollFormula = addAllModifiers(this.actor, verbalCombat.skill, rollFormula)
+              rollFormula = addAllModifiers(this.actor, verbalCombat.skill.name, rollFormula)
             }
 
             let customAtt = html.find("[name=customModifiers]")[0].value;
@@ -408,4 +408,4 @@ Object.assign(WitcherActorSheet.prototype, sanitizeMixin)
 Object.assign(WitcherActorSheet.prototype, deathsaveMixin)
 Object.assign(WitcherActorSheet.prototype, critMixin)
 Object.assign(WitcherActorSheet.prototype, noteMixin)
-Object.assign(WitcherActorSheet.prototype, activeEffectMixin)
+Object.assign(WitcherActorSheet.prototype, globalModifierMixin)

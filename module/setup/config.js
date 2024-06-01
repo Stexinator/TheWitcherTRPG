@@ -325,6 +325,11 @@ WITCHER.statMap = {
         name: "focus",
         labelShort: "WITCHER.Actor.DerStat.Focus",
     },
+    vigor: {
+        origin: "derivedStats",
+        name: "vigor",
+        labelShort: "WITCHER.Actor.DerStat.Vigor",
+    },
 
     reputation: {
         origin: ""
@@ -846,4 +851,13 @@ WITCHER.armorEffects = [
         refersStatusEffect: true,
         addsResistance: true
     },
+]
+
+WITCHER.specialModifier = [
+    {
+        id: "wolf-strike",
+        label: "WITCHER.globalModifier.specialEffect.wolfstrike",
+        tags: ["attack", "strong strike"]
+
+    }
 ]

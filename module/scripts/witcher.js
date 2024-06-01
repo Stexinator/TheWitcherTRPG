@@ -20,7 +20,7 @@ function updateDerived(actor) {
 	const baseMax = Math.floor((stats.body.max + stats.will.max) / 2);
 	const meleeBonus = Math.ceil((stats.body.current - 6) / 2) * 2;
 
-	let activeEffects = thisActor.getList("effect").filter(e => e.system.isActive);
+	let activeEffects = thisActor.getList("effect").concat(thisActor.getList("globalModifier")).filter(e => e.system.isActive);
 
 	let intTotalModifiers = getActiveEffectModifier(activeEffects, "int").totalModifiers;
 	let refTotalModifiers = getActiveEffectModifier(activeEffects, "ref").totalModifiers;
@@ -115,6 +115,7 @@ function updateDerived(actor) {
 	let staTotalModifiers = getActiveEffectModifier(activeEffects, "sta").totalModifiers;
 	let resTotalModifiers = getActiveEffectModifier(activeEffects, "resolve").totalModifiers;
 	let focusTotalModifiers = getActiveEffectModifier(activeEffects, "focus").totalModifiers;
+	let vigorModifiers = getActiveEffectModifier(activeEffects, "vigor").totalModifiers;
 	let hpDivider = getActiveEffectModifier(activeEffects, "hp").totalDivider;
 	let staDivider = getActiveEffectModifier(activeEffects, "sta").totalDivider;
 	thisActor.system.derivedStats.hp.modifiers.forEach(item => hpTotalModifiers += Number(item.value));
@@ -126,7 +127,7 @@ function updateDerived(actor) {
 	let curSta = thisActor.system.derivedStats.sta.max + staTotalModifiers;
 	let curRes = thisActor.system.derivedStats.resolve.max + resTotalModifiers;
 	let curFocus = thisActor.system.derivedStats.focus.max + focusTotalModifiers;
-
+	let curVigor = thisActor.system.derivedStats.vigor.unmodifiedMax + vigorModifiers;
 
 	let unmodifiedMaxHp = baseMax * 5
 
@@ -155,6 +156,7 @@ function updateDerived(actor) {
 		'system.derivedStats.sta.max': curSta,
 		'system.derivedStats.resolve.max': curRes,
 		'system.derivedStats.focus.max': curFocus,
+		'system.derivedStats.vigor.max': curVigor,
 
 		'system.coreStats.stun.current': Math.floor((Math.clamped(base, 1, 10) + stunTotalModifiers) / stunDivider),
 		'system.coreStats.stun.max': Math.clamped(baseMax, 1, 10),
@@ -186,22 +188,22 @@ function getActiveEffectModifier(activeEffects, checkedStat) {
 	activeEffects?.forEach(item => {
 		item.system.stats?.forEach(stat => {
 			if (stat.stat == checkedStat) {
-				if (stat.modifier.includes("/")) {
+				if (stat.modifier?.toString().includes("/")) {
 					totalDivider = Number(stat.modifier.replace("/", ''));
 				}
 				else {
-					totalModifiers += Number(stat.modifier)
+					totalModifiers += Number(stat.modifier || 0)
 				}
 			}
 		})
 
 		item.system.derived?.forEach(derived => {
 			if (derived.derivedStat == checkedStat) {
-				if (derived.modifier.includes("/")) {
+				if (derived.modifier?.toString().includes("/")) {
 					totalDivider = Number(derived.modifier.replace("/", ''));
 				}
 				else {
-					totalModifiers += Number(derived.modifier)
+					totalModifiers += Number(derived.modifier || 0)
 				}
 			}
 		})
@@ -332,7 +334,7 @@ function calc_currency_weight(currency) {
 
 function addAllModifiers(actor, skillName, formula) {
 	formula = addSkillModifiers(actor, skillName, formula);
-	formula = addActiveEffects(actor, skillName, formula);
+	formula = addGlobalModifier(actor, skillName, formula);
 	return formula;
 }
 
@@ -350,11 +352,11 @@ function addSkillModifiers(actor, skillName, formula) {
 	return formula;
 }
 
-function addActiveEffects(actor, skillName, rollFormula) {
+function addGlobalModifier(actor, skillName, rollFormula) {
 	let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
-	let activeEffects = actor.getList("effect").filter(e => e.system.isActive);
+	let activeEffects = actor.getList("effect").concat(actor.getList("globalModifier")).filter(e => e.system.isActive);
 	activeEffects.forEach(activeEffect => {
-		activeEffect.system.skills.forEach(effectSkill => {
+		activeEffect.system.skills?.forEach(effectSkill => {
 			if (skillName == effectSkill.skill) {
 				if (effectSkill.modifier.includes("/")) {
 					rollFormula += !displayRollDetails ? `/${Number(effectSkill.modifier.replace("/", ''))}` : `/${Number(effectSkill.modifier.replace("/", ''))}[${activeEffect.name}]`
@@ -369,4 +371,4 @@ function addActiveEffects(actor, skillName, rollFormula) {
 	return rollFormula;
 }
 
-export { updateDerived, rollSkillCheck, genId, calc_currency_weight, addAllModifiers, addSkillModifiers, addActiveEffects };
+export { updateDerived, rollSkillCheck, genId, calc_currency_weight, addAllModifiers, addSkillModifiers, addGlobalModifier as addActiveEffects };

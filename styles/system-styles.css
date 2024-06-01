@@ -339,6 +339,7 @@ input.weight-data {
 input.focus-value {
   background-color: lightsteelblue;
   width: 25px;
+  text-align: center;
 }
 
 input.focus {
@@ -469,4 +470,11 @@ input.skill-value {
 
 .stat-display .stat-modifier-display {
   width: 15px;
+}
+
+.value-max-stat-display {
+  display: flex;
+  gap: 10px;
+  justify-content: left;
+  align-items: center;
 }

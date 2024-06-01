@@ -4,7 +4,6 @@
       "character",
       "monster",
       "loot",
-
       "mystery"
     ],
     "templates": {
@@ -23,6 +22,7 @@
       "diagrams",
       "effect",
       "enhancement",
+      "globalModifier",
       "mount",
       "mutagen",
       "note",
@@ -31,7 +31,7 @@
       "spell",
       "valuable",
       "weapon",
-
+      
       "clue",
       "obstacle"
     ],
