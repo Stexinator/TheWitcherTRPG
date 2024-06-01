@@ -41,6 +41,7 @@ async function preloadHandlebarsTemplates() {
         "systems/TheWitcherTRPG/templates/partials/loot/loot-item-display.hbs",
 
         "systems/TheWitcherTRPG/templates/partials/item-header.hbs",
+        "systems/TheWitcherTRPG/templates/partials/spell-header.hbs",
         "systems/TheWitcherTRPG/templates/partials/item-image.hbs",
         "systems/TheWitcherTRPG/templates/partials/associated-item.hbs",
 

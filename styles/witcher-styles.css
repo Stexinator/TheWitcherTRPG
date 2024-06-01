@@ -16,6 +16,7 @@
 @import "./weapon-roll.css";
 @import "./container-sheet.css";
 @import "./chat.css";
+@import "./item-header.css";
 
 @font-face {
     font-family: 'Thewitcher';
