@@ -57,4 +57,12 @@ export default class CommonActorData extends foundry.abstract.TypeDataModel {
       source.derivedStats.vigor.unmodifiedMax = source.derivedStats.vigor.value ?? 0
     }
   }
+
+  /** @inheritdoc */
+  static migrateData(source) {
+    super.migrateData(source);
+    if (source.derivedStats.vigor.unmodifiedMax == 0) {
+      source.derivedStats.vigor.unmodifiedMax = source.derivedStats.vigor.value ?? 0
+    }
+  }
 }
