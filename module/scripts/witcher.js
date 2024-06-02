@@ -20,26 +20,26 @@ function updateDerived(actor) {
 	const baseMax = Math.floor((stats.body.max + stats.will.max) / 2);
 	const meleeBonus = Math.ceil((stats.body.current - 6) / 2) * 2;
 
-	let activeEffects = thisActor.getList("effect").concat(thisActor.getList("globalModifier")).filter(e => e.system.isActive);
+	let globalModifier = thisActor.getList("effect").concat(thisActor.getList("globalModifier")).filter(e => e.system.isActive);
 
-	let intTotalModifiers = getActiveEffectModifier(activeEffects, "int").totalModifiers;
-	let refTotalModifiers = getActiveEffectModifier(activeEffects, "ref").totalModifiers;
-	let dexTotalModifiers = getActiveEffectModifier(activeEffects, "dex").totalModifiers;
-	let bodyTotalModifiers = getActiveEffectModifier(activeEffects, "body").totalModifiers;
-	let spdTotalModifiers = getActiveEffectModifier(activeEffects, "spd").totalModifiers;
-	let empTotalModifiers = getActiveEffectModifier(activeEffects, "emp").totalModifiers;
-	let craTotalModifiers = getActiveEffectModifier(activeEffects, "cra").totalModifiers;
-	let willTotalModifiers = getActiveEffectModifier(activeEffects, "will").totalModifiers;
-	let luckTotalModifiers = getActiveEffectModifier(activeEffects, "luck").totalModifiers;
-	let intDivider = getActiveEffectModifier(activeEffects, "int").totalDivider;
-	let refDivider = getActiveEffectModifier(activeEffects, "ref").totalDivider;
-	let dexDivider = getActiveEffectModifier(activeEffects, "dex").totalDivider;
-	let bodyDivider = getActiveEffectModifier(activeEffects, "body").totalDivider;
-	let spdDivider = getActiveEffectModifier(activeEffects, "spd").totalDivider;
-	let empDivider = getActiveEffectModifier(activeEffects, "emp").totalDivider;
-	let craDivider = getActiveEffectModifier(activeEffects, "cra").totalDivider;
-	let willDivider = getActiveEffectModifier(activeEffects, "will").totalDivider;
-	let luckDivider = getActiveEffectModifier(activeEffects, "luck").totalDivider;
+	let intTotalModifiers = getGlobalModifier(globalModifier, "int").totalModifiers;
+	let refTotalModifiers = getGlobalModifier(globalModifier, "ref").totalModifiers;
+	let dexTotalModifiers = getGlobalModifier(globalModifier, "dex").totalModifiers;
+	let bodyTotalModifiers = getGlobalModifier(globalModifier, "body").totalModifiers;
+	let spdTotalModifiers = getGlobalModifier(globalModifier, "spd").totalModifiers;
+	let empTotalModifiers = getGlobalModifier(globalModifier, "emp").totalModifiers;
+	let craTotalModifiers = getGlobalModifier(globalModifier, "cra").totalModifiers;
+	let willTotalModifiers = getGlobalModifier(globalModifier, "will").totalModifiers;
+	let luckTotalModifiers = getGlobalModifier(globalModifier, "luck").totalModifiers;
+	let intDivider = getGlobalModifier(globalModifier, "int").totalDivider;
+	let refDivider = getGlobalModifier(globalModifier, "ref").totalDivider;
+	let dexDivider = getGlobalModifier(globalModifier, "dex").totalDivider;
+	let bodyDivider = getGlobalModifier(globalModifier, "body").totalDivider;
+	let spdDivider = getGlobalModifier(globalModifier, "spd").totalDivider;
+	let empDivider = getGlobalModifier(globalModifier, "emp").totalDivider;
+	let craDivider = getGlobalModifier(globalModifier, "cra").totalDivider;
+	let willDivider = getGlobalModifier(globalModifier, "will").totalDivider;
+	let luckDivider = getGlobalModifier(globalModifier, "luck").totalDivider;
 	thisActor.system.stats.int.modifiers.forEach(item => intTotalModifiers += Number(item.value));
 	thisActor.system.stats.ref.modifiers.forEach(item => refTotalModifiers += Number(item.value));
 	thisActor.system.stats.dex.modifiers.forEach(item => dexTotalModifiers += Number(item.value));
@@ -50,18 +50,18 @@ function updateDerived(actor) {
 	thisActor.system.stats.will.modifiers.forEach(item => willTotalModifiers += Number(item.value));
 	thisActor.system.stats.luck.modifiers.forEach(item => luckTotalModifiers += Number(item.value));
 
-	let stunTotalModifiers = getActiveEffectModifier(activeEffects, "stun").totalModifiers;;
-	let runTotalModifiers = getActiveEffectModifier(activeEffects, "run").totalModifiers;
-	let leapTotalModifiers = getActiveEffectModifier(activeEffects, "leap").totalModifiers;
-	let encTotalModifiers = getActiveEffectModifier(activeEffects, "enc").totalModifiers;
-	let recTotalModifiers = getActiveEffectModifier(activeEffects, "rec").totalModifiers;
-	let wtTotalModifiers = getActiveEffectModifier(activeEffects, "woundTreshold").totalModifiers;
-	let stunDivider = getActiveEffectModifier(activeEffects, "stun").totalDivider;
-	let runDivider = getActiveEffectModifier(activeEffects, "run").totalDivider;
-	let leapDivider = getActiveEffectModifier(activeEffects, "leap").totalDivider;
-	let encDivider = getActiveEffectModifier(activeEffects, "enc").totalDivider;
-	let recDivider = getActiveEffectModifier(activeEffects, "rec").totalDivider;
-	let wtDivider = getActiveEffectModifier(activeEffects, "woundTreshold").totalDivider;
+	let stunTotalModifiers = getGlobalModifier(globalModifier, "stun").totalModifiers;;
+	let runTotalModifiers = getGlobalModifier(globalModifier, "run").totalModifiers;
+	let leapTotalModifiers = getGlobalModifier(globalModifier, "leap").totalModifiers;
+	let encTotalModifiers = getGlobalModifier(globalModifier, "enc").totalModifiers;
+	let recTotalModifiers = getGlobalModifier(globalModifier, "rec").totalModifiers;
+	let wtTotalModifiers = getGlobalModifier(globalModifier, "woundTreshold").totalModifiers;
+	let stunDivider = getGlobalModifier(globalModifier, "stun").totalDivider;
+	let runDivider = getGlobalModifier(globalModifier, "run").totalDivider;
+	let leapDivider = getGlobalModifier(globalModifier, "leap").totalDivider;
+	let encDivider = getGlobalModifier(globalModifier, "enc").totalDivider;
+	let recDivider = getGlobalModifier(globalModifier, "rec").totalDivider;
+	let wtDivider = getGlobalModifier(globalModifier, "woundTreshold").totalDivider;
 	thisActor.system.coreStats.stun.modifiers.forEach(item => stunTotalModifiers += Number(item.value));
 	thisActor.system.coreStats.run.modifiers.forEach(item => runTotalModifiers += Number(item.value));
 	thisActor.system.coreStats.leap.modifiers.forEach(item => leapTotalModifiers += Number(item.value));
@@ -111,13 +111,13 @@ function updateDerived(actor) {
 		curWill = Math.floor((thisActor.system.stats.will.max + willTotalModifiers) / 2 / willDivider)
 	}
 
-	let hpTotalModifiers = getActiveEffectModifier(activeEffects, "hp").totalModifiers;
-	let staTotalModifiers = getActiveEffectModifier(activeEffects, "sta").totalModifiers;
-	let resTotalModifiers = getActiveEffectModifier(activeEffects, "resolve").totalModifiers;
-	let focusTotalModifiers = getActiveEffectModifier(activeEffects, "focus").totalModifiers;
-	let vigorModifiers = getActiveEffectModifier(activeEffects, "vigor").totalModifiers;
-	let hpDivider = getActiveEffectModifier(activeEffects, "hp").totalDivider;
-	let staDivider = getActiveEffectModifier(activeEffects, "sta").totalDivider;
+	let hpTotalModifiers = getGlobalModifier(globalModifier, "hp").totalModifiers;
+	let staTotalModifiers = getGlobalModifier(globalModifier, "sta").totalModifiers;
+	let resTotalModifiers = getGlobalModifier(globalModifier, "resolve").totalModifiers;
+	let focusTotalModifiers = getGlobalModifier(globalModifier, "focus").totalModifiers;
+	let vigorModifiers = getGlobalModifier(globalModifier, "vigor").totalModifiers;
+	let hpDivider = getGlobalModifier(globalModifier, "hp").totalDivider;
+	let staDivider = getGlobalModifier(globalModifier, "sta").totalDivider;
 	thisActor.system.derivedStats.hp.modifiers.forEach(item => hpTotalModifiers += Number(item.value));
 	thisActor.system.derivedStats.sta.modifiers.forEach(item => staTotalModifiers += Number(item.value));
 	thisActor.system.derivedStats.resolve.modifiers.forEach(item => resTotalModifiers += Number(item.value));
@@ -182,17 +182,17 @@ function updateDerived(actor) {
 	});
 }
 
-function getActiveEffectModifier(activeEffects, checkedStat) {
+function getGlobalModifier(globalModifier, checkedStat) {
 	let totalModifiers = 0;
 	let totalDivider = 1;
-	activeEffects?.forEach(item => {
+	globalModifier?.forEach(item => {
 		item.system.stats?.forEach(stat => {
 			if (stat.stat == checkedStat) {
 				if (stat.modifier?.toString().includes("/")) {
 					totalDivider = Number(stat.modifier.replace("/", ''));
 				}
 				else {
-					totalModifiers += Number(stat.modifier || 0)
+					totalModifiers += Number(stat.modifier ?? 0)
 				}
 			}
 		})
@@ -203,7 +203,7 @@ function getActiveEffectModifier(activeEffects, checkedStat) {
 					totalDivider = Number(derived.modifier.replace("/", ''));
 				}
 				else {
-					totalModifiers += Number(derived.modifier || 0)
+					totalModifiers += Number(derived.modifier ?? 0)
 				}
 			}
 		})
@@ -278,8 +278,8 @@ function rollSkillCheck(actor, skillMapEntry) {
 		rollFormula += !displayRollDetails ? `-${armorEnc}` : `-${armorEnc}[${game.i18n.localize("WITCHER.Armor.EncumbranceValue")}]`
 	}
 
-	let activeEffects = actor.getList("effect").filter(e => e.system.isActive);
-	activeEffects.forEach(item => {
+	let globalModifier = actor.getList("effect").filter(e => e.system.isActive);
+	globalModifier.forEach(item => {
 		item.system.skills.forEach(effectSkill => {
 			if (skillLabel == game.i18n.localize(effectSkill.skill)) {
 				if (effectSkill.modifier.includes("/")) {
@@ -354,15 +354,15 @@ function addSkillModifiers(actor, skillName, formula) {
 
 function addGlobalModifier(actor, skillName, rollFormula) {
 	let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
-	let activeEffects = actor.getList("effect").concat(actor.getList("globalModifier")).filter(e => e.system.isActive);
-	activeEffects.forEach(activeEffect => {
-		activeEffect.system.skills?.forEach(effectSkill => {
-			if (skillName == effectSkill.skill) {
-				if (effectSkill.modifier.includes("/")) {
-					rollFormula += !displayRollDetails ? `/${Number(effectSkill.modifier.replace("/", ''))}` : `/${Number(effectSkill.modifier.replace("/", ''))}[${activeEffect.name}]`
+	let globalModifier = actor.getList("effect").concat(actor.getList("globalModifier")).filter(e => e.system.isActive);
+	globalModifier.forEach(modifier => {
+		modifier.system.skills?.forEach(modifierSkill => {
+			if (skillName == modifierSkill.skill) {
+				if (modifierSkill.modifier.includes("/")) {
+					rollFormula += !displayRollDetails ? `/${Number(modifierSkill.modifier.replace("/", ''))}` : `/${Number(modifierSkill.modifier.replace("/", ''))}[${modifier.name}]`
 				}
 				else {
-					rollFormula += !displayRollDetails ? `+${effectSkill.modifier}` : `+${effectSkill.modifier}[${activeEffect.name}]`
+					rollFormula += !displayRollDetails ? `+${modifierSkill.modifier}` : `+${modifierSkill.modifier}[${modifier.name}]`
 				}
 			}
 		})
@@ -371,4 +371,4 @@ function addGlobalModifier(actor, skillName, rollFormula) {
 	return rollFormula;
 }
 
-export { updateDerived, rollSkillCheck, genId, calc_currency_weight, addAllModifiers, addSkillModifiers, addGlobalModifier as addActiveEffects };
+export { updateDerived, rollSkillCheck, genId, calc_currency_weight, addAllModifiers, addSkillModifiers, addGlobalModifier };

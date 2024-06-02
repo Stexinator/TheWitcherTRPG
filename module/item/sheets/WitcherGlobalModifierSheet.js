@@ -25,34 +25,31 @@ export default class WitcherGlobalModifierSheet extends WitcherItemSheet {
   activateListeners(html) {
     super.activateListeners(html);
 
-    html.find(".add-modifier-stat").on("click", this._onAddStatModifier.bind(this));
-    html.find(".add-modifier-skill").on("click", this._onAddModifierSkill.bind(this));
-    html.find(".add-modifier-derived").on("click", this._onAddModifierDerived.bind(this));
-    html.find(".add-modifier-special").on("click", this._onAddModifierSpecial.bind(this));
+    html.find(".add-modifier-stat").on("click", this._onAddModifier.bind(this, "stats"));
+    html.find(".add-modifier-skill").on("click", this._onAddModifier.bind(this, "skills"));
+    html.find(".add-modifier-derived").on("click", this._onAddModifier.bind(this, "derived"));
+    html.find(".add-modifier-special").on("click", this._onAddModifier.bind(this, "special"));
 
 
-    html.find(".remove-modifier-stat").on("click", this._onRemoveStatModifier.bind(this));
-    html.find(".remove-modifier-skill").on("click", this._onRemoveModifierSkill.bind(this));
-    html.find(".remove-modifier-derived").on("click", this._onRemoveModifierDerived.bind(this));
-    html.find(".remove-modifier-special").on("click", this._onRemoveModifierSpecial.bind(this));
+    html.find(".remove-modifier-stat").on("click", this._onRemoveModifier.bind(this, "stats"));
+    html.find(".remove-modifier-skill").on("click", this._onRemoveModifier.bind(this, "skills"));
+    html.find(".remove-modifier-derived").on("click", this._onRemoveModifier.bind(this, "derived"));
+    html.find(".remove-modifier-special").on("click", this._onRemoveModifier.bind(this, "special"));
 
-    html.find(".modifiers-edit").on("change", this._onEditStatModifier.bind(this));
-    html.find(".modifiers-edit-skills").on("change", this._onModifierSkillsEdit.bind(this));
-    html.find(".modifiers-edit-derived").on("change", this._onModifierDerivedEdit.bind(this));
-    html.find(".modifiers-edit-special").on("change", this._onModifierSpecialEdit.bind(this));
+    html.find(".modifiers-edit").on("change", this._onEditModifier.bind(this, "stats"));
+    html.find(".modifiers-edit-skills").on("change", this._onEditModifier.bind(this, "skills"));
+    html.find(".modifiers-edit-derived").on("change", this._onEditModifier.bind(this, "derived"));
+    html.find(".modifiers-edit-special").on("change", this._onEditModifier.bind(this, "special"));
   }
 
-  _onAddStatModifier(event) {
+  _onAddModifier(type, event) {
     event.preventDefault();
-    let newModifierList = []
-    if (this.item.system.stats) {
-      newModifierList = this.item.system.stats
-    }
-    newModifierList.push({ id: genId(), stat: "none", modifier: 0 })
-    this.item.update({ 'system.stats': newModifierList });
+    let newModifierList = this.item.system[type] ?? []
+    newModifierList.push({ id: genId() })
+    this.item.update({ [`system.${type}`]: newModifierList });
   }
 
-  _onEditStatModifier(event) {
+  _onEditModifier(type, event) {
     event.preventDefault();
     let element = event.currentTarget;
     let itemId = element.closest(".list-item").dataset.id;
@@ -61,105 +58,14 @@ export default class WitcherGlobalModifierSheet extends WitcherItemSheet {
     let modifiers = this.item.system.stats
     let objIndex = modifiers.findIndex((obj => obj.id == itemId));
     modifiers[objIndex][field] = value
-    this.item.update({ 'system.stats': modifiers });
+    this.item.update({ [`system.${type}`]: modifiers });
   }
 
-  _onRemoveStatModifier(event) {
-    event.preventDefault();
+  _onRemoveModifier(type, event) {
     let element = event.currentTarget;
     let itemId = element.closest(".list-item").dataset.id;
-    let newModifierList = this.item.system.stats.filter(item => item.id !== itemId)
-    this.item.update({ 'system.stats': newModifierList });
+    let newModifierList = this.item.system[type].filter(item => item.id !== itemId)
+    this.item.update({ [`system.${type}`]: newModifierList });
   }
 
-  _onAddModifierSkill(event) {
-    event.preventDefault();
-    let newModifierList = []
-    if (this.item.system.skills) {
-      newModifierList = this.item.system.skills
-    }
-    newModifierList.push({ id: genId(), skill: "none", modifier: 0 })
-    this.item.update({ 'system.skills': newModifierList });
-  }
-
-  _onModifierSkillsEdit(event) {
-    event.preventDefault();
-    let element = event.currentTarget;
-    let itemId = element.closest(".list-item").dataset.id;
-
-    let field = element.dataset.field;
-    let value = element.value
-    let effects = this.item.system.skills
-    let objIndex = effects.findIndex((obj => obj.id == itemId));
-    effects[objIndex][field] = value
-    this.item.update({ 'system.skills': effects });
-  }
-
-  _onRemoveModifierSkill(event) {
-    event.preventDefault();
-    let element = event.currentTarget;
-    let itemId = element.closest(".list-item").dataset.id;
-    let newModifierList = this.item.system.skills.filter(item => item.id !== itemId)
-    this.item.update({ 'system.skills': newModifierList });
-  }
-
-  _onAddModifierDerived(event) {
-    event.preventDefault();
-    let newModifierList = []
-    if (this.item.system.derived) {
-      newModifierList = this.item.system.derived
-    }
-    newModifierList.push({ id: genId(), derivedStat: "none", modifier: 0 })
-    this.item.update({ 'system.derived': newModifierList });
-  }
-
-  _onModifierDerivedEdit(event) {
-    event.preventDefault();
-    let element = event.currentTarget;
-    let itemId = element.closest(".list-item").dataset.id;
-
-    let field = element.dataset.field;
-    let value = element.value
-    let effects = this.item.system.derived
-    let objIndex = effects.findIndex((obj => obj.id == itemId));
-    effects[objIndex][field] = value
-    this.item.update({ 'system.derived': effects });
-  }
-
-
-  _onRemoveModifierDerived(event) {
-    event.preventDefault();
-    let element = event.currentTarget;
-    let itemId = element.closest(".list-item").dataset.id;
-    let newModifierList = this.item.system.derived.filter(item => item.id !== itemId)
-    this.item.update({ 'system.derived': newModifierList });
-  }
-
-  _onAddModifierSpecial(event) {
-    event.preventDefault();
-    let newModifierList = this.item.system.special ?? []
-    newModifierList.push({ id: genId(), special: "", })
-    this.item.update({ 'system.special': newModifierList });
-  }
-
-  _onModifierSpecialEdit(event) {
-    event.preventDefault();
-    let element = event.currentTarget;
-    let itemId = element.closest(".list-item").dataset.id;
-
-    let field = element.dataset.field;
-    let value = element.value
-    let special = this.item.system.special
-    let objIndex = special.findIndex((obj => obj?.id == itemId));
-    special[objIndex][field] = value
-    this.item.update({ 'system.special': special });
-  }
-
-  _onRemoveModifierSpecial(event) {
-    event.preventDefault();
-    let element = event.currentTarget;
-    let itemId = element.closest(".list-item").dataset.id;
-    let newModifierList = this.item.system.special.filter(item => item?.id !== itemId)
-    this.item.update({ 'system.special': newModifierList });
-  }
 }
