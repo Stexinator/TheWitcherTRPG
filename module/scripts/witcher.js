@@ -217,11 +217,9 @@ function getGlobalModifier(globalModifier, checkedStat) {
 
 function getArmorEcumbrance(actor) {
 	let encumbranceModifier = 0
-	let armors = actor.items.filter(item => item.type == "armor");
+	let armors = actor.items.filter(item => item.type == "armor" && item.system.equipped);
 	armors.forEach(item => {
-		if (item.system.equipped) {
-			encumbranceModifier += item.system.encumb
-		}
+		encumbranceModifier += item.system.encumb
 	});
 	return encumbranceModifier
 }
@@ -278,7 +276,7 @@ function rollSkillCheck(actor, skillMapEntry) {
 		rollFormula += !displayRollDetails ? `-${armorEnc}` : `-${armorEnc}[${game.i18n.localize("WITCHER.Armor.EncumbranceValue")}]`
 	}
 
-	let globalModifier = actor.getList("effect").filter(e => e.system.isActive);
+	let globalModifier = actor.getList("effect").concat(actor.getList("globalModifier")).filter(e => e.system.isActive);
 	globalModifier.forEach(item => {
 		item.system.skills.forEach(effectSkill => {
 			if (skillLabel == game.i18n.localize(effectSkill.skill)) {
@@ -371,4 +369,4 @@ function addGlobalModifier(actor, skillName, rollFormula) {
 	return rollFormula;
 }
 
-export { updateDerived, rollSkillCheck, genId, calc_currency_weight, addAllModifiers, addSkillModifiers, addGlobalModifier };
+export { updateDerived, rollSkillCheck, genId, calc_currency_weight, addAllModifiers, addSkillModifiers, addGlobalModifier, getArmorEcumbrance };

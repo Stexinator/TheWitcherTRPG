@@ -1,6 +1,6 @@
 import { buttonDialog, extendedRoll } from "../../scripts/chat.js";
 import { rollDamage } from "../../scripts/attack.js";
-import { addAllModifiers } from "../../scripts/witcher.js";
+import { addAllModifiers, getArmorEcumbrance } from "../../scripts/witcher.js";
 import { RollConfig } from "../../scripts/rollConfig.js";
 import { WITCHER } from "../../setup/config.js";
 
@@ -586,6 +586,7 @@ export let itemMixin = {
                 attFormula = !displayRollDetails ? `${attFormula}-3` : `${attFormula}-3[${game.i18n.localize("WITCHER.Dialog.attackStrike")}]`;
               }
 
+              attFormula = this.handleSpecialModifier(attFormula, strike)
               attFormula = addAllModifiers(this.actor, attackSkill.name, attFormula)
 
               messageData.flavor = `<div class="attack-message"><h1><img src="${item.img}" class="item-img" />${game.i18n.localize("WITCHER.Attack")}: ${item.name}</h1>`;
@@ -610,6 +611,21 @@ export let itemMixin = {
         }
       }
     }, myDialogOptions).render(true)
+  },
+
+  handleSpecialModifier(attFormula, action) {
+    let relevantModifier = new Set(this.actor.getList("globalModifier")
+      .filter(modifier => modifier.system.isActive)
+      .filter(modifier => modifier.system.special?.length > 0)
+      .map(modifier => modifier.system.special)
+      .flat()
+    )
+      .map(modifier => WITCHER.specialModifier.find(special => special.id == modifier.special))
+      .filter(special => special.tags.includes(action))
+
+    relevantModifier.forEach(modifier => attFormula += `${modifier.formula}[${game.i18n.localize(modifier.label)}]`)
+
+    return attFormula;
   },
 
   async _onSpellRoll(event, itemId = null) {
@@ -640,6 +656,13 @@ export let itemMixin = {
         rollFormula = addAllModifiers(this.actor, "hexweave", rollFormula)
         break;
     }
+
+    let armorEnc = getArmorEcumbrance(this.actor)
+    rollFormula += !displayRollDetails ? `-${armorEnc}` : `-${armorEnc}[${game.i18n.localize("WITCHER.Armor.EncumbranceValue")}]`
+    if (armorEnc > 0) {
+      rollFormula = this.handleSpecialModifier(rollFormula, "magic-armorencumbarance")
+    }
+    rollFormula = this.handleSpecialModifier(rollFormula, "magic")
 
     let staCostTotal = spellItem.system.stamina;
     let customModifier = 0;
@@ -833,8 +856,6 @@ export let itemMixin = {
 
     message.setFlag('TheWitcherTRPG', 'attack', spellItem.getSpellFlags())
     message.setFlag('TheWitcherTRPG', 'damage', damage)
-
-    let token = this.actor.getControlledToken();
   },
 
   _onSpellDisplay(event) {

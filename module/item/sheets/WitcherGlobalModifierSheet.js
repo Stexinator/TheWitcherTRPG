@@ -55,7 +55,7 @@ export default class WitcherGlobalModifierSheet extends WitcherItemSheet {
     let itemId = element.closest(".list-item").dataset.id;
     let field = element.dataset.field;
     let value = element.value
-    let modifiers = this.item.system.stats
+    let modifiers = this.item.system[type]
     let objIndex = modifiers.findIndex((obj => obj.id == itemId));
     modifiers[objIndex][field] = value
     this.item.update({ [`system.${type}`]: modifiers });

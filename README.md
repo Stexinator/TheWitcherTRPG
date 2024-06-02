@@ -43,6 +43,11 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 
 ## Version History ##
 
+### 1.031 ###
+- more backend work on global modifier
+  - added first special handlings of global modifier
+- first step of crit detection when using defense
+
 ### 1.030 ###
 - deprecated active effects, use global modifier instead -> they should migrate automatically, if not open an issue
   - all dropdowns in global modifier need to be set again

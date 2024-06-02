@@ -857,7 +857,13 @@ WITCHER.specialModifier = [
     {
         id: "wolf-strike",
         label: "WITCHER.globalModifier.specialEffect.wolfstrike",
-        tags: ["attack", "strong strike"]
-
+        tags: ["attack", "strong"],
+        formula: "+3"
+    },
+    {
+        id: "armored-caster",
+        label: "WITCHER.globalModifier.specialEffect.armoredCaster",
+        tags: ["magic-armorencumbarance"],
+        formula: "+1"
     }
 ]
