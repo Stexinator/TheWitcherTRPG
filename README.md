@@ -43,6 +43,9 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 
 ## Version History ##
 
+### 1.032 ###
+- fix manual defense roll -> crit detection won't work with manual rolling
+
 ### 1.031 ###
 - more backend work on global modifier
   - added first special handlings of global modifier
