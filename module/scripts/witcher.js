@@ -299,10 +299,10 @@ function rollSkillCheck(actor, skillMapEntry) {
 				callback: async html => {
 					let customAtt = html.find("[name=customModifiers]")[0].value;
 					if (customAtt < 0) {
-						rollFormula += !displayRollDetails ? `${customAtt}` : `${customAtt}[${game.i18n.localize("WITCHER.Settings.Custom")}]`
+						rollFormula += !displayRollDetails ? ` ${customAtt}` : ` ${customAtt}[${game.i18n.localize("WITCHER.Settings.Custom")}]`
 					}
 					if (customAtt > 0) {
-						rollFormula += !displayRollDetails ? `+${customAtt}` : `+${customAtt}[${game.i18n.localize("WITCHER.Settings.Custom")}]`
+						rollFormula += !displayRollDetails ? ` +${customAtt}` : ` +${customAtt}[${game.i18n.localize("WITCHER.Settings.Custom")}]`
 					}
 					let config = new RollConfig()
 					config.showCrit = true
@@ -341,10 +341,10 @@ function addSkillModifiers(actor, skillName, formula) {
 	let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
 	actor.system.skills[skill.attribute.name][skill.name].modifiers?.forEach(mod => {
 		if (mod.value < 0) {
-			formula += !displayRollDetails ? `${mod.value}` : `${mod.value}[${mod.name}]`
+			formula += !displayRollDetails ? ` ${mod.value}` : ` ${mod.value}[${mod.name}]`
 		}
 		if (mod.value > 0) {
-			formula += !displayRollDetails ? `+${mod.value}` : `+${mod.value}[${mod.name}]`
+			formula += !displayRollDetails ? ` +${mod.value}` : ` +${mod.value}[${mod.name}]`
 		}
 	});
 	return formula;
@@ -357,10 +357,10 @@ function addGlobalModifier(actor, skillName, rollFormula) {
 		modifier.system.skills?.forEach(modifierSkill => {
 			if (skillName == modifierSkill.skill) {
 				if (modifierSkill.modifier.includes("/")) {
-					rollFormula += !displayRollDetails ? `/${Number(modifierSkill.modifier.replace("/", ''))}` : `/${Number(modifierSkill.modifier.replace("/", ''))}[${modifier.name}]`
+					rollFormula += !displayRollDetails ? ` /${Number(modifierSkill.modifier.replace("/", ''))}` : ` /${Number(modifierSkill.modifier.replace("/", ''))}[${modifier.name}]`
 				}
 				else {
-					rollFormula += !displayRollDetails ? `+${modifierSkill.modifier}` : `+${modifierSkill.modifier}[${modifier.name}]`
+					rollFormula += !displayRollDetails ? ` +${modifierSkill.modifier}` : ` +${modifierSkill.modifier}[${modifier.name}]`
 				}
 			}
 		})

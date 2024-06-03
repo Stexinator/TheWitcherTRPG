@@ -119,9 +119,9 @@ async function defense(actor, skillName, modifier, totalAttack, attackLocation, 
     let skill = actor.system.skills[skillMapEntry.attribute.name][skillName];
     let skillValue = skill.value;
 
-    let displayFormula = `1d10 + ${game.i18n.localize(skillMapEntry.attribute.labelShort)} + ${game.i18n.localize(skillMapEntry.label)}${modifier}`;
+    let displayFormula = `1d10 + ${game.i18n.localize(skillMapEntry.attribute.labelShort)} + ${game.i18n.localize(skillMapEntry.label)}`;
 
-    let rollFormula = !displayRollDetails ? `1d10+${stat}+${skillValue}${modifier}` : `1d10+${stat}[${game.i18n.localize(skillMapEntry.attribute.labelShort)}]+${skillValue}[${game.i18n.localize(skillMapEntry.label)}]`;
+    let rollFormula = !displayRollDetails ? `1d10+${stat}+${skillValue}${modifier}` : `1d10+${stat}[${game.i18n.localize(skillMapEntry.attribute.labelShort)}] +${skillValue}[${game.i18n.localize(skillMapEntry.label)}]`;
 
     if (modifier < 0) {
         rollFormula += !displayRollDetails ? `${modifier}` : `${modifier}[${game.i18n.localize("WITCHER.Dialog." + buttonName)}]`;
@@ -129,7 +129,7 @@ async function defense(actor, skillName, modifier, totalAttack, attackLocation, 
 
     let customDef = html.find("[name=customDef]")[0].value;
     if (customDef != "0") {
-        rollFormula += !displayFormula ? `+${customDef}` : `+${customDef}[${game.i18n.localize("WITCHER.Settings.Custom")}]`;
+        rollFormula += !displayRollDetails ? `+${customDef}` : ` +${customDef}[${game.i18n.localize("WITCHER.Settings.Custom")}]`;
     }
 
     rollFormula = addAllModifiers(actor, skillName, rollFormula)

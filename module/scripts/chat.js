@@ -187,7 +187,7 @@ function isFumble(roll) {
 }
 
 export function addChatMessageContextOptions(html, options) {
-  let canDefend = li => li.find(".attack-message").length
+  let canDefend = li => li.find(".attack-message").length || li.find(".defense").length
   let canApplyDamage = li => li.find(".damage-message").length
   let canApplyVcDamage = li => li.find(".verbalcombat-damage-message").length
 
