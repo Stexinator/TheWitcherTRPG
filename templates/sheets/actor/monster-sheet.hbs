@@ -118,32 +118,19 @@
                 <div class="monster-type">
                     <label>{{localize "WITCHER.Monster.Type.Lable"}}</label>
                     <select name="system.category">
-                        {{#select system.category}}
-                            {{#each config.MonsterTypes as | name value|}}
-                                <option value="{{value}}">{{localize name}}</option>
-                            {{/each}}
-                        {{/select}}
+                        {{selectOptions config.MonsterTypes selected=system.category localize=true}}
                     </select>
                 </div>
                 <div class="monster-difficulity">
                     <label>{{localize "WITCHER.Monster.Difficulty"}}</label>
                     <select name="system.threat">
-                        {{#select system.threat}}
-                            <option value="easy">{{localize "WITCHER.Monster.Easy"}}</option>
-                            <option value="medium">{{localize "WITCHER.Monster.Normal"}}</option>
-                            <option value="hard">{{localize "WITCHER.Monster.Hard"}}</option>
-                            <option value="exceptional">{{localize "WITCHER.Monster.Exceptional"}}</option>
-                        {{/select}}
+                        {{selectOptions config.monsterDifficulty selected=system.threat localize=true}}
                     </select>
                 </div>
                 <div class="monster-complexity">
                     <label>{{localize "WITCHER.Monster.Complexity"}}</label>
                     <select name="system.difficulty">
-                        {{#select system.difficulty}}
-                            <option value="simple">{{localize "WITCHER.Monster.Simple"}}</option>
-                            <option value="complex">{{localize "WITCHER.Monster.Complex"}}</option>
-                            <option value="difficult">{{localize "WITCHER.Monster.Difficult"}}</option>
-                        {{/select}}
+                        {{selectOptions config.monsterComplexity selected=system.difficulty localize=true}}
                     </select>
                 </div>
                 <div class="monster-bounty">
@@ -326,16 +313,16 @@
             {{! Sheet Body }}
             <section class="sheet-body">
                 <div class="tab" data-group="primary" data-tab="skills">
-                    {{> "systems/TheWitcherTRPG/templates/partials/monster-skill-tab.hbs"}}
+                    {{> "systems/TheWitcherTRPG/templates/partials/monster/monster-skill-tab.hbs"}}
                 </div>
                 <div class="tab" data-group="primary" data-tab="inventory">
-                    {{>"systems/TheWitcherTRPG/templates/partials/monster-inventory-tab.hbs"}}
+                    {{>"systems/TheWitcherTRPG/templates/partials/monster/monster-inventory-tab.hbs"}}
                 </div>
                 <div class="tab" data-group="primary" data-tab="details">
-                    {{>"systems/TheWitcherTRPG/templates/partials/monster-details-tab.hbs"}}
+                    {{>"systems/TheWitcherTRPG/templates/partials/monster/monster-details-tab.hbs"}}
                 </div>
                 <div class="tab" data-group="primary" data-tab="spells">
-                    {{> "systems/TheWitcherTRPG/templates/partials/monster-spell-tab.hbs"}}
+                    {{> "systems/TheWitcherTRPG/templates/partials/monster/monster-spell-tab.hbs"}}
                 </div>
             </section>
         </div>

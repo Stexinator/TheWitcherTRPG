@@ -1,4 +1,10 @@
 {
+  "TYPES": {
+    "Item": {
+      "effect": "Effect (Deprecated)",
+      "globalModifier": "Global Modifier"
+    }
+  },
   "WITCHER": {
     "Name": "Name",
     "Type": "Type",
@@ -754,7 +760,7 @@
       "specialFont": "Use the witcher special font"
     },
     "background.other": "Other",
-    "background.activeEffect": "Active Effects",
+    "background.globalModifier": "Global Modifiers",
     "Resources.modifiers": "Resources Modifiers",
     "Notes": "Notes",
     "SkIntAwareness": "Awareness",
@@ -929,11 +935,16 @@
       "None": "NONE"
     },
     "Effect": {
-      "isActive": "Is Active",
-      "isHUD": "Is effect on HUD",
       "Rolled": "Rolled",
       "Applied": "Applied",
       "Failed": "Failed"
+    },
+    "globalModifier": {
+      "isActive": "Is Active",
+      "special": "Special Effects",
+      "specialEffect": {
+        "wolfstrike": "Wolf School Strong Strike"
+      }
     },
     "character.socialStanding": "Social Standing",
     "socialStanding": {

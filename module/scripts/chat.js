@@ -1,4 +1,5 @@
-import { ExecuteDefence, BlockAttack, ApplyNormalDamage, ApplyNonLethalDamage } from "../scripts/actions.js";
+import { ApplyNormalDamage, ApplyNonLethalDamage } from "../scripts/actions.js";
+import { ExecuteDefense, BlockAttack } from "../scripts/defenses.js";
 import * as VerbalCombat from "./verbalCombat.js";
 
 export function addChatListeners(html) {
@@ -220,7 +221,7 @@ export function addChatMessageContextOptions(html, options) {
       icon: '<i class="fas fa-shield-alt"></i>',
       condition: canDefend,
       callback: li => {
-        ExecuteDefence(
+        ExecuteDefense(
           getInteractActor(),
           li.find(".attack-message")[0].dataset.dmgType,
           li.find(".attack-message")[0].dataset.location,

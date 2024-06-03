@@ -213,7 +213,7 @@ input.right-value {
     box-shadow: 0 0 10px #9ecaed;
 }
 
-.effect-column {
+.global-modifier-column {
     flex: 1;
 }
 

@@ -4,7 +4,7 @@ import { buttonDialog } from "../../scripts/chat.js";
 export default class WitcherMonsterSheet extends WitcherActorSheet {
 
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ["witcher", "sheet", "actor"],
             width: 1120,
             height: 600,

@@ -1,5 +1,5 @@
 import WitcherActorSheet from "./WitcherActorSheet.js";
-import { addModifiers } from "../../scripts/witcher.js";
+import { addAllModifiers } from "../../scripts/witcher.js";
 import { RollConfig } from "../../scripts/rollConfig.js";
 import { extendedRoll } from "../../scripts/chat.js";
 
@@ -9,7 +9,7 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
 
   /** @override */
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["witcher", "sheet", "actor"],
       width: 1120,
       height: 600,
@@ -26,7 +26,7 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
     super.activateListeners(html);
 
     html.find(".alchemy-potion").on("click", this._alchemyCraft.bind(this));
-    html.find(".crafting-craft").on("click", this._craftinCraft.bind(this));
+    html.find(".crafting-craft").on("click", this._craftingCraft.bind(this));
   }
 
   getData() {
@@ -45,11 +45,9 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
   _prepareCharacterData(context) {
     let actor = context.actor;
 
-    context.professions = actor.getList("profession");
-    context.profession = context.professions[0];
+    context.profession = actor.getList("profession")[0];
 
-    context.races = actor.getList("race");
-    context.race = context.races[0];
+    context.race = actor.getList("race")[0];
 
     context.totalStats = this.calc_total_stats(context)
     context.totalSkills = this.calc_total_skills(context)
@@ -150,6 +148,7 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
         content += `<div class="flex">${a.content}</div>`
 
         let ownedSubstance = this.actor.getSubstance(a.name)
+        console.log(ownedSubstance)
         let ownedSubstanceCount = ownedSubstance.sum("quantity")
         if (ownedSubstanceCount < Number(a.quantity)) {
           let missing = a.quantity - ownedSubstanceCount
@@ -193,7 +192,7 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
               rollFormula += !displayRollDetails ? `+2` : `+2[${game.i18n.localize("WITCHER.Dialog.Diagram")}]`
             }
 
-            rollFormula = addModifiers(this.actor.system.skills.cra.alchemy.modifiers, rollFormula)
+            rollFormula = addAllModifiers(this.actor, "alchemy", rollFormula)
 
             let config = new RollConfig();
             config.showCrit = true
@@ -219,7 +218,7 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
     }).render(true)
   }
 
-  async _craftinCraft(event) {
+  async _craftingCraft(event) {
     let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
     let itemId = event.currentTarget.closest(".item").dataset.itemId;
     let item = this.actor.items.get(itemId);
@@ -233,15 +232,22 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
 
     let areCraftComponentsEnough = true;
     content += `<div class="components-display">`
-    item.system.craftingComponents.forEach(element => {
-      content += `<div class="flex"><b>${element.name}</b>(${element.quantity}) </div>`
-      let ownedComponent = this.actor.findNeededComponent(element.name);
+    item.system.craftingComponents.forEach(craftingComponent => {
+
+      content += `<div class="flex"><b>${craftingComponent.name}</b>(${craftingComponent.quantity}) </div>`
+
+      let ownedComponent = this.actor.findNeededComponent(craftingComponent.name);
+
+      console.log(ownedComponent)
+
       let componentQuantity = ownedComponent.sum("quantity");
-      if (componentQuantity < Number(element.quantity)) {
-        let missing = element.quantity - Number(componentQuantity)
+
+      if (componentQuantity < Number(craftingComponent.quantity)) {
+        let missing = craftingComponent.quantity - Number(componentQuantity)
         areCraftComponentsEnough = false;
-        content += `<span class="error-display">${game.i18n.localize("WITCHER.Dialog.NoComponents")}: ${missing} ${element.name}</span><br />`
+        content += `<span class="error-display">${game.i18n.localize("WITCHER.Dialog.NoComponents")}: ${missing} ${craftingComponent.name}</span><br />`
       }
+
     });
     content += `</div>`
 
@@ -273,7 +279,7 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
               rollFormula += !displayRollDetails ? `+2` : `+2[${game.i18n.localize("WITCHER.Dialog.Diagram")}]`
             }
 
-            rollFormula = addModifiers(this.actor.system.skills.cra.crafting.modifiers, rollFormula)
+            rollFormula = addAllModifiers(this.actor, "crafting", rollFormula)
 
             let config = new RollConfig();
             config.showCrit = true

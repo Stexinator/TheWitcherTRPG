@@ -16,16 +16,19 @@ for (const pack of packs) {
       await fs.unlink(path.join(directory, file));
     }
   } catch (error) {
-    if (error.code === "ENOENT") console.log("No files inside of " + pack);
-    else console.log(error);
+    if (error.code === "ENOENT") {
+      console.log("No files inside of " + pack);
+    }
+    else {
+      console.log(error);
+    }
   }
 
   await extractPack(
     `${MODULE_ID}/packs/${pack}`,
-    `${MODULE_ID}/packs/json/${pack}`,
+    `${MODULE_ID}/packsJson/${pack}`,
     {
       yaml,
-      log,
       transformName,
     }
   );
@@ -40,7 +43,8 @@ function transformName(doc) {
   const type = doc._key.split("!")[1];
   const prefix = ["actors", "items"].includes(type) ? doc.type : type;
 
-  return `${doc.name ? `${prefix}_${safeFileName}_${doc._id}` : doc._id}.${
-    yaml ? "yml" : "json"
-  }`;
+  let transformedName = `${doc.name ? `${prefix}_${safeFileName}_${doc._id}` : doc._id}.${yaml ? "yml" : "json"}`
+  console.log(transformedName)
+
+  return transformedName;
 }

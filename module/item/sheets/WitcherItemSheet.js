@@ -1,10 +1,9 @@
-
 import { genId } from "../../scripts/witcher.js";
 
 export default class WitcherItemSheet extends ItemSheet {
   /** @override */
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["witcher", "sheet", "item"],
       width: 520,
       height: 480,
@@ -32,26 +31,15 @@ export default class WitcherItemSheet extends ItemSheet {
 
   activateListeners(html) {
     super.activateListeners(html);
-
     html.find(".add-effect").on("click", this._onAddEffect.bind(this));
-    html.find(".add-modifier-stat").on("click", this._onAddModifierStat.bind(this));
-    html.find(".add-modifier-skill").on("click", this._onAddModifierSkill.bind(this));
-    html.find(".add-modifier-derived").on("click", this._onAddModifierDerived.bind(this));
+    html.find(".list-edit").on("blur", this._onEffectEdit.bind(this));
+    html.find(".remove-effect").on("click", this._oRemoveEffect.bind(this));
 
     html.find(".add-component").on("click", this._onAddComponent.bind(this));
     html.find(".add-associated-item").on("click", this._onAddAssociatedItem.bind(this))
     html.find(".remove-associated-item").on("click", this._onRemoveAssociatedItem.bind(this))
     html.find(".remove-component").on("click", this._onRemoveComponent.bind(this));
 
-    html.find(".remove-effect").on("click", this._oRemoveEffect.bind(this));
-    html.find(".remove-modifier-stat").on("click", this._onRemoveModifierStat.bind(this));
-    html.find(".remove-modifier-skill").on("click", this._onRemoveModifierSkill.bind(this));
-    html.find(".remove-modifier-derived").on("click", this._onRemoveModifierDerived.bind(this));
-
-    html.find(".list-edit").on("blur", this._onEffectEdit.bind(this));
-    html.find(".modifiers-edit").on("change", this._onModifierEdit.bind(this));
-    html.find(".modifiers-edit-skills").on("change", this._onModifierSkillsEdit.bind(this));
-    html.find(".modifiers-edit-derived").on("change", this._onModifierDerivedEdit.bind(this));
     html.find("input").focusin(ev => this._onFocusIn(ev));
     html.find(".damage-type").on("change", this._onDamageTypeEdit.bind(this));
     html.find(".dragable").on("dragstart", (ev) => {
@@ -76,6 +64,16 @@ export default class WitcherItemSheet extends ItemSheet {
     this._dragDrop.push(newDragDrop);
   }
 
+  _onAddEffect(event) {
+    event.preventDefault();
+    let newEffectList = []
+    if (this.item.system.effects) {
+      newEffectList = this.item.system.effects
+    }
+    newEffectList.push({ id: genId(), name: "effect", percentage: "" })
+    this.item.update({ 'system.effects': newEffectList });
+  }
+
   _onEffectEdit(event) {
     event.preventDefault();
     let element = event.currentTarget;
@@ -89,19 +87,15 @@ export default class WitcherItemSheet extends ItemSheet {
     effects[objIndex][field] = value
 
     this.item.update({ 'system.effects': effects });
-    
+
   }
 
-  _onModifierEdit(event) {
+  _oRemoveEffect(event) {
     event.preventDefault();
     let element = event.currentTarget;
     let itemId = element.closest(".list-item").dataset.id;
-    let field = element.dataset.field;
-    let value = element.value
-    let effects = this.item.system.stats
-    let objIndex = effects.findIndex((obj => obj.id == itemId));
-    effects[objIndex][field] = value
-    this.item.update({ 'system.stats': effects });
+    let newEffectList = this.item.system.effects.filter(item => item.id !== itemId)
+    this.item.update({ 'system.effects': newEffectList });
   }
 
   _onDamageTypeEdit(event) {
@@ -118,80 +112,12 @@ export default class WitcherItemSheet extends ItemSheet {
     this.item.update({ 'system.type': newval });
   }
 
-  _onModifierDerivedEdit(event) {
-    event.preventDefault();
-    let element = event.currentTarget;
-    let itemId = element.closest(".list-item").dataset.id;
-
-    let field = element.dataset.field;
-    let value = element.value
-    let effects = this.item.system.derived
-    let objIndex = effects.findIndex((obj => obj.id == itemId));
-    effects[objIndex][field] = value
-    this.item.update({ 'system.derived': effects });
-  }
-
-  _onModifierSkillsEdit(event) {
-    event.preventDefault();
-    let element = event.currentTarget;
-    let itemId = element.closest(".list-item").dataset.id;
-
-    let field = element.dataset.field;
-    let value = element.value
-    let effects = this.item.system.skills
-    let objIndex = effects.findIndex((obj => obj.id == itemId));
-    effects[objIndex][field] = value
-    this.item.update({ 'system.skills': effects });
-  }
-
   _onRemoveComponent(event) {
     event.preventDefault();
     let element = event.currentTarget;
     let itemId = element.closest(".list-item").dataset.id;
     let newComponentList = this.item.system.craftingComponents.filter(item => item.id !== itemId)
     this.item.update({ 'system.craftingComponents': newComponentList });
-  }
-
-  _oRemoveEffect(event) {
-    event.preventDefault();
-    let element = event.currentTarget;
-    let itemId = element.closest(".list-item").dataset.id;
-    let newEffectList = this.item.system.effects.filter(item => item.id !== itemId)
-    this.item.update({ 'system.effects': newEffectList });
-  }
-
-  _onRemoveModifierStat(event) {
-    event.preventDefault();
-    let element = event.currentTarget;
-    let itemId = element.closest(".list-item").dataset.id;
-    let newModifierList = this.item.system.stats.filter(item => item.id !== itemId)
-    this.item.update({ 'system.stats': newModifierList });
-  }
-
-  _onRemoveModifierSkill(event) {
-    event.preventDefault();
-    let element = event.currentTarget;
-    let itemId = element.closest(".list-item").dataset.id;
-    let newModifierList = this.item.system.skills.filter(item => item.id !== itemId)
-    this.item.update({ 'system.skills': newModifierList });
-  }
-
-  _onRemoveModifierDerived(event) {
-    event.preventDefault();
-    let element = event.currentTarget;
-    let itemId = element.closest(".list-item").dataset.id;
-    let newModifierList = this.item.system.derived.filter(item => item.id !== itemId)
-    this.item.update({ 'system.derived': newModifierList });
-  }
-
-  _onAddEffect(event) {
-    event.preventDefault();
-    let newEffectList = []
-    if (this.item.system.effects) {
-      newEffectList = this.item.system.effects
-    }
-    newEffectList.push({ id: genId(), name: "effect", percentage: "" })
-    this.item.update({ 'system.effects': newEffectList });
   }
 
   _onAddComponent(event) {
@@ -210,36 +136,6 @@ export default class WitcherItemSheet extends ItemSheet {
 
   async _onRemoveAssociatedItem(event) {
     event.preventDefault();
-  }
-
-  _onAddModifierStat(event) {
-    event.preventDefault();
-    let newModifierList = []
-    if (this.item.system.stats) {
-      newModifierList = this.item.system.stats
-    }
-    newModifierList.push({ id: genId(), stat: "none", modifier: 0 })
-    this.item.update({ 'system.stats': newModifierList });
-  }
-
-  _onAddModifierSkill(event) {
-    event.preventDefault();
-    let newModifierList = []
-    if (this.item.system.skills) {
-      newModifierList = this.item.system.skills
-    }
-    newModifierList.push({ id: genId(), skill: "none", modifier: 0 })
-    this.item.update({ 'system.skills': newModifierList });
-  }
-
-  _onAddModifierDerived(event) {
-    event.preventDefault();
-    let newModifierList = []
-    if (this.item.system.derived) {
-      newModifierList = this.item.system.derived
-    }
-    newModifierList.push({ id: genId(), derivedStat: "none", modifier: 0 })
-    this.item.update({ 'system.derived': newModifierList });
   }
 
   _onFocusIn(event) {

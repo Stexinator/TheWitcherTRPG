@@ -5,6 +5,6 @@
     },
     "scripts": {
         "build:db": "node ./utils/packs.mjs package pack",
-        "test": "node ./utils/second.mjs "
+        "extract": "node ./utils/extract.mjs "
     }
 }

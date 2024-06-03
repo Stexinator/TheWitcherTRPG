@@ -1,14 +1,14 @@
 import { extendedRoll } from "../../scripts/chat.js";
 import { WITCHER } from "../../setup/config.js";
-import { calc_currency_weight, addModifiers } from "../../scripts/witcher.js";
+import { calc_currency_weight, addAllModifiers } from "../../scripts/witcher.js";
 import { RollConfig } from "../../scripts/rollConfig.js";
 
-import { ExecuteDefence } from "../../scripts/actions.js";
+import { ExecuteDefense } from "../../scripts/defenses.js";
 import { sanitizeMixin } from "../mixins/sanitizeMixin.js"
 import { deathsaveMixin } from "../mixins/deathSaveMixin.js";
 import { critMixin } from "../mixins/critMixin.js";
 import { noteMixin } from "../mixins/noteMixin.js";
-import { activeEffectMixin } from "../mixins/activeEffectMixin.js";
+import { globalModifierMixin } from "../mixins/globalModifierMixin.js";
 import { skillModifierMixin } from "../mixins/skillModifierMixin.js";
 import { skillMixin } from "../mixins/skillMixin.js";
 import { statMixin } from "../mixins/statMixin.js";
@@ -76,12 +76,22 @@ export default class WitcherActorSheet extends ActorSheet {
     return context;
   }
 
+  /** @inheritdoc */
+  _canDragStart(selector) {
+    return true;
+  }
+
+  /** @inheritdoc */
+  _canDragDrop(selector) {
+    return true;
+  }
+
   _prepareGeneralInformation(context) {
     let actor = context.actor;
 
     context.oldNotes = actor.getList("note");
     context.notes = actor.system.notes;
-    context.activeEffects = actor.getList("effect");
+    context.globalModifiers = actor.getList("effect").concat(actor.getList("globalModifier"));
   }
 
   _prepareSpells(context) {
@@ -168,7 +178,7 @@ export default class WitcherActorSheet extends ActorSheet {
 
     html.find(".init-roll").on("click", this._onInitRoll.bind(this));
     html.find(".crit-roll").on("click", this._onCritRoll.bind(this));
-    html.find(".defence-roll").on("click", this._onDefenceRoll.bind(this));
+    html.find(".defence-roll").on("click", this._onDefenseRoll.bind(this));
     html.find(".heal-button").on("click", this._onHeal.bind(this));
     html.find(".verbal-button").on("click", this._onVerbalCombat.bind(this));
 
@@ -184,7 +194,7 @@ export default class WitcherActorSheet extends ActorSheet {
     this.deathSaveListener(html)
     this.critListener(html)
     this.noteListener(html)
-    this.activeEffectListener(html)
+    this.globalModifierListener(html)
   }
 
 
@@ -213,8 +223,8 @@ export default class WitcherActorSheet extends ActorSheet {
     rollResult.toMessage(messageData)
   }
 
-  async _onDefenceRoll(event) {
-    ExecuteDefence(this.actor)
+  async _onDefenseRoll(event) {
+    ExecuteDefense(this.actor)
   }
 
   async _onHeal() {
@@ -317,7 +327,6 @@ export default class WitcherActorSheet extends ActorSheet {
 
             let vcSkillName = verbalCombat.skill?.label ?? "WITCHER.Context.unavailable";
             let vcSkill = verbalCombat.skill ? this.actor.system.skills[verbalCombat.skill.attribute.name][verbalCombat.skill.name]?.value : 0
-            let modifiers = verbalCombat.skill ? this.actor.system.skills[verbalCombat.skill.attribute.name][verbalCombat.skill.name].modifiers : null;
 
             let vcDmg = verbalCombat.baseDmg ? `${verbalCombat.baseDmg}+${this.actor.system.stats[verbalCombat.dmgStat.name].current}[${game.i18n.localize(verbalCombat.dmgStat?.label)}]` : game.i18n.localize("WITCHER.verbalCombat.None")
             if (verbal == "Counterargue") {
@@ -328,7 +337,9 @@ export default class WitcherActorSheet extends ActorSheet {
 
             let rollFormula = !displayRollDetails ? `1d10+${vcStat}+${vcSkill}` : `1d10+${vcStat}[${game.i18n.localize(vcStatName)}]+${vcSkill}[${game.i18n.localize(vcSkillName)}]`
 
-            rollFormula = addModifiers(modifiers, rollFormula)
+            if (verbalCombat.skill) {
+              rollFormula = addAllModifiers(this.actor, verbalCombat.skill.name, rollFormula)
+            }
 
             let customAtt = html.find("[name=customModifiers]")[0].value;
             if (customAtt < 0) {
@@ -397,4 +408,4 @@ Object.assign(WitcherActorSheet.prototype, sanitizeMixin)
 Object.assign(WitcherActorSheet.prototype, deathsaveMixin)
 Object.assign(WitcherActorSheet.prototype, critMixin)
 Object.assign(WitcherActorSheet.prototype, noteMixin)
-Object.assign(WitcherActorSheet.prototype, activeEffectMixin)
+Object.assign(WitcherActorSheet.prototype, globalModifierMixin)

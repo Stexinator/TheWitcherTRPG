@@ -1,7 +1,8 @@
 import { buttonDialog, extendedRoll } from "../../scripts/chat.js";
 import { rollDamage } from "../../scripts/attack.js";
-import { addModifiers } from "../../scripts/witcher.js";
+import { addAllModifiers } from "../../scripts/witcher.js";
 import { RollConfig } from "../../scripts/rollConfig.js";
+import { WITCHER } from "../../setup/config.js";
 
 export let itemMixin = {
 
@@ -189,230 +190,6 @@ export let itemMixin = {
     }
 
     await Item.create(itemData, { parent: this.actor })
-  },
-
-  async _onSpellRoll(event, itemId = null) {
-
-    let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
-    let damage = {};
-
-    if (!itemId) {
-      itemId = event.currentTarget.closest(".item").dataset.itemId;
-    }
-    let spellItem = this.actor.items.get(itemId);
-    damage.item = spellItem;
-    let rollFormula = `1d10`
-    rollFormula += !displayRollDetails ? `+${this.actor.system.stats.will.current}` : `+${this.actor.system.stats.will.current}[${game.i18n.localize("WITCHER.StWill")}]`;
-    switch (spellItem.system.class) {
-      case "Witcher":
-      case "Invocations":
-      case "Spells":
-        rollFormula += !displayRollDetails ? `+${this.actor.system.skills.will.spellcast.value}` : `+${this.actor.system.skills.will.spellcast.value}[${game.i18n.localize("WITCHER.SkWillSpellcastLable")}]`;
-        break;
-      case "Rituals":
-        rollFormula += !displayRollDetails ? `+${this.actor.system.skills.will.ritcraft.value}` : `+${this.actor.system.skills.will.ritcraft.value}[${game.i18n.localize("WITCHER.SkWillRitCraftLable")}]`;
-        break;
-      case "Hexes":
-        rollFormula += !displayRollDetails ? `+${this.actor.system.skills.will.hexweave.value}` : `+${this.actor.system.skills.will.hexweave.value}[${game.i18n.localize("WITCHER.SkWillHexLable")}]`;
-        break;
-    }
-
-    let staCostTotal = spellItem.system.stamina;
-    let customModifier = 0;
-    let isExtraAttack = false
-
-    let content = `<label>${game.i18n.localize("WITCHER.Dialog.attackExtra")}: <input type="checkbox" name="isExtraAttack"></label> <br />`
-    if (spellItem.system.staminaIsVar) {
-      content += `${game.i18n.localize("WITCHER.Spell.staminaDialog")}<input class="small" name="staCost" value=1> <br />`
-    }
-
-    let focusOptions = `<option value="0"> </option>`
-    let secondFocusOptions = `<option value="0" selected> </option>`
-
-    let useFocus = false
-    if (this.actor.system.focus1.value > 0) {
-      focusOptions += `<option value="${this.actor.system.focus1.value}" selected> ${this.actor.system.focus1.name} (${this.actor.system.focus1.value}) </option>`;
-      secondFocusOptions += `<option value="${this.actor.system.focus1.value}"> ${this.actor.system.focus1.name} (${this.actor.system.focus1.value}) </option>`;
-      useFocus = true
-    }
-    if (this.actor.system.focus2.value > 0) {
-      focusOptions += `<option value="${this.actor.system.focus2.value}"> ${this.actor.system.focus2.name} (${this.actor.system.focus2.value}) </option>`;
-      secondFocusOptions += `<option value="${this.actor.system.focus2.value}"> ${this.actor.system.focus2.name} (${this.actor.system.focus2.value}) </option>`;
-      useFocus = true
-    }
-    if (this.actor.system.focus3.value > 0) {
-      focusOptions += `<option value="${this.actor.system.focus3.value}"> ${this.actor.system.focus3.name} (${this.actor.system.focus3.value}) </option>`;
-      secondFocusOptions += `<option value="${this.actor.system.focus3.value}"> ${this.actor.system.focus3.name} (${this.actor.system.focus3.value}) </option>`;
-      useFocus = true
-    }
-    if (this.actor.system.focus4.value > 0) {
-      focusOptions += `<option value="${this.actor.system.focus4.value}"> ${this.actor.system.focus4.name} (${this.actor.system.focus4.value}) </option>`;
-      secondFocusOptions += `<option value="${this.actor.system.focus4.value}"> ${this.actor.system.focus4.name} (${this.actor.system.focus4.value}) </option>`;
-      useFocus = true
-    }
-
-    if (useFocus) {
-      content += ` <label>${game.i18n.localize("WITCHER.Spell.ChooseFocus")}: <select name="focus">${focusOptions}</select></label> <br />`
-      content += ` <label>${game.i18n.localize("WITCHER.Spell.ChooseExpandedFocus")}: <select name="secondFocus">${secondFocusOptions}</select></label> <br />`
-    }
-    content += `<label>${game.i18n.localize("WITCHER.Dialog.attackCustom")}: <input class="small" name="customMod" value=0></label> <br /><br />`;
-    let cancel = true
-    let focusValue = 0
-    let secondFocusValue = 0
-
-    let dialogData = {
-      buttons: [
-        [`${game.i18n.localize("WITCHER.Button.Continue")}`, (html) => {
-          if (spellItem.system.staminaIsVar) {
-            staCostTotal = html.find("[name=staCost]")[0].value;
-          }
-          customModifier = html.find("[name=customMod]")[0].value;
-          isExtraAttack = html.find("[name=isExtraAttack]").prop("checked");
-          if (html.find("[name=focus]")[0]) {
-            focusValue = html.find("[name=focus]")[0].value;
-          }
-          if (html.find("[name=secondFocus]")[0]) {
-            secondFocusValue = html.find("[name=secondFocus]")[0].value;
-          }
-          cancel = false
-        }]],
-      title: game.i18n.localize("WITCHER.Spell.MagicCost"),
-      content: content
-    }
-
-    await buttonDialog(dialogData)
-
-    if (cancel) {
-      return
-    }
-    let origStaCost = staCostTotal
-    let newSta = this.actor.system.derivedStats.sta.value
-
-    staCostTotal -= Number(focusValue) + Number(secondFocusValue)
-    if (isExtraAttack) {
-      staCostTotal += 3
-    }
-
-    let useMinimalStaCost = false
-    if (staCostTotal < 1) {
-      useMinimalStaCost = true
-      staCostTotal = 1
-    }
-
-    newSta -= staCostTotal
-
-    if (newSta < 0) {
-      return ui.notifications.error(game.i18n.localize("WITCHER.Spell.notEnoughSta"));
-    }
-
-    this.actor.update({
-      'system.derivedStats.sta.value': newSta
-    });
-
-    let staCostDisplay = `${origStaCost}[${game.i18n.localize("WITCHER.Spell.Short.StaCost")}]`
-
-    if (isExtraAttack) {
-      staCostDisplay += ` + 3[${game.i18n.localize("WITCHER.Dialog.attackExtra")}]`
-    }
-
-    staCostDisplay += ` - ${Number(focusValue) + Number(secondFocusValue)}[${game.i18n.localize("WITCHER.Actor.DerStat.Focus")}]`
-    staCostDisplay += ` =  ${staCostTotal}`
-    if (useMinimalStaCost) {
-      staCostDisplay += `[${game.i18n.localize("WITCHER.MinValue")}]`
-    }
-
-    if (customModifier < 0) { rollFormula += !displayRollDetails ? `${customModifier}` : `${customModifier}[${game.i18n.localize("WITCHER.Settings.Custom")}]` }
-    if (customModifier > 0) { rollFormula += !displayRollDetails ? `+${customModifier}` : `+${customModifier}[${game.i18n.localize("WITCHER.Settings.Custom")}]` }
-    if (isExtraAttack) { rollFormula += !displayRollDetails ? `-3` : `-3[${game.i18n.localize("WITCHER.Dialog.attackExtra")}]` }
-
-    let spellSource = ''
-    switch (spellItem.system.source) {
-      case "mixedElements": spellSource = "WITCHER.Spell.Mixed"; break;
-      case "earth": spellSource = "WITCHER.Spell.Earth"; break;
-      case "air": spellSource = "WITCHER.Spell.Air"; break;
-      case "fire": spellSource = "WITCHER.Spell.Fire"; break;
-      case "Water": spellSource = "WITCHER.Spell.Water"; break;
-    }
-
-    let messageData = {
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: `<h2><img src="${spellItem.img}" class="item-img" />${spellItem.name}</h2>
-            <div><b>${game.i18n.localize("WITCHER.Spell.StaCost")}: </b>${staCostDisplay}</div>
-            <div><b>${game.i18n.localize("WITCHER.Mutagen.Source")}: </b>${game.i18n.localize(spellSource)}</div>
-            <div><b>${game.i18n.localize("WITCHER.Spell.Effect")}: </b>${spellItem.system.effect}</div>`
-    }
-    if (spellItem.system.range) {
-      messageData.flavor += `<div><b>${game.i18n.localize("WITCHER.Spell.Range")}: </b>${spellItem.system.range}</div>`
-    }
-    if (spellItem.system.duration) {
-      messageData.flavor += `<div><b>${game.i18n.localize("WITCHER.Spell.Duration")}: </b>${spellItem.system.duration}</div>`
-    }
-    if (spellItem.system.defence) {
-      messageData.flavor += `<div><b>${game.i18n.localize("WITCHER.Spell.Defence")}: </b>${spellItem.system.defence}</div>`
-    }
-    if (spellItem.system.preparationTime) {
-      messageData.flavor += `<div><b>${game.i18n.localize("WITCHER.Spell.PrepTime")}: </b>${spellItem.system.preparationTime}</div>`
-    }
-    if (spellItem.system.difficultyCheck) {
-      messageData.flavor += `<div><b>${game.i18n.localize("WITCHER.DC")}: </b>${spellItem.system.difficultyCheck}</div>`
-    }
-    if (spellItem.system.components) {
-      messageData.flavor += `<div><b>${game.i18n.localize("WITCHER.Spell.Components")}: </b>${spellItem.system.components}</div>`
-    }
-    if (spellItem.system.alternateComponents) {
-      messageData.flavor += `<div><b>${game.i18n.localize("WITCHER.Spell.AlternateComponents")}: </b>${spellItem.system.alternateComponents}</div>`
-    }
-    if (spellItem.system.liftRequirement) {
-      messageData.flavor += `<div><b>${game.i18n.localize("WITCHER.Spell.Requirements")}: </b>${spellItem.system.liftRequirement}</div>`
-    }
-
-    if (spellItem.system.causeDamages) {
-      let dmg = spellItem.system.damage || "0"
-      if (spellItem.system.staminaIsVar) {
-        dmg = this.calcStaminaMulti(origStaCost, dmg)
-      }
-
-      damage.effects = spellItem.system.effects;
-      damage.formula = dmg;
-
-      messageData.flavor += `<button class="damage" data-img="${spellItem.img}" data-name="${spellItem.name}">${game.i18n.localize("WITCHER.table.Damage")}</button>`;
-      damage.location = this.actor.getLocationObject("randomSpell")
-    }
-
-    if (spellItem.system.createsShield) {
-      let shield = spellItem.system.shield || "0"
-      if (spellItem.system.staminaIsVar) {
-        shield = this.calcStaminaMulti(origStaCost, shield)
-      }
-
-      messageData.flavor += `<button class="shield" data-img="${spellItem.img}" data-name="${spellItem.name}" data-shield="${shield}" data-actor="${this.actor.uuid}">${game.i18n.localize("WITCHER.Spell.Short.Shield")}</button>`;
-    }
-
-    if (spellItem.system.doesHeal) {
-      let heal = spellItem.system.heal || "0"
-      if (spellItem.system.staminaIsVar) {
-        heal = this.calcStaminaMulti(origStaCost, heal)
-      }
-
-      messageData.flavor += `<button class="heal" data-img="${spellItem.img}" data-name="${spellItem.name}" data-heal="${heal}" data-actor="${this.actor.uuid}">${game.i18n.localize("WITCHER.Spell.Short.Heal")}</button>`;
-    }
-
-    let config = new RollConfig()
-    config.showCrit = true
-    config.showResult = false;
-
-    let roll = await extendedRoll(rollFormula, messageData, config)
-    let message = await roll.toMessage(messageData);
-
-    message.setFlag('TheWitcherTRPG', 'attack', spellItem.getSpellFlags())
-    message.setFlag('TheWitcherTRPG', 'damage', damage)
-
-    let token = this.actor.getControlledToken();
-
-    if (token?.name) {
-      await spellItem.createSpellVisualEffectIfApplicable(token);
-      await spellItem.deleteSpellVisualEffect();
-    }
   },
 
   _onItemInlineEdit(event) {
@@ -769,50 +546,11 @@ export let itemMixin = {
                   `+${customAim}[${game.i18n.localize("WITCHER.Dialog.attackCustom")}]`;
               }
 
-              let modifiers;
 
-              switch (attackSkill.name) {
-                case "Brawling":
-                  attFormula += !displayRollDetails ? `+${this.actor.system.stats.ref.current}+${this.actor.system.skills.ref.brawling.value}` :
-                    `+${this.actor.system.stats.ref.current}[${game.i18n.localize("WITCHER.Actor.Stat.Ref")}]+${this.actor.system.skills.ref.brawling.value}[${game.i18n.localize("WITCHER.SkRefBrawling")}]`;
-                  modifiers = this.actor.system.skills.ref.brawling.modifiers;
-                  break;
-                case "Melee":
-                  attFormula += !displayRollDetails ? `+${this.actor.system.stats.ref.current}+${this.actor.system.skills.ref.melee.value}` :
-                    `+${this.actor.system.stats.ref.current}[${game.i18n.localize("WITCHER.Actor.Stat.Ref")}]+${this.actor.system.skills.ref.melee.value}[${game.i18n.localize("WITCHER.SkRefMelee")}]`;
-                  modifiers = this.actor.system.skills.ref.melee.modifiers;
-                  break;
-                case "Small Blades":
-                  attFormula += !displayRollDetails ? `+${this.actor.system.stats.ref.current}+${this.actor.system.skills.ref.smallblades.value}` :
-                    `+${this.actor.system.stats.ref.current}[${game.i18n.localize("WITCHER.Actor.Stat.Ref")}]+${this.actor.system.skills.ref.smallblades.value}[${game.i18n.localize("WITCHER.SkRefSmall")}]`;
-                  modifiers = this.actor.system.skills.ref.smallblades.modifiers;
-                  break;
-                case "Staff/Spear":
-                  attFormula += !displayRollDetails ? `+${this.actor.system.stats.ref.current}+${this.actor.system.skills.ref.staffspear.value}` :
-                    `+${this.actor.system.stats.ref.current}[${game.i18n.localize("WITCHER.Actor.Stat.Ref")}]+${this.actor.system.skills.ref.staffspear.value}[${game.i18n.localize("WITCHER.SkRefStaff")}]`;
-                  modifiers = this.actor.system.skills.ref.staffspear.modifiers;
-                  break;
-                case "Swordsmanship":
-                  attFormula += !displayRollDetails ? `+${this.actor.system.stats.ref.current}+${this.actor.system.skills.ref.swordsmanship.value}` :
-                    `+${this.actor.system.stats.ref.current}[${game.i18n.localize("WITCHER.Actor.Stat.Ref")}]+${this.actor.system.skills.ref.swordsmanship.value}[${game.i18n.localize("WITCHER.SkRefSwordsmanship")}]`;
-                  modifiers = this.actor.system.skills.ref.swordsmanship.modifiers;
-                  break;
-                case "Archery":
-                  attFormula += !displayRollDetails ? `+${this.actor.system.stats.dex.current}+${this.actor.system.skills.dex.archery.value}` :
-                    `+${this.actor.system.stats.dex.current}[${game.i18n.localize("WITCHER.Actor.Stat.Dex")}]+${this.actor.system.skills.dex.archery.value}[${game.i18n.localize("WITCHER.SkDexArchery")}]`;
-                  modifiers = this.actor.system.skills.dex.archery.modifiers;
-                  break;
-                case "Athletics":
-                  attFormula += !displayRollDetails ? `+${this.actor.system.stats.dex.current}+${this.actor.system.skills.dex.athletics.value}` :
-                    `+${this.actor.system.stats.dex.current}[${game.i18n.localize("WITCHER.Actor.Stat.Dex")}]+${this.actor.system.skills.dex.athletics.value}[${game.i18n.localize("WITCHER.SkDexAthletics")}]`;
-                  modifiers = this.actor.system.skills.dex.athletics.modifiers;
-                  break;
-                case "Crossbow":
-                  attFormula += !displayRollDetails ? `+${this.actor.system.stats.dex.current}+${this.actor.system.skills.dex.crossbow.value}` :
-                    `+${this.actor.system.stats.dex.current}[${game.i18n.localize("WITCHER.Actor.Stat.Dex")}]+${this.actor.system.skills.dex.crossbow.value}[${game.i18n.localize("WITCHER.SkDexCrossbow")}]`;
-                  modifiers = this.actor.system.skills.dex.crossbow.modifiers;
-                  break;
-              }
+              let skill = WITCHER.skillMap[attackSkill.name];
+              attFormula += !displayRollDetails ?
+                `+${this.actor.system.stats[skill.attribute.name].current}+${this.actor.system.skills[skill.attribute.name][skill.name].value}` :
+                `+${this.actor.system.stats[skill.attribute.name].current}[${game.i18n.localize(skill.attribute.label)}]+${this.actor.system.skills[skill.attribute.name][skill.name].value}[${game.i18n.localize(skill.label)}]`;
 
               if (customAtt != "0") {
                 attFormula += !displayRollDetails ? `+${customAtt}` : `+${customAtt}[${game.i18n.localize("WITCHER.Settings.Custom")}]`;
@@ -848,7 +586,7 @@ export let itemMixin = {
                 attFormula = !displayRollDetails ? `${attFormula}-3` : `${attFormula}-3[${game.i18n.localize("WITCHER.Dialog.attackStrike")}]`;
               }
 
-              attFormula = addModifiers(modifiers, attFormula)
+              attFormula = addAllModifiers(this.actor, attackSkill.name, attFormula)
 
               messageData.flavor = `<div class="attack-message"><h1><img src="${item.img}" class="item-img" />${game.i18n.localize("WITCHER.Attack")}: ${item.name}</h1>`;
               messageData.flavor += `<span>  ${game.i18n.localize("WITCHER.Armor.Location")}: ${touchedLocation.alias} = ${touchedLocation.locationFormula} </span>`;
@@ -872,6 +610,231 @@ export let itemMixin = {
         }
       }
     }, myDialogOptions).render(true)
+  },
+
+  async _onSpellRoll(event, itemId = null) {
+
+    let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
+    let damage = {};
+
+    if (!itemId) {
+      itemId = event.currentTarget.closest(".item").dataset.itemId;
+    }
+    let spellItem = this.actor.items.get(itemId);
+    damage.item = spellItem;
+    let rollFormula = `1d10`
+    rollFormula += !displayRollDetails ? `+${this.actor.system.stats.will.current}` : `+${this.actor.system.stats.will.current}[${game.i18n.localize("WITCHER.StWill")}]`;
+    switch (spellItem.system.class) {
+      case "Witcher":
+      case "Invocations":
+      case "Spells":
+        rollFormula += !displayRollDetails ? `+${this.actor.system.skills.will.spellcast.value}` : `+${this.actor.system.skills.will.spellcast.value}[${game.i18n.localize("WITCHER.SkWillSpellcastLable")}]`;
+        rollFormula = addAllModifiers(this.actor, "spellcast", rollFormula)
+        break;
+      case "Rituals":
+        rollFormula += !displayRollDetails ? `+${this.actor.system.skills.will.ritcraft.value}` : `+${this.actor.system.skills.will.ritcraft.value}[${game.i18n.localize("WITCHER.SkWillRitCraftLable")}]`;
+        rollFormula = addAllModifiers(this.actor, "ritcraft", rollFormula)
+        break;
+      case "Hexes":
+        rollFormula += !displayRollDetails ? `+${this.actor.system.skills.will.hexweave.value}` : `+${this.actor.system.skills.will.hexweave.value}[${game.i18n.localize("WITCHER.SkWillHexLable")}]`;
+        rollFormula = addAllModifiers(this.actor, "hexweave", rollFormula)
+        break;
+    }
+
+    let staCostTotal = spellItem.system.stamina;
+    let customModifier = 0;
+    let isExtraAttack = false
+
+    let content = `<label>${game.i18n.localize("WITCHER.Dialog.attackExtra")}: <input type="checkbox" name="isExtraAttack"></label> <br />`
+    if (spellItem.system.staminaIsVar) {
+      content += `${game.i18n.localize("WITCHER.Spell.staminaDialog")}<input class="small" name="staCost" value=1> <br />`
+    }
+
+    let focusOptions = `<option value="0"> </option>`
+    let secondFocusOptions = `<option value="0" selected> </option>`
+
+    let useFocus = false
+    if (this.actor.system.focus1.value > 0) {
+      focusOptions += `<option value="${this.actor.system.focus1.value}" selected> ${this.actor.system.focus1.name} (${this.actor.system.focus1.value}) </option>`;
+      secondFocusOptions += `<option value="${this.actor.system.focus1.value}"> ${this.actor.system.focus1.name} (${this.actor.system.focus1.value}) </option>`;
+      useFocus = true
+    }
+    if (this.actor.system.focus2.value > 0) {
+      focusOptions += `<option value="${this.actor.system.focus2.value}"> ${this.actor.system.focus2.name} (${this.actor.system.focus2.value}) </option>`;
+      secondFocusOptions += `<option value="${this.actor.system.focus2.value}"> ${this.actor.system.focus2.name} (${this.actor.system.focus2.value}) </option>`;
+      useFocus = true
+    }
+    if (this.actor.system.focus3.value > 0) {
+      focusOptions += `<option value="${this.actor.system.focus3.value}"> ${this.actor.system.focus3.name} (${this.actor.system.focus3.value}) </option>`;
+      secondFocusOptions += `<option value="${this.actor.system.focus3.value}"> ${this.actor.system.focus3.name} (${this.actor.system.focus3.value}) </option>`;
+      useFocus = true
+    }
+    if (this.actor.system.focus4.value > 0) {
+      focusOptions += `<option value="${this.actor.system.focus4.value}"> ${this.actor.system.focus4.name} (${this.actor.system.focus4.value}) </option>`;
+      secondFocusOptions += `<option value="${this.actor.system.focus4.value}"> ${this.actor.system.focus4.name} (${this.actor.system.focus4.value}) </option>`;
+      useFocus = true
+    }
+
+    if (useFocus) {
+      content += ` <label>${game.i18n.localize("WITCHER.Spell.ChooseFocus")}: <select name="focus">${focusOptions}</select></label> <br />`
+      content += ` <label>${game.i18n.localize("WITCHER.Spell.ChooseExpandedFocus")}: <select name="secondFocus">${secondFocusOptions}</select></label> <br />`
+    }
+    content += `<label>${game.i18n.localize("WITCHER.Dialog.attackCustom")}: <input class="small" name="customMod" value=0></label> <br /><br />`;
+    let cancel = true
+    let focusValue = 0
+    let secondFocusValue = 0
+
+    let dialogData = {
+      buttons: [
+        [`${game.i18n.localize("WITCHER.Button.Continue")}`, (html) => {
+          if (spellItem.system.staminaIsVar) {
+            staCostTotal = html.find("[name=staCost]")[0].value;
+          }
+          customModifier = html.find("[name=customMod]")[0].value;
+          isExtraAttack = html.find("[name=isExtraAttack]").prop("checked");
+          if (html.find("[name=focus]")[0]) {
+            focusValue = html.find("[name=focus]")[0].value;
+          }
+          if (html.find("[name=secondFocus]")[0]) {
+            secondFocusValue = html.find("[name=secondFocus]")[0].value;
+          }
+          cancel = false
+        }]],
+      title: game.i18n.localize("WITCHER.Spell.MagicCost"),
+      content: content
+    }
+
+    await buttonDialog(dialogData)
+
+    if (cancel) {
+      return
+    }
+    let origStaCost = staCostTotal
+    let newSta = this.actor.system.derivedStats.sta.value
+
+    staCostTotal -= Number(focusValue) + Number(secondFocusValue)
+    if (isExtraAttack) {
+      staCostTotal += 3
+    }
+
+    let useMinimalStaCost = false
+    if (staCostTotal < 1) {
+      useMinimalStaCost = true
+      staCostTotal = 1
+    }
+
+    newSta -= staCostTotal
+
+    if (newSta < 0) {
+      return ui.notifications.error(game.i18n.localize("WITCHER.Spell.notEnoughSta"));
+    }
+
+    this.actor.update({
+      'system.derivedStats.sta.value': newSta
+    });
+
+    let staCostDisplay = `${origStaCost}[${game.i18n.localize("WITCHER.Spell.Short.StaCost")}]`
+
+    if (isExtraAttack) {
+      staCostDisplay += ` + 3[${game.i18n.localize("WITCHER.Dialog.attackExtra")}]`
+    }
+
+    staCostDisplay += ` - ${Number(focusValue) + Number(secondFocusValue)}[${game.i18n.localize("WITCHER.Actor.DerStat.Focus")}]`
+    staCostDisplay += ` =  ${staCostTotal}`
+    if (useMinimalStaCost) {
+      staCostDisplay += `[${game.i18n.localize("WITCHER.MinValue")}]`
+    }
+
+    if (customModifier < 0) { rollFormula += !displayRollDetails ? `${customModifier}` : `${customModifier}[${game.i18n.localize("WITCHER.Settings.Custom")}]` }
+    if (customModifier > 0) { rollFormula += !displayRollDetails ? `+${customModifier}` : `+${customModifier}[${game.i18n.localize("WITCHER.Settings.Custom")}]` }
+    if (isExtraAttack) { rollFormula += !displayRollDetails ? `-3` : `-3[${game.i18n.localize("WITCHER.Dialog.attackExtra")}]` }
+
+    let spellSource = ''
+    switch (spellItem.system.source) {
+      case "mixedElements": spellSource = "WITCHER.Spell.Mixed"; break;
+      case "earth": spellSource = "WITCHER.Spell.Earth"; break;
+      case "air": spellSource = "WITCHER.Spell.Air"; break;
+      case "fire": spellSource = "WITCHER.Spell.Fire"; break;
+      case "Water": spellSource = "WITCHER.Spell.Water"; break;
+    }
+
+    let messageData = {
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      flavor: `<h2><img src="${spellItem.img}" class="item-img" />${spellItem.name}</h2>
+            <div><b>${game.i18n.localize("WITCHER.Spell.StaCost")}: </b>${staCostDisplay}</div>
+            <div><b>${game.i18n.localize("WITCHER.Mutagen.Source")}: </b>${game.i18n.localize(spellSource)}</div>
+            <div><b>${game.i18n.localize("WITCHER.Spell.Effect")}: </b>${spellItem.system.effect}</div>`
+    }
+    if (spellItem.system.range) {
+      messageData.flavor += `<div><b>${game.i18n.localize("WITCHER.Spell.Range")}: </b>${spellItem.system.range}</div>`
+    }
+    if (spellItem.system.duration) {
+      messageData.flavor += `<div><b>${game.i18n.localize("WITCHER.Spell.Duration")}: </b>${spellItem.system.duration}</div>`
+    }
+    if (spellItem.system.defence) {
+      messageData.flavor += `<div><b>${game.i18n.localize("WITCHER.Spell.Defence")}: </b>${spellItem.system.defence}</div>`
+    }
+    if (spellItem.system.preparationTime) {
+      messageData.flavor += `<div><b>${game.i18n.localize("WITCHER.Spell.PrepTime")}: </b>${spellItem.system.preparationTime}</div>`
+    }
+    if (spellItem.system.difficultyCheck) {
+      messageData.flavor += `<div><b>${game.i18n.localize("WITCHER.DC")}: </b>${spellItem.system.difficultyCheck}</div>`
+    }
+    if (spellItem.system.components) {
+      messageData.flavor += `<div><b>${game.i18n.localize("WITCHER.Spell.Components")}: </b>${spellItem.system.components}</div>`
+    }
+    if (spellItem.system.alternateComponents) {
+      messageData.flavor += `<div><b>${game.i18n.localize("WITCHER.Spell.AlternateComponents")}: </b>${spellItem.system.alternateComponents}</div>`
+    }
+    if (spellItem.system.liftRequirement) {
+      messageData.flavor += `<div><b>${game.i18n.localize("WITCHER.Spell.Requirements")}: </b>${spellItem.system.liftRequirement}</div>`
+    }
+
+    if (spellItem.system.causeDamages) {
+      let dmg = spellItem.system.damage || "0"
+      if (spellItem.system.staminaIsVar) {
+        dmg = this.calcStaminaMulti(origStaCost, dmg)
+      }
+
+      damage.effects = spellItem.system.effects;
+      damage.formula = dmg;
+
+      messageData.flavor += `<button class="damage" data-img="${spellItem.img}" data-name="${spellItem.name}">${game.i18n.localize("WITCHER.table.Damage")}</button>`;
+      damage.location = this.actor.getLocationObject("randomSpell")
+    }
+
+    if (spellItem.system.createsShield) {
+      let shield = spellItem.system.shield || "0"
+      if (spellItem.system.staminaIsVar) {
+        shield = this.calcStaminaMulti(origStaCost, shield)
+      }
+
+      messageData.flavor += `<button class="shield" data-img="${spellItem.img}" data-name="${spellItem.name}" data-shield="${shield}" data-actor="${this.actor.uuid}">${game.i18n.localize("WITCHER.Spell.Short.Shield")}</button>`;
+    }
+
+    if (spellItem.system.doesHeal) {
+      let heal = spellItem.system.heal || "0"
+      if (spellItem.system.staminaIsVar) {
+        heal = this.calcStaminaMulti(origStaCost, heal)
+      }
+
+      messageData.flavor += `<button class="heal" data-img="${spellItem.img}" data-name="${spellItem.name}" data-heal="${heal}" data-actor="${this.actor.uuid}">${game.i18n.localize("WITCHER.Spell.Short.Heal")}</button>`;
+    }
+
+    let config = new RollConfig()
+    config.showCrit = true
+    config.showResult = false;
+
+    await spellItem.createSpellVisualEffectIfApplicable();
+    await spellItem.deleteSpellVisualEffect();
+
+    let roll = await extendedRoll(rollFormula, messageData, config)
+    let message = await roll.toMessage(messageData);
+
+    message.setFlag('TheWitcherTRPG', 'attack', spellItem.getSpellFlags())
+    message.setFlag('TheWitcherTRPG', 'damage', damage)
+
+    let token = this.actor.getControlledToken();
   },
 
   _onSpellDisplay(event) {
