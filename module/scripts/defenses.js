@@ -46,7 +46,7 @@ function BlockAttack(actor) {
 function ExecuteDefense(actor, messageId, totalAttack) {
     if (!actor) return;
 
-    let location = game.messages.get(messageId).getFlag('TheWitcherTRPG', 'damage').location
+    let location = game.messages.get(messageId)?.getFlag('TheWitcherTRPG', 'damage').location
     let weapons = actor.items.filter(function (item) { return item.type == "weapon" && !item.system.isAmmo && WITCHER.meleeSkills.includes(item.system.attackSkill) });
     let shields = actor.items.filter(function (item) { return item.type == "armor" && item.system.location == "Shield" });
     let options = `<option value="brawling"> ${game.i18n.localize("WITCHER.SkRefBrawling")} </option>`;
