@@ -14,18 +14,25 @@ export default class WitcherDiagramSheet extends WitcherItemSheet {
     return data;
   }
 
+  activateListeners(html) {
+    super.activateListeners(html);
+
+    html.find(".add-component").on("click", this._onAddComponent.bind(this));
+    html.find(".remove-component").on("click", this._onRemoveComponent.bind(this));
+
+    html.find(".add-associated-item").on("click", this._onAddAssociatedItem.bind(this))
+    html.find(".remove-associated-item").on("click", this._onRemoveAssociatedItem.bind(this))
+  }
+
   async _onDrop(event) {
     let dragEventData = TextEditor.getDragEventData(event)
     let item = await fromUuid(dragEventData.uuid)
 
     if (item) {
       if (event.target.offsetParent.dataset.type == "associatedItem") {
-        this.item.update({ 'system.associatedItemId': item.uuid });
+        this.item.update({ 'system.associatedItemUuid': item.uuid });
       } else {
-        let newComponentList = []
-        if (this.item.system.craftingComponents) {
-          newComponentList = this.item.system.craftingComponents
-        }
+        let newComponentList = this.item.system.craftingComponents ?? []
         newComponentList.push({ id: genId(), name: item.name, quantity: 1 })
         this.item.update({ 'system.craftingComponents': newComponentList });
       }
@@ -39,17 +46,35 @@ export default class WitcherDiagramSheet extends WitcherItemSheet {
 
     let field = element.dataset.field;
     let value = element.value
-    
+
     let components = this.item.system.craftingComponents
     let objIndex = components.findIndex((obj => obj.id == itemId));
     components[objIndex][field] = value
     this.item.update({ 'system.craftingComponents': components });
   }
 
+  _onAddComponent(event) {
+    event.preventDefault();
+    let newComponentList = this.item.system.craftingComponents ?? []
+    newComponentList.push({ id: genId(), name: "component", quantity: "" })
+    this.item.update({ 'system.craftingComponents': newComponentList });
+  }
+
+  _onRemoveComponent(event) {
+    event.preventDefault();
+    let element = event.currentTarget;
+    let itemId = element.closest(".list-item").dataset.id;
+    let newComponentList = this.item.system.craftingComponents.filter(item => item.id !== itemId)
+    this.item.update({ 'system.craftingComponents': newComponentList });
+  }
+
+  async _onAddAssociatedItem(event) {
+    //todo implement
+  }
+
   async _onRemoveAssociatedItem(event) {
     event.preventDefault();
-    let newAssociatedItem = { id: "", name: "", img: "" };
-    this.item.update({ 'system.associatedItem': newAssociatedItem });
+    this.item.update({ 'system.associatedItemUuid': '' });
   }
 
 }
