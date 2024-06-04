@@ -1,23 +1,17 @@
 import { genId } from "../../scripts/witcher.js";
 import { WITCHER } from "../../setup/config.js";
 
-export let critMixin = {
+export let criticalWoundMixin = {
 
-    async _onCritAdd(event) {
+    async _onCriticalWoundAdd(event) {
         event.preventDefault();
         const prevCritList = this.actor.system.critWounds;
         const newCritList = Object.values(prevCritList).map((details) => details);
-        newCritList.push({
-            id: genId(),
-            effect: WITCHER.CritGravityDefaultEffect.Simple,
-            mod: "None",
-            description: WITCHER.CritDescription.SimpleCrackedJaw,
-            notes: "",
-        });
+        newCritList.push({ id: genId() });
         this.actor.update({ "system.critWounds": newCritList });
     },
 
-    async _onCritRemove(event) {
+    async _onCriticalWoundRemove(event) {
         event.preventDefault();
         const prevCritList = this.actor.system.critWounds;
         const newCritList = Object.values(prevCritList).map((details) => details);
@@ -26,9 +20,9 @@ export let critMixin = {
         this.actor.update({ "system.critWounds": newCritList });
     },
 
-    critListener(html) {
-        html.find(".add-crit").on("click", this._onCritAdd.bind(this));
-        html.find(".delete-crit").on("click", this._onCritRemove.bind(this));
+    criticalWoundListener(html) {
+        html.find(".add-crit").on("click", this._onCriticalWoundAdd.bind(this));
+        html.find(".delete-crit").on("click", this._onCriticalWoundRemove.bind(this));
     }
 
 }
