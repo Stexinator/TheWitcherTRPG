@@ -865,5 +865,11 @@ WITCHER.specialModifier = [
         label: "WITCHER.globalModifier.specialEffect.armoredCaster",
         tags: ["magic-armorencumbarance"],
         formula: "+1"
+    },
+    {
+        id: "melee-damage",
+        label: "WITCHER.globalModifier.specialEffect.meleeDamage",
+        tags: ["melee-damage"],
+        formula: "+1"
     }
 ]

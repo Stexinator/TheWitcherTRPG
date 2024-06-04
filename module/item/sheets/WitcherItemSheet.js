@@ -35,11 +35,6 @@ export default class WitcherItemSheet extends ItemSheet {
     html.find(".list-edit").on("blur", this._onEffectEdit.bind(this));
     html.find(".remove-effect").on("click", this._oRemoveEffect.bind(this));
 
-    html.find(".add-component").on("click", this._onAddComponent.bind(this));
-    html.find(".add-associated-item").on("click", this._onAddAssociatedItem.bind(this))
-    html.find(".remove-associated-item").on("click", this._onRemoveAssociatedItem.bind(this))
-    html.find(".remove-component").on("click", this._onRemoveComponent.bind(this));
-
     html.find("input").focusin(ev => this._onFocusIn(ev));
     html.find(".dragable").on("dragstart", (ev) => {
       let itemId = ev.target.dataset.id

@@ -45,6 +45,8 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 
 ### 1.033 ###
 - fix diagrams not accepting associated items
+- new special global modifier
+  - +1 melee damage
 
 ### 1.032 ###
 - fix manual defense roll -> crit detection won't work with manual rolling

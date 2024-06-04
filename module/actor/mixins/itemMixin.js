@@ -370,6 +370,7 @@ export let itemMixin = {
         displayDmgFormula += `+${this.actor.system.attackStats.meleeBonus}`
         formula += !displayRollDetails ? `+${this.actor.system.attackStats.meleeBonus}` : `+${this.actor.system.attackStats.meleeBonus}[${game.i18n.localize("WITCHER.Dialog.attackMeleeBonus")}]`
       }
+      formula = this.handleSpecialModifier(formula, "melee-damage")
     }
 
     let attackSkill = item.getItemAttackSkill();
@@ -614,12 +615,11 @@ export let itemMixin = {
   },
 
   handleSpecialModifier(attFormula, action) {
-    let relevantModifier = new Set(this.actor.getList("globalModifier")
+    let relevantModifier = this.actor.getList("globalModifier")
       .filter(modifier => modifier.system.isActive)
       .filter(modifier => modifier.system.special?.length > 0)
       .map(modifier => modifier.system.special)
       .flat()
-    )
       .map(modifier => WITCHER.specialModifier.find(special => special.id == modifier.special))
       .filter(special => special.tags.includes(action))
 
