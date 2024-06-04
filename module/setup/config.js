@@ -716,6 +716,16 @@ WITCHER.verbalCombat = {
 
 WITCHER.statusEffects = [
     {
+        id: 'healing',
+        label: 'WITCHER.statusEffects.healing',
+        icon: 'icons/svg/regen.svg',
+    },
+    {
+        id: 'buffed',
+        label: 'WITCHER.statusEffects.buffed',
+        icon: 'icons/svg/upgrade.svg',
+    },
+    {
         id: 'fire',
         label: 'WITCHER.statusEffects.fire',
         icon: 'icons/svg/fire.svg',

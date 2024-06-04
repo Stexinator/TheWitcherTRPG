@@ -992,6 +992,8 @@
       "failDamage": "Fail Damage"
     },
     "statusEffects": {
+      "healing": "Healing",
+      "buffed": "Buffed",
       "fire": "Fire",
       "stun": "Stun",
       "poison": "Poison",
