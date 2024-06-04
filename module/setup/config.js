@@ -105,118 +105,1161 @@ WITCHER.monsterComplexity = {
     difficult: "WITCHER.Monster.Difficult",
 }
 
-WITCHER.CritGravity = {
-    Simple: "WITCHER.CritWound.Simple",
-    Complex: "WITCHER.CritWound.Complex",
-    Difficult: "WITCHER.CritWound.Difficult",
-    Deadly: "WITCHER.CritWound.Deadly",
+WITCHER.location = {
+    Head: "WITCHER.Location.Head",
+    Torso: "WITCHER.Location.Torso",
+    rightArm:  "WITCHER.Location.rightArm",
+    leftArm:  "WITCHER.Location.leftArm",
+    rightLeg:  "WITCHER.Location.rightLeg",
+    leftLeg: "WITCHER.Location.leftLeg",
 }
 
-WITCHER.CritGravityDefaultEffect = {
-    Simple: "SimpleCrackedJaw",
-    Complex: "ComplexMinorHeadWound",
-    Difficult: "DifficultSkullFracture",
-    Deadly: "DeadlyDecapitated",
+WITCHER.Crit = {
+    crackedJaw: {
+        label: "WITCHER.CritWound.Name.SimpleCrackedJaw",
+        description: "WITCHER.CritWound.SimpleCrackedJaw",
+        location: ["Head"],
+        severity: "simple",
+        effect: {
+            none: {
+                description: "WITCHER.CritWound.Mod.SimpleCrackedJaw.None",
+                stats: [],
+                derived: [],
+                skills: [
+                    {
+                        skillgroup: "magicSkills",
+                        modifier: "-2"
+                    },
+                    {
+                        skillgroup: "verbalCombatSkills",
+                        modifier: "-2"
+                    }
+                ]
+            },
+            stabilized: {
+                description: "WITCHER.CritWound.Mod.SimpleCrackedJaw.Stabilized",
+                stats: [],
+                derived: [],
+                skills: [
+                    {
+                        skillgroup: "magicSkills",
+                        modifier: "-1"
+                    },
+                    {
+                        skillgroup: "verbalCombatSkills",
+                        modifier: "-1"
+                    }
+                ]
+            },
+            treated: {
+                description: "WITCHER.CritWound.Mod.SimpleCrackedJaw.Treated",
+                stats: [],
+                derived: [],
+                skills: [
+                    {
+                        skillgroup: "magicSkills",
+                        modifier: "-1"
+                    },
+
+                ]
+            }
+        }
+    },
+    disfiguringScar: {
+        label: "WITCHER.CritWound.Name.SimpleDisfiguringScar",
+        description: "WITCHER.CritWound.SimpleDisfiguringScar",
+        location: ["Head"],
+        severity: "simple",
+        effect: {
+            none: {
+                description: "WITCHER.CritWound.Mod.SimpleDisfiguringScar.None",
+                skills: [
+                    {
+                        skillgroup: "empatheticVerbalCombatSkills",
+                        modifier: "-3"
+                    }
+                ]
+            },
+            stabilized: {
+                description: "WITCHER.CritWound.Mod.SimpleDisfiguringScar.Stabilized",
+                skills: [
+                    {
+                        skillgroup: "empatheticVerbalCombatSkills",
+                        modifier: "-1"
+                    }
+                ]
+            },
+            treated: {
+                description: "WITCHER.CritWound.Mod.SimpleDisfiguringScar.Treated",
+                skills: [
+                    {
+                        skill: "seduction",
+                        modifier: "-1"
+                    }
+                ]
+            }
+        }
+    },
+    crackedRibs: {
+        label: "WITCHER.CritWound.Name.SimpleCrackedRibs",
+        description: "WITCHER.CritWound.SimpleCrackedRibs",
+        location: ["Torso"],
+        severity: "simple",
+        effect: {
+            none: {
+                description: "WITCHER.CritWound.Mod.SimpleCrackedRibs.None",
+                stats: [
+                    {
+                        stat: "body",
+                        modifier: "-2"
+                    }
+                ],
+                derived: [],
+                skills: []
+            },
+            stabilized: {
+                description: "WITCHER.CritWound.Mod.SimpleCrackedRibs.Stabilized",
+                stats: [
+                    {
+                        stat: "body",
+                        modifier: "-2"
+                    }
+                ],
+                derived: [],
+                skills: []
+            },
+            treated: {
+                description: "WITCHER.CritWound.Mod.SimpleCrackedRibs.Treated",
+                stats: [],
+                derived: [
+                    {
+                        stat: "enc",
+                        modifier: "-10"
+                    }
+                ],
+                skills: []
+            }
+        }
+    },
+    foreignObject: {
+        label: "WITCHER.CritWound.Name.SimpleForeignObject",
+        description: "WITCHER.CritWound.SimpleForeignObject",
+        location: ["Torso"],
+        severity: "simple",
+        effect: {
+            none: {
+                description: "WITCHER.CritWound.Mod.SimpleForeignObject.None",
+                stats: [],
+                derived: [],
+                skills: []
+            },
+            stabilized: {
+                description: "WITCHER.CritWound.Mod.SimpleForeignObject.Stabilized",
+                stats: [],
+                derived: [],
+                skills: []
+            },
+            treated: {
+                description: "WITCHER.CritWound.Mod.SimpleForeignObject.Treated",
+                stats: [],
+                derived: [],
+                skills: []
+            }
+        }
+    },
+    sprainedArm: {
+        label: "WITCHER.CritWound.Name.SimpleSprainedArm",
+        description: "WITCHER.CritWound.SimpleSprainedArm",
+        location: ["R. Arm", "L. Arm"],
+        severity: "simple",
+        effect: {
+            none: {
+                description: "WITCHER.CritWound.Mod.SimpleSprainedArm.None",
+                stats: [],
+                derived: [],
+                skills: []
+            },
+            stabilized: {
+                description: "WITCHER.CritWound.Mod.SimpleSprainedArm.Stabilized",
+                stats: [],
+                derived: [],
+                skills: []
+            },
+            treated: {
+                description: "WITCHER.CritWound.Mod.SimpleSprainedArm.Treated",
+                stats: [],
+                derived: [],
+                skills: [
+                    {
+                        skill: "physique",
+                        modifier: "-1"
+                    }
+                ]
+            }
+        }
+    },
+    sprainedLeg: {
+        label: "WITCHER.CritWound.Name.SimpleSprainedLeg",
+        description: "WITCHER.CritWound.SimpleSprainedLeg",
+        location: ["R. Leg", "L. Leg"],
+        severity: "simple",
+        effect: {
+            none: {
+                description: "WITCHER.CritWound.Mod.SimpleSprainedLeg.None",
+                stats: [
+                    {
+                        stat: "spd",
+                        modifier: "-2"
+                    }
+                ],
+                derived: [],
+                skills: [
+                    {
+                        skill: "athletics",
+                        modifier: "-2"
+                    },
+                    {
+                        skill: "dodge",
+                        modifier: "-2"
+                    }
+                ]
+            },
+            stabilized: {
+                description: "WITCHER.CritWound.Mod.SimpleSprainedLeg.Stabilized",
+                stats: [
+                    {
+                        stat: "spd",
+                        modifier: "-1"
+                    }
+                ],
+                derived: [],
+                skills: [
+                    {
+                        skill: "athletics",
+                        modifier: "-1"
+                    },
+                    {
+                        skill: "dodge",
+                        modifier: "-1"
+                    }
+                ]
+            },
+            treated: {
+                description: "WITCHER.CritWound.Mod.SimpleSprainedLeg.Treated",
+                stats: [
+                    {
+                        stat: "spd",
+                        modifier: "-1"
+                    }
+                ],
+                derived: [],
+                skills: []
+            }
+        }
+    },
+    minorHeadWound: {
+        label: "WITCHER.CritWound.Name.ComplexMinorHeadWound",
+        description: "WITCHER.CritWound.ComplexMinorHeadWound",
+        location: ["Head"],
+        severity: "complex",
+        effect: {
+            none: {
+                description: "WITCHER.CritWound.Mod.ComplexMinorHeadWound.None",
+                stats: [
+                    {
+                        stat: "int",
+                        modifier: "-1"
+                    },
+                    {
+                        stat: "will",
+                        modifier: "-1"
+                    },
+                ],
+                derived: [
+                    {
+                        derivedStat: "stun",
+                        modifier: "-1"
+                    }
+                ],
+                skills: []
+            },
+            stabilized: {
+                description: "WITCHER.CritWound.Mod.ComplexMinorHeadWound.Stabilized",
+                stats: [
+                    {
+                        stat: "int",
+                        modifier: "-1"
+                    },
+                    {
+                        stat: "will",
+                        modifier: "-1"
+                    },
+                ],
+                derived: [],
+                skills: []
+            },
+            treated: {
+                description: "WITCHER.CritWound.Mod.ComplexMinorHeadWound.Treated",
+                stats: [
+                    {
+                        stat: "will",
+                        modifier: "-1"
+                    },
+                ],
+                derived: [],
+                skills: []
+            }
+        }
+    },
+    lostTeeth: {
+        label: "WITCHER.CritWound.Name.ComplexLostTeeth",
+        description: "WITCHER.CritWound.ComplexLostTeeth",
+        location: ["Head"],
+        severity: "complex",
+        effect: {
+            none: {
+                description: "WITCHER.CritWound.Mod.ComplexLostTeeth.None",
+                stats: [],
+                derived: [],
+                skills: [
+                    {
+                        skillgroup: "magicSkills",
+                        modifier: "-3"
+                    },
+                    {
+                        skillgroup: "verbalCombatSkills",
+                        modifier: "-3"
+                    }
+                ]
+            },
+            stabilized: {
+                description: "WITCHER.CritWound.Mod.ComplexLostTeeth.Stabilized",
+                stats: [],
+                derived: [],
+                skills: [
+                    {
+                        skillgroup: "magicSkills",
+                        modifier: "-2"
+                    },
+                    {
+                        skillgroup: "verbalCombatSkills",
+                        modifier: "-2"
+                    }
+                ]
+            },
+            treated: {
+                description: "WITCHER.CritWound.Mod.ComplexLostTeeth.Treated",
+                stats: [],
+                derived: [],
+                skills: [
+                    {
+                        skillgroup: "magicSkills",
+                        modifier: "-1"
+                    },
+                    {
+                        skillgroup: "verbalCombatSkills",
+                        modifier: "-1"
+                    }
+                ]
+            }
+        }
+    },
+    rupturedSpleen: {
+        label: "WITCHER.CritWound.Name.ComplexRupturedSpleen",
+        description: "WITCHER.CritWound.ComplexRupturedSpleen",
+        location: ["Torso"],
+        severity: "complex",
+        effect: {
+            none: {
+                description: "WITCHER.CritWound.Mod.ComplexRupturedSpleen.None",
+                stats: [],
+                derived: [],
+                skills: []
+            },
+            stabilized: {
+                description: "WITCHER.CritWound.Mod.ComplexRupturedSpleen.Stabilized",
+                stats: [],
+                derived: [],
+                skills: []
+            },
+            treated: {
+                description: "WITCHER.CritWound.Mod.ComplexRupturedSpleen.Treated",
+                stats: [],
+                derived: [
+                    {
+                        derivedStat: "stun",
+                        modifier: "-2"
+                    }
+                ],
+                skills: []
+            }
+        }
+    },
+    brokenRibs: {
+        label: "WITCHER.CritWound.Name.ComplexBrokenRibs",
+        description: "WITCHER.CritWound.ComplexBrokenRibs",
+        location: ["Torso"],
+        severity: "complex",
+        effect: {
+            none: {
+                description: "WITCHER.CritWound.Mod.ComplexBrokenRibs.None",
+                stats: [
+                    {
+                        stat: "body",
+                        modifier: "-2"
+                    },
+                    {
+                        stat: "ref",
+                        modifier: "-1"
+                    },
+                    {
+                        stat: "dex",
+                        modifier: "-1"
+                    }
+                ],
+                derived: [],
+                skills: []
+            },
+            stabilized: {
+                description: "WITCHER.CritWound.Mod.ComplexBrokenRibs.Stabilized",
+                stats: [
+                    {
+                        stat: "body",
+                        modifier: "-1"
+                    },
+                    {
+                        stat: "ref",
+                        modifier: "-1"
+                    }
+                ],
+                derived: [],
+                skills: []
+            },
+            treated: {
+                description: "WITCHER.CritWound.Mod.ComplexBrokenRibs.Treated",
+                stats: [
+                    {
+                        stat: "body",
+                        modifier: "-1"
+                    }
+                ],
+                derived: [],
+                skills: []
+            }
+        }
+    },
+    fracturedArm: {
+        label: "WITCHER.CritWound.Name.ComplexFracturedArm",
+        description: "WITCHER.CritWound.ComplexFracturedArm",
+        location: ["R. Arm", "L. Arm"],
+        severity: "complex",
+        effect: {
+            none: {
+                description: "WITCHER.CritWound.Mod.ComplexFracturedArm.None",
+                stats: [],
+                derived: [],
+                skills: []
+            },
+            stabilized: {
+                description: "WITCHER.CritWound.Mod.ComplexFracturedArm.Stabilized",
+                stats: [],
+                derived: [],
+                skills: []
+            },
+            treated: {
+                description: "WITCHER.CritWound.Mod.ComplexFracturedArm.Treated",
+                stats: [],
+                derived: [],
+                skills: []
+            }
+        }
+    },
+    fracturedLeg: {
+        label: "WITCHER.CritWound.Name.ComplexFracturedLeg",
+        description: "WITCHER.CritWound.ComplexFracturedLeg",
+        location: ["R. Leg", "L. Leg"],
+        severity: "complex",
+        effect: {
+            none: {
+                description: "WITCHER.CritWound.Mod.ComplexFracturedLeg.None",
+                stats: [
+                    {
+                        stat: "spd",
+                        modifier: "-3"
+                    }
+                ],
+                derived: [],
+                skills: [
+                    {
+                        skill: "athletics",
+                        modifier: "-3"
+                    },
+                    {
+                        skill: "dodge",
+                        modifier: "-3"
+                    }
+                ]
+            },
+            stabilized: {
+                description: "WITCHER.CritWound.Mod.ComplexFracturedLeg.Stabilized",
+                stats: [
+                    {
+                        stat: "spd",
+                        modifier: "-2"
+                    }
+                ],
+                derived: [],
+                skills: [
+                    {
+                        skill: "athletics",
+                        modifier: "-2"
+                    },
+                    {
+                        skill: "dodge",
+                        modifier: "-2"
+                    }
+                ]
+            },
+            treated: {
+                description: "WITCHER.CritWound.Mod.ComplexFracturedLeg.Treated",
+                stats: [
+                    {
+                        stat: "spd",
+                        modifier: "-1"
+                    }
+                ],
+                derived: [],
+                skills: [
+                    {
+                        skill: "athletics",
+                        modifier: "-1"
+                    },
+                    {
+                        skill: "dodge",
+                        modifier: "-1"
+                    }
+                ]
+            }
+        }
+    },
+    skullFracture: {
+        label: "WITCHER.CritWound.Name.DifficultSkullFracture",
+        description: "WITCHER.CritWound.DifficultSkullFracture",
+        location: ["Head"],
+        severity: "difficult",
+        effect: {
+            none: {
+                description: "WITCHER.CritWound.Mod.DifficultSkullFracture.None",
+                stats: [
+                    {
+                        stat: "int",
+                        modifier: "-1"
+                    },
+                    {
+                        stat: "dex",
+                        modifier: "-1"
+                    },
+                ],
+                derived: [],
+                skills: []
+            },
+            stabilized: {
+                description: "WITCHER.CritWound.Mod.DifficultSkullFracture.Stabilized",
+                stats: [
+                    {
+                        stat: "int",
+                        modifier: "-1"
+                    },
+                    {
+                        stat: "dex",
+                        modifier: "-1"
+                    },
+                ],
+                derived: [],
+                skills: []
+            },
+            treated: {
+                description: "WITCHER.CritWound.Mod.DifficultSkullFracture.Treated",
+                stats: [],
+                derived: [],
+                skills: []
+            }
+        }
+    },
+    concussion: {
+        label: "WITCHER.CritWound.Name.DifficultConcussion",
+        description: "WITCHER.CritWound.DifficultConcussion",
+        location: ["Head"],
+        severity: "difficult",
+        effect: {
+            none: {
+                description: "WITCHER.CritWound.Mod.DifficultConcussion.None",
+                stats: [
+                    {
+                        stat: "int",
+                        modifier: "-2"
+                    },
+                    {
+                        stat: "ref",
+                        modifier: "-2"
+                    },
+                    {
+                        stat: "dex",
+                        modifier: "-2"
+                    },
+                ],
+                derived: [],
+                skills: []
+            },
+            stabilized: {
+                description: "WITCHER.CritWound.Mod.DifficultConcussion.Stabilized",
+                stats: [
+                    {
+                        stat: "int",
+                        modifier: "-1"
+                    },
+                    {
+                        stat: "ref",
+                        modifier: "-1"
+                    },
+                    {
+                        stat: "dex",
+                        modifier: "-1"
+                    },
+                ],
+                derived: [],
+                skills: []
+            },
+            treated: {
+                description: "WITCHER.CritWound.Mod.DifficultConcussion.Treated",
+                stats: [
+                    {
+                        stat: "int",
+                        modifier: "-1"
+                    },
+                    {
+                        stat: "dex",
+                        modifier: "-1"
+                    },
+                ],
+                derived: [],
+                skills: []
+            }
+        }
+    },
+    tornStomach: {
+        label: "WITCHER.CritWound.Name.DifficultTornStomach",
+        description: "WITCHER.CritWound.DifficultTornStomach",
+        location: ["Torso"],
+        severity: "difficult",
+        effect: {
+            none: {
+                description: "WITCHER.CritWound.Mod.DifficultTornStomach.None",
+                stats: [],
+                derived: [],
+                skills: [
+                    {
+                        skill: "all",
+                        modifier: "-2"
+                    },
+                ]
+            },
+            stabilized: {
+                description: "WITCHER.CritWound.Mod.DifficultTornStomach.Stabilized",
+                stats: [],
+                derived: [],
+                skills: [
+                    {
+                        skill: "all",
+                        modifier: "-2"
+                    },
+                ]
+            },
+            treated: {
+                description: "WITCHER.CritWound.Mod.DifficultTornStomach.Treated",
+                stats: [],
+                derived: [],
+                skills: [
+                    {
+                        skill: "all",
+                        modifier: "-1"
+                    },
+                ]
+            }
+        }
+    },
+    suckingChestWound: {
+        label: "WITCHER.CritWound.Name.DifficultSuckingChestWound",
+        description: "WITCHER.CritWound.DifficultSuckingChestWound",
+        location: ["Torso"],
+        severity: "difficult",
+        effect: {
+            none: {
+                description: "WITCHER.CritWound.Mod.DifficultSuckingChestWound.None",
+                stats: [
+                    {
+                        stat: "body",
+                        modifier: "-3"
+                    },
+                    {
+                        stat: "spd",
+                        modifier: "-3"
+                    }
+                ],
+                derived: [],
+                skills: []
+            },
+            stabilized: {
+                description: "WITCHER.CritWound.Mod.DifficultSuckingChestWound.Stabilized",
+                stats: [
+                    {
+                        stat: "body",
+                        modifier: "-2"
+                    },
+                    {
+                        stat: "spd",
+                        modifier: "-2"
+                    }
+                ],
+                derived: [],
+                skills: []
+            },
+            treated: {
+                description: "WITCHER.CritWound.Mod.DifficultSuckingChestWound.Treated",
+                stats: [
+                    {
+                        stat: "body",
+                        modifier: "-1"
+                    },
+                    {
+                        stat: "spd",
+                        modifier: "-1"
+                    }
+                ],
+                derived: [],
+                skills: []
+            }
+        }
+    },
+    compoundArmFracture: {
+        label: "WITCHER.CritWound.Name.DifficultCompoundArmFracture",
+        description: "WITCHER.CritWound.DifficultCompoundArmFracture",
+        location: ["R. Arm", "L. Arm"],
+        severity: "difficult",
+        effect: {
+            none: {
+                description: "WITCHER.CritWound.Mod.DifficultCompoundArmFracture.None",
+                stats: [],
+                derived: [],
+                skills: []
+            },
+            stabilized: {
+                description: "WITCHER.CritWound.Mod.DifficultCompoundArmFracture.Stabilized",
+                stats: [],
+                derived: [],
+                skills: []
+            },
+            treated: {
+                description: "WITCHER.CritWound.Mod.DifficultCompoundArmFracture.Treated",
+                stats: [],
+                derived: [],
+                skills: []
+            }
+        }
+    },
+    compoundLegFracture: {
+        label: "WITCHER.CritWound.Name.DifficultCompoundLegFracture",
+        description: "WITCHER.CritWound.DifficultCompoundLegFracture",
+        location: ["R. Leg", "L. Leg"],
+        severity: "difficult",
+        effect: {
+            none: {
+                description: "WITCHER.CritWound.Mod.DifficultCompoundLegFracture.None",
+                stats: [
+                    {
+                        stat: "spd",
+                        modifier: "/4"
+                    }
+                ],
+                derived: [],
+                skills: [
+                    {
+                        skill: "athletics",
+                        modifier: "/4"
+                    },
+                    {
+                        skill: "dodge",
+                        modifier: "/4"
+                    }
+                ]
+            },
+            stabilized: {
+                description: "WITCHER.CritWound.Mod.DifficultCompoundLegFracture.Stabilized",
+                stats: [
+                    {
+                        stat: "spd",
+                        modifier: "/2"
+                    }
+                ],
+                derived: [],
+                skills: [
+                    {
+                        skill: "athletics",
+                        modifier: "/2"
+                    },
+                    {
+                        skill: "dodge",
+                        modifier: "/2"
+                    }
+                ]
+            },
+            treated: {
+                description: "WITCHER.CritWound.Mod.DifficultCompoundLegFracture.Treated",
+                stats: [
+                    {
+                        stat: "spd",
+                        modifier: "-2"
+                    }
+                ],
+                derived: [],
+                skills: [
+                    {
+                        skill: "athletics",
+                        modifier: "-2"
+                    },
+                    {
+                        skill: "dodge",
+                        modifier: "-2"
+                    }
+                ]
+            }
+        }
+    },
+    decapitated: {
+        label: "WITCHER.CritWound.Name.DeadlyDecapitated",
+        description: "WITCHER.CritWound.DeadlyDecapitated",
+        location: ["Head"],
+        severity: "deadly",
+        effect: {
+            none: {
+                description: "WITCHER.CritWound.Mod.DeadlyDecapitated.None",
+                stats: [],
+                derived: [],
+                skills: []
+            },
+            stabilized: {
+                description: "WITCHER.CritWound.Mod.DeadlyDecapitated.Stabilized",
+                stats: [],
+                derived: [],
+                skills: []
+            },
+            treated: {
+                description: "WITCHER.CritWound.Mod.DeadlyDecapitated.Treated",
+                stats: [],
+                derived: [],
+                skills: []
+            }
+        }
+    },
+    damagedEye: {
+        label: "WITCHER.CritWound.Name.DeadlyDamagedEye",
+        description: "WITCHER.CritWound.DeadlyDamagedEye",
+        location: ["Head"],
+        severity: "deadly",
+        effect: {
+            none: {
+                description: "WITCHER.CritWound.Mod.DeadlyDamagedEye.None",
+                stats: [
+                    {
+                        stat: "dex",
+                        modifier: "-4"
+                    }
+                ],
+                derived: [],
+                skills: [
+                    {
+                        skill: "awareness",
+                        modifier: "-5"
+                    }
+                ]
+            },
+            stabilized: {
+                description: "WITCHER.CritWound.Mod.DeadlyDamagedEye.Stabilized",
+                stats: [
+                    {
+                        stat: "dex",
+                        modifier: "-2"
+                    }
+                ],
+                derived: [],
+                skills: [
+                    {
+                        skill: "awareness",
+                        modifier: "-3"
+                    }
+                ]
+            },
+            treated: {
+                description: "WITCHER.CritWound.Mod.DeadlyDamagedEye.Treated",
+                stats: [
+                    {
+                        stat: "dex",
+                        modifier: "-1"
+                    }
+                ],
+                derived: [],
+                skills: [
+                    {
+                        skill: "awareness",
+                        modifier: "-1"
+                    }
+                ]
+            }
+        }
+    },
+    hearthDamage: {
+        label: "WITCHER.CritWound.Name.DeadlyHearthDamage",
+        description: "WITCHER.CritWound.DeadlyHearthDamage",
+        location: ["Torso"],
+        severity: "deadly",
+        effect: {
+            none: {
+                description: "WITCHER.CritWound.Mod.DeadlyHearthDamage.None",
+                stats: [
+                    {
+                        stat: "body",
+                        modifier: "/4"
+                    },
+                    {
+                        stat: "spd",
+                        modifier: "/4"
+                    }
+                ],
+                derived: [
+                    {
+                        derivedStat: "sta",
+                        modifier: "/4"
+                    }
+                ],
+                skills: []
+            },
+            stabilized: {
+                description: "WITCHER.CritWound.Mod.DeadlyHearthDamage.Stabilized",
+                stats: [
+                    {
+                        stat: "body",
+                        modifier: "/2"
+                    },
+                    {
+                        stat: "spd",
+                        modifier: "/2"
+                    }
+                ],
+                derived: [
+                    {
+                        derivedStat: "sta",
+                        modifier: "/2"
+                    }
+                ],
+                skills: []
+            },
+            treated: {
+                description: "WITCHER.CritWound.Mod.DeadlyHearthDamage.Treated",
+                stats: [],
+                derived: [],
+                skills: []
+            }
+        }
+    },
+    septicShock: {
+        label: "WITCHER.CritWound.Name.DeadlySepticShock",
+        description: "WITCHER.CritWound.DeadlySepticShock",
+        location: ["Torso"],
+        severity: "deadly",
+        effect: {
+            none: {
+                description: "WITCHER.CritWound.Mod.DeadlySepticShock.None",
+                stats: [
+                    {
+                        stat: "int",
+                        modifier: "-3"
+                    },
+                    {
+                        stat: "will",
+                        modifier: "-3"
+                    },
+                    {
+                        stat: "ref",
+                        modifier: "-3"
+                    },
+                    {
+                        stat: "dex",
+                        modifier: "-3"
+                    },
+                ],
+                derived: [
+                    {
+                        derivedStat: "sta",
+                        modifier: "/4"
+                    }
+                ],
+                skills: []
+            },
+            stabilized: {
+                description: "WITCHER.CritWound.Mod.DeadlySepticShock.Stabilized",
+                stats: [
+                    {
+                        stat: "int",
+                        modifier: "-1"
+                    },
+                    {
+                        stat: "will",
+                        modifier: "-1"
+                    },
+                    {
+                        stat: "ref",
+                        modifier: "-1"
+                    },
+                    {
+                        stat: "dex",
+                        modifier: "-1"
+                    },
+                ],
+                derived: [
+                    {
+                        derivedStat: "sta",
+                        modifier: "/2"
+                    }
+                ],
+                skills: []
+            },
+            treated: {
+                description: "WITCHER.CritWound.Mod.DeadlySepticShock.Treated",
+                stats: [],
+                derived: [
+                    {
+                        derivedStat: "sta",
+                        modifier: "-5"
+                    }
+                ],
+                skills: []
+            }
+        }
+    },
+    dismemberedArm: {
+        label: "WITCHER.CritWound.Name.DeadlyDismemberedArm",
+        description: "WITCHER.CritWound.DeadlyDismemberedArm",
+        location: ["R. Arm", "L. Arm"],
+        severity: "deadly",
+        effect: {
+            none: {
+                description: "WITCHER.CritWound.Mod.DeadlyDismemberedArm.None",
+                stats: [],
+                derived: [],
+                skills: []
+            },
+            stabilized: {
+                description: "WITCHER.CritWound.Mod.DeadlyDismemberedArm.Stabilized",
+                stats: [],
+                derived: [],
+                skills: []
+            },
+            treated: {
+                description: "WITCHER.CritWound.Mod.DeadlyDismemberedArm.Treated",
+                stats: [],
+                derived: [],
+                skills: []
+            }
+        }
+    },
+    dismemberedLeg: {
+        label: "WITCHER.CritWound.Name.DeadlyDismemberedLeg",
+        description: "WITCHER.CritWound.DeadlyDismemberedLeg",
+        location: ["R. Leg", "L. Leg"],
+        severity: "deadly",
+        effect: {
+            none: {
+                description: "WITCHER.CritWound.Mod.DeadlyDismemberedLeg.None",
+                stats: [
+                    {
+                        stat: "spd",
+                        modifier: "/4"
+                    }
+                ],
+                derived: [],
+                skills: [
+                    {
+                        skill: "athletics",
+                        modifier: "/4"
+                    },
+                    {
+                        skill: "dodge",
+                        modifier: "/4"
+                    }
+                ]
+            },
+            stabilized: {
+                description: "WITCHER.CritWound.Mod.DeadlyDismemberedLeg.Stabilized",
+                stats: [
+                    {
+                        stat: "spd",
+                        modifier: "/4"
+                    }
+                ],
+                derived: [],
+                skills: [
+                    {
+                        skill: "athletics",
+                        modifier: "/4"
+                    },
+                    {
+                        skill: "dodge",
+                        modifier: "/4"
+                    }
+                ]
+            },
+            treated: {
+                description: "WITCHER.CritWound.Mod.DeadlyDismemberedLeg.Treated",
+                stats: [
+                    {
+                        stat: "spd",
+                        modifier: "/4"
+                    }
+                ],
+                derived: [],
+                skills: [
+                    {
+                        skill: "athletics",
+                        modifier: "/4"
+                    },
+                    {
+                        skill: "dodge",
+                        modifier: "/4"
+                    }
+                ]
+            }
+        }
+    }
+}
+
+WITCHER.CritGravity = {
+    simple: "WITCHER.CritWound.Simple",
+    complex: "WITCHER.CritWound.Complex",
+    difficult: "WITCHER.CritWound.Difficult",
+    deadly: "WITCHER.CritWound.Deadly",
 }
 
 WITCHER.CritMod = {
-    None: "WITCHER.CritWound.None",
-    Stabilized: "WITCHER.CritWound.Stabilized",
-    Treated: "WITCHER.CritWound.Treated",
-}
-
-WITCHER.CritDescription = {
-    SimpleCrackedJaw: "WITCHER.CritWound.SimpleCrackedJaw",
-    SimpleDisfiguringScar: "WITCHER.CritWound.SimpleDisfiguringScar",
-    SimpleCrackedRibs: "WITCHER.CritWound.SimpleCrackedRibs",
-    SimpleForeignObject: "WITCHER.CritWound.SimpleForeignObject",
-    SimpleSprainedArm: "WITCHER.CritWound.SimpleSprainedArm",
-    SimpleSprainedLeg: "WITCHER.CritWound.SimpleSprainedLeg",
-    ComplexMinorHeadWound: "WITCHER.CritWound.ComplexMinorHeadWound",
-    ComplexLostTeeth: "WITCHER.CritWound.ComplexLostTeeth",
-    ComplexRupturedSpleen: "WITCHER.CritWound.ComplexRupturedSpleen",
-    ComplexBrokenRibs: "WITCHER.CritWound.ComplexBrokenRibs",
-    ComplexFracturedArm: "WITCHER.CritWound.ComplexFracturedArm",
-    ComplexFracturedLeg: "WITCHER.CritWound.ComplexFracturedLeg",
-    DifficultSkullFracture: "WITCHER.CritWound.DifficultSkullFracture",
-    DifficultConcussion: "WITCHER.CritWound.DifficultConcussion",
-    DifficultTornStomach: "WITCHER.CritWound.DifficultTornStomach",
-    DifficultSuckingChestWound: "WITCHER.CritWound.DifficultSuckingChestWound",
-    DifficultCompoundArmFracture: "WITCHER.CritWound.DifficultCompoundArmFracture",
-    DifficultCompoundLegFracture: "WITCHER.CritWound.DifficultCompoundLegFracture",
-    DeadlyDecapitated: "WITCHER.CritWound.DeadlyDecapitated",
-    DeadlyDamagedEye: "WITCHER.CritWound.DeadlyDamagedEye",
-    DeadlyHearthDamage: "WITCHER.CritWound.DeadlyHearthDamage",
-    DeadlySepticShock: "WITCHER.CritWound.DeadlySepticShock",
-    DeadlyDismemberedArm: "WITCHER.CritWound.DeadlyDismemberedArm",
-    DeadlyDismemberedLeg: "WITCHER.CritWound.DeadlyDismemberedLeg",
-}
-
-WITCHER.CritModDescription = {
-    SimpleCrackedJaw: { None: "WITCHER.CritWound.Mod.SimpleCrackedJaw.None", Stabilized: "WITCHER.CritWound.Mod.SimpleCrackedJaw.Stabilized", Treated: "WITCHER.CritWound.Mod.SimpleCrackedJaw.Treated" },
-    SimpleDisfiguringScar: { None: "WITCHER.CritWound.Mod.SimpleDisfiguringScar.None", Stabilized: "WITCHER.CritWound.Mod.SimpleDisfiguringScar.Stabilized", Treated: "WITCHER.CritWound.Mod.SimpleDisfiguringScar.Treated" },
-    SimpleCrackedRibs: { None: "WITCHER.CritWound.Mod.SimpleCrackedRibs.None", Stabilized: "WITCHER.CritWound.Mod.SimpleCrackedRibs.Stabilized", Treated: "WITCHER.CritWound.Mod.SimpleCrackedRibs.Treated" },
-    SimpleForeignObject: { None: "WITCHER.CritWound.Mod.SimpleForeignObject.None", Stabilized: "WITCHER.CritWound.Mod.SimpleForeignObject.Stabilized", Treated: "WITCHER.CritWound.Mod.SimpleForeignObject.Treated" },
-    SimpleSprainedArm: { None: "WITCHER.CritWound.Mod.SimpleSprainedArm.None", Stabilized: "WITCHER.CritWound.Mod.SimpleSprainedArm.Stabilized", Treated: "WITCHER.CritWound.Mod.SimpleSprainedArm.Treated" },
-    SimpleSprainedLeg: { None: "WITCHER.CritWound.Mod.SimpleSprainedLeg.None", Stabilized: "WITCHER.CritWound.Mod.SimpleSprainedLeg.Stabilized", Treated: "WITCHER.CritWound.Mod.SimpleSprainedLeg.Treated" },
-    ComplexMinorHeadWound: { None: "WITCHER.CritWound.Mod.ComplexMinorHeadWound.None", Stabilized: "WITCHER.CritWound.Mod.ComplexMinorHeadWound.Stabilized", Treated: "WITCHER.CritWound.Mod.ComplexMinorHeadWound.Treated" },
-    ComplexLostTeeth: { None: "WITCHER.CritWound.Mod.ComplexLostTeeth.None", Stabilized: "WITCHER.CritWound.Mod.ComplexLostTeeth.Stabilized", Treated: "WITCHER.CritWound.Mod.ComplexLostTeeth.Treated" },
-    ComplexRupturedSpleen: { None: "WITCHER.CritWound.Mod.ComplexRupturedSpleen.None", Stabilized: "WITCHER.CritWound.Mod.ComplexRupturedSpleen.Stabilized", Treated: "WITCHER.CritWound.Mod.ComplexRupturedSpleen.Treated" },
-    ComplexBrokenRibs: { None: "WITCHER.CritWound.Mod.ComplexBrokenRibs.None", Stabilized: "WITCHER.CritWound.Mod.ComplexBrokenRibs.Stabilized", Treated: "WITCHER.CritWound.Mod.ComplexBrokenRibs.Treated" },
-    ComplexFracturedArm: { None: "WITCHER.CritWound.Mod.ComplexFracturedArm.None", Stabilized: "WITCHER.CritWound.Mod.ComplexFracturedArm.Stabilized", Treated: "WITCHER.CritWound.Mod.ComplexFracturedArm.Treated" },
-    ComplexFracturedLeg: { None: "WITCHER.CritWound.Mod.ComplexFracturedLeg.None", Stabilized: "WITCHER.CritWound.Mod.ComplexFracturedLeg.Stabilized", Treated: "WITCHER.CritWound.Mod.ComplexFracturedLeg.Treated" },
-    DifficultSkullFracture: { None: "WITCHER.CritWound.Mod.DifficultSkullFracture.None", Stabilized: "WITCHER.CritWound.Mod.DifficultSkullFracture.Stabilized", Treated: "WITCHER.CritWound.Mod.DifficultSkullFracture.Treated" },
-    DifficultConcussion: { None: "WITCHER.CritWound.Mod.DifficultConcussion.None", Stabilized: "WITCHER.CritWound.Mod.DifficultConcussion.Stabilized", Treated: "WITCHER.CritWound.Mod.DifficultConcussion.Treated" },
-    DifficultTornStomach: { None: "WITCHER.CritWound.Mod.DifficultTornStomach.None", Stabilized: "WITCHER.CritWound.Mod.DifficultTornStomach.Stabilized", Treated: "WITCHER.CritWound.Mod.DifficultTornStomach.Treated" },
-    DifficultSuckingChestWound: { None: "WITCHER.CritWound.Mod.DifficultSuckingChestWound.None", Stabilized: "WITCHER.CritWound.Mod.DifficultSuckingChestWound.Stabilized", Treated: "WITCHER.CritWound.Mod.DifficultSuckingChestWound.Treated" },
-    DifficultCompoundArmFracture: { None: "WITCHER.CritWound.Mod.DifficultCompoundArmFracture.None", Stabilized: "WITCHER.CritWound.Mod.DifficultCompoundArmFracture.Stabilized", Treated: "WITCHER.CritWound.Mod.DifficultCompoundArmFracture.Treated" },
-    DifficultCompoundLegFracture: { None: "WITCHER.CritWound.Mod.DifficultCompoundLegFracture.None", Stabilized: "WITCHER.CritWound.Mod.DifficultCompoundLegFracture.Stabilized", Treated: "WITCHER.CritWound.Mod.DifficultCompoundLegFracture.Treated" },
-    DeadlyDecapitated: { None: "WITCHER.CritWound.Mod.DeadlyDecapitated.None", Stabilized: "WITCHER.CritWound.Mod.DeadlyDecapitated.Stabilized", Treated: "WITCHER.CritWound.Mod.DeadlyDecapitated.Treated" },
-    DeadlyDamagedEye: { None: "WITCHER.CritWound.Mod.DeadlyDamagedEye.None", Stabilized: "WITCHER.CritWound.Mod.DeadlyDamagedEye.Stabilized", Treated: "WITCHER.CritWound.Mod.DeadlyDamagedEye.Treated" },
-    DeadlyHearthDamage: { None: "WITCHER.CritWound.Mod.DeadlyHearthDamage.None", Stabilized: "WITCHER.CritWound.Mod.DeadlyHearthDamage.Stabilized", Treated: "WITCHER.CritWound.Mod.DeadlyHearthDamage.Treated" },
-    DeadlySepticShock: { None: "WITCHER.CritWound.Mod.DeadlySepticShock.None", Stabilized: "WITCHER.CritWound.Mod.DeadlySepticShock.Stabilized", Treated: "WITCHER.CritWound.Mod.DeadlySepticShock.Treated" },
-    DeadlyDismemberedArm: { None: "WITCHER.CritWound.Mod.DeadlyDismemberedArm.None", Stabilized: "WITCHER.CritWound.Mod.DeadlyDismemberedArm.Stabilized", Treated: "WITCHER.CritWound.Mod.DeadlyDismemberedArm.Treated" },
-    DeadlyDismemberedLeg: { None: "WITCHER.CritWound.Mod.DeadlyDismemberedLeg.None", Stabilized: "WITCHER.CritWound.Mod.DeadlyDismemberedLeg.Stabilized", Treated: "WITCHER.CritWound.Mod.DeadlyDismemberedLeg.Treated" },
-}
-
-WITCHER.CritSimple = {
-    SimpleCrackedJaw: "WITCHER.CritWound.Name.SimpleCrackedJaw",
-    SimpleDisfiguringScar: "WITCHER.CritWound.Name.SimpleDisfiguringScar",
-    SimpleCrackedRibs: "WITCHER.CritWound.Name.SimpleCrackedRibs",
-    SimpleForeignObject: "WITCHER.CritWound.Name.SimpleForeignObject",
-    SimpleSprainedArm: "WITCHER.CritWound.Name.SimpleSprainedArm",
-    SimpleSprainedLeg: "WITCHER.CritWound.Name.SimpleSprainedLeg",
-}
-
-WITCHER.CritComplex = {
-    ComplexMinorHeadWound: "WITCHER.CritWound.Name.ComplexMinorHeadWound",
-    ComplexLostTeeth: "WITCHER.CritWound.Name.ComplexLostTeeth",
-    ComplexRupturedSpleen: "WITCHER.CritWound.Name.ComplexRupturedSpleen",
-    ComplexBrokenRibs: "WITCHER.CritWound.Name.ComplexBrokenRibs",
-    ComplexFracturedArm: "WITCHER.CritWound.Name.ComplexFracturedArm",
-    ComplexFracturedLeg: "WITCHER.CritWound.Name.ComplexFracturedLeg",
-}
-
-WITCHER.CritDifficult = {
-    DifficultSkullFracture: "WITCHER.CritWound.Name.DifficultSkullFracture",
-    DifficultConcussion: "WITCHER.CritWound.Name.DifficultConcussion",
-    DifficultTornStomach: "WITCHER.CritWound.Name.DifficultTornStomach",
-    DifficultSuckingChestWound: "WITCHER.CritWound.Name.DifficultSuckingChestWound",
-    DifficultCompoundArmFracture: "WITCHER.CritWound.Name.DifficultCompoundArmFracture",
-    DifficultCompoundLegFracture: "WITCHER.CritWound.Name.DifficultCompoundLegFracture",
-}
-
-WITCHER.CritDeadly = {
-    DeadlyDecapitated: "WITCHER.CritWound.Name.DeadlyDecapitated",
-    DeadlyDamagedEye: "WITCHER.CritWound.Name.DeadlyDamagedEye",
-    DeadlyHearthDamage: "WITCHER.CritWound.Name.DeadlyHearthDamage",
-    DeadlySepticShock: "WITCHER.CritWound.Name.DeadlySepticShock",
-    DeadlyDismemberedArm: "WITCHER.CritWound.Name.DeadlyDismemberedArm",
-    DeadlyDismemberedLeg: "WITCHER.CritWound.Name.DeadlyDismemberedLeg",
+    none: "WITCHER.CritWound.None",
+    stabilized: "WITCHER.CritWound.Stabilized",
+    treated: "WITCHER.CritWound.Treated",
 }
 
 WITCHER.meleeSkills = ["brawling", "melee", "smallblades", "staffspear", "swordsmanship", "athletics"]
 WITCHER.rangedSkills = ["athletics", "archery", "crossbow"]
+WITCHER.magicSkills = ["spellcast", "ritcraft", "hexweave"]
+WITCHER.verbalCombatSkills = ["charisma", "persuasion", "seduction", "leadership", "deceit", "socialetq", "intimidation"]
+WITCHER.empatheticVerbalCombatSkills = ["charisma", "persuasion", "seduction", "leadership", "deceit", "socialetq"]
 
 WITCHER.statMap = {
     int: {

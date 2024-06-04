@@ -193,7 +193,13 @@
     "Location": {
       "All": "unspecified",
       "Left": "Left",
-      "Right": "Right"
+      "Right": "Right",
+      "Head": "Head",
+      "Torso": "Torso",
+      "rightArm": "R. Arm",
+      "leftArm": "L. Arm",
+      "rightLeg": "R. Leg",
+      "leftLeg": "L. Leg"
     },
     "Component": {
       "Rarity": "Rarity",

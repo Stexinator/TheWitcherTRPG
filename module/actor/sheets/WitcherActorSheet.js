@@ -6,7 +6,7 @@ import { RollConfig } from "../../scripts/rollConfig.js";
 import { ExecuteDefense } from "../../scripts/defenses.js";
 import { sanitizeMixin } from "../mixins/sanitizeMixin.js"
 import { deathsaveMixin } from "../mixins/deathSaveMixin.js";
-import { critMixin } from "../mixins/critMixin.js";
+import { criticalWoundMixin } from "../mixins/criticalWoundMixin.js";
 import { noteMixin } from "../mixins/noteMixin.js";
 import { globalModifierMixin } from "../mixins/globalModifierMixin.js";
 import { skillModifierMixin } from "../mixins/skillModifierMixin.js";
@@ -71,6 +71,7 @@ export default class WitcherActorSheet extends ActorSheet {
     this._prepareArmor(context);
     this._prepareSpells(context);
     this._prepareItems(context);
+    this._prepareCritWounds(context);
 
     context.isGM = game.user.isGM
     return context;
@@ -168,7 +169,15 @@ export default class WitcherActorSheet extends ActorSheet {
         item.system.enhancementItems = newEnhancementList
       }
     });
+  }
 
+  _prepareCritWounds(context) {
+    let wounds = context.system.critWounds;
+
+    wounds.forEach((wound, index) => {
+      wounds[index].description = WITCHER.Crit[wound.configEntry]?.description
+      wounds[index].effect = WITCHER.Crit[wound.configEntry]?.effect[wound.mod]
+    })
   }
 
   activateListeners(html) {
@@ -192,7 +201,7 @@ export default class WitcherActorSheet extends ActorSheet {
     this.itemListener(html)
 
     this.deathSaveListener(html)
-    this.critListener(html)
+    this.criticalWoundListener(html)
     this.noteListener(html)
     this.globalModifierListener(html)
   }
@@ -406,6 +415,6 @@ Object.assign(WitcherActorSheet.prototype, itemMixin)
 
 Object.assign(WitcherActorSheet.prototype, sanitizeMixin)
 Object.assign(WitcherActorSheet.prototype, deathsaveMixin)
-Object.assign(WitcherActorSheet.prototype, critMixin)
+Object.assign(WitcherActorSheet.prototype, criticalWoundMixin)
 Object.assign(WitcherActorSheet.prototype, noteMixin)
 Object.assign(WitcherActorSheet.prototype, globalModifierMixin)
