@@ -37,7 +37,8 @@
         "magic",
         "bestiary",
         "combat",
-        "loot"
+        "loot",
+        "effects-and-conditions"
       ],
       "folders": [
         {
@@ -178,6 +179,17 @@
       "label": "Loot",
       "path": "packs/loot",
       "type": "RollTable",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "system": "TheWitcherTRPG"
+    },
+    {
+      "name": "effects-and-conditions",
+      "label": "Effects & Conditions",
+      "path": "packs/effects-and-conditions",
+      "type": "Item",
       "ownership": {
         "PLAYER": "OBSERVER",
         "ASSISTANT": "OWNER"

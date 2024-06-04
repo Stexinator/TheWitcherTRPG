@@ -1,8 +1,15 @@
-2024/03/26-17:24:05.777293 7fdacf5e6b38 Recovering log #14
-2024/03/26-17:24:05.792806 7fdacf5e6b38 Delete type=0 #14
-2024/03/26-17:24:05.793895 7fdacf5e6b38 Delete type=3 #12
-2024/03/26-20:05:29.500791 7fd84b2bcb38 Level-0 table #19: started
-2024/03/26-20:05:29.505581 7fd84b2bcb38 Level-0 table #19: 0 bytes OK
-2024/03/26-20:05:29.512851 7fd84b2bcb38 Delete type=0 #17
-2024/03/26-20:05:29.536120 7fd84b2bcb38 Manual compaction at level-0 from '!items!4BRG1r7n8fm5ngDX' @ 72057594037927935 : 1 .. '!items!qRgo60dLEWazwg5B' @ 0 : 0; will stop at (end)
-2024/03/26-20:05:29.664111 7fd84b2bcb38 Manual compaction at level-1 from '!items!4BRG1r7n8fm5ngDX' @ 72057594037927935 : 1 .. '!items!qRgo60dLEWazwg5B' @ 0 : 0; will stop at (end)
+2024/06/04-18:03:10.761311 7f7ce0423b38 Recovering log #62
+2024/06/04-18:03:10.782354 7f7ce0423b38 Delete type=0 #62
+2024/06/04-18:03:10.783419 7f7ce0423b38 Delete type=3 #60
+2024/06/04-18:13:11.725774 7f77dd7efb38 Level-0 table #67: started
+2024/06/04-18:13:11.734204 7f77dd7efb38 Level-0 table #67: 54461 bytes OK
+2024/06/04-18:13:11.743068 7f77dd7efb38 Delete type=0 #65
+2024/06/04-18:13:11.744294 7f77dd7efb38 Manual compaction at level-0 from '!items!4BRG1r7n8fm5ngDX' @ 72057594037927935 : 1 .. '!items!qRgo60dLEWazwg5B' @ 0 : 0; will stop at (end)
+2024/06/04-18:13:11.786573 7f77dd7efb38 Manual compaction at level-1 from '!items!4BRG1r7n8fm5ngDX' @ 72057594037927935 : 1 .. '!items!qRgo60dLEWazwg5B' @ 0 : 0; will stop at '!items!qRgo60dLEWazwg5B' @ 53 : 1
+2024/06/04-18:13:11.786679 7f77dd7efb38 Compacting 1@1 + 1@2 files
+2024/06/04-18:13:11.796304 7f77dd7efb38 Generated table #68@1: 12 keys, 54461 bytes
+2024/06/04-18:13:11.796391 7f77dd7efb38 Compacted 1@1 + 1@2 files => 54461 bytes
+2024/06/04-18:13:11.804163 7f77dd7efb38 compacted to: files[ 0 0 1 0 0 0 0 ]
+2024/06/04-18:13:11.806144 7f77dd7efb38 Delete type=2 #5
+2024/06/04-18:13:11.807100 7f77dd7efb38 Delete type=2 #67
+2024/06/04-18:13:11.897434 7f77dd7efb38 Manual compaction at level-1 from '!items!qRgo60dLEWazwg5B' @ 53 : 1 .. '!items!qRgo60dLEWazwg5B' @ 0 : 0; will stop at (end)
