@@ -416,7 +416,7 @@ async function applyDamage(actor, totalDamage, messageId, derivedStat) {
   rollResult.toMessage(messageData)
 
   actor?.update({
-    [`system.derivedStats.${derivedStat}.value`]: actor.system.derivedStats.hp.value - Math.floor(totalDamage)
+    [`system.derivedStats.${derivedStat}.value`]: actor.system.derivedStats[derivedStat].value - Math.floor(totalDamage)
   });
 }
 

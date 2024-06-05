@@ -947,7 +947,8 @@
       "special": "Special Effects",
       "specialEffect": {
         "wolfstrike": "Wolf School Strong Strike",
-        "armoredCaster": "Armored Caster"
+        "armoredCaster": "Armored Caster",
+        "meleeDamage": "+1 Melee Damage"
       }
     },
     "character.socialStanding": "Social Standing",
@@ -991,6 +992,8 @@
       "failDamage": "Fail Damage"
     },
     "statusEffects": {
+      "healing": "Healing",
+      "buffed": "Buffed",
       "fire": "Fire",
       "stun": "Stun",
       "poison": "Poison",

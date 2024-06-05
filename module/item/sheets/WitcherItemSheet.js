@@ -35,13 +35,7 @@ export default class WitcherItemSheet extends ItemSheet {
     html.find(".list-edit").on("blur", this._onEffectEdit.bind(this));
     html.find(".remove-effect").on("click", this._oRemoveEffect.bind(this));
 
-    html.find(".add-component").on("click", this._onAddComponent.bind(this));
-    html.find(".add-associated-item").on("click", this._onAddAssociatedItem.bind(this))
-    html.find(".remove-associated-item").on("click", this._onRemoveAssociatedItem.bind(this))
-    html.find(".remove-component").on("click", this._onRemoveComponent.bind(this));
-
     html.find("input").focusin(ev => this._onFocusIn(ev));
-    html.find(".damage-type").on("change", this._onDamageTypeEdit.bind(this));
     html.find(".dragable").on("dragstart", (ev) => {
       let itemId = ev.target.dataset.id
       let item = this.actor.items.get(itemId);
@@ -96,46 +90,6 @@ export default class WitcherItemSheet extends ItemSheet {
     let itemId = element.closest(".list-item").dataset.id;
     let newEffectList = this.item.system.effects.filter(item => item.id !== itemId)
     this.item.update({ 'system.effects': newEffectList });
-  }
-
-  _onDamageTypeEdit(event) {
-    event.preventDefault();
-    let element = event.currentTarget;
-    let newval = Object.assign({}, this.item.system.type)
-    newval[element.id] = !newval[element.id]
-    let types = []
-    if (newval.slashing) types.push(game.i18n.localize("WITCHER.Armor.slashing"))
-    if (newval.piercing) types.push(game.i18n.localize("WITCHER.Armor.piercing"))
-    if (newval.bludgeoning) types.push(game.i18n.localize("WITCHER.Armor.bludgeoning"))
-    if (newval.elemental) types.push(game.i18n.localize("WITCHER.Armor.elemental"))
-    newval.text = types.join(", ")
-    this.item.update({ 'system.type': newval });
-  }
-
-  _onRemoveComponent(event) {
-    event.preventDefault();
-    let element = event.currentTarget;
-    let itemId = element.closest(".list-item").dataset.id;
-    let newComponentList = this.item.system.craftingComponents.filter(item => item.id !== itemId)
-    this.item.update({ 'system.craftingComponents': newComponentList });
-  }
-
-  _onAddComponent(event) {
-    event.preventDefault();
-    let newComponentList = []
-    if (this.item.system.craftingComponents) {
-      newComponentList = this.item.system.craftingComponents
-    }
-    newComponentList.push({ id: genId(), name: "component", quantity: "" })
-    this.item.update({ 'system.craftingComponents': newComponentList });
-  }
-
-  async _onAddAssociatedItem(event) {
-    //todo implement
-  }
-
-  async _onRemoveAssociatedItem(event) {
-    event.preventDefault();
   }
 
   _onFocusIn(event) {

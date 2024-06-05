@@ -370,6 +370,7 @@ export let itemMixin = {
         displayDmgFormula += `+${this.actor.system.attackStats.meleeBonus}`
         formula += !displayRollDetails ? `+${this.actor.system.attackStats.meleeBonus}` : `+${this.actor.system.attackStats.meleeBonus}[${game.i18n.localize("WITCHER.Dialog.attackMeleeBonus")}]`
       }
+      formula = this.handleSpecialModifier(formula, "melee-damage")
     }
 
     let attackSkill = item.getItemAttackSkill();
@@ -614,12 +615,11 @@ export let itemMixin = {
   },
 
   handleSpecialModifier(attFormula, action) {
-    let relevantModifier = new Set(this.actor.getList("globalModifier")
+    let relevantModifier = this.actor.getList("globalModifier")
       .filter(modifier => modifier.system.isActive)
       .filter(modifier => modifier.system.special?.length > 0)
       .map(modifier => modifier.system.special)
       .flat()
-    )
       .map(modifier => WITCHER.specialModifier.find(special => special.id == modifier.special))
       .filter(special => special.tags.includes(action))
 
@@ -792,7 +792,17 @@ export let itemMixin = {
       messageData.flavor += `<div><b>${game.i18n.localize("WITCHER.Spell.Range")}: </b>${spellItem.system.range}</div>`
     }
     if (spellItem.system.duration) {
-      messageData.flavor += `<div><b>${game.i18n.localize("WITCHER.Spell.Duration")}: </b>${spellItem.system.duration}</div>`
+      let durationText = spellItem.system.duration
+      if (spellItem.system.duration.match(/\d+d\d+/g)) {
+        let durationSubstrings = spellItem.system.duration.split(" ");
+        let roll = await new Roll(durationSubstrings.shift()).evaluate()
+        damage.duration = roll.total;
+
+        let durationRoll = roll.toAnchor()
+        durationText = durationRoll.outerHTML + " " + durationSubstrings.join(" ")
+      }
+
+      messageData.flavor += `<div><b>${game.i18n.localize("WITCHER.Spell.Duration")}: </b>` + durationText + `</div>`
     }
     if (spellItem.system.defence) {
       messageData.flavor += `<div class='defense'><b>${game.i18n.localize("WITCHER.Spell.Defence")}: </b>${spellItem.system.defence}</div>`

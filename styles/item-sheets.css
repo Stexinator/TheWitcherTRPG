@@ -2,61 +2,6 @@
     text-align: center;
 }
 
-.item-header {
-    display: flex;
-}
-
-.item-header img{
-    height: 100px;
-    width: 100px;
-}
-
-.item-header h1 {
-    margin-bottom: 0;
-}
-
-.item-header-wrapper {
-  display: flex;
-  flex-direction: column;
-}
-
-.item-header-wrapper > div {
-  display: flex;
-  align-items: center;
-}
-
-.item-header-wrapper > div input[type="checkbox"] {
-  margin: 3px 5px 0 0;
-}
-
-.item-flex-container {
-    display: flex;
-    text-align: center;
-    justify-content: space-around;
-    height: 64px;
-}
-
-.item-header-first-column {
-    width: 400px;
-    margin-left: 5px;
-}
-
-.item-header-second-column {
-    margin: auto;
-}
-
-.item-header-second-column input {
-    display: block;
-    width: 75px;
-    height: 27px;
-    margin: auto;
-}
-
-.item-header-second-column select {
-    display: block;
-    margin: auto;
-}
-
 .item-options {
     display: flex;
     text-align: center;

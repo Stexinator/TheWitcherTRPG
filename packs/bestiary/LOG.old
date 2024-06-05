@@ -1,5 +1,15 @@
-2024/05/16-17:45:08.823 2370 Log #31: 0 ops saved to Table #34 OK
-2024/05/16-17:45:08.823 2370 Archiving D:\Tools\FoundryVTT\FoundryVTT\Data\systems\TheWitcherTRPG\packs\bestiary/000031.log: OK
-2024/05/16-17:45:09.157 2370 Table #33: 1920 entries OK
-2024/05/16-17:45:09.210 2370 Archiving D:\Tools\FoundryVTT\FoundryVTT\Data\systems\TheWitcherTRPG\packs\bestiary/MANIFEST-000029: OK
-2024/05/16-17:45:09.342 2370 **** Repaired leveldb D:\Tools\FoundryVTT\FoundryVTT\Data\systems\TheWitcherTRPG\packs\bestiary; recovered 1 files; 1951111 bytes. Some data may have been lost. ****
+2024/06/04-18:03:11.461674 7f7cdf41db38 Recovering log #76
+2024/06/04-18:03:11.479693 7f7cdf41db38 Delete type=0 #76
+2024/06/04-18:03:11.480609 7f7cdf41db38 Delete type=3 #74
+2024/06/04-18:13:12.019281 7f77dd7efb38 Level-0 table #81: started
+2024/06/04-18:13:12.161886 7f77dd7efb38 Level-0 table #81: 2056160 bytes OK
+2024/06/04-18:13:12.169230 7f77dd7efb38 Delete type=0 #79
+2024/06/04-18:13:12.171130 7f77dd7efb38 Manual compaction at level-0 from '!actors!0IRsvCNaCOvVqisv' @ 72057594037927935 : 1 .. '!folders!yJreiehtlOEv7jSD' @ 0 : 0; will stop at (end)
+2024/06/04-18:13:12.189676 7f77dd7efb38 Manual compaction at level-1 from '!actors!0IRsvCNaCOvVqisv' @ 72057594037927935 : 1 .. '!folders!yJreiehtlOEv7jSD' @ 0 : 0; will stop at '!actors.items!z0jDld8doC5d29kh.y2hzt2U2Vo5lc6cD' @ 6522 : 1
+2024/06/04-18:13:12.189820 7f77dd7efb38 Compacting 1@1 + 1@2 files
+2024/06/04-18:13:12.373312 7f77dd7efb38 Generated table #82@1: 1971 keys, 2059049 bytes
+2024/06/04-18:13:12.373419 7f77dd7efb38 Compacted 1@1 + 1@2 files => 2059049 bytes
+2024/06/04-18:13:12.376388 7f77dd7efb38 compacted to: files[ 0 0 1 0 0 0 0 ]
+2024/06/04-18:13:12.378324 7f77dd7efb38 Delete type=2 #57
+2024/06/04-18:13:12.379452 7f77dd7efb38 Delete type=2 #81
+2024/06/04-18:13:12.414904 7f77dd7efb38 Manual compaction at level-1 from '!actors.items!z0jDld8doC5d29kh.y2hzt2U2Vo5lc6cD' @ 6522 : 1 .. '!folders!yJreiehtlOEv7jSD' @ 0 : 0; will stop at (end)
