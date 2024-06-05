@@ -108,9 +108,9 @@ WITCHER.monsterComplexity = {
 WITCHER.location = {
     Head: "WITCHER.Location.Head",
     Torso: "WITCHER.Location.Torso",
-    rightArm:  "WITCHER.Location.rightArm",
-    leftArm:  "WITCHER.Location.leftArm",
-    rightLeg:  "WITCHER.Location.rightLeg",
+    rightArm: "WITCHER.Location.rightArm",
+    leftArm: "WITCHER.Location.leftArm",
+    rightLeg: "WITCHER.Location.rightLeg",
     leftLeg: "WITCHER.Location.leftLeg",
 }
 
@@ -222,7 +222,7 @@ WITCHER.Crit = {
                 stats: [
                     {
                         stat: "body",
-                        modifier: "-2"
+                        modifier: "-1"
                     }
                 ],
                 derived: [],
@@ -233,7 +233,7 @@ WITCHER.Crit = {
                 stats: [],
                 derived: [
                     {
-                        stat: "enc",
+                        derivedStat: "enc",
                         modifier: "-10"
                     }
                 ],

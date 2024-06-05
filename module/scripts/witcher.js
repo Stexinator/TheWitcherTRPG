@@ -260,6 +260,43 @@ function getWoundModifier(wounds, checkedStat) {
 	}
 }
 
+function getWoundModifier(wounds, checkedStat) {
+	let totalModifiers = 0;
+	let totalDivider = 1;
+
+	wounds
+		.filter(wound => wound.configEntry != '')
+		.map(wound => WITCHER.Crit[wound.configEntry]?.effect[wound.mod])
+		.forEach(wound => {
+			wound.stats?.forEach(stat => {
+				if (stat.stat == checkedStat) {
+					if (stat.modifier?.toString().includes("/")) {
+						totalDivider = Number(stat.modifier.replace("/", ''));
+					}
+					else {
+						totalModifiers += Number(stat.modifier ?? 0)
+					}
+				}
+			})
+
+			wound.derived?.forEach(derived => {
+				if (derived.derivedStat == checkedStat) {
+					if (derived.modifier?.toString().includes("/")) {
+						totalDivider = Number(derived.modifier.replace("/", ''));
+					}
+					else {
+						totalModifiers += Number(derived.modifier ?? 0)
+					}
+				}
+			})
+		});
+
+	return {
+		totalModifiers,
+		totalDivider
+	}
+}
+
 function getArmorEcumbrance(actor) {
 	let encumbranceModifier = 0
 	let armors = actor.items.filter(item => item.type == "armor" && item.system.equipped);
@@ -409,9 +446,9 @@ function addWoundsModifier(actor, skillName, rollFormula) {
 		.map(wound => WITCHER.Crit[wound.configEntry].effect[wound.mod])
 		.forEach(wound => {
 			wound.skills?.forEach(skill => {
-				if (skill.skill == skillName || WITCHER[skill.skillgroup].includes(skillName) || skill.skill == "all") {
+				if (skill.skill == skillName || WITCHER[skill.skillgroup]?.includes(skillName) || skill.skill == "all") {
 					if (skill.modifier?.toString().includes("/")) {
-						rollFormula += !displayRollDetails ? ` /${Number(modifierSkill.modifier.replace("/", ''))}` : ` /${Number(modifierSkill.modifier.replace("/", ''))}[${modifier.name}]`
+						rollFormula += !displayRollDetails ? ` /${Number(skill.modifier.replace("/", ''))}` : ` /${Number(skill.modifier.replace("/", ''))}[${game.i18n.localize("WITCHER.CritWound.Header")}]`
 					}
 					else {
 						rollFormula += !displayRollDetails ? ` ${Number(skill.modifier)}` : ` ${Number(skill.modifier)}[${game.i18n.localize("WITCHER.CritWound.Header")}]`
