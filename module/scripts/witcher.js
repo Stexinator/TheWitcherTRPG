@@ -276,20 +276,6 @@ function rollSkillCheck(actor, skillMapEntry) {
 		rollFormula += !displayRollDetails ? `-${armorEnc}` : `-${armorEnc}[${game.i18n.localize("WITCHER.Armor.EncumbranceValue")}]`
 	}
 
-	let globalModifier = actor.getList("effect").concat(actor.getList("globalModifier")).filter(e => e.system.isActive);
-	globalModifier.forEach(item => {
-		item.system.skills.forEach(effectSkill => {
-			if (skillLabel == game.i18n.localize(effectSkill.skill)) {
-				if (effectSkill.modifier.includes("/")) {
-					rollFormula += !displayRollDetails ? `/${Number(effectSkill.modifier.replace("/", ''))}` : `/${Number(effectSkill.modifier.replace("/", ''))}[${item.name}]`
-				}
-				else {
-					rollFormula += !displayRollDetails ? `+${effectSkill.modifier}` : `+${effectSkill.modifier}[${item.name}]`
-				}
-			}
-		})
-	});
-
 	new Dialog({
 		title: `${game.i18n.localize("WITCHER.Dialog.Skill")}: ${skillLabel}`,
 		content: `<label>${game.i18n.localize("WITCHER.Dialog.attackCustom")}: <input name="customModifiers" value=0></label>`,
