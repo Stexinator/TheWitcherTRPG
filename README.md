@@ -44,9 +44,11 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 ## Version History ##
 
 ### 1.033 ###
+- compendium is up-to-date => weapons and monster from compendium have their weapon skills set again
 - fix diagrams not accepting associated items
 - new special global modifier
   - +1 melee damage
+- spells auto-roll their duration now
 
 ### 1.032 ###
 - fix manual defense roll -> crit detection won't work with manual rolling
