@@ -9,7 +9,7 @@ export default function critWound() {
 
         effect: new fields.StringField({ initial: '' }),
         description: new fields.StringField({ initial: '' }),
-        mod: new fields.StringField({ initial: 'None' }),
+        mod: new fields.StringField({ initial: 'none' }),
         location: new fields.StringField({ initial: '' }),
 
         notes: new fields.StringField({ initial: '' }),
