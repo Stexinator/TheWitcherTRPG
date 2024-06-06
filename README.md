@@ -43,6 +43,10 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 
 ## Version History ##
 
+### 1.034 ###
+- updated ptBr translation (thanks @pedroaugustobt)
+- fixed elderfolk diagram sorting
+
 ### 1.033 ###
 - compendium is up-to-date => weapons and monster from compendium have their weapon skills set again
 - fix diagrams not accepting associated items
