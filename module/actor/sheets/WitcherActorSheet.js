@@ -309,7 +309,7 @@ export default class WitcherActorSheet extends ActorSheet {
 
   async _onVerbalCombat() {
     let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
-    const dialogTemplate = await renderTemplate("systems/TheWitcherTRPG/templates/sheets/verbal-combat.hbs");
+    const dialogTemplate = await renderTemplate("systems/TheWitcherTRPG/templates/dialog/verbal-combat.hbs");
     new Dialog({
       title: game.i18n.localize("WITCHER.verbalCombat.DialogTitle"),
       content: dialogTemplate,
