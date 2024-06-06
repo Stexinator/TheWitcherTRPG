@@ -106,8 +106,8 @@ WITCHER.monsterComplexity = {
 }
 
 WITCHER.location = {
-    Head: "WITCHER.Location.Head",
-    Torso: "WITCHER.Location.Torso",
+    head: "WITCHER.Location.Head",
+    torso: "WITCHER.Location.Torso",
     rightArm: "WITCHER.Location.rightArm",
     leftArm: "WITCHER.Location.leftArm",
     rightLeg: "WITCHER.Location.rightLeg",
@@ -118,7 +118,7 @@ WITCHER.Crit = {
     crackedJaw: {
         label: "WITCHER.CritWound.Name.SimpleCrackedJaw",
         description: "WITCHER.CritWound.SimpleCrackedJaw",
-        location: ["Head"],
+        location: ["head"],
         severity: "simple",
         effect: {
             none: {
@@ -168,7 +168,7 @@ WITCHER.Crit = {
     disfiguringScar: {
         label: "WITCHER.CritWound.Name.SimpleDisfiguringScar",
         description: "WITCHER.CritWound.SimpleDisfiguringScar",
-        location: ["Head"],
+        location: ["head"],
         severity: "simple",
         effect: {
             none: {
@@ -203,7 +203,7 @@ WITCHER.Crit = {
     crackedRibs: {
         label: "WITCHER.CritWound.Name.SimpleCrackedRibs",
         description: "WITCHER.CritWound.SimpleCrackedRibs",
-        location: ["Torso"],
+        location: ["torso"],
         severity: "simple",
         effect: {
             none: {
@@ -244,7 +244,7 @@ WITCHER.Crit = {
     foreignObject: {
         label: "WITCHER.CritWound.Name.SimpleForeignObject",
         description: "WITCHER.CritWound.SimpleForeignObject",
-        location: ["Torso"],
+        location: ["torso"],
         severity: "simple",
         effect: {
             none: {
@@ -270,7 +270,7 @@ WITCHER.Crit = {
     sprainedArm: {
         label: "WITCHER.CritWound.Name.SimpleSprainedArm",
         description: "WITCHER.CritWound.SimpleSprainedArm",
-        location: ["R. Arm", "L. Arm"],
+        location: ["rightArm", "leftArm"],
         severity: "simple",
         effect: {
             none: {
@@ -301,7 +301,7 @@ WITCHER.Crit = {
     sprainedLeg: {
         label: "WITCHER.CritWound.Name.SimpleSprainedLeg",
         description: "WITCHER.CritWound.SimpleSprainedLeg",
-        location: ["R. Leg", "L. Leg"],
+        location: ["rightLeg", "leftLeg"],
         severity: "simple",
         effect: {
             none: {
@@ -360,7 +360,7 @@ WITCHER.Crit = {
     minorHeadWound: {
         label: "WITCHER.CritWound.Name.ComplexMinorHeadWound",
         description: "WITCHER.CritWound.ComplexMinorHeadWound",
-        location: ["Head"],
+        location: ["head"],
         severity: "complex",
         effect: {
             none: {
@@ -414,7 +414,7 @@ WITCHER.Crit = {
     lostTeeth: {
         label: "WITCHER.CritWound.Name.ComplexLostTeeth",
         description: "WITCHER.CritWound.ComplexLostTeeth",
-        location: ["Head"],
+        location: ["head"],
         severity: "complex",
         effect: {
             none: {
@@ -467,7 +467,7 @@ WITCHER.Crit = {
     rupturedSpleen: {
         label: "WITCHER.CritWound.Name.ComplexRupturedSpleen",
         description: "WITCHER.CritWound.ComplexRupturedSpleen",
-        location: ["Torso"],
+        location: ["torso"],
         severity: "complex",
         effect: {
             none: {
@@ -498,7 +498,7 @@ WITCHER.Crit = {
     brokenRibs: {
         label: "WITCHER.CritWound.Name.ComplexBrokenRibs",
         description: "WITCHER.CritWound.ComplexBrokenRibs",
-        location: ["Torso"],
+        location: ["torso"],
         severity: "complex",
         effect: {
             none: {
@@ -551,7 +551,7 @@ WITCHER.Crit = {
     fracturedArm: {
         label: "WITCHER.CritWound.Name.ComplexFracturedArm",
         description: "WITCHER.CritWound.ComplexFracturedArm",
-        location: ["R. Arm", "L. Arm"],
+        location: ["rightArm", "leftArm"],
         severity: "complex",
         effect: {
             none: {
@@ -577,7 +577,7 @@ WITCHER.Crit = {
     fracturedLeg: {
         label: "WITCHER.CritWound.Name.ComplexFracturedLeg",
         description: "WITCHER.CritWound.ComplexFracturedLeg",
-        location: ["R. Leg", "L. Leg"],
+        location: ["rightLeg", "leftLeg"],
         severity: "complex",
         effect: {
             none: {
@@ -645,7 +645,7 @@ WITCHER.Crit = {
     skullFracture: {
         label: "WITCHER.CritWound.Name.DifficultSkullFracture",
         description: "WITCHER.CritWound.DifficultSkullFracture",
-        location: ["Head"],
+        location: ["head"],
         severity: "difficult",
         effect: {
             none: {
@@ -689,7 +689,7 @@ WITCHER.Crit = {
     concussion: {
         label: "WITCHER.CritWound.Name.DifficultConcussion",
         description: "WITCHER.CritWound.DifficultConcussion",
-        location: ["Head"],
+        location: ["head"],
         severity: "difficult",
         effect: {
             none: {
@@ -750,7 +750,7 @@ WITCHER.Crit = {
     tornStomach: {
         label: "WITCHER.CritWound.Name.DifficultTornStomach",
         description: "WITCHER.CritWound.DifficultTornStomach",
-        location: ["Torso"],
+        location: ["torso"],
         severity: "difficult",
         effect: {
             none: {
@@ -791,7 +791,7 @@ WITCHER.Crit = {
     suckingChestWound: {
         label: "WITCHER.CritWound.Name.DifficultSuckingChestWound",
         description: "WITCHER.CritWound.DifficultSuckingChestWound",
-        location: ["Torso"],
+        location: ["torso"],
         severity: "difficult",
         effect: {
             none: {
@@ -844,7 +844,7 @@ WITCHER.Crit = {
     compoundArmFracture: {
         label: "WITCHER.CritWound.Name.DifficultCompoundArmFracture",
         description: "WITCHER.CritWound.DifficultCompoundArmFracture",
-        location: ["R. Arm", "L. Arm"],
+        location: ["rightArm", "leftArm"],
         severity: "difficult",
         effect: {
             none: {
@@ -870,7 +870,7 @@ WITCHER.Crit = {
     compoundLegFracture: {
         label: "WITCHER.CritWound.Name.DifficultCompoundLegFracture",
         description: "WITCHER.CritWound.DifficultCompoundLegFracture",
-        location: ["R. Leg", "L. Leg"],
+        location: ["rightLeg", "leftLeg"],
         severity: "difficult",
         effect: {
             none: {
@@ -938,7 +938,7 @@ WITCHER.Crit = {
     decapitated: {
         label: "WITCHER.CritWound.Name.DeadlyDecapitated",
         description: "WITCHER.CritWound.DeadlyDecapitated",
-        location: ["Head"],
+        location: ["head"],
         severity: "deadly",
         effect: {
             none: {
@@ -964,7 +964,7 @@ WITCHER.Crit = {
     damagedEye: {
         label: "WITCHER.CritWound.Name.DeadlyDamagedEye",
         description: "WITCHER.CritWound.DeadlyDamagedEye",
-        location: ["Head"],
+        location: ["head"],
         severity: "deadly",
         effect: {
             none: {
@@ -1020,7 +1020,7 @@ WITCHER.Crit = {
     hearthDamage: {
         label: "WITCHER.CritWound.Name.DeadlyHearthDamage",
         description: "WITCHER.CritWound.DeadlyHearthDamage",
-        location: ["Torso"],
+        location: ["torso"],
         severity: "deadly",
         effect: {
             none: {
@@ -1074,7 +1074,7 @@ WITCHER.Crit = {
     septicShock: {
         label: "WITCHER.CritWound.Name.DeadlySepticShock",
         description: "WITCHER.CritWound.DeadlySepticShock",
-        location: ["Torso"],
+        location: ["torso"],
         severity: "deadly",
         effect: {
             none: {
@@ -1149,7 +1149,7 @@ WITCHER.Crit = {
     dismemberedArm: {
         label: "WITCHER.CritWound.Name.DeadlyDismemberedArm",
         description: "WITCHER.CritWound.DeadlyDismemberedArm",
-        location: ["R. Arm", "L. Arm"],
+        location: ["rightArm", "leftArm"],
         severity: "deadly",
         effect: {
             none: {
@@ -1175,7 +1175,7 @@ WITCHER.Crit = {
     dismemberedLeg: {
         label: "WITCHER.CritWound.Name.DeadlyDismemberedLeg",
         description: "WITCHER.CritWound.DeadlyDismemberedLeg",
-        location: ["R. Leg", "L. Leg"],
+        location: ["rightLeg", "leftLeg"],
         severity: "deadly",
         effect: {
             none: {
