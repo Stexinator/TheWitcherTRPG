@@ -1379,6 +1379,29 @@ WITCHER.statMap = {
     }
 }
 
+WITCHER.skillGroups = {
+    meleeSkills: {
+        label: "WITCHER.Skills.SkillGroups.meleeSkills",
+        name: "meleeSkills",
+    },
+    rangedSkills: {
+        label: "WITCHER.Skills.SkillGroups.rangedSkills",
+        name: "rangedSkills",
+    },
+    magicSkills: {
+        label: "WITCHER.Skills.SkillGroups.magicSkills",
+        name: "magicSkills",
+    },
+    verbalCombatSkills: {
+        label: "WITCHER.Skills.SkillGroups.verbalCombatSkills",
+        name: "verbalCombatSkills",
+    },
+    empatheticVerbalCombatSkills: {
+        label: "WITCHER.Skills.SkillGroups.empatheticVerbalCombatSkills",
+        name: "empatheticVerbalCombatSkills",
+    },
+}
+
 WITCHER.skillMap = {
     awareness: {
         attribute: WITCHER.statMap.int,

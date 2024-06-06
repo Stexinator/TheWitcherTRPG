@@ -769,6 +769,15 @@
     "background.globalModifier": "Global Modifiers",
     "Resources.modifiers": "Resources Modifiers",
     "Notes": "Notes",
+    "Skills": {
+      "SkillGroups": {
+        "meleeSkills": "Melee Skills",
+        "rangedSkills": "Ranged Skills",
+        "magicSkills": "Magic Skills",
+        "verbalCombatSkills": "Verbal Combat Skills",
+        "empatheticVerbalCombatSkills": "Empathetic Verbal Combat Skills"
+      }
+    },
     "SkIntAwareness": "Awareness",
     "SkIntBusiness": "Business",
     "SkIntDeduction": "Deduction",

@@ -47,6 +47,7 @@
                     <a class="remove-modifier-skill"><i class="fas fa-minus"></i></a>
                     <select class="modifiers-edit-skills" data-field="skill">
                         {{selectOptions ../config.skillMap blank='' selected=skill.skill nameAttr='name' valueAttr="name" labelAttr="label" localize=true}}
+                        {{selectOptions ../config.skillGroups blank='' selected=skill.skill nameAttr='name' valueAttr="name" labelAttr="label" localize=true}}
                     </select>
                     <input class="modifiers-edit-skills" data-field="modifier" type="text" value="{{skill.modifier}}" />
                 </div>
