@@ -46,6 +46,10 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 ### 1.034 ###
 - updated ptBr translation (thanks @pedroaugustobt)
 - fixed elderfolk diagram sorting
+- automated some aspects of critical wounds
+  - beside broken arms, critical wounds now reduce stats, derived stats and skills
+  - status of wounds are considered
+  - added field for location => first step to get arms to work too
 
 ### 1.033 ###
 - compendium is up-to-date => weapons and monster from compendium have their weapon skills set again

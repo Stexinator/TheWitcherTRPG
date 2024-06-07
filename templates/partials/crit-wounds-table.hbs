@@ -13,6 +13,9 @@
                         <select name="system.critWounds.{{i}}.mod">
                             {{selectOptions ../config.CritMod selected=this.mod localize=true}}
                         </select>
+                        <select name="system.critWounds.{{i}}.location">
+                            {{selectOptions ../config.location selected=this.location localize=true}}
+                        </select>
                         <a class="delete-crit"><i class="fas fa-trash-alt" data-id="{{critWound.id}}"></i></a>
                         <div class="critwounds-second-line">
                             <label
