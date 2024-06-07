@@ -144,7 +144,7 @@ async function defense(actor, skillName, modifier, totalAttack, attackLocation, 
     let roll = await extendedRoll(rollFormula, messageData, config)
     let crit = checkForCrit(roll.total, totalAttack)
     if (crit) {
-        messageData.flavor += `<h3 class='center-important'>${game.i18n.localize("WITCHER.Defense.Crit")}</h3>`
+        messageData.flavor += `<h3 class='center-important'>${game.i18n.localize("WITCHER.Defense.Crit")}: ${game.i18n.localize(CONFIG.WITCHER.CritGravity[crit.severity])}</h3>`
         crit.location = attackLocation
     }
 

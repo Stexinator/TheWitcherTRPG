@@ -193,7 +193,13 @@
     "Location": {
       "All": "unspecified",
       "Left": "Left",
-      "Right": "Right"
+      "Right": "Right",
+      "Head": "Head",
+      "Torso": "Torso",
+      "rightArm": "R. Arm",
+      "leftArm": "L. Arm",
+      "rightLeg": "R. Leg",
+      "leftLeg": "L. Leg"
     },
     "Component": {
       "Rarity": "Rarity",
@@ -763,6 +769,15 @@
     "background.globalModifier": "Global Modifiers",
     "Resources.modifiers": "Resources Modifiers",
     "Notes": "Notes",
+    "Skills": {
+      "SkillGroups": {
+        "meleeSkills": "Melee Skills",
+        "rangedSkills": "Ranged Skills",
+        "magicSkills": "Magic Skills",
+        "verbalCombatSkills": "Verbal Combat Skills",
+        "empatheticVerbalCombatSkills": "Empathetic Verbal Combat Skills"
+      }
+    },
     "SkIntAwareness": "Awareness",
     "SkIntBusiness": "Business",
     "SkIntDeduction": "Deduction",

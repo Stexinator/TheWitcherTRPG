@@ -49,8 +49,9 @@ async function preloadHandlebarsTemplates() {
         "systems/TheWitcherTRPG/templates/partials/investigation/clue-display.hbs",
         "systems/TheWitcherTRPG/templates/partials/investigation/obstacle-display.hbs",
 
-        "systems/TheWitcherTRPG/templates/sheets/verbal-combat.hbs",
-        "systems/TheWitcherTRPG/templates/sheets/weapon-attack.hbs"
+        "systems/TheWitcherTRPG/templates/dialog/verbal-combat.hbs",
+
+        "systems/TheWitcherTRPG/templates/chat/weapon-attack.hbs"
     ];
     return loadTemplates(templatePath);
 }

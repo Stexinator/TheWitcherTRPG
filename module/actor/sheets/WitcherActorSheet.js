@@ -6,7 +6,7 @@ import { RollConfig } from "../../scripts/rollConfig.js";
 import { ExecuteDefense } from "../../scripts/defenses.js";
 import { sanitizeMixin } from "../mixins/sanitizeMixin.js"
 import { deathsaveMixin } from "../mixins/deathSaveMixin.js";
-import { critMixin } from "../mixins/critMixin.js";
+import { criticalWoundMixin } from "../mixins/criticalWoundMixin.js";
 import { noteMixin } from "../mixins/noteMixin.js";
 import { globalModifierMixin } from "../mixins/globalModifierMixin.js";
 import { skillModifierMixin } from "../mixins/skillModifierMixin.js";
@@ -71,6 +71,7 @@ export default class WitcherActorSheet extends ActorSheet {
     this._prepareArmor(context);
     this._prepareSpells(context);
     this._prepareItems(context);
+    this._prepareCritWounds(context);
 
     context.isGM = game.user.isGM
     return context;
@@ -168,7 +169,15 @@ export default class WitcherActorSheet extends ActorSheet {
         item.system.enhancementItems = newEnhancementList
       }
     });
+  }
 
+  _prepareCritWounds(context) {
+    let wounds = context.system.critWounds;
+
+    wounds.forEach((wound, index) => {
+      wounds[index].description = WITCHER.Crit[wound.configEntry]?.description
+      wounds[index].effect = WITCHER.Crit[wound.configEntry]?.effect[wound.mod]
+    })
   }
 
   activateListeners(html) {
@@ -192,11 +201,10 @@ export default class WitcherActorSheet extends ActorSheet {
     this.itemListener(html)
 
     this.deathSaveListener(html)
-    this.critListener(html)
+    this.criticalWoundListener(html)
     this.noteListener(html)
     this.globalModifierListener(html)
   }
-
 
   calcStaminaMulti(origStaCost, value) {
     let staminaMulti = parseInt(origStaCost)
@@ -309,7 +317,7 @@ export default class WitcherActorSheet extends ActorSheet {
 
   async _onVerbalCombat() {
     let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
-    const dialogTemplate = await renderTemplate("systems/TheWitcherTRPG/templates/sheets/verbal-combat.hbs");
+    const dialogTemplate = await renderTemplate("systems/TheWitcherTRPG/templates/dialog/verbal-combat.hbs");
     new Dialog({
       title: game.i18n.localize("WITCHER.verbalCombat.DialogTitle"),
       content: dialogTemplate,
@@ -335,9 +343,10 @@ export default class WitcherActorSheet extends ActorSheet {
 
             let effect = verbalCombat.effect
 
-            let rollFormula = !displayRollDetails ? `1d10+${vcStat}+${vcSkill}` : `1d10+${vcStat}[${game.i18n.localize(vcStatName)}]+${vcSkill}[${game.i18n.localize(vcSkillName)}]`
+            let rollFormula = `1d10`;
 
             if (verbalCombat.skill) {
+              rollFormula += !displayRollDetails ? ` +${vcStat} +${vcSkill}` : ` +${vcStat}[${game.i18n.localize(vcStatName)}] +${vcSkill}[${game.i18n.localize(vcSkillName)}]`
               rollFormula = addAllModifiers(this.actor, verbalCombat.skill.name, rollFormula)
             }
 
@@ -406,6 +415,6 @@ Object.assign(WitcherActorSheet.prototype, itemMixin)
 
 Object.assign(WitcherActorSheet.prototype, sanitizeMixin)
 Object.assign(WitcherActorSheet.prototype, deathsaveMixin)
-Object.assign(WitcherActorSheet.prototype, critMixin)
+Object.assign(WitcherActorSheet.prototype, criticalWoundMixin)
 Object.assign(WitcherActorSheet.prototype, noteMixin)
 Object.assign(WitcherActorSheet.prototype, globalModifierMixin)

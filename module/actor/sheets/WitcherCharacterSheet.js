@@ -66,8 +66,8 @@ export default class WitcherCharacterSheet extends WitcherActorSheet {
     context.ingredientDiagrams = context.diagrams.filter(d => d.system.type == "ingredients").map(this.sanitizeDescription);
     context.weaponDiagrams = context.diagrams.filter(d => d.system.type == "weapon").map(this.sanitizeDescription);
     context.armorDiagrams = context.diagrams.filter(d => d.system.type == "armor").map(this.sanitizeDescription);
-    context.elderfolkWeaponDiagrams = context.diagrams.filter(d => d.system.type == "armor-enhancement").map(this.sanitizeDescription);
-    context.elderfolkArmorDiagrams = context.diagrams.filter(d => d.system.type == "elderfolk-weapon").map(this.sanitizeDescription);
+    context.elderfolkWeaponDiagrams = context.diagrams.filter(d => d.system.type == "elderfolk-weapon").map(this.sanitizeDescription);
+    context.elderfolkArmorDiagrams = context.diagrams.filter(d => d.system.type == "elderfolk-armor").map(this.sanitizeDescription);
     context.ammunitionDiagrams = context.diagrams.filter(d => d.system.type == "ammunition").map(this.sanitizeDescription);
     context.bombDiagrams = context.diagrams.filter(d => d.system.type == "bomb").map(this.sanitizeDescription);
     context.trapDiagrams = context.diagrams.filter(d => d.system.type == "traps").map(this.sanitizeDescription);
