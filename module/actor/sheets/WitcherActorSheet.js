@@ -206,7 +206,6 @@ export default class WitcherActorSheet extends ActorSheet {
     this.globalModifierListener(html)
   }
 
-
   calcStaminaMulti(origStaCost, value) {
     let staminaMulti = parseInt(origStaCost)
     value = value.replace("/STA", '')
@@ -344,9 +343,10 @@ export default class WitcherActorSheet extends ActorSheet {
 
             let effect = verbalCombat.effect
 
-            let rollFormula = !displayRollDetails ? `1d10+${vcStat}+${vcSkill}` : `1d10+${vcStat}[${game.i18n.localize(vcStatName)}]+${vcSkill}[${game.i18n.localize(vcSkillName)}]`
+            let rollFormula = `1d10`;
 
             if (verbalCombat.skill) {
+              rollFormula += !displayRollDetails ? ` +${vcStat} +${vcSkill}` : ` +${vcStat}[${game.i18n.localize(vcStatName)}] +${vcSkill}[${game.i18n.localize(vcSkillName)}]`
               rollFormula = addAllModifiers(this.actor, verbalCombat.skill.name, rollFormula)
             }
 
