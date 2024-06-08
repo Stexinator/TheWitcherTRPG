@@ -45,6 +45,7 @@ export default class SpellData extends CommonItemData {
       heal: new fields.StringField({ initial: '' }),
 
       effects: new fields.ArrayField(new fields.SchemaField(itemEffect())),
+      globalModifiers: new fields.ArrayField(new fields.StringField({ initial: '' })),
     }
   }
 

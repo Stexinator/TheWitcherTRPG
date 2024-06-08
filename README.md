@@ -44,6 +44,10 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 ## Version History ##
 
 ### 1.034 ###
+- global modifier can be added to spells which will activate when the spell is cast and not fumbled
+  - if they are not found on the actor, the global modifier compendium will be queried
+
+### 1.034 ###
 - updated ptBr translation (thanks @pedroaugustobt)
 - fixed elderfolk diagram sorting
 - automated some aspects of critical wounds

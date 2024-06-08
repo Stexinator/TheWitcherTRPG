@@ -86,7 +86,7 @@ function onHeal(event) {
   let actor = fromUuidSync(actorUuid);
 
   let target = game.user.targets[0]?.actor ?? canvas.tokens.controlled[0]?.actor ?? game.user.character
-  heal = (target.system.derivedStats.hp.value + heal) > target.system.derivedStats.hp.max ? (target.system.derivedStats.hp.max - target.system.derivedStats.hp.value) : heal;
+  heal = (target?.system.derivedStats.hp.value + heal) > target?.system.derivedStats.hp.max ? (target?.system.derivedStats.hp.max - target?.system.derivedStats.hp.value) : heal;
   target?.update({ 'system.derivedStats.hp.value': target.system.derivedStats.hp.value + heal });
 
   let messageContent = `${actor.name} ${game.i18n.format("WITCHER.Combat.healed", { heal: heal, target: target.name })}`;
@@ -128,19 +128,26 @@ export async function extendedRoll(rollFormula, messageData, config, flags) {
 
     //add/subtract extra result from the original one
     extraRollFormula = `${rollTotal}[${game.i18n.localize("WITCHER.BeforeCrit")}]`;
+    let data;
     if (isCrit(roll)) {
       extraRollFormula += `+${extraRollTotal}[${extraRollDescription}]`;
       rollTotal += extraRollTotal;
+      data = {
+        crit: true
+      }
     } else {
       if (extraRollTotal >= rollTotal) {
         extraRollTotal = rollTotal;
       }
       extraRollFormula += `-${extraRollTotal}[${extraRollDescription}]`;
       rollTotal -= extraRollTotal;
+      data = {
+        fumble: true
+      }
     }
 
     //print add/subtract roll info
-    extraRoll = await new Roll(extraRollFormula).evaluate();
+    extraRoll = await new Roll(extraRollFormula, data).evaluate();
     roll = extraRoll;
   }
 

@@ -1,4 +1,5 @@
-import { getCurrentToken } from "./helper.js";
+import { ApplyNonLethalDamage, ApplyNormalDamage } from "./applyDamage.js";
+import { getCurrentToken, getInteractActor } from "./helper.js";
 import { getRandomInt } from "./witcher.js";
 
 export function addAttackChatListeners(html) {
@@ -31,6 +32,50 @@ function onDamage(message) {
         damage.location.name = actor.getLocationObject("randomHuman");
     }
     rollDamage(item, damage);
+}
+
+export function addDamageMessageContextOptions(html, options) {
+    let canApplyDamage = li => li.find(".damage-message").length
+    let canApplyVcDamage = li => li.find(".verbalcombat-damage-message").length
+    options.push(
+        {
+            name: `${game.i18n.localize("WITCHER.Context.applyDmg")}`,
+            icon: '<i class="fas fa-user-minus"></i>',
+            condition: canApplyDamage,
+            callback: li => {
+                ApplyNormalDamage(
+                    getInteractActor(),
+                    li.find(".dice-total")[0].innerText,
+                    li[0].dataset.messageId
+                )
+            }
+        },
+        {
+            name: `${game.i18n.localize("WITCHER.Context.applyNonLethal")}`,
+            icon: '<i class="fas fa-user-minus"></i>',
+            condition: canApplyDamage,
+            callback: li => {
+                ApplyNonLethalDamage(
+                    getInteractActor(),
+                    li.find(".dice-total")[0].innerText,
+                    li[0].dataset.messageId
+                )
+            }
+        },
+        {
+            name: `${game.i18n.localize("WITCHER.Context.applyDmg")}`,
+            icon: '<i class="fas fa-user-minus"></i>',
+            condition: canApplyVcDamage,
+            callback: li => {
+                VerbalCombat.applyDamage(
+                    getInteractActor(),
+                    li.find(".dice-total")[0].innerText,
+                    li[0].dataset.messageId
+                )
+            }
+        }
+    );
+    return options;
 }
 
 export async function rollDamage(item, damage) {

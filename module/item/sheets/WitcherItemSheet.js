@@ -32,8 +32,12 @@ export default class WitcherItemSheet extends ItemSheet {
   activateListeners(html) {
     super.activateListeners(html);
     html.find(".add-effect").on("click", this._onAddEffect.bind(this));
-    html.find(".list-edit").on("blur", this._onEffectEdit.bind(this));
+    html.find(".list-edit.item-effect").on("blur", this._onEffectEdit.bind(this));
     html.find(".remove-effect").on("click", this._oRemoveEffect.bind(this));
+
+    html.find(".add-global-modifier").on("click", this._onAddGlobalModifier.bind(this));
+    html.find(".list-edit.item-global-modifier").on("blur", this._onEditGlobalModifier.bind(this));
+    html.find(".remove-global-modifier").on("click", this._oRemoveGlobalModifier.bind(this));
 
     html.find("input").focusin(ev => this._onFocusIn(ev));
     html.find(".dragable").on("dragstart", (ev) => {
@@ -90,6 +94,39 @@ export default class WitcherItemSheet extends ItemSheet {
     let itemId = element.closest(".list-item").dataset.id;
     let newEffectList = this.item.system.effects.filter(item => item.id !== itemId)
     this.item.update({ 'system.effects': newEffectList });
+  }
+
+  _onAddGlobalModifier(event) {
+    event.preventDefault();
+    let newList = []
+    if (this.item.system.globalModifiers) {
+      newList = this.item.system.effects
+    }
+    newList.push("global modifier")
+    this.item.update({ 'system.globalModifiers': newList });
+  }
+
+  _onEditGlobalModifier(event) {
+    event.preventDefault();
+    let element = event.currentTarget;
+
+    let value = element.value
+    let oldValue = element.defaultValue
+
+    let modifiers = this.item.system.globalModifiers
+
+    modifiers[modifiers.indexOf(oldValue)] = value;
+
+    this.item.update({ 'system.globalModifiers': modifiers });
+
+  }
+
+  _oRemoveGlobalModifier(event) {
+    event.preventDefault();
+    let element = event.currentTarget;
+    let itemId = element.closest(".list-item").dataset.id;
+    let newEffectList = this.item.system.globalModifiers.filter(modifier => modifier !== itemId)
+    this.item.update({ 'system.globalModifiers': newEffectList });
   }
 
   _onFocusIn(event) {

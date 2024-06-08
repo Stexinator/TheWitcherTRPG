@@ -2,6 +2,33 @@ import { extendedRoll } from "./chat.js";
 import { addAllModifiers } from "./witcher.js";
 import { RollConfig } from "./rollConfig.js";
 import { WITCHER } from "../setup/config.js";
+import { getInteractActor } from "./helper.js";
+
+export function addDefenseMessageContextOptions(html, options) {
+    let canDefend = li => li.find(".attack-message").length || li.find(".defense").length
+    options.push(
+        {
+            name: `${game.i18n.localize("WITCHER.Context.Defense")}`,
+            icon: '<i class="fas fa-shield-alt"></i>',
+            condition: canDefend,
+            callback: li => {
+                ExecuteDefense(
+                    getInteractActor(),
+                    li[0].dataset.messageId,
+                    li.find(".dice-total")[0].innerText)
+            }
+        },
+        {
+            name: `${game.i18n.localize("WITCHER.Context.Blocked")}`,
+            icon: '<i class="fas fa-shield-alt"></i>',
+            condition: canDefend,
+            callback: li => {
+                BlockAttack(getInteractActor())
+            }
+        },
+    );
+    return options;
+}
 
 function BlockAttack(actor) {
     let weapons = actor.items.filter(function (item) { return item.type == "weapon" && !item.system.isAmmo && WITCHER.meleeSkills.includes(item.system.attackSkill) });

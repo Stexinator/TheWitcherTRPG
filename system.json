@@ -6,7 +6,7 @@
     "minimum": "11",
     "verified": "12"
   },
-  "version": "1.034",
+  "version": "1.035",
   "authors": [
     {
       "name": "Stexinator",
@@ -38,7 +38,7 @@
         "bestiary",
         "combat",
         "loot",
-        "effects-and-conditions"
+        "modifiers-and-conditions"
       ],
       "folders": [
         {
@@ -186,8 +186,8 @@
       "system": "TheWitcherTRPG"
     },
     {
-      "name": "effects-and-conditions",
-      "label": "Effects & Conditions",
+      "name": "modifiers-and-conditions",
+      "label": "Global Modifiers & Conditions",
       "path": "packs/effects-and-conditions",
       "type": "Item",
       "ownership": {
