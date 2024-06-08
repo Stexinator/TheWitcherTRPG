@@ -171,7 +171,7 @@ async function defense(actor, skillName, modifier, totalAttack, attackLocation, 
     let roll = await extendedRoll(rollFormula, messageData, config)
     let crit = checkForCrit(roll.total, totalAttack)
     if (crit) {
-        messageData.flavor += `<h3 class='center-important'>${game.i18n.localize("WITCHER.Defense.Crit")}: ${game.i18n.localize(CONFIG.WITCHER.CritGravity[crit.severity])}</h3>`
+        messageData.flavor += `<h3 class='center-important crit-taken'>${game.i18n.localize("WITCHER.Defense.Crit")}: ${game.i18n.localize(CONFIG.WITCHER.CritGravity[crit.severity])}</h3>`
         crit.location = attackLocation
     }
 
@@ -221,28 +221,32 @@ function checkForCrit(defenseRoll, totalAttack) {
     if (defenseRoll < deadly) {
         return {
             severity: "deadly",
-            bonusdamage: 10
+            critdamage: 10,
+            bonusdamage: 20
         }
     }
 
     if (defenseRoll < difficult) {
         return {
             severity: "difficult",
-            bonusdamage: 8
+            critdamage: 8,
+            bonusdamage: 15
         }
     }
 
     if (defenseRoll < complex) {
         return {
             severity: "complex",
-            bonusdamage: 5
+            critdamage: 5,
+            bonusdamage: 10
         }
     }
 
     if (defenseRoll < simple) {
         return {
             severity: "simple",
-            bonusdamage: 3
+            critdamage: 3,
+            bonusdamage: 5
         }
     }
 

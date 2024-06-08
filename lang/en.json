@@ -890,7 +890,10 @@
       "Blocked": "Blocked",
       "SelectActor": "At least one actor must be selected",
       "Result": "Result",
-      "unavailable": "N/A"
+      "unavailable": "N/A",
+      "applyCritDmg": "Apply Critical Wound Damage",
+      "applyBonusCritDmg": "Apply Critical Wound Bonus Damage",
+      "applyCritWound": "Apply Critical Wound"
     },
     "Defense": {
       "Crit": "You received a crit"
