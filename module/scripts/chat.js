@@ -1,7 +1,3 @@
-import { ApplyNormalDamage, ApplyNonLethalDamage } from "../scripts/actions.js";
-import { ExecuteDefense, BlockAttack } from "../scripts/defenses.js";
-import * as VerbalCombat from "./verbalCombat.js";
-
 export function addChatListeners(html) {
   html.on('click', "button.shield", onShield)
   html.on('click', "button.heal", onHeal)
@@ -191,79 +187,4 @@ function isCrit(roll) {
 
 function isFumble(roll) {
   return roll.dice[0].results[0].result == 1;
-}
-
-export function addChatMessageContextOptions(html, options) {
-  let canDefend = li => li.find(".attack-message").length || li.find(".defense").length
-  let canApplyDamage = li => li.find(".damage-message").length
-  let canApplyVcDamage = li => li.find(".verbalcombat-damage-message").length
-
-  options.push(
-    {
-      name: `${game.i18n.localize("WITCHER.Context.applyDmg")}`,
-      icon: '<i class="fas fa-user-minus"></i>',
-      condition: canApplyDamage,
-      callback: li => {
-        ApplyNormalDamage(
-          getInteractActor(),
-          li.find(".dice-total")[0].innerText,
-          li[0].dataset.messageId
-        )
-      }
-    },
-    {
-      name: `${game.i18n.localize("WITCHER.Context.applyNonLethal")}`,
-      icon: '<i class="fas fa-user-minus"></i>',
-      condition: canApplyDamage,
-      callback: li => {
-        ApplyNonLethalDamage(
-          getInteractActor(),
-          li.find(".dice-total")[0].innerText,
-          li[0].dataset.messageId
-        )
-      }
-    },
-    {
-      name: `${game.i18n.localize("WITCHER.Context.Defense")}`,
-      icon: '<i class="fas fa-shield-alt"></i>',
-      condition: canDefend,
-      callback: li => {
-        ExecuteDefense(
-          getInteractActor(),
-          li[0].dataset.messageId,
-          li.find(".dice-total")[0].innerText)
-      }
-    },
-    {
-      name: `${game.i18n.localize("WITCHER.Context.Blocked")}`,
-      icon: '<i class="fas fa-shield-alt"></i>',
-      condition: canDefend,
-      callback: li => {
-        BlockAttack(getInteractActor())
-      }
-    },
-    {
-      name: `${game.i18n.localize("WITCHER.Context.applyDmg")}`,
-      icon: '<i class="fas fa-user-minus"></i>',
-      condition: canApplyVcDamage,
-      callback: li => {
-        VerbalCombat.applyDamage(
-          getInteractActor(),
-          li.find(".dice-total")[0].innerText,
-          li[0].dataset.messageId
-        )
-      }
-    }
-  );
-  return options;
-}
-
-function getInteractActor() {
-  let actor = canvas.tokens.controlled[0]?.actor ?? game.user.character
-  if (!actor) {
-    ui.notifications.error(game.i18n.localize("WITCHER.Context.SelectActor"));
-    return null;
-  }
-
-  return actor;
 }

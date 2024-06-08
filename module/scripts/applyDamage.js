@@ -1,4 +1,37 @@
 import { buttonDialog } from "./chat.js";
+import { getInteractActor } from "./helper.js";
+
+export function addDamageMessageContextOptions(html, options) {
+  let canApplyDamage = li => li.find(".damage-message").length
+  let canApplyVcDamage = li => li.find(".verbalcombat-damage-message").length
+  options.push(
+    {
+      name: `${game.i18n.localize("WITCHER.Context.applyDmg")}`,
+      icon: '<i class="fas fa-user-minus"></i>',
+      condition: canApplyDamage,
+      callback: li => {
+        ApplyNormalDamage(
+          getInteractActor(),
+          li.find(".dice-total")[0].innerText,
+          li[0].dataset.messageId
+        )
+      }
+    },
+    {
+      name: `${game.i18n.localize("WITCHER.Context.applyNonLethal")}`,
+      icon: '<i class="fas fa-user-minus"></i>',
+      condition: canApplyDamage,
+      callback: li => {
+        ApplyNonLethalDamage(
+          getInteractActor(),
+          li.find(".dice-total")[0].innerText,
+          li[0].dataset.messageId
+        )
+      }
+    }
+  );
+  return options;
+}
 
 async function ApplyNormalDamage(actor, totalDamage, messageId) {
   applyDamage(actor, totalDamage, messageId, "hp")
@@ -19,17 +52,15 @@ async function applyDamage(actor, totalDamage, messageId, derivedStat) {
 
   let naturalArmors = armors.filter(n => n.system.type == "Natural")
 
-  let damageTypeloc = `WITCHER.Armor.${damage.type}`;
-
   const locationOptions = `
     <option value="Empty"></option>
-    <option value="Head"> ${game.i18n.localize("WITCHER.Dialog.attackHead")} </option>
-    <option value="Torso"> ${game.i18n.localize("WITCHER.Dialog.attackTorso")} </option>
-    <option value="L. Arm"> ${game.i18n.localize("WITCHER.Dialog.attackLArm")} </option>
-    <option value="R. Arm"> ${game.i18n.localize("WITCHER.Dialog.attackRArm")} </option>
-    <option value="L. Leg"> ${game.i18n.localize("WITCHER.Dialog.attackLLeg")} </option>
-    <option value="R. Leg"> ${game.i18n.localize("WITCHER.Dialog.attackRLeg")} </option>
-    <option value="Tail/Wing"> ${game.i18n.localize("WITCHER.Dialog.attackTail")} </option>
+    <option value="head"> ${game.i18n.localize("WITCHER.Dialog.attackHead")} </option>
+    <option value="torso"> ${game.i18n.localize("WITCHER.Dialog.attackTorso")} </option>
+    <option value="leftArm"> ${game.i18n.localize("WITCHER.Dialog.attackLArm")} </option>
+    <option value="rightArm"> ${game.i18n.localize("WITCHER.Dialog.attackRArm")} </option>
+    <option value="leftLeg"> ${game.i18n.localize("WITCHER.Dialog.attackLLeg")} </option>
+    <option value="rightLeg"> ${game.i18n.localize("WITCHER.Dialog.attackRLeg")} </option>
+    <option value="tailWing"> ${game.i18n.localize("WITCHER.Dialog.attackTail")} </option>
     `;
 
   const silverOptions = `
@@ -42,6 +73,7 @@ async function applyDamage(actor, totalDamage, messageId, derivedStat) {
     `;
 
   let location = damage.location;
+  let damageTypeloc = `WITCHER.Armor.${damage.type}`;
   let content = `<label>${game.i18n.localize("WITCHER.Damage.damageType")}: <b>${game.i18n.localize(damageTypeloc)}</b></label> <br />
       <label>${game.i18n.localize("WITCHER.Damage.CurrentLocation")}: <b>${location.alias}</b></label> <br />
       <label>${game.i18n.localize("WITCHER.Damage.ChangeLocation")}: <select name="changeLocation">${locationOptions}</select></label> <br />`
@@ -128,39 +160,40 @@ async function applyDamage(actor, totalDamage, messageId, derivedStat) {
   let displaySP = ""
   let values;
 
+  console.log(location.name)
   //todo refactor
   switch (location.name) {
-    case "Head":
+    case "head":
       armorSet = getArmors(headArmors)
       values = getArmorSp(armorSet, "headStopping")
       displaySP = values[0]
       totalSP = values[1]
       break;
-    case "Torso":
+    case "torso":
       armorSet = getArmors(torsoArmors)
       values = getArmorSp(armorSet, "torsoStopping")
       displaySP = values[0]
       totalSP = values[1]
       break;
-    case "R. Arm":
+    case "rightArm":
       armorSet = getArmors(torsoArmors)
       values = getArmorSp(armorSet, "rightArmStopping")
       displaySP = values[0]
       totalSP = values[1]
       break;
-    case "L. Arm":
+    case "leftArm":
       armorSet = getArmors(torsoArmors)
       values = getArmorSp(armorSet, "leftArmStopping")
       displaySP = values[0]
       totalSP = values[1]
       break;
-    case "R. Leg":
+    case "rightLeg":
       armorSet = getArmors(legArmors)
       values = getArmorSp(armorSet, "rightLegStopping")
       displaySP = values[0]
       totalSP = values[1]
       break;
-    case "L. Leg":
+    case "leftLeg":
       armorSet = getArmors(legArmors)
       values = getArmorSp(armorSet, "leftLegStopping")
       displaySP = values[0]
@@ -171,22 +204,22 @@ async function applyDamage(actor, totalDamage, messageId, derivedStat) {
   if (actor.type == "monster") {
     //todo refactor
     switch (location.name) {
-      case "Head":
+      case "head":
         totalSP += actor.system.armorHead;
         displaySP += actor.system.armorHead;
         break;
-      case "Torso":
-      case "R. Arm":
-      case "L. Arm":
+      case "torso":
+      case "rightArm":
+      case "leftArm":
         totalSP += actor.system.armorUpper;
         displaySP += actor.system.armorUpper;
         break;
-      case "R. Leg":
-      case "L. Leg":
+      case "rightLeg":
+      case "leftLeg":
         totalSP += actor.system.armorLower;
         displaySP += actor.system.armorLower;
         break;
-      case "Tail/Wing":
+      case "tailWing":
         totalSP += actor.system.armorTailWing;
         displaySP += actor.system.armorTailWing;
         break;
@@ -196,19 +229,15 @@ async function applyDamage(actor, totalDamage, messageId, derivedStat) {
   naturalArmors.forEach(armor => {
     //todo refactor
     switch (location.name) {
-      case "Head": totalSP = Number(totalSP) + Number(armor?.system.headStopping); displaySP += `+${armor?.system.headStopping}`; break;
-      case "Torso": totalSP = Number(totalSP) + Number(armor?.system.torsoStopping); displaySP += `+${armor?.system.torsoStopping}`; break;
-      case "R. Arm": totalSP = Number(totalSP) + Number(armor?.system.rightArmStopping); displaySP += `+${armor?.system.rightArmStopping}`; break;
-      case "L. Arm": totalSP = Number(totalSP) + Number(armor?.system.leftArmStopping); displaySP += `+${armor?.system.leftArmStopping}`; break;
-      case "R. Leg": totalSP = Number(totalSP) + Number(armor?.system.rightLegStopping); displaySP += `+${armor?.system.rightLegStopping}`; break;
-      case "L. Leg": totalSP = Number(totalSP) + Number(armor?.system.leftLegStopping); displaySP += `+${armor?.system.leftLegStopping}`; break;
+      case "head": totalSP = Number(totalSP) + Number(armor?.system.headStopping); displaySP += `+${armor?.system.headStopping}`; break;
+      case "torso": totalSP = Number(totalSP) + Number(armor?.system.torsoStopping); displaySP += `+${armor?.system.torsoStopping}`; break;
+      case "rightArm": totalSP = Number(totalSP) + Number(armor?.system.rightArmStopping); displaySP += `+${armor?.system.rightArmStopping}`; break;
+      case "leftArm": totalSP = Number(totalSP) + Number(armor?.system.leftArmStopping); displaySP += `+${armor?.system.leftArmStopping}`; break;
+      case "rightLeg": totalSP = Number(totalSP) + Number(armor?.system.rightLegStopping); displaySP += `+${armor?.system.rightLegStopping}`; break;
+      case "leftLeg": totalSP = Number(totalSP) + Number(armor?.system.leftLegStopping); displaySP += `+${armor?.system.leftLegStopping}`; break;
     }
     displaySP += `[${game.i18n.localize("WITCHER.Armor.Natural")}]`;
   })
-
-  if (actor.type == "character" && !armorSet && !naturalArmors) {
-    return
-  }
 
   if (damageOptions.improvedArmorPiercing) {
     totalSP = totalSP / 2;
@@ -255,7 +284,7 @@ async function applyDamage(actor, totalDamage, messageId, derivedStat) {
   let spDamage = damageOptions.ablating ? Math.floor((await new Roll("1d6/2+1").evaluate()).total) : 1
   //todo refactor
   switch (location.name) {
-    case "Head":
+    case "head":
       if (armorSet["lightArmor"]) {
         let lightArmorSP = armorSet["lightArmor"].system.headStopping - spDamage;
         if (lightArmorSP < 0) {
@@ -278,7 +307,7 @@ async function applyDamage(actor, totalDamage, messageId, derivedStat) {
         armorSet["heavyArmor"].update({ 'system.headStopping': heavyArmorSP })
       }
       break;
-    case "Torso":
+    case "torso":
       if (armorSet["lightArmor"]) {
         let lightArmorSP = armorSet["lightArmor"].system.torsoStopping - spDamage;
         if (lightArmorSP < 0) {
@@ -301,7 +330,7 @@ async function applyDamage(actor, totalDamage, messageId, derivedStat) {
         armorSet["heavyArmor"].update({ 'system.torsoStopping': heavyArmorSP })
       }
       break;
-    case "R. Arm":
+    case "rightArm":
       if (armorSet["lightArmor"]) {
         let lightArmorSP = armorSet["lightArmor"].system.rightArmStopping - spDamage;
         if (lightArmorSP < 0) {
@@ -324,7 +353,7 @@ async function applyDamage(actor, totalDamage, messageId, derivedStat) {
         armorSet["heavyArmor"].update({ 'system.rightArmStopping': heavyArmorSP })
       }
       break;
-    case "L. Arm":
+    case "leftArm":
       if (armorSet["lightArmor"]) {
         let lightArmorSP = armorSet["lightArmor"].system.leftArmStopping - spDamage;
         if (lightArmorSP < 0) {
@@ -347,7 +376,7 @@ async function applyDamage(actor, totalDamage, messageId, derivedStat) {
         armorSet["heavyArmor"].update({ 'system.leftArmStopping': heavyArmorSP })
       }
       break;
-    case "R. Leg":
+    case "rightLeg":
       if (armorSet["lightArmor"]) {
         let lightArmorSP = armorSet["lightArmor"].system.rightLegStopping - spDamage;
         if (lightArmorSP < 0) {
@@ -370,7 +399,7 @@ async function applyDamage(actor, totalDamage, messageId, derivedStat) {
         armorSet["heavyArmor"].update({ 'system.rightLegStopping': heavyArmorSP })
       }
       break;
-    case "L. Leg":
+    case "leftLeg":
       if (armorSet["lightArmor"]) {
         let lightArmorSP = armorSet["lightArmor"].system.leftLegStopping - spDamage;
         if (lightArmorSP < 0) {
