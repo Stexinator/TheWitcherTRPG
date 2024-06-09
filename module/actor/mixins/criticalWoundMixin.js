@@ -1,14 +1,12 @@
 import { genId } from "../../scripts/witcher.js";
-import { WITCHER } from "../../setup/config.js";
 
 export let criticalWoundMixin = {
 
     async _onCriticalWoundAdd(event) {
         event.preventDefault();
-        const prevCritList = this.actor.system.critWounds;
-        const newCritList = Object.values(prevCritList).map((details) => details);
-        newCritList.push({ id: genId() });
-        this.actor.update({ "system.critWounds": newCritList });
+        const critList = this.actor.system.critWounds;
+        critList.push({ id: genId() });
+        this.actor.update({ "system.critWounds": critList });
     },
 
     async _onCriticalWoundRemove(event) {

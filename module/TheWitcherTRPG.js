@@ -2,6 +2,9 @@ import { WITCHER } from "./setup/config.js";
 import * as Chat from "./scripts/chat.js";
 import * as Attack from "./scripts/attack.js"
 import * as VerbalCombat from "./scripts/verbalCombat.js"
+import * as Defense from "./scripts/defenses.js"
+import * as ApplyDamage from "./scripts/applyDamage.js"
+import * as Crit from "./scripts/applyCrit.js"
 import { registerSettings } from "./setup/settings.js";
 
 import WitcherItem from "./item/witcherItem.js";
@@ -151,7 +154,10 @@ Hooks.once("polyglot.init", (LanguageProvider) => {
     game.polyglot.api.registerSystem(FictionalGameSystemLanguageProvider)
 })
 
-Hooks.on("getChatLogEntryContext", Chat.addChatMessageContextOptions);
+Hooks.on("getChatLogEntryContext", ApplyDamage.addDamageMessageContextOptions);
+Hooks.on("getChatLogEntryContext", VerbalCombat.addVerbalCombatMessageContextOptions);
+Hooks.on("getChatLogEntryContext", Defense.addDefenseMessageContextOptions);
+Hooks.on("getChatLogEntryContext", Crit.addCritMessageContextOptions);
 
 /**
  * Create a Macro from an Item drop.

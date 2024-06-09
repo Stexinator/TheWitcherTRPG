@@ -24,10 +24,12 @@
       "ROF": "ROF",
       "Availability": "Availability",
       "AddEffect": "Add Effect",
+      "AddGlobalModifier": "Add Global Modifier",
       "AddComponent": "Add Component",
       "AddAssociatedItem": "Add Associated Item",
       "RemoveAssociatedItem": "Remove Associated Item",
       "RemoveEffect": "Remove Effect",
+      "RemoveGlobalModifier": "Remove Global Modifier",
       "RemoveComponent": "Remove Component",
       "CraftingMaterial": "Crafting Material",
       "Hides&AnimalParts": "Hides & Animal Parts",
@@ -888,7 +890,10 @@
       "Blocked": "Blocked",
       "SelectActor": "At least one actor must be selected",
       "Result": "Result",
-      "unavailable": "N/A"
+      "unavailable": "N/A",
+      "applyCritDmg": "Apply Critical Wound Damage",
+      "applyBonusCritDmg": "Apply Critical Wound Bonus Damage",
+      "applyCritWound": "Apply Critical Wound"
     },
     "Defense": {
       "Crit": "You received a crit"

@@ -1,3 +1,5 @@
+import { getInteractActor } from "./helper.js";
+
 export function addVerbalCombatChatListeners(html) {
 
     // setup chat listener messages for each message as some need the message context instead of chatlog context.
@@ -9,6 +11,25 @@ export function addVerbalCombatChatListeners(html) {
 
         await chatMessageListeners(message, element)
     });
+}
+
+export function addVerbalCombatMessageContextOptions(html, options) {
+    let canApplyVcDamage = li => li.find(".verbalcombat-damage-message").length
+    options.push(
+        {
+            name: `${game.i18n.localize("WITCHER.Context.applyDmg")}`,
+            icon: '<i class="fas fa-user-minus"></i>',
+            condition: canApplyVcDamage,
+            callback: li => {
+                applyDamage(
+                    getInteractActor(),
+                    li.find(".dice-total")[0].innerText,
+                    li[0].dataset.messageId
+                )
+            }
+        }
+    );
+    return options;
 }
 
 export const chatMessageListeners = async (message, html) => {

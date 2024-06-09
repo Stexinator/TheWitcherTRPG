@@ -658,8 +658,8 @@ export let itemMixin = {
     }
 
     let armorEnc = getArmorEcumbrance(this.actor)
-    rollFormula += !displayRollDetails ? `-${armorEnc}` : `-${armorEnc}[${game.i18n.localize("WITCHER.Armor.EncumbranceValue")}]`
     if (armorEnc > 0) {
+      rollFormula += !displayRollDetails ? `-${armorEnc}` : `-${armorEnc}[${game.i18n.localize("WITCHER.Armor.EncumbranceValue")}]`
       rollFormula = this.handleSpecialModifier(rollFormula, "magic-armorencumbarance")
     }
     rollFormula = this.handleSpecialModifier(rollFormula, "magic")
@@ -864,6 +864,10 @@ export let itemMixin = {
     let roll = await extendedRoll(rollFormula, messageData, config)
     let message = await roll.toMessage(messageData);
 
+    if (!roll.data.fumble) {
+      await spellItem.system.globalModifiers.forEach(modifier => this._activateGlobalModifier(modifier))
+    }
+
     message.setFlag('TheWitcherTRPG', 'attack', spellItem.getSpellFlags())
     message.setFlag('TheWitcherTRPG', 'damage', damage)
   },
@@ -878,6 +882,22 @@ export let itemMixin = {
     event.preventDefault();
     let section = event.currentTarget.closest(".substance");
     this.actor.update({ [`system.pannels.${section.dataset.subtype}IsOpen`]: !this.actor.system.pannels[section.dataset.subtype + 'IsOpen'] });
+  },
+
+  async _activateGlobalModifier(name) {
+    let toActivate = this.actor.items.find(item => item.type == "globalModifier" && item.name == name)
+
+    if (!toActivate) {
+      let compendium = game.packs.get("TheWitcherTRPG.modifiers-and-conditions")
+      let newGlobalModifier = await compendium.getDocuments({ name: name })
+      toActivate = (await Item.create(newGlobalModifier, { parent: this.actor })).shift();
+    }
+
+    if (!toActivate || toActivate.system.isActive) return;
+
+    toActivate.update({
+      'system.isActive': true
+    });
   },
 
   itemListener(html) {
