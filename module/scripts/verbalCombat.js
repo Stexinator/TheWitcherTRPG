@@ -57,5 +57,5 @@ export async function rollDamage(verbalCombat, damage) {
 
 export async function applyDamage(targetActor, totalDamage, messageId) {
     let currentResolve = targetActor.system.derivedStats.resolve.value
-    targetActor.update({ 'system.derivedStats.resolve.value': currentResolve - totalDamage });
+    targetActor.update({ 'system.derivedStats.resolve.value': currentResolve - Math.floor(totalDamage) });
 }
