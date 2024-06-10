@@ -14,6 +14,7 @@ export default class WeaponData extends CommonItemData {
       ...commonData,
       type: new fields.SchemaField(weaponType()),
       isAmmo: new fields.BooleanField({ initial: false }),
+      isThrowable: new fields.BooleanField({ initial: false }),
 
       conceal: new fields.StringField({ initial: '' }),
       avail: new fields.StringField({ initial: '' }),
