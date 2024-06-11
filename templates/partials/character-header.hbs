@@ -145,10 +145,10 @@
             </tr>
             <tr>
                 <td><b>{{localize "WITCHER.Homeland"}}</b></td>
-                {{#if (eq system.general.homeland.value "Other")}}
+                {{#if (eq system.general.homeland.value "other")}}
                     <td>{{system.general.homeland.otherValue}}</td>
                 {{else}}
-                    <td>{{localize system.general.homeland.value}}</td>
+                    <td>{{localize (concat "WITCHER.Homelands." system.general.homeland.value)}}</td>
                 {{/if}}
                 <td></td>
                 <td></td>

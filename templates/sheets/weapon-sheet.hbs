@@ -170,16 +170,16 @@
                                 class="fas fa-minus"></i></a>
                     </th>
                     <td class="list-item" data-id="{{effect.id}}">
-                        <input class="list-edit item-effect" data-field="name"
+                        <input class="list-edit" data-field="name"
                             placeholder="{{localize 'WITCHER.table.Name'}}" type="text" value="{{effect.name}}" />
                     </td>
                     <td class="list-item" data-id="{{effect.id}}">
-                        <select class="list-edit item-effect" data-field="statusEffect">
+                        <select class="list-edit" data-field="statusEffect">
                             {{selectOptions ../config.statusEffects blank='' selected=effect.statusEffect nameAttr='id' valueAttr="id" labelAttr="label" localize=true}}
                         </select>
                     </td>
                     <td class="list-item" data-id="{{effect.id}}">
-                        <input class="list-edit" data-field="percentage" type="number" placeholder="%"
+                        <input class="list-edit" data-field="percentage" type="number" placeholder="0"
                             value="{{effect.percentage}}" data-dtype="Number" />
                     </td>
                 </tr>
