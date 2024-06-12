@@ -12,6 +12,7 @@ import WitcherMysterySheet from "../actor/sheets/investigation/WitcherMysteryShe
 import WitcherClueSheet from "../item/sheets/investigation/WitcherClueSheet.js";
 import WitcherObstacleSheet from "../item/sheets/investigation/WitcherObstacleSheet.js";
 import WitcherGlobalModifierSheet from "../item/sheets/WitcherGlobalModifierSheet.js";
+import WitcherSpellSheet from "../item/sheets/WitcherSpellSheet.js";
 
 export const registerSheets = () => {
     Items.unregisterSheet("core", ItemSheet);
@@ -19,6 +20,10 @@ export const registerSheets = () => {
     Items.registerSheet("witcher", WitcherWeaponSheet, {
         makeDefault: true,
         types: ['weapon']
+    });
+    Items.registerSheet("witcher", WitcherSpellSheet, {
+        makeDefault: true,
+        types: ['spell']
     });
     Items.registerSheet("witcher", WitcherEffectSheet, {
         makeDefault: true,
