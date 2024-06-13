@@ -39,7 +39,7 @@
       "AvailabilityCommon": "C",
       "AvailabilityPoor": "I",
       "AvailabilityRare": "R",
-      "AvailabilityWitcher": "W",
+      "AvailabilityWitcher": "B",
       "Tiny": "M",
       "Small": "P",
       "Large": "G",
@@ -50,7 +50,7 @@
       "CraftingDiagram": "Você tem uma receita em mãos",
       "RealCrafting": "Usar criação real",
       "Crafting": "Criar um",
-      "CraftingTitle": "Executando uma ação de Criação",
+      "CraftingTitle": "Executando uma ação de Criar",
       "AlchemyTitle": "Executando uma ação de Alquimia",
       "ButtonCraft": "Criar",
       "CraftingAlchemycal": "Criando um alquímico",
@@ -80,9 +80,9 @@
       "attackTail": "Cauda/Asa",
       "attackOutsideLOS": "Fora da visão do inimigo",
       "attackIsFastDraw": "Saque Rápido",
-      "attackIsProne": "Você esta prostrado",
+      "attackIsProne": "Você esta Prostrado",
       "attackIsPinned": "Alvo Fixo",
-      "attackIsActivelyDodging": "Alvo em esquiva eficaz",
+      "attackIsActivelyDodging": "Alvo em Esquiva Eficaz",
       "attackIsMoving": "Alvo Móvel REF > 10",
       "attackTargetOutsideLOS": "Alvo fora da sua visão",
       "attackIsAmbush": "Emboscada",
@@ -104,7 +104,7 @@
       "strikeFast": "Golpe Rápido",
       "strikeStrong": "Golpe Forte",
       "strikeJoint": "Ataque Conjunto",
-      "attackUse": "Ataque utiliza",
+      "attackUse": "Perícia utilizada",
       "attackExtra": "Ataque Extra",
       "attackLocation": "Local de Acerto",
       "damageType": "Tipo de Dano",
@@ -114,7 +114,7 @@
       "attackCustom": "Modificadores Extras",
       "attackStrike": "Tipo de Golpe",
       "attackDamage": "Dano",
-      "attackMeleeBonus": "Bônus Corpo a Corpo",
+      "attackMeleeBonus": "Bônus de Curta Distância",
       "attackCustomDmg": "Modificadores de Dano Extra",
       "attackWith": "Executando um Ataque com",
       "chooseAmmunition": "Escolha Munição",
@@ -148,7 +148,7 @@
       "Damage": "Dano",
       "Concealment": "Porte",
       "AttackSkill": "Perícia de Ataque",
-      "MeleeBonus": "Bônus Corpo a Corpo",
+      "MeleeBonus": "Bônus de Curta Distância",
       "isAmmunition": "É uma Munição",
       "isThrowable": "É um Arremessável",
       "Broken": "Sua arma agora está Quebrada",
@@ -238,7 +238,7 @@
       "Oil": "Óleo"
     },
     "Diagram": {
-      "alchemyDC": "ND de Alquímia",
+      "alchemyDC": "ND de Alquimia",
       "craftingDC": "ND de Criar",
       "craftingTime": "Tempo",
       "components": "Componentes",
@@ -250,8 +250,8 @@
       "Weapon": "Arma",
       "Armor": "Armadura",
       "ArmorEnhancement": "Melhoria de Armadura",
-      "ElderFolkWeapon": "Armas do Povo Ancestral",
-      "ElderFolkArmor": "Armaduras do Povo Ancestral",
+      "ElderFolkWeapon": "Arma do Povo Ancestral",
+      "ElderFolkArmor": "Armadura do Povo Ancestral",
       "Ammunition": "Munição",
       "Bomb": "Bombas",
       "Traps": "Armadilhas",
@@ -338,7 +338,7 @@
       "DerStat.Punch": "Soco",
       "DerStat.Kick": "Chute",
       "Initiative": "Iniciativa",
-      "SavingThrow": "ATORD/MORTE",
+      "SavingThrow": "Salvaguarda",
       "Crit/Fumble": "Crít/Vacilo",
       "Defense": "Defesa",
       "Adrenaline": "Adrenalina",
@@ -531,7 +531,7 @@
     "LifeEvents": "Eventos de Vida",
     "Decade": "Década",
     "Event": "Evento",
-    "DeathSave": "Atord/Morte",
+    "DeathSave": "Salvaguarda",
     "BeforeCrit": "Antes do Crítico",
     "Crit": "Crítico",
     "Fumble": "Vacilo",
@@ -649,6 +649,7 @@
       "IngredientDiagrams": "Diagramas de Componentes",
       "WeaponDiagrams": "Diagramas de Armas",
       "ArmorDiagrams": "Diagramas de Armadura",
+      "enhancementDiagrams": "Diagramas de Equipamento",
       "ElderfolkWeaponDiagrams": "Diagramas de Armas do Povo Ancestral",
       "ElderfolkArmorDiagrams": "Diagramas de Armaduras do Povo Ancestral",
       "AmmunitionDiagrams": "Diagramas de Munição",
@@ -716,7 +717,7 @@
       "notEnoughSta": "Não há estamina suficiente.",
       "MagicCost": "Custos Mágicos",
       "ChooseFocus": "Use um Foco",
-      "ChooseExpandedFocus": "Use Magia Expandida (somente Mago)",
+      "ChooseExpandedFocus": "Use Magia Expandida",
       "CreateTemplate": "Crie um Modelo",
       "meters": "m",
       "Size": "Tamanho",
@@ -773,8 +774,8 @@
     "Notes": "Anotações",
     "Skills": {
       "SkillGroups": {
-        "meleeSkills": "Perícias Corpo a corpo",
-        "rangedSkills": "Perícias à Distância",
+        "meleeSkills": "Perícias de Curta Distância",
+        "rangedSkills": "Perícias a Distância",
         "magicSkills": "Perícias Mágicas",
         "verbalCombatSkills": "Perícias de Combate Verbal",
         "empatheticVerbalCombatSkills": "Perícias Empáticas de Combate Verbal"
@@ -848,7 +849,7 @@
     "Profession": "Profissão",
     "Reputation": "Reputação",
     "NoDamageSpecified": "O Dano não é especificado",
-    "Shield.Broken": "Seu Escudo agora está quebrado",
+    "Shield.Broken": "Seu Escudo agora está Quebrado",
     "SKill.profession": "Prof",
     "SKill.pickup": "Escolha",
     "SKill.learn": "Aprendeu",
@@ -891,9 +892,9 @@
       "SelectActor": "Pelo menos um ator deve ser selecionado",
       "Result": "Resultado",
       "unavailable": "N/A",
-      "applyCritDmg": "Apply Critical Wound Damage",
-      "applyBonusCritDmg": "Apply Critical Wound Bonus Damage",
-      "applyCritWound": "Apply Critical Wound"
+      "applyCritDmg": "Aplicar Dano do Ferimento Crítico",
+      "applyBonusCritDmg": "Aplicar Dano Bônus do Ferimento Crítico",
+      "applyCritWound": "Aplicar Ferimento Crítico"
     },
     "Defense": {
       "Crit": "Você recebeu um crítico"
@@ -960,7 +961,7 @@
     "Effect": {
       "Rolled": "Rolado",
       "Applied": "Aplicado",
-      "Failed": "Fracassado"
+      "Failed": "Falhou"
     },
     "globalModifier": {
       "isActive": "Está Ativo",
@@ -968,7 +969,7 @@
       "specialEffect": {
         "wolfstrike": "Ataque Forte da Escola do Lobo",
         "armoredCaster": "Mago com Escudo",
-        "meleeDamage": "+1 Dano Corpo a Corpo"
+        "meleeDamage": "+1 Dano de Curta Distância"
       }
     },
     "character.socialStanding": "Posição Social",
@@ -1017,6 +1018,7 @@
       "fire": "Fogo",
       "stun": "Atordoamento",
       "poison": "Veneno",
+      "disease": "Doença",
       "prone": "Prostrar",
       "bleed": "Sangramento",
       "freeze": "Congelar",
@@ -1030,15 +1032,15 @@
       "invisible": "Invisível",
       "unconscious": "Inconsciente",
       "grappled": "Agarrar",
-      "flying": "Caindo",
+      "flying": "Voando",
       "frightened": "Com Medo",
       "aiming": "Mirando",
       "deaf": "Surdo",
-      "reducedVision": "Visão Reduzida",
+      "reducedVision": "Visão Restrita",
       "holdAction": "Segurar Ação"
     },
     "armorEffects": {
-      "fireResistance": "Resistência ao Fogo",
+      "fireResistance": "Resistência a Fogo",
       "poisonResistance": "Resistência a Veneno",
       "bleedResistance": "Resistência a Sangramento"
     }
