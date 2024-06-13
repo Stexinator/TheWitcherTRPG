@@ -43,6 +43,10 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 
 ## Version History ##
 
+### 1.037 ###
+- small bug fixes
+- fixing some deprecations
+
 ### 1.036 ###
 - small bug fixes
 

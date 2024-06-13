@@ -1807,6 +1807,11 @@ WITCHER.statusEffects = [
         icon: 'icons/svg/poison.svg',
     },
     {
+        id: 'disease',
+        label: 'WITCHER.statusEffects.disease',
+        icon: 'icons/svg/biohazard.svg',
+    },
+    {
         id: 'prone',
         label: 'WITCHER.statusEffects.prone',
         icon: 'icons/svg/falling.svg',

@@ -27,6 +27,7 @@ export default class ArmorData extends CommonItemData {
       reliabilityMax: new fields.NumberField({ initial: 0 }),
       encumb: new fields.NumberField({ initial: 0 }),
       location: new fields.StringField({ initial: '' }),
+
       bludgeoning: new fields.BooleanField({ initial: false }),
       slashing: new fields.BooleanField({ initial: false }),
       piercing: new fields.BooleanField({ initial: false }),
