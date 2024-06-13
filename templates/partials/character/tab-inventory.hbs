@@ -518,6 +518,11 @@
             {{> "systems/TheWitcherTRPG/templates/partials/character/tab-inventory-diagrams.hbs" diagrams=weaponDiagrams}}
         {{/if}}
 
+        {{#if enhancementDiagrams}}
+            <h3>{{localize "WITCHER.Inventory.enhancementDiagrams"}}</h3>
+            {{> "systems/TheWitcherTRPG/templates/partials/character/tab-inventory-diagrams.hbs" diagrams=enhancementDiagrams}}
+        {{/if}}
+
         {{#if armorDiagrams}}
             <h3>{{localize "WITCHER.Inventory.ArmorDiagrams"}}</h3>
             {{> "systems/TheWitcherTRPG/templates/partials/character/tab-inventory-diagrams.hbs" diagrams=armorDiagrams}}
