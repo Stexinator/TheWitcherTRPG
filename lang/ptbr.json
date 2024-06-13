@@ -112,7 +112,11 @@
       "attackCustom": "Modificadores Extras",
       "attackStrike": "Tipo de Golpe",
       "attackDamage": "Dano",
+<<<<<<< HEAD
       "attackMeleeBonus": " Bônus Corpo a Corpo",
+=======
+      "attackMeleeBonus": "Bônus de Curta Distância",
+>>>>>>> db99f2a (Fix ptbr additions and other small fixes)
       "attackCustomDmg": "Modificadores de Dano Extra",
       "attackWith": "Executando um Ataque com",
       "chooseAmmunition": " Escolha Munição",
@@ -146,7 +150,7 @@
       "Damage": "Dano",
       "Concealment": "Porte",
       "AttackSkill": "Perícia de Ataque",
-      "MeleeBonus": "Bônus Corpo a Corpo",
+      "MeleeBonus": "Bônus de Curta Distância",
       "isAmmunition": "É uma Munição",
       "isThrowable": "É um Arremessável",
       "Broken": "Sua arma agora está quebrada",
@@ -241,9 +245,9 @@
       "Ingredient": "Ingrediente",
       "Weapon": "Arma",
       "Armor": "Armadura",
-      "ArmorEnhancement": "Melhoria de Armadura",
-      "ElderFolkWeapon": "Armas do Povo Ancestral",
-      "ElderFolkArmor": "Armaduras do Povo Ancestral",
+      "ArmorEnhancement": "Melhoria de Equipamento",
+      "ElderFolkWeapon": "Arma do Povo Ancestral",
+      "ElderFolkArmor": "Armadura do Povo Ancestral",
       "Ammunition": "Munição",
       "Bomb": "Bombas",
       "Traps": "Armadilhas",
@@ -763,6 +767,18 @@
     "background.globalModifier": "Modificadores Globais",
     "Resources.modifiers": "Modificadores de Recursos",
     "Notes": "Anotações",
+<<<<<<< HEAD
+=======
+    "Skills": {
+      "SkillGroups": {
+        "meleeSkills": "Perícias de Curta Distância",
+        "rangedSkills": "Perícias à Distância",
+        "magicSkills": "Perícias Mágicas",
+        "verbalCombatSkills": "Perícias de Combate Verbal",
+        "empatheticVerbalCombatSkills": "Perícias Empáticas de Combate Verbal"
+      }
+    },
+>>>>>>> db99f2a (Fix ptbr additions and other small fixes)
     "SkIntAwareness": "Consciência",
     "SkIntBusiness": "Negócios",
     "SkIntDeduction": "Dedução",
@@ -873,7 +889,14 @@
       "Blocked": "Bloquear",
       "SelectActor": "Pelo menos um ator deve ser selecionado",
       "Result": "Resultado",
+<<<<<<< HEAD
       "unavailable": "N/A"
+=======
+      "unavailable": "N/A",
+      "applyCritDmg": "Aplicar Dano de Ferimento Crítico",
+      "applyBonusCritDmg": "Aplicar Dano Bônus de Ferimento Crítico",
+      "applyCritWound": "Aplicar Ferimento Crítico"
+>>>>>>> db99f2a (Fix ptbr additions and other small fixes)
     },
     "Defense": {
       "Crit": "Você recebeu um crítico"
@@ -948,7 +971,11 @@
       "specialEffect": {
         "wolfstrike": "Ataque Forte da Escola do Lobo",
         "armoredCaster": "Mago com Escudo",
+<<<<<<< HEAD
         "meleeDamage": "+1 Melee Damage"
+=======
+        "meleeDamage": "+1 Dano de Curta Distância"
+>>>>>>> db99f2a (Fix ptbr additions and other small fixes)
       }
     },
     "character.socialStanding": "Posição Social",
@@ -997,6 +1024,7 @@
       "fire": "Fogo",
       "stun": "Atordoamento",
       "poison": "Veneno",
+      "disease": "Doença",
       "prone": "Prostrar",
       "bleed": "Sangramento",
       "freeze": "Congelar",
