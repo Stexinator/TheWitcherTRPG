@@ -323,7 +323,7 @@ export default class WitcherActorSheet extends ActorSheet {
       content: dialogTemplate,
       buttons: {
         t1: {
-          label: "Roll",
+          label: `${game.i18n.localize("WITCHER.Dialog.ButtonRoll")}`,
           callback: async (html) => {
             let verbal = document.querySelector('input[name="verbalCombat"]:checked').value;
 
