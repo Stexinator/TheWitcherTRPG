@@ -32,11 +32,11 @@ export default class WitcherItemSheet extends ItemSheet {
   activateListeners(html) {
     super.activateListeners(html);
     html.find(".add-effect").on("click", this._onAddEffect.bind(this));
-    html.find(".list-edit.item-effect").on("blur", this._onEffectEdit.bind(this));
+    html.find(".list-edit").on("blur", this._onEffectEdit.bind(this));
     html.find(".remove-effect").on("click", this._oRemoveEffect.bind(this));
 
     html.find(".add-global-modifier").on("click", this._onAddGlobalModifier.bind(this));
-    html.find(".list-edit.item-global-modifier").on("blur", this._onEditGlobalModifier.bind(this));
+    html.find(".edit-global-modifier").on("blur", this._onEditGlobalModifier.bind(this));
     html.find(".remove-global-modifier").on("click", this._oRemoveGlobalModifier.bind(this));
 
     html.find("input").focusin(ev => this._onFocusIn(ev));

@@ -128,13 +128,13 @@ export let itemMixin = {
     actor.removeItem(itemId, quantityToRemove)
   },
 
-  async _addItem(actor, Additem, numberOfItem, forcecreate = false) {
-    let foundItem = (actor.items).find(item => item.name == Additem.name && item.type == Additem.type);
+  async _addItem(actor, addItem, numberOfItem, forcecreate = false) {
+    let foundItem = (actor.items).find(item => item.name == addItem.name && item.type == addItem.type);
     if (foundItem && !forcecreate) {
       await foundItem.update({ 'system.quantity': Number(foundItem.system.quantity) + Number(numberOfItem) })
     }
     else {
-      let newItem = { ...Additem };
+      let newItem = { ...addItem };
 
       if (numberOfItem) {
         newItem.system.quantity = Number(numberOfItem)
@@ -277,63 +277,48 @@ export let itemMixin = {
         },
         Apply: {
           label: `${game.i18n.localize("WITCHER.Dialog.Apply")}`,
-          callback: (html) => {
+          callback: async (html) => {
             let enhancementId = undefined
             if (html.find("[name=enhancement]")[0]) {
               enhancementId = html.find("[name=enhancement]")[0].value;
             }
-            let choosenEnhancement = this.actor.items.get(enhancementId)
-            if (item && choosenEnhancement) {
-              let newEnhancementList = []
-              let added = false
-              item.system.enhancementItems.forEach(element => {
-                if ((JSON.stringify(element) === '{}' || !element) && !added) {
-                  element = choosenEnhancement
-                  added = true
-                }
-                newEnhancementList.push(element)
-              });
-              if (type == "weapon") {
-                item.update({ 'system.enhancementItems': newEnhancementList })
+            if (enhancementId) {
+              let newEnhancementList = item.system.enhancementItemIds;
+              newEnhancementList.push(enhancementId)
+              await item.update({ 'system.enhancementItemIds': newEnhancementList })
+
+              let choosenEnhancement = this.actor.items.get(enhancementId)
+              if (choosenEnhancement.system.type == "armor" || choosenEnhancement.system.type == "glyph") {
+                await item.update({
+                  "system.headStopping": item.system.headStopping + choosenEnhancement.system.stopping,
+                  "system.headMaxStopping": item.system.headMaxStopping + choosenEnhancement.system.stopping,
+                  "system.torsoStopping": item.system.torsoStopping + choosenEnhancement.system.stopping,
+                  "system.torsoMaxStopping": item.system.torsoMaxStopping + choosenEnhancement.system.stopping,
+                  "system.leftArmStopping": item.system.leftArmStopping + choosenEnhancement.system.stopping,
+                  "system.leftArmMaxStopping": item.system.leftArmMaxStopping + choosenEnhancement.system.stopping,
+                  "system.rightArmStopping": item.system.rightArmStopping + choosenEnhancement.system.stopping,
+                  "system.rightArmMaxStopping": item.system.rightArmMaxStopping + choosenEnhancement.system.stopping,
+                  "system.leftLegStopping": item.system.leftLegStopping + choosenEnhancement.system.stopping,
+                  "system.leftLegMaxStopping": item.system.leftLegMaxStopping + choosenEnhancement.system.stopping,
+                  "system.rightLegStopping": item.system.rightLegStopping + choosenEnhancement.system.stopping,
+                  "system.rightLegMaxStopping": item.system.rightLegMaxStopping + choosenEnhancement.system.stopping,
+                  'system.bludgeoning': choosenEnhancement.system.bludgeoning,
+                  'system.slashing': choosenEnhancement.system.slashing,
+                  'system.piercing': choosenEnhancement.system.piercing,
+                  'system.effects': item.system.effects.concat(choosenEnhancement.system.effects)
+                })
               }
-              else {
-                let allEffects = item.system.effects
-                allEffects.push(...choosenEnhancement.system.effects)
-                if (choosenEnhancement.system.type == "armor" || choosenEnhancement.system.type == "glyph") {
-                  item.update({
-                    'system.enhancementItems': newEnhancementList,
-                    "system.headStopping": item.system.headStopping + choosenEnhancement.system.stopping,
-                    "system.headMaxStopping": item.system.headMaxStopping + choosenEnhancement.system.stopping,
-                    "system.torsoStopping": item.system.torsoStopping + choosenEnhancement.system.stopping,
-                    "system.torsoMaxStopping": item.system.torsoMaxStopping + choosenEnhancement.system.stopping,
-                    "system.leftArmStopping": item.system.leftArmStopping + choosenEnhancement.system.stopping,
-                    "system.leftArmMaxStopping": item.system.leftArmMaxStopping + choosenEnhancement.system.stopping,
-                    "system.rightArmStopping": item.system.rightArmStopping + choosenEnhancement.system.stopping,
-                    "system.rightArmMaxStopping": item.system.rightArmMaxStopping + choosenEnhancement.system.stopping,
-                    "system.leftLegStopping": item.system.leftLegStopping + choosenEnhancement.system.stopping,
-                    "system.leftLegMaxStopping": item.system.leftLegMaxStopping + choosenEnhancement.system.stopping,
-                    "system.rightLegStopping": item.system.rightLegStopping + choosenEnhancement.system.stopping,
-                    "system.rightLegMaxStopping": item.system.rightLegMaxStopping + choosenEnhancement.system.stopping,
-                    'system.bludgeoning': choosenEnhancement.system.bludgeoning,
-                    'system.slashing': choosenEnhancement.system.slashing,
-                    'system.piercing': choosenEnhancement.system.piercing,
-                    'system.effects': allEffects
-                  })
-                }
-                else {
-                  item.update({ 'system.effects': allEffects })
-                }
-              }
+
               let newName = choosenEnhancement.name + "(Applied)"
               let newQuantity = choosenEnhancement.system.quantity
-              choosenEnhancement.update({
+              await choosenEnhancement.update({
                 'name': newName,
                 'system.applied': true,
                 'system.quantity': 1
               })
               if (newQuantity > 1) {
                 newQuantity -= 1
-                this._addItem(this.actor, choosenEnhancement, newQuantity, true)
+                await this._addItem(this.actor, choosenEnhancement, newQuantity, true)
               }
             }
           }

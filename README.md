@@ -43,7 +43,14 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 
 ## Version History ##
 
-### 1.034 ###
+### 1.037 ###
+- small bug fixes
+- fixing some deprecations
+
+### 1.036 ###
+- small bug fixes
+
+### 1.035 ###
 - global modifier can be added to spells which will activate when the spell is cast and not fumbled
   - if they are not found on the actor, the global modifier compendium will be queried
 - critical wound interaction were added to context menu

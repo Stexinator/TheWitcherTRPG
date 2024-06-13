@@ -9,7 +9,7 @@
     "Name": "Nome",
     "Type": "Tipo",
     "Percentage": "Porcentagem",
-    "DC": "NC",
+    "DC": "ND",
     "Attack": "Ataque",
     "Item": {
       "ClickableImage": "Ampliável",
@@ -23,11 +23,13 @@
       "Attribute": "Atributos",
       "ROF": "CT",
       "Availability": "Disponibilidade",
-      "AddEffect": "Add Efeito",
-      "AddComponent": "Add Componente",
-      "AddAssociatedItem": "Add Item Associado",
+      "AddEffect": "Adicionar Efeito",
+      "AddGlobalModifier": "Adicionar Modificador Global",
+      "AddComponent": "Adicionar Componente",
+      "AddAssociatedItem": "Adicionar Item Associado",
       "RemoveAssociatedItem": "Remover Item Associado",
       "RemoveEffect": "Remover Efeito",
+      "RemoveGlobalModifier": "Remover Modificador Global",
       "RemoveComponent": "Remover Componente",
       "CraftingMaterial": "Materiais para Criação",
       "Hides&AnimalParts": "Couros e Partes de Animais",
@@ -48,14 +50,14 @@
       "CraftingDiagram": "Você tem uma receita em mãos",
       "RealCrafting": "Usar criação real",
       "Crafting": "Criar um",
-      "CraftingTitle": "Executando uma ação de criação",
-      "AlchemyTitle": "Executando uma ação de alquimia",
+      "CraftingTitle": "Executando uma ação de Criação",
+      "AlchemyTitle": "Executando uma ação de Alquimia",
       "ButtonCraft": "Criar",
       "CraftingAlchemycal": "Criando um alquímico",
       "CraftingItem": "Criando um item",
       "Diagram": "Diagrama",
       "after": "Depois",
-      "ButtonDodge": "Esquivar",
+      "ButtonDodge": "Esquivar/Escapar",
       "ButtonReposition": "Reposicionar",
       "ButtonParry": "Aparar",
       "ButtonBlock": "Bloquear",
@@ -64,7 +66,7 @@
       "Defense": "Defesa",
       "DefenseExtra": "Defesa extra",
       "DefenseWith": "Defender com",
-      "DefenseTitle": "Executando uma ação de defesa",
+      "DefenseTitle": "Executando uma ação de Defesa",
       "attack": "Humano Aleatório",
       "attackRandomHuman": "Humano Aleatório",
       "attackRandomMonster": "Monstro Aleatório",
@@ -107,21 +109,17 @@
       "attackLocation": "Local de Acerto",
       "damageType": "Tipo de Dano",
       "attackModifiers": "Modificadores de Ataque",
-      "attackSize": " Modificadores de Tamanho do Oponente",
+      "attackSize": "Modificadores de Tamanho do Oponente",
       "attackRange": "Modificadores de Distância",
       "attackCustom": "Modificadores Extras",
       "attackStrike": "Tipo de Golpe",
       "attackDamage": "Dano",
-<<<<<<< HEAD
-      "attackMeleeBonus": " Bônus Corpo a Corpo",
-=======
       "attackMeleeBonus": "Bônus de Curta Distância",
->>>>>>> db99f2a (Fix ptbr additions and other small fixes)
       "attackCustomDmg": "Modificadores de Dano Extra",
       "attackWith": "Executando um Ataque com",
-      "chooseAmmunition": " Escolha Munição",
-      "NoAmmunition": "Não há munição disponível",
-      "NoThrowable": "Nenhum item arremessável disponível",
+      "chooseAmmunition": "Escolha Munição",
+      "NoAmmunition": "Não há Munição disponível",
+      "NoThrowable": "Nenhum Item Arremessável disponível",
       "Ammunition": "Munição",
       "Throwable": "Arremessável",
       "ButtonRoll": "Rolar",
@@ -153,7 +151,7 @@
       "MeleeBonus": "Bônus de Curta Distância",
       "isAmmunition": "É uma Munição",
       "isThrowable": "É um Arremessável",
-      "Broken": "Sua arma agora está quebrada",
+      "Broken": "Sua arma agora está Quebrada",
       "onlyDmg": "Rolar só Dano",
       "useAmmo": "Usar Munição",
       "armorPiercing": "Perfura Armadura",
@@ -197,7 +195,13 @@
     "Location": {
       "All": "Não especificado",
       "Left": "Esquerdo",
-      "Right": "Direito"
+      "Right": "Direito",
+      "Head": "Cabeça",
+      "Torso": "Tronco",
+      "rightArm": "Braço D.",
+      "leftArm": "Braço E.",
+      "rightLeg": "Perna D.",
+      "leftLeg": "Perna E."
     },
     "Component": {
       "Rarity": "Raridade",
@@ -768,18 +772,15 @@
     "background.globalModifier": "Modificadores Globais",
     "Resources.modifiers": "Modificadores de Recursos",
     "Notes": "Anotações",
-<<<<<<< HEAD
-=======
     "Skills": {
       "SkillGroups": {
-        "meleeSkills": "Perícias de Curta Distância",
+        "meleeSkills": "Perícias Corpo a corpo",
         "rangedSkills": "Perícias à Distância",
         "magicSkills": "Perícias Mágicas",
         "verbalCombatSkills": "Perícias de Combate Verbal",
         "empatheticVerbalCombatSkills": "Perícias Empáticas de Combate Verbal"
       }
     },
->>>>>>> db99f2a (Fix ptbr additions and other small fixes)
     "SkIntAwareness": "Consciência",
     "SkIntBusiness": "Negócios",
     "SkIntDeduction": "Dedução",
@@ -860,7 +861,7 @@
     },
     "Damage": {
       "RemoveSP": "Remova PP antes de aplicar o modificador de local.",
-      "damageType": "Que tipo de dano",
+      "damageType": "Que tipo de Dano",
       "ChangeLocation": "Alterar o Local",
       "CurrentLocation": "Local Atual",
       "resistSilver": "Aplicar Resistência a não-prata",
@@ -876,10 +877,10 @@
       "ablated": "A armadura foi ablada por ",
       "NotEnough": "Não há dano suficiente para perfurar a armadura",
       "ToMuchShield": "Todo o dano foi absorvido pelo escudo ou cobertura",
-      "isVulnerable": "Vulnerável ao ataque",
-      "oilDmg": "Add Danos de Óleo (+5)",
+      "isVulnerable": "Vulnerável ao Ataque",
+      "oilDmg": "Adicionar Dano de Óleo (+5)",
       "shield": "Escudo",
-      "silverDmg": "Add Danos de Prata",
+      "silverDmg": "Adicionar Dano de Prata",
       "silver": "Prata",
       "oil": "Óleo"
     },
@@ -890,14 +891,10 @@
       "Blocked": "Bloquear",
       "SelectActor": "Pelo menos um ator deve ser selecionado",
       "Result": "Resultado",
-<<<<<<< HEAD
-      "unavailable": "N/A"
-=======
       "unavailable": "N/A",
       "applyCritDmg": "Aplicar Dano de Ferimento Crítico",
       "applyBonusCritDmg": "Aplicar Dano Bônus de Ferimento Crítico",
       "applyCritWound": "Aplicar Ferimento Crítico"
->>>>>>> db99f2a (Fix ptbr additions and other small fixes)
     },
     "Defense": {
       "Crit": "Você recebeu um crítico"
@@ -941,7 +938,7 @@
       "DeceiveEffect": "Se você terminar um combate com um teste de Ludibriar bem-sucedido, você terá convencido o defensor da mentira",
       "Ridicule": "Ridicularizar",
       "RidiculeEffect": "Se você conseguir Ridicularizar uma pessoa em público, você também diminuirá a Reputação desta pessoa em 2 para cada Ridicularizar bem sucedido. Esta penalidade dura um dia.",
-      "Intimidate": "Intimidade",
+      "Intimidate": "Intimidar",
       "IntimidateEffect": "Qualquer um que você Intimidar tem medo de você e toma +4 de dano cumulativo de Intimidação pelo combate.",
       "Ignore": "Ignorar",
       "Counterargue": "Contra-argumento",
@@ -972,11 +969,7 @@
       "specialEffect": {
         "wolfstrike": "Ataque Forte da Escola do Lobo",
         "armoredCaster": "Mago com Escudo",
-<<<<<<< HEAD
-        "meleeDamage": "+1 Melee Damage"
-=======
         "meleeDamage": "+1 Dano de Curta Distância"
->>>>>>> db99f2a (Fix ptbr additions and other small fixes)
       }
     },
     "character.socialStanding": "Posição Social",

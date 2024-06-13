@@ -34,11 +34,7 @@
             {{#if (eq item.system.class "Hexes")}}
                 <td>
                     <select name="system.danger" id="level-select">
-                        {{#select item.system.danger}}
-                            <option value="Low">{{localize "WITCHER.Spell.DangerLow"}}</option>
-                            <option value="Medium">{{localize "WITCHER.Spell.DangerMedium"}}</option>
-                            <option value="High">{{localize "WITCHER.Spell.DangerHigh"}}</option>
-                        {{/select}}
+                        {{selectOptions selects.danger selected=item.system.danger localize=true}}
                     </select>
                 </td>
             {{else}}
@@ -56,10 +52,7 @@
                 {{#if (eq item.system.class "Witcher")}}
                     <td>
                         <select name="system.domain">
-                            {{#select item.system.domain}}
-                                <option value="basic">{{localize "WITCHER.Spell.Basic"}}</option>
-                                <option value="alternate">{{localize "WITCHER.Spell.Alt"}}</option>
-                            {{/select}}
+                            {{selectOptions selects.domain selected=item.system.domain localize=true}}
                         </select>
                     </td>
                 {{/if}}
@@ -123,12 +116,7 @@
                     </td>
                     <td>
                         <select name="system.templateType">
-                            {{#select item.system.templateType}}
-                                <option value="rect">{{localize "WITCHER.Spell.Square"}}</option>
-                                <option value="circle">{{localize "WITCHER.Spell.Circle"}}</option>
-                                <option value="cone">{{localize "WITCHER.Spell.Cone"}}</option>
-                                <option value="ray">{{localize "WITCHER.Spell.Ray"}}</option>
-                            {{/select}}
+                            {{selectOptions selects.templateType selected=item.system.templateType localize=true}}
                         </select>
                     </td>
                     <td>
@@ -157,37 +145,35 @@
             </tr>
         </table>
     </div>
-    {{#if (eq item.system.causeDamages true)}}
-        <table class="item-bottom-table">
+    <table class="item-bottom-table">
+        <tr>
+            <th><a class="add-effect" title="{{localize "WITCHER.Item.AddEffect"}}"><i class="fas fa-plus"></i></a>
+            </th>
+            <th>{{localize "WITCHER.Item.Effect"}}</th>
+            <th>{{localize "WITCHER.Percentage"}}</th>
+        </tr>
+        {{#each item.system.effects as |effect name|}}
             <tr>
-                <th><a class="add-effect" title="{{localize "WITCHER.Item.AddEffect"}}"><i class="fas fa-plus"></i></a>
-                </th>
-                <th>{{localize "WITCHER.Item.Effect"}}</th>
-                <th>{{localize "WITCHER.Percentage"}}</th>
+                <td class="list-item" data-id="{{effect.id}}">
+                    <a class="remove-effect" title="{{localize "WITCHER.Item.RemoveEffect"}}"><i
+                            class="fas fa-minus"></i></a>
+                </td>
+                <td class="list-item" data-id="{{effect.id}}">
+                    <input class="list-edit item-effect" placeholder="{{localize "WITCHER.table.Name"}}"
+                        data-field="name" type="text" value="{{effect.name}}" />
+                </td>
+                <td class="list-item" data-id="{{effect.id}}">
+                    <select class="list-edit item-effect" data-field="statusEffect">
+                        {{selectOptions ../config.statusEffects blank='' selected=effect.statusEffect nameAttr='id' valueAttr="id" labelAttr="label" localize=true}}
+                    </select>
+                </td>
+                <td class="list-item" data-id="{{effect.id}}">
+                    <input class="list-edit" placeholder="%" data-field="percentage" type="text"
+                        value="{{effect.percentage}}" data-dtype="Number" />
+                </td>
             </tr>
-            {{#each item.system.effects as |effect name|}}
-                <tr>
-                    <td class="list-item" data-id="{{effect.id}}">
-                        <a class="remove-effect" title="{{localize "WITCHER.Item.RemoveEffect"}}"><i
-                                class="fas fa-minus"></i></a>
-                    </td>
-                    <td class="list-item" data-id="{{effect.id}}">
-                        <input class="list-edit item-effect" placeholder="{{localize "WITCHER.table.Name"}}"
-                            data-field="name" type="text" value="{{effect.name}}" />
-                    </td>
-                    <td class="list-item" data-id="{{effect.id}}">
-                        <select class="list-edit item-effect" data-field="statusEffect">
-                            {{selectOptions ../config.statusEffects blank='' selected=effect.statusEffect nameAttr='id' valueAttr="id" labelAttr="label" localize=true}}
-                        </select>
-                    </td>
-                    <td class="list-item" data-id="{{effect.id}}">
-                        <input class="list-edit" placeholder="%" data-field="percentage" type="text"
-                            value="{{effect.percentage}}" data-dtype="Number" />
-                    </td>
-                </tr>
-            {{/each}}
-        </table>
-    {{/if}}
+        {{/each}}
+    </table>
     <div class='globalModifiers'>
         <table>
             <tr>
@@ -203,8 +189,8 @@
                                 class="fas fa-minus"></i></a>
                     </td>
                     <td class="list-item" data-id="{{modifier}}">
-                        <input class="list-edit item-global-modifier" placeholder="{{localize "WITCHER.table.Name"}}"
-                            type="text" value="{{modifier}}" />
+                        <input class="edit-global-modifier" placeholder="{{localize "WITCHER.table.Name"}}" type="text"
+                            value="{{modifier}}" />
                     </td>
                 </tr>
             {{/each}}
