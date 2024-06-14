@@ -451,7 +451,6 @@ export let itemMixin = {
                 return
               }
               item.update({ "system.quantity": newQuantity })
-              allEffects.push(...item.system.effects)
             }
 
             if (item.system.enhancementItems) {
