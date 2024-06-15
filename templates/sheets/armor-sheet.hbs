@@ -34,11 +34,7 @@
             <td><input type="checkbox" name="system.bludgeoning" {{checked item.system.bludgeoning}} /></td>
             <td>
                 <select name="system.avail" id="avail-select">
-                    {{#select item.system.avail}}
-                        {{#each config.Availability as |name value|}}
-                            <option value="{{value}}">{{localize name}}</option>
-                        {{/each}}
-                    {{/select}}
+                    {{selectOptions config.Availability selected=item.system.avail localize=true}}
                 </select>
             </td>
             <td><input type="number" name="system.enhancements" value="{{item.system.enhancements}}"
@@ -46,23 +42,12 @@
             <td><input type="number" name="system.encumb" value="{{item.system.encumb}}" data-dtype="Number" /></td>
             <td>
                 <select name="system.location" id="location-select">
-                    {{#select item.system.location}}
-                        <option value="Head">{{localize "WITCHER.Armor.LocationHead"}}</option>
-                        <option value="Torso">{{localize "WITCHER.Armor.LocationTorso"}}</option>
-                        <option value="Leg">{{localize "WITCHER.Armor.LocationLeg"}}</option>
-                        <option value="FullCover">{{localize "WITCHER.Armor.LocationFull"}}</option>
-                        <option value="Shield">{{localize "WITCHER.Armor.LocationShield"}}</option>
-                    {{/select}}
+                    {{selectOptions config.armorLocations selected=item.system.location localize=true}}
                 </select>
             </td>
             <td>
                 <select name="system.type" id="type-select">
-                    {{#select item.system.type}}
-                        <option value="Light">{{localize "WITCHER.Armor.Light"}}</option>
-                        <option value="Medium">{{localize "WITCHER.Armor.Medium"}}</option>
-                        <option value="Heavy">{{localize "WITCHER.Armor.Heavy"}}</option>
-                        <option value="Natural">{{localize "WITCHER.Armor.Natural"}}</option>
-                    {{/select}}
+                    {{selectOptions config.type selected=item.system.type localize=true}}
                 </select>
             </td>
         </tr>

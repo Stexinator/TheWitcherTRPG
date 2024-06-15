@@ -14,6 +14,7 @@ import WitcherObstacleSheet from "../item/sheets/investigation/WitcherObstacleSh
 import WitcherGlobalModifierSheet from "../item/sheets/WitcherGlobalModifierSheet.js";
 import WitcherSpellSheet from "../item/sheets/WitcherSpellSheet.js";
 import WitcherAlchemicalSheet from "../item/sheets/WitcherAlchemicalSheet.js";
+import WitcherArmorSheet from "../item/sheets/WitcherArmorSheet.js";
 
 export const registerSheets = () => {
     Items.unregisterSheet("core", ItemSheet);
@@ -23,29 +24,33 @@ export const registerSheets = () => {
         makeDefault: true,
         types: ['alchemical']
     });
-    Items.registerSheet("witcher", WitcherWeaponSheet, {
+    Items.registerSheet("witcher", WitcherArmorSheet, {
         makeDefault: true,
-        types: ['weapon']
-    });
-    Items.registerSheet("witcher", WitcherSpellSheet, {
-        makeDefault: true,
-        types: ['spell']
-    });
-    Items.registerSheet("witcher", WitcherEffectSheet, {
-        makeDefault: true,
-        types: ['effect']
-    });
-    Items.registerSheet("witcher", WitcherDiagramSheet, {
-        makeDefault: true,
-        types: ['diagrams']
+        types: ['armor']
     });
     Items.registerSheet("witcher", WitcherContainerSheet, {
         makeDefault: true,
         types: ['container']
     });
+    Items.registerSheet("witcher", WitcherDiagramSheet, {
+        makeDefault: true,
+        types: ['diagrams']
+    });
+    Items.registerSheet("witcher", WitcherEffectSheet, {
+        makeDefault: true,
+        types: ['effect']
+    });
     Items.registerSheet("witcher", WitcherGlobalModifierSheet, {
         makeDefault: true,
         types: ['globalModifier']
+    });
+    Items.registerSheet("witcher", WitcherSpellSheet, {
+        makeDefault: true,
+        types: ['spell']
+    });
+    Items.registerSheet("witcher", WitcherWeaponSheet, {
+        makeDefault: true,
+        types: ['weapon']
     });
 
     Actors.unregisterSheet("core", ActorSheet);
