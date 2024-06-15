@@ -13,10 +13,16 @@ import WitcherClueSheet from "../item/sheets/investigation/WitcherClueSheet.js";
 import WitcherObstacleSheet from "../item/sheets/investigation/WitcherObstacleSheet.js";
 import WitcherGlobalModifierSheet from "../item/sheets/WitcherGlobalModifierSheet.js";
 import WitcherSpellSheet from "../item/sheets/WitcherSpellSheet.js";
+import WitcherAlchemicalSheet from "../item/sheets/WitcherAlchemicalSheet.js";
 
 export const registerSheets = () => {
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("witcher", WitcherItemSheet, { makeDefault: true });
+
+    Items.registerSheet("witcher", WitcherAlchemicalSheet, {
+        makeDefault: true,
+        types: ['alchemical']
+    });
     Items.registerSheet("witcher", WitcherWeaponSheet, {
         makeDefault: true,
         types: ['weapon']
