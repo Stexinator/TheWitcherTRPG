@@ -1,7 +1,6 @@
 import { extendedRoll } from "./chat.js";
 import { addAllModifiers } from "./witcher.js";
 import { RollConfig } from "./rollConfig.js";
-import { WITCHER } from "../setup/config.js";
 import { getInteractActor } from "./helper.js";
 
 export function addDefenseMessageContextOptions(html, options) {
@@ -31,7 +30,7 @@ export function addDefenseMessageContextOptions(html, options) {
 }
 
 function BlockAttack(actor) {
-    let weapons = actor.items.filter(function (item) { return item.type == "weapon" && !item.system.isAmmo && WITCHER.meleeSkills.includes(item.system.attackSkill) });
+    let weapons = actor.items.filter(function (item) { return item.type == "weapon" && !item.system.isAmmo && CONFIG.WITCHER.meleeSkills.includes(item.system.attackSkill) });
     let shields = actor.items.filter(function (item) { return item.type == "armor" && item.system.location == "Shield" });
 
     let options = `<option value="brawling"> ${game.i18n.localize("WITCHER.SkRefBrawling")} </option>`;
@@ -74,7 +73,7 @@ function ExecuteDefense(actor, messageId, totalAttack) {
     if (!actor) return;
 
     let location = game.messages.get(messageId)?.getFlag('TheWitcherTRPG', 'damage').location
-    let weapons = actor.items.filter(function (item) { return item.type == "weapon" && !item.system.isAmmo && WITCHER.meleeSkills.includes(item.system.attackSkill) });
+    let weapons = actor.items.filter(function (item) { return item.type == "weapon" && !item.system.isAmmo && CONFIG.WITCHER.meleeSkills.includes(item.system.attackSkill) });
     let shields = actor.items.filter(function (item) { return item.type == "armor" && item.system.location == "Shield" });
     let options = `<option value="brawling"> ${game.i18n.localize("WITCHER.SkRefBrawling")} </option>`;
     weapons.forEach(item => options += `<option value="${item.system.attackSkill}" itemId="${item.id}" type="Weapon"> ${item.name} (${game.i18n.localize(item.getItemAttackSkill().alias)})</option>`);
@@ -140,7 +139,7 @@ async function defense(actor, skillName, modifier, totalAttack, attackLocation, 
     if (!handleExtraDefense(html, actor)) {
         return;
     }
-    let skillMapEntry = WITCHER.skillMap[skillName];
+    let skillMapEntry = CONFIG.WITCHER.skillMap[skillName];
 
     let stat = actor.system.stats[skillMapEntry.attribute.name].current;
     let skill = actor.system.skills[skillMapEntry.attribute.name][skillName];

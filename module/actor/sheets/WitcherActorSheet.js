@@ -1,5 +1,4 @@
 import { extendedRoll } from "../../scripts/chat.js";
-import { WITCHER } from "../../setup/config.js";
 import { calc_currency_weight, addAllModifiers } from "../../scripts/witcher.js";
 import { RollConfig } from "../../scripts/rollConfig.js";
 
@@ -47,8 +46,8 @@ Array.prototype.cost = function () {
 
 export default class WitcherActorSheet extends ActorSheet {
 
-  statMap = WITCHER.statMap;
-  skillMap = WITCHER.skillMap;
+  statMap = CONFIG.WITCHER.statMap;
+  skillMap = CONFIG.WITCHER.skillMap;
 
   /** @override */
   getData() {
@@ -175,8 +174,8 @@ export default class WitcherActorSheet extends ActorSheet {
     let wounds = context.system.critWounds;
 
     wounds.forEach((wound, index) => {
-      wounds[index].description = WITCHER.Crit[wound.configEntry]?.description
-      wounds[index].effect = WITCHER.Crit[wound.configEntry]?.effect[wound.mod]
+      wounds[index].description = CONFIG.WITCHER.Crit[wound.configEntry]?.description
+      wounds[index].effect = CONFIG.WITCHER.Crit[wound.configEntry]?.effect[wound.mod]
     })
   }
 
@@ -327,7 +326,7 @@ export default class WitcherActorSheet extends ActorSheet {
           callback: async (html) => {
             let verbal = document.querySelector('input[name="verbalCombat"]:checked').value;
 
-            let verbalCombat = WITCHER.verbalCombat[verbal]
+            let verbalCombat = CONFIG.WITCHER.verbalCombat[verbal]
             let vcName = verbalCombat.name;
 
             let vcStatName = verbalCombat.skill?.attribute.label ?? "WITCHER.Context.unavailable";

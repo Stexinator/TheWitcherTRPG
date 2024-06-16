@@ -48,6 +48,11 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 - enhancement diagrams are now displayed under diagrams (by @pedroaugustobt)
 - improved ptBr translations (by (by @pedroaugustobt))
 - fixing some deprecations
+- improve support for modules => data is now loaded dynamically from the config
+  - every entry in verbal combat (later you will be able to add new entries)
+  - skills can be assigned different attributes (this will not be reflected in the UI)
+  - stats can be renamed
+  - everything in critical wounds can be modified
 
 ### 1.037 ###
 - small bug fixes
