@@ -43,7 +43,10 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 
 ## Version History ##
 
-### 1.037 ###
+### 1.039 ###
+- added module support for weapon skills
+
+### 1.038 ###
 - small bug fixes (by @pedroaugustobt)
 - enhancement diagrams are now displayed under diagrams (by @pedroaugustobt)
 - improved ptBr translations (by (by @pedroaugustobt))
