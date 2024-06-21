@@ -1,4 +1,3 @@
-import { WITCHER } from "../setup/config.js";
 import { extendedRoll } from "./chat.js";
 import { RollConfig } from "./rollConfig.js";
 
@@ -229,7 +228,7 @@ function getWoundModifier(wounds, checkedStat) {
 
 	wounds
 		.filter(wound => wound.configEntry != '')
-		.map(wound => WITCHER.Crit[wound.configEntry]?.effect[wound.mod])
+		.map(wound => CONFIG.WITCHER.Crit[wound.configEntry]?.effect[wound.mod])
 		.forEach(wound => {
 			wound.stats?.forEach(stat => {
 				if (stat.stat == checkedStat) {
@@ -370,7 +369,7 @@ function addAllModifiers(actor, skillName, formula) {
 
 function addSkillModifiers(actor, skillName, formula) {
 	let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
-	let skill = WITCHER.skillMap[skillName];
+	let skill = CONFIG.WITCHER.skillMap[skillName];
 	actor.system.skills[skill.attribute.name][skill.name].modifiers?.forEach(mod => {
 		if (mod.value < 0) {
 			formula += !displayRollDetails ? ` ${mod.value}` : ` ${mod.value}[${mod.name}]`
@@ -387,7 +386,7 @@ function addGlobalModifier(actor, skillName, rollFormula) {
 	let globalModifier = actor.getList("effect").concat(actor.getList("globalModifier")).filter(e => e.system.isActive);
 	globalModifier.forEach(modifier => {
 		modifier.system.skills?.forEach(modifierSkill => {
-			if (skillName == modifierSkill.skill || WITCHER[modifierSkill.skill]?.includes(skillName)) {
+			if (skillName == modifierSkill.skill || CONFIG.WITCHER[modifierSkill.skill]?.includes(skillName)) {
 				if (modifierSkill.modifier.includes("/")) {
 					rollFormula += !displayRollDetails ? ` /${Number(modifierSkill.modifier.replace("/", ''))}` : ` /${Number(modifierSkill.modifier.replace("/", ''))}[${modifier.name}]`
 				}
@@ -406,10 +405,10 @@ function addWoundsModifier(actor, skillName, rollFormula) {
 	let wounds = actor.system.critWounds
 	wounds
 		.filter(wound => wound.configEntry != '')
-		.map(wound => WITCHER.Crit[wound.configEntry].effect[wound.mod])
+		.map(wound => CONFIG.WITCHER.Crit[wound.configEntry].effect[wound.mod])
 		.forEach(wound => {
 			wound.skills?.forEach(skill => {
-				if (skill.skill == skillName || WITCHER[skill.skillgroup]?.includes(skillName) || skill.skill == "all") {
+				if (skill.skill == skillName || CONFIG.WITCHER[skill.skillgroup]?.includes(skillName) || skill.skill == "all") {
 					if (skill.modifier?.toString().includes("/")) {
 						rollFormula += !displayRollDetails ? ` /${Number(skill.modifier.replace("/", ''))}` : ` /${Number(skill.modifier.replace("/", ''))}[${game.i18n.localize("WITCHER.CritWound.Header")}]`
 					}

@@ -13,33 +13,44 @@ import WitcherClueSheet from "../item/sheets/investigation/WitcherClueSheet.js";
 import WitcherObstacleSheet from "../item/sheets/investigation/WitcherObstacleSheet.js";
 import WitcherGlobalModifierSheet from "../item/sheets/WitcherGlobalModifierSheet.js";
 import WitcherSpellSheet from "../item/sheets/WitcherSpellSheet.js";
+import WitcherAlchemicalSheet from "../item/sheets/WitcherAlchemicalSheet.js";
+import WitcherArmorSheet from "../item/sheets/WitcherArmorSheet.js";
 
 export const registerSheets = () => {
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("witcher", WitcherItemSheet, { makeDefault: true });
-    Items.registerSheet("witcher", WitcherWeaponSheet, {
+
+    Items.registerSheet("witcher", WitcherAlchemicalSheet, {
         makeDefault: true,
-        types: ['weapon']
+        types: ['alchemical']
     });
-    Items.registerSheet("witcher", WitcherSpellSheet, {
+    Items.registerSheet("witcher", WitcherArmorSheet, {
         makeDefault: true,
-        types: ['spell']
-    });
-    Items.registerSheet("witcher", WitcherEffectSheet, {
-        makeDefault: true,
-        types: ['effect']
-    });
-    Items.registerSheet("witcher", WitcherDiagramSheet, {
-        makeDefault: true,
-        types: ['diagrams']
+        types: ['armor']
     });
     Items.registerSheet("witcher", WitcherContainerSheet, {
         makeDefault: true,
         types: ['container']
     });
+    Items.registerSheet("witcher", WitcherDiagramSheet, {
+        makeDefault: true,
+        types: ['diagrams']
+    });
+    Items.registerSheet("witcher", WitcherEffectSheet, {
+        makeDefault: true,
+        types: ['effect']
+    });
     Items.registerSheet("witcher", WitcherGlobalModifierSheet, {
         makeDefault: true,
         types: ['globalModifier']
+    });
+    Items.registerSheet("witcher", WitcherSpellSheet, {
+        makeDefault: true,
+        types: ['spell']
+    });
+    Items.registerSheet("witcher", WitcherWeaponSheet, {
+        makeDefault: true,
+        types: ['weapon']
     });
 
     Actors.unregisterSheet("core", ActorSheet);

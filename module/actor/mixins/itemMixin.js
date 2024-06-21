@@ -451,7 +451,6 @@ export let itemMixin = {
                 return
               }
               item.update({ "system.quantity": newQuantity })
-              allEffects.push(...item.system.effects)
             }
 
             if (item.system.enhancementItems) {
@@ -544,16 +543,16 @@ export let itemMixin = {
 
               switch (range) {
                 case "pointBlank":
-                  attFormula = !displayRollDetails ? `${attFormula}+5` : `${attFormula}+5[${game.i18n.localize("WITCHER.Weapon.Range")}]`;
+                  attFormula = !displayRollDetails ? `${attFormula}+5` : `${attFormula} +5[${game.i18n.localize("WITCHER.Weapon.Range")}]`;
                   break;
                 case "medium":
-                  attFormula = !displayRollDetails ? `${attFormula}-2` : `${attFormula}-2[${game.i18n.localize("WITCHER.Weapon.Range")}]`;
+                  attFormula = !displayRollDetails ? `${attFormula}-2` : `${attFormula} -2[${game.i18n.localize("WITCHER.Weapon.Range")}]`;
                   break;
                 case "long":
-                  attFormula = !displayRollDetails ? `${attFormula}-4` : `${attFormula}-4[${game.i18n.localize("WITCHER.Weapon.Range")}]`;
+                  attFormula = !displayRollDetails ? `${attFormula}-4` : `${attFormula} -4[${game.i18n.localize("WITCHER.Weapon.Range")}]`;
                   break;
                 case "extreme":
-                  attFormula = !displayRollDetails ? `${attFormula}-6` : `${attFormula}-6[${game.i18n.localize("WITCHER.Weapon.Range")}]`;
+                  attFormula = !displayRollDetails ? `${attFormula}-6` : `${attFormula} -6[${game.i18n.localize("WITCHER.Weapon.Range")}]`;
                   break;
               }
 
@@ -569,7 +568,7 @@ export let itemMixin = {
               damage.location = touchedLocation;
 
               if (strike == "joint" || strike == "strong") {
-                attFormula = !displayRollDetails ? `${attFormula}-3` : `${attFormula}-3[${game.i18n.localize("WITCHER.Dialog.attackStrike")}]`;
+                attFormula = !displayRollDetails ? `${attFormula}-3` : `${attFormula} -3[${game.i18n.localize("WITCHER.Dialog.attackStrike")}]`;
               }
 
               attFormula = this.handleSpecialModifier(attFormula, strike)
@@ -718,7 +717,6 @@ export let itemMixin = {
       return
     }
     let origStaCost = staCostTotal
-    let newSta = this.actor.system.derivedStats.sta.value
 
     staCostTotal -= Number(focusValue) + Number(secondFocusValue)
     if (isExtraAttack) {
@@ -731,8 +729,7 @@ export let itemMixin = {
       staCostTotal = 1
     }
 
-    newSta -= staCostTotal
-
+    let newSta = this.actor.system.derivedStats.sta.value - staCostTotal
     if (newSta < 0) {
       return ui.notifications.error(game.i18n.localize("WITCHER.Spell.notEnoughSta"));
     }
@@ -747,15 +744,15 @@ export let itemMixin = {
       staCostDisplay += ` + 3[${game.i18n.localize("WITCHER.Dialog.attackExtra")}]`
     }
 
-    staCostDisplay += ` - ${Number(focusValue) + Number(secondFocusValue)}[${game.i18n.localize("WITCHER.Actor.DerStat.Focus")}]`
+    staCostDisplay += ` -${Number(focusValue) + Number(secondFocusValue)}[${game.i18n.localize("WITCHER.Actor.DerStat.Focus")}]`
     staCostDisplay += ` =  ${staCostTotal}`
     if (useMinimalStaCost) {
       staCostDisplay += `[${game.i18n.localize("WITCHER.MinValue")}]`
     }
 
-    if (customModifier < 0) { rollFormula += !displayRollDetails ? `${customModifier}` : `${customModifier}[${game.i18n.localize("WITCHER.Settings.Custom")}]` }
-    if (customModifier > 0) { rollFormula += !displayRollDetails ? `+${customModifier}` : `+${customModifier}[${game.i18n.localize("WITCHER.Settings.Custom")}]` }
-    if (isExtraAttack) { rollFormula += !displayRollDetails ? `-3` : `-3[${game.i18n.localize("WITCHER.Dialog.attackExtra")}]` }
+    if (customModifier < 0) { rollFormula += !displayRollDetails ? ` ${customModifier}` : ` ${customModifier}[${game.i18n.localize("WITCHER.Settings.Custom")}]` }
+    if (customModifier > 0) { rollFormula += !displayRollDetails ? ` +${customModifier}` : ` +${customModifier}[${game.i18n.localize("WITCHER.Settings.Custom")}]` }
+    if (isExtraAttack) { rollFormula += !displayRollDetails ? ` -3` : ` -3[${game.i18n.localize("WITCHER.Dialog.attackExtra")}]` }
 
     let spellSource = ''
     switch (spellItem.system.source) {
@@ -855,6 +852,7 @@ export let itemMixin = {
 
     message.setFlag('TheWitcherTRPG', 'attack', spellItem.getSpellFlags())
     message.setFlag('TheWitcherTRPG', 'damage', damage)
+    message.setFlag('TheWitcherTRPG', 'effects', spellItem.system.effects)
   },
 
   _onSpellDisplay(event) {

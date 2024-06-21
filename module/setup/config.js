@@ -1672,112 +1672,120 @@ WITCHER.skillMap = {
 }
 
 WITCHER.verbalCombat = {
-    //empathic attacks
-    Seduce: {
-        name: "WITCHER.verbalCombat.Seduce",
-        skill: WITCHER.skillMap.seduction,
-        baseDmg: '1d6',
-        dmgStat: WITCHER.statMap.emp,
-        effect: "WITCHER.verbalCombat.SeduceEffect"
-    },
-    Persuade: {
-        name: "WITCHER.verbalCombat.Persuade",
-        skill: WITCHER.skillMap.persuasion,
-        baseDmg: '1d6/2',
-        dmgStat: WITCHER.statMap.emp,
-        effect: "WITCHER.verbalCombat.PersuadeEffect"
-    },
-    Appeal: {
-        name: "WITCHER.verbalCombat.Appeal",
-        skill: WITCHER.skillMap.leadership,
-        baseDmg: '1d10',
-        dmgStat: WITCHER.statMap.emp,
-        effect: "WITCHER.verbalCombat.AppealEffect"
-    },
-    Befriend: {
-        name: "WITCHER.verbalCombat.Befriend",
-        skill: WITCHER.skillMap.charisma,
-        baseDmg: '1d6',
-        dmgStat: WITCHER.statMap.emp,
-        effect: "WITCHER.verbalCombat.BefriendEffect"
+
+    EmpatheticAttacks: {
+        Seduce: {
+            name: "WITCHER.verbalCombat.Seduce",
+            skill: WITCHER.skillMap.seduction,
+            baseDmg: '1d6',
+            dmgStat: WITCHER.statMap.emp,
+            effect: "WITCHER.verbalCombat.SeduceEffect"
+        },
+        Persuade: {
+            name: "WITCHER.verbalCombat.Persuade",
+            skill: WITCHER.skillMap.persuasion,
+            baseDmg: '1d6/2',
+            dmgStat: WITCHER.statMap.emp,
+            effect: "WITCHER.verbalCombat.PersuadeEffect"
+        },
+        Appeal: {
+            name: "WITCHER.verbalCombat.Appeal",
+            skill: WITCHER.skillMap.leadership,
+            baseDmg: '1d10',
+            dmgStat: WITCHER.statMap.emp,
+            effect: "WITCHER.verbalCombat.AppealEffect"
+        },
+        Befriend: {
+            name: "WITCHER.verbalCombat.Befriend",
+            skill: WITCHER.skillMap.charisma,
+            baseDmg: '1d6',
+            dmgStat: WITCHER.statMap.emp,
+            effect: "WITCHER.verbalCombat.BefriendEffect"
+        },
     },
 
-    //antagonistic attacks
-    Deceive: {
-        name: "WITCHER.verbalCombat.Deceive",
-        skill: WITCHER.skillMap.deceit,
-        baseDmg: '1d6',
-        dmgStat: WITCHER.statMap.int,
-        effect: "WITCHER.verbalCombat.DeceiveEffect"
-    },
-    Ridicule: {
-        name: "WITCHER.verbalCombat.Ridicule",
-        skill: WITCHER.skillMap.socialetq,
-        baseDmg: '1d6',
-        dmgStat: WITCHER.statMap.will,
-        effect: "WITCHER.verbalCombat.RidiculeEffect"
-    },
-    Intimidate: {
-        name: "WITCHER.verbalCombat.Intimidate",
-        skill: WITCHER.skillMap.intimidation,
-        baseDmg: '1d10',
-        dmgStat: WITCHER.statMap.will,
-        effect: "WITCHER.verbalCombat.IntimidateEffect"
-    },
-
-    //Defenses
-    Ignore: {
-        name: "WITCHER.verbalCombat.Ignore",
-        skill: WITCHER.skillMap.resistcoerc,
-        baseDmg: '1d10',
-        dmgStat: WITCHER.statMap.emp,
-        effect: "WITCHER.verbalCombat.None"
-    },
-    Counterargue: {
-        name: "WITCHER.verbalCombat.Counterargue",
-        effect: "WITCHER.verbalCombat.CounterargueEffect"
-    },
-    ChangeSubject: {
-        name: "WITCHER.verbalCombat.ChangeSubject",
-        skill: WITCHER.skillMap.persuasion,
-        baseDmg: '1d6',
-        dmgStat: WITCHER.statMap.int,
-        effect: "WITCHER.verbalCombat.None"
-    },
-    Disengage: {
-        name: "WITCHER.verbalCombat.Disengage",
-        skill: WITCHER.skillMap.resistcoerc,
-        effect: "WITCHER.verbalCombat.DisengageEffect"
+    AntagonisticAttacks: {
+        Deceive: {
+            name: "WITCHER.verbalCombat.Deceive",
+            skill: WITCHER.skillMap.deceit,
+            baseDmg: '1d6',
+            dmgStat: WITCHER.statMap.int,
+            effect: "WITCHER.verbalCombat.DeceiveEffect"
+        },
+        Ridicule: {
+            name: "WITCHER.verbalCombat.Ridicule",
+            skill: WITCHER.skillMap.socialetq,
+            baseDmg: '1d6',
+            dmgStat: WITCHER.statMap.will,
+            effect: "WITCHER.verbalCombat.RidiculeEffect"
+        },
+        Intimidate: {
+            name: "WITCHER.verbalCombat.Intimidate",
+            skill: WITCHER.skillMap.intimidation,
+            baseDmg: '1d10',
+            dmgStat: WITCHER.statMap.will,
+            effect: "WITCHER.verbalCombat.IntimidateEffect"
+        },
     },
 
-    //empathetic tools
-    Romance: {
-        name: "WITCHER.verbalCombat.Romance",
-        skill: WITCHER.skillMap.charisma,
-        effect: "WITCHER.verbalCombat.RomanceEffect"
-    },
-    Study: {
-        name: "WITCHER.verbalCombat.Study",
-        skill: WITCHER.skillMap.perception,
-        effect: "WITCHER.verbalCombat.StudyEffect"
+
+    Defences: {
+        Ignore: {
+            name: "WITCHER.verbalCombat.Ignore",
+            skill: WITCHER.skillMap.resistcoerc,
+            baseDmg: '1d10',
+            dmgStat: WITCHER.statMap.emp,
+            effect: "WITCHER.verbalCombat.None"
+        },
+        Counterargue: {
+            name: "WITCHER.verbalCombat.Counterargue",
+            effect: "WITCHER.verbalCombat.CounterargueEffect"
+        },
+        ChangeSubject: {
+            name: "WITCHER.verbalCombat.ChangeSubject",
+            skill: WITCHER.skillMap.persuasion,
+            baseDmg: '1d6',
+            dmgStat: WITCHER.statMap.int,
+            effect: "WITCHER.verbalCombat.None"
+        },
+        Disengage: {
+            name: "WITCHER.verbalCombat.Disengage",
+            skill: WITCHER.skillMap.resistcoerc,
+            effect: "WITCHER.verbalCombat.DisengageEffect"
+        },
     },
 
-    //antagonistic tools
-    ImplyPersuade: {
-        name: "WITCHER.verbalCombat.ImplyPersuade",
-        skill: WITCHER.skillMap.persuasion,
-        effect: "WITCHER.verbalCombat.ImplyEffect"
+
+    EmpatheticTools: {
+        Romance: {
+            name: "WITCHER.verbalCombat.Romance",
+            skill: WITCHER.skillMap.charisma,
+            effect: "WITCHER.verbalCombat.RomanceEffect"
+        },
+        Study: {
+            name: "WITCHER.verbalCombat.Study",
+            skill: WITCHER.skillMap.perception,
+            effect: "WITCHER.verbalCombat.StudyEffect"
+        },
     },
-    ImplyDeceit: {
-        name: "WITCHER.verbalCombat.ImplyDeceit",
-        skill: WITCHER.skillMap.deceit,
-        effect: "WITCHER.verbalCombat.ImplyEffect"
-    },
-    Bribe: {
-        name: "WITCHER.verbalCombat.Bribe",
-        skill: WITCHER.skillMap.gambling,
-        effect: "WITCHER.verbalCombat.BribeEffect"
-    },
+
+    AntagonisticTools: {
+        ImplyPersuade: {
+            name: "WITCHER.verbalCombat.ImplyPersuade",
+            skill: WITCHER.skillMap.persuasion,
+            effect: "WITCHER.verbalCombat.ImplyEffect"
+        },
+        ImplyDeceit: {
+            name: "WITCHER.verbalCombat.ImplyDeceit",
+            skill: WITCHER.skillMap.deceit,
+            effect: "WITCHER.verbalCombat.ImplyEffect"
+        },
+        Bribe: {
+            name: "WITCHER.verbalCombat.Bribe",
+            skill: WITCHER.skillMap.gambling,
+            effect: "WITCHER.verbalCombat.BribeEffect"
+        },
+    }
 }
 
 WITCHER.statusEffects = [

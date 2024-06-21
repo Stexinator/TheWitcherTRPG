@@ -1,4 +1,3 @@
-import { WITCHER } from "../setup/config.js";
 import { getInteractActor } from "./helper.js";
 import { genId, getRandomInt } from "./witcher.js";
 
@@ -57,7 +56,7 @@ async function applyCritWound(actor, messageId) {
     let location = crit.location;
     let possibleWounds = []
 
-    for (let [woundName, woundConfig] of Object.entries(WITCHER.Crit)) {
+    for (let [woundName, woundConfig] of Object.entries(CONFIG.WITCHER.Crit)) {
         if (woundConfig.location.includes(location.name) && woundConfig.severity == crit.severity) {
             possibleWounds.push(woundName)
         }

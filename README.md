@@ -44,6 +44,17 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 ## Version History ##
 
 ### 1.037 ###
+- small bug fixes (by @pedroaugustobt)
+- enhancement diagrams are now displayed under diagrams (by @pedroaugustobt)
+- improved ptBr translations (by (by @pedroaugustobt))
+- fixing some deprecations
+- improve support for modules => data is now loaded dynamically from the config
+  - everything in verbal combat (also adding new entries)
+  - skills can be assigned different attributes (this will not be reflected in the UI)
+  - stats can be renamed
+  - everything in critical wounds can be modified
+
+### 1.037 ###
 - small bug fixes
 - fixing some deprecations
 

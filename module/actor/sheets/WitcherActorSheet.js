@@ -1,5 +1,4 @@
 import { extendedRoll } from "../../scripts/chat.js";
-import { WITCHER } from "../../setup/config.js";
 import { calc_currency_weight, addAllModifiers } from "../../scripts/witcher.js";
 import { RollConfig } from "../../scripts/rollConfig.js";
 
@@ -47,8 +46,8 @@ Array.prototype.cost = function () {
 
 export default class WitcherActorSheet extends ActorSheet {
 
-  statMap = WITCHER.statMap;
-  skillMap = WITCHER.skillMap;
+  statMap = CONFIG.WITCHER.statMap;
+  skillMap = CONFIG.WITCHER.skillMap;
 
   /** @override */
   getData() {
@@ -175,8 +174,8 @@ export default class WitcherActorSheet extends ActorSheet {
     let wounds = context.system.critWounds;
 
     wounds.forEach((wound, index) => {
-      wounds[index].description = WITCHER.Crit[wound.configEntry]?.description
-      wounds[index].effect = WITCHER.Crit[wound.configEntry]?.effect[wound.mod]
+      wounds[index].description = CONFIG.WITCHER.Crit[wound.configEntry]?.description
+      wounds[index].effect = CONFIG.WITCHER.Crit[wound.configEntry]?.effect[wound.mod]
     })
   }
 
@@ -317,17 +316,19 @@ export default class WitcherActorSheet extends ActorSheet {
 
   async _onVerbalCombat() {
     let displayRollDetails = game.settings.get("TheWitcherTRPG", "displayRollsDetails")
-    const dialogTemplate = await renderTemplate("systems/TheWitcherTRPG/templates/dialog/verbal-combat.hbs");
+    const dialogTemplate = await renderTemplate("systems/TheWitcherTRPG/templates/dialog/verbal-combat.hbs", { verbalCombat: CONFIG.WITCHER.verbalCombat });
     new Dialog({
       title: game.i18n.localize("WITCHER.verbalCombat.DialogTitle"),
       content: dialogTemplate,
       buttons: {
         t1: {
-          label: "Roll",
+          label: `${game.i18n.localize("WITCHER.Dialog.ButtonRoll")}`,
           callback: async (html) => {
-            let verbal = document.querySelector('input[name="verbalCombat"]:checked').value;
+            let checkedBox = document.querySelector('input[name="verbalCombat"]:checked')
+            let group = checkedBox.dataset.group;
+            let verbal = checkedBox.value;
 
-            let verbalCombat = WITCHER.verbalCombat[verbal]
+            let verbalCombat = CONFIG.WITCHER.verbalCombat[group][verbal]
             let vcName = verbalCombat.name;
 
             let vcStatName = verbalCombat.skill?.attribute.label ?? "WITCHER.Context.unavailable";
