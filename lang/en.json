@@ -1037,7 +1037,8 @@
       "aiming": "Aiming",
       "deaf": "Deaf",
       "reducedVision": "Reduced Vision",
-      "holdAction": "Hold Action"
+      "holdAction": "Hold Action",
+      "dead": "Dead"
     },
     "armorEffects": {
       "fireResistance": "Fire Resistance",

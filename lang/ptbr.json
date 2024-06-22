@@ -1037,7 +1037,8 @@
       "aiming": "Mirando",
       "deaf": "Surdo",
       "reducedVision": "Visão Restrita",
-      "holdAction": "Segurar Ação"
+      "holdAction": "Segurar Ação",
+      "dead": "Morto"
     },
     "armorEffects": {
       "fireResistance": "Resistência a Fogo",

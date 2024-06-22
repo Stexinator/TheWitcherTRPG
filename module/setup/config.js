@@ -1914,6 +1914,11 @@ WITCHER.statusEffects = [
         label: 'WITCHER.statusEffects.holdAction',
         icon: 'systems/TheWitcherTRPG/assets/images/statusEffects/uncertainty.svg',
     },
+    {
+        id: 'dead',
+        label: 'WITCHER.statusEffects.dead',
+        icon: 'icons/svg/skull.svg',
+    },
 ]
 
 WITCHER.armorEffects = [
