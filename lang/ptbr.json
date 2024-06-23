@@ -156,7 +156,8 @@
       "useAmmo": "Usar Munição",
       "armorPiercing": "Perfura Armadura",
       "improvedArmorPiercing": "Perfuração Melhorada",
-      "ablating": "Ablativa"
+      "ablating": "Ablativa",
+      "crushingForce": "Força de Esmagamento"
     },
     "Armor": {
       "ArmorEnhancement": "Melhoria de Armadura",
@@ -875,6 +876,7 @@
       "afterResistances": "Danos após resistências/vulnerabilidades",
       "totalApplied": "Dano Total Aplicado",
       "ablated": "A armadura foi ablada por ",
+      "crushingForce": "A armadura foi esmagada por ",
       "NotEnough": "Não há dano suficiente para perfurar a armadura",
       "ToMuchShield": "Todo o dano foi absorvido pelo escudo ou cobertura",
       "isVulnerable": "Vulnerável ao Ataque",

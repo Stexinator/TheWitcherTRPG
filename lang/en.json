@@ -156,7 +156,8 @@
       "useAmmo": "Use Ammunition",
       "armorPiercing": "Armor Piercing",
       "improvedArmorPiercing": "Improved Armor Piercing",
-      "ablating": "Ablating"
+      "ablating": "Ablating",
+      "crushingForce": "Crushing Force"
     },
     "Armor": {
       "ArmorEnhancement": "Armor Enhancement",
@@ -875,6 +876,7 @@
       "afterResistances": "Damage after resistances/vulnerabilities",
       "totalApplied": "Total Damage Applied",
       "ablated": "Armor was ablated for ",
+      "crushingForce": "Armor was double ablated for ",
       "NotEnough": "Not enough damage to pierce the armor",
       "ToMuchShield": "All damage was absorbed by shield or cover",
       "isVulnerable": "Vulnerable to the attack",
