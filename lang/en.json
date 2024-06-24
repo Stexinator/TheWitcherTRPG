@@ -134,7 +134,13 @@
       "Short.Damage": "DMG",
       "Short.Reliability": "Rel.",
       "Short.MaxReliability": "Max. Rel.",
-      "Hands": "Hands",
+      "Hands": {
+        "title": "Hands",
+        "none": "None",
+        "left": "Left",
+        "right": "Right",
+        "both": "Both"
+      },
       "Short.Concealment": "Conc.",
       "Short.Enhancements": "EN",
       "Range": "Range",

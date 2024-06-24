@@ -77,6 +77,15 @@ WITCHER.Concealment = {
     NA: "WITCHER.Item.CantHide",
 }
 
+WITCHER.weapon = {
+    hands: {
+        none: "WITCHER.Weapon.Hands.none",
+        left: "WITCHER.Weapon.Hands.left",
+        right: "WITCHER.Weapon.Hands.right",
+        both: "WITCHER.Weapon.Hands.both"
+    }
+}
+
 WITCHER.MonsterTypes = {
     Humanoid: "WITCHER.Monster.Type.Humanoid",
     Necrophage: "WITCHER.Monster.Type.Necrophage",

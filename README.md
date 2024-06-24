@@ -45,6 +45,9 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 
 ### 1.039 ###
 - added module support for weapon skills
+- fixed deprecation in weapon sheet
+- added detailed hands config to weapon
+  - this allows to add the mechanical implications of broken arms for weapons in the future
 
 ### 1.038 ###
 - small bug fixes (by @pedroaugustobt)

@@ -46,7 +46,7 @@
             <th title="{{localize 'WITCHER.Weapon.MaxReliability'}}">{{localize
                     "WITCHER.Weapon.Short.MaxReliability"}}</th>
             {{#unless item.system.isAmmo}}
-                <th>{{localize "WITCHER.Weapon.Hands"}}</th>
+                <th>{{localize "WITCHER.Weapon.Hands.title"}}</th>
             {{/unless}}
             <th title="{{localize 'WITCHER.Weapon.Concealment'}}">{{localize "WITCHER.Weapon.Short.Concealment"}}</th>
             {{#unless item.system.isAmmo}}
@@ -87,10 +87,7 @@
             {{#unless item.system.isAmmo}}
                 <td>
                     <select name="system.hands" id="hands-select">
-                        {{#select item.system.hands}}
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                        {{/select}}
+                        {{selectOptions config.weapon.hands selected=item.system.hands localize=true}}
                     </select>
                 </td>
             {{/unless}}
