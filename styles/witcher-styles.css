@@ -27,20 +27,21 @@
     font-family: Thewitcher;
 }
 
-details summary>* {
+.sheet-body details summary > * {
     display: inline;
 }
 
-details[open]>summary::after {
+.sheet-body details[open] > summary::after {
     transform: rotate(-135deg) translatey(-0.3em);
 }
 
-summary {
+.sheet-body summary {
     list-style: none;
     padding-left: 4px;
+    cursor: pointer;
 }
 
-summary::after {
+.sheet-body summary::after {
     display: inline-block;
     content: '';
     border-right: 2px solid;
