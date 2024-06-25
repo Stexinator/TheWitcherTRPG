@@ -29,16 +29,7 @@
             {{#unless item.system.isAmmo}}
                 <label>{{localize "WITCHER.Weapon.AttackSkill"}}:</label>
                 <select name="system.attackSkill">
-                    {{#select item.system.attackSkill}}
-                        <option value="brawling"> {{localize "WITCHER.SkRefBrawling"}} </option>
-                        <option value="melee"> {{localize "WITCHER.SkRefMelee"}} </option>
-                        <option value="smallblades"> {{localize "WITCHER.SkRefSmall"}} </option>
-                        <option value="staffspear"> {{localize "WITCHER.SkRefStaff"}} </option>
-                        <option value="swordsmanship"> {{localize "WITCHER.SkRefSwordsmanship"}} </option>
-                        <option value="archery"> {{localize "WITCHER.SkDexArchery"}} </option>
-                        <option value="athletics"> {{localize "WITCHER.SkDexAthletics"}} </option>
-                        <option value="crossbow"> {{localize "WITCHER.SkDexCrossbow"}} </option>
-                    {{/select}}
+                    {{selectOptions config.attackSkills selected=item.system.attackSkill valueAttr="name" localize=true}}
                 </select>
             {{/unless}}
         </div>
@@ -55,7 +46,7 @@
             <th title="{{localize 'WITCHER.Weapon.MaxReliability'}}">{{localize
                     "WITCHER.Weapon.Short.MaxReliability"}}</th>
             {{#unless item.system.isAmmo}}
-                <th>{{localize "WITCHER.Weapon.Hands"}}</th>
+                <th>{{localize "WITCHER.Weapon.Hands.title"}}</th>
             {{/unless}}
             <th title="{{localize 'WITCHER.Weapon.Concealment'}}">{{localize "WITCHER.Weapon.Short.Concealment"}}</th>
             {{#unless item.system.isAmmo}}
@@ -87,11 +78,7 @@
             {{/unless}}
             <td>
                 <select name="system.avail" id="avail-select">
-                    {{#select item.system.avail}}
-                        {{#each config.Availability as |name value|}}
-                            <option value="{{value}}">{{localize name}}</option>
-                        {{/each}}
-                    {{/select}}
+                    {{selectOptions config.Availability blank='' selected=item.system.avail localize=true}}
                 </select>
             </td>
             <td><input type="number" name="system.reliable" value="{{item.system.reliable}}" data-dtype="Number" /></td>
@@ -100,20 +87,13 @@
             {{#unless item.system.isAmmo}}
                 <td>
                     <select name="system.hands" id="hands-select">
-                        {{#select item.system.hands}}
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                        {{/select}}
+                        {{selectOptions config.weapon.hands selected=item.system.hands localize=true}}
                     </select>
                 </td>
             {{/unless}}
             <td>
                 <select name="system.conceal">
-                    {{#select item.system.conceal}}
-                        {{#each config.Concealment as |name value|}}
-                            <option value="{{value}}">{{localize name}}</option>
-                        {{/each}}
-                    {{/select}}
+                    {{selectOptions config.Concealment blank='' selected=item.system.conceal localize=true}}
                 </select>
             </td>
             {{#unless item.system.isAmmo}}
@@ -175,8 +155,8 @@
                                 class="fas fa-minus"></i></a>
                     </th>
                     <td class="list-item" data-id="{{effect.id}}">
-                        <input class="list-edit" data-field="name"
-                            placeholder="{{localize 'WITCHER.table.Name'}}" type="text" value="{{effect.name}}" />
+                        <input class="list-edit" data-field="name" placeholder="{{localize 'WITCHER.table.Name'}}"
+                            type="text" value="{{effect.name}}" />
                     </td>
                     <td class="list-item" data-id="{{effect.id}}">
                         <select class="list-edit" data-field="statusEffect">

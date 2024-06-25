@@ -18,7 +18,7 @@ export default class WeaponData extends CommonItemData {
 
       conceal: new fields.StringField({ initial: '' }),
       avail: new fields.StringField({ initial: '' }),
-      hands: new fields.NumberField({ initial: 0 }),
+      hands: new fields.StringField({ initial: 'none' }),
       equipped: new fields.BooleanField({ initial: false }),
 
       reliable: new fields.NumberField({ initial: 0 }),
