@@ -578,18 +578,16 @@ export let itemMixin = {
               messageData.flavor += `<span>  ${game.i18n.localize("WITCHER.Armor.Location")}: ${touchedLocation.alias} = ${touchedLocation.locationFormula} </span>`;
 
               messageData.flavor += `<button class="damage">${game.i18n.localize("WITCHER.table.Damage")}</button>`;
-
-              let config = new RollConfig()
-              config.showResult = false
-              let roll = await extendedRoll(attFormula, messageData, config)
-
               if (item.system.rollOnlyDmg) {
                 rollDamage(item, damage)
               } else {
-                let message = await roll.toMessage(messageData);
-
-                message.setFlag('TheWitcherTRPG', 'attack', item.getAttackSkillFlags())
-                message.setFlag('TheWitcherTRPG', 'damage', damage)
+                messageData.flags = {
+                  TheWitcherTRPG: {
+                    attack: item.getAttackSkillFlags(),
+                    damage: damage
+                  }
+                }
+                await extendedRoll(attFormula, messageData, new RollConfig())
               }
             }
           }
@@ -843,16 +841,19 @@ export let itemMixin = {
     await spellItem.createSpellVisualEffectIfApplicable();
     await spellItem.deleteSpellVisualEffect();
 
+    messageData.flags = {
+      TheWitcherTRPG: {
+        attack: spellItem.getSpellFlags(),
+        damage: damage,
+        effects: spellItem.system.effects
+      }
+    }
     let roll = await extendedRoll(rollFormula, messageData, config)
-    let message = await roll.toMessage(messageData);
+    await roll.toMessage(messageData);
 
     if (!roll.data.fumble) {
       await spellItem.system.globalModifiers.forEach(modifier => this._activateGlobalModifier(modifier))
     }
-
-    message.setFlag('TheWitcherTRPG', 'attack', spellItem.getSpellFlags())
-    message.setFlag('TheWitcherTRPG', 'damage', damage)
-    message.setFlag('TheWitcherTRPG', 'effects', spellItem.system.effects)
   },
 
   _onSpellDisplay(event) {
