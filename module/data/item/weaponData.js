@@ -38,6 +38,7 @@ export default class WeaponData extends CommonItemData {
       armorPiercing: new fields.BooleanField({ initial: false }),
       improvedArmorPiercing: new fields.BooleanField({ initial: false }),
       ablating: new fields.BooleanField({ initial: false }),
+      crushingForce: new fields.BooleanField({ initial: false }),
 
       effects: new fields.ArrayField(new fields.SchemaField(itemEffect())),
     }

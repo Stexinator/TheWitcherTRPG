@@ -281,7 +281,14 @@ async function applyDamage(actor, totalDamage, messageId, derivedStat) {
   }
   let infoAfterResistance = totalDamage
 
-  let spDamage = damageOptions.ablating ? Math.floor((await new Roll("1d6/2+1").evaluate()).total) : 1
+  let spDamage = damageOptions.crushingForce || damageOptions.ablating 
+    ? Math.floor((await new Roll("1d6/2+1").evaluate()).total) 
+    : 1
+    
+  if(damageOptions.crushingForce) {
+    spDamage *= 2
+  }
+
   //todo refactor
   switch (location.name) {
     case "head":
@@ -433,6 +440,10 @@ async function applyDamage(actor, totalDamage, messageId, derivedStat) {
     `;
   if (damageOptions.ablating) {
     messageContent += `<br/>${game.i18n.localize("WITCHER.Damage.ablated")}: <span class="error-display">${spDamage}</span>`
+  }
+
+  if (damageOptions.crushingForce) {
+    messageContent += `<br/>${game.i18n.localize("WITCHER.Damage.crushingForce")}: <span class="error-display">${spDamage}</span>`
   }
 
   let messageData = {
