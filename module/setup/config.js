@@ -1964,6 +1964,12 @@ WITCHER.specialModifier = [
         formula: "+3"
     },
     {
+        id: "viper-strike",
+        label: "WITCHER.globalModifier.specialEffect.viperstrike",
+        tags: ["attack", "joint"],
+        formula: "+3"
+    },
+    {
         id: "melee-damage",
         label: "WITCHER.globalModifier.specialEffect.meleeDamage",
         tags: ["melee-damage"],
