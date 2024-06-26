@@ -596,7 +596,7 @@ export let itemMixin = {
     }, myDialogOptions).render(true)
   },
 
-  handleSpecialModifier(attFormula, action) {
+  handleSpecialModifier(attFormula, action, additionalTag) {
     let relevantModifier = this.actor.getList("globalModifier")
       .filter(modifier => modifier.system.isActive)
       .filter(modifier => modifier.system.special?.length > 0)
@@ -604,6 +604,7 @@ export let itemMixin = {
       .flat()
       .map(modifier => CONFIG.WITCHER.specialModifier.find(special => special.id == modifier.special))
       .filter(special => special.tags.includes(action))
+      .filter(special => special.additionalTags?.includes(additionalTag?.toLowerCase()) ?? true)
 
     relevantModifier.forEach(modifier => attFormula += `${modifier.formula}[${game.i18n.localize(modifier.label)}]`)
 

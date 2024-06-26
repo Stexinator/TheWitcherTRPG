@@ -49,6 +49,7 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
   - this allows to add the mechanical implications of broken arms for weapons in the future
 - added dead effect (by @pedroaugustobt)
 - added Crushing Force in item sheet (by @pedroaugustobt)
+- added support for bear, viper and manticore witcher school
 - started re-styling of components
 - skill overview
 - character sheet top section

@@ -1976,6 +1976,20 @@ WITCHER.specialModifier = [
         formula: "+1"
     },
     {
+        id: "manticore-parry",
+        label: "WITCHER.globalModifier.specialEffect.manticoreparry",
+        tags: ["parry"],
+        additionalTags: ["shield"],
+        formula: "+3"
+    },
+    {
+        id: "manticore-parry-thrown",
+        label: "WITCHER.globalModifier.specialEffect.manticoreparrythrown",
+        tags: ["parrythrown"],
+        additionalTags: ["shield"],
+        formula: "+5"
+    },
+    {
         id: "armor-encumbarance",
         label: "WITCHER.globalModifier.specialEffect.armorEncumbarance",
         tags: ["armorencumbarance"],

@@ -977,6 +977,8 @@
       "specialEffect": {
         "wolfstrike": "Wolf School Strong Strike",
         "viperstrike": "Viper School Joint Strike",
+        "manticoreparry": "Manticore School Parry",
+        "manticoreparrythrown": "Manticore School Parry Thrown Weapon",
         "armorEncumbarance": "-1 Armor Penalty",
         "armoredCaster": "Armored Caster",
         "meleeDamage": "+1 Melee Damage"
