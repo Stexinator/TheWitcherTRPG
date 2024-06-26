@@ -976,6 +976,7 @@
       "special": "Special Effects",
       "specialEffect": {
         "wolfstrike": "Wolf School Strong Strike",
+        "armorEncumbarance": "-1 Armor Penalty",
         "armoredCaster": "Armored Caster",
         "meleeDamage": "+1 Melee Damage"
       }

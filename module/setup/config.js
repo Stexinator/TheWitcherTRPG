@@ -1964,15 +1964,22 @@ WITCHER.specialModifier = [
         formula: "+3"
     },
     {
+        id: "melee-damage",
+        label: "WITCHER.globalModifier.specialEffect.meleeDamage",
+        tags: ["melee-damage"],
+        formula: "+1"
+    },
+    {
+        id: "armor-encumbarance",
+        label: "WITCHER.globalModifier.specialEffect.armorEncumbarance",
+        tags: ["armorencumbarance"],
+        formula: "-1"
+    },
+    {
         id: "armored-caster",
         label: "WITCHER.globalModifier.specialEffect.armoredCaster",
         tags: ["magic-armorencumbarance"],
         formula: "+1"
     },
-    {
-        id: "melee-damage",
-        label: "WITCHER.globalModifier.specialEffect.meleeDamage",
-        tags: ["melee-damage"],
-        formula: "+1"
-    }
+
 ]

@@ -265,7 +265,18 @@ function getArmorEcumbrance(actor) {
 	armors.forEach(item => {
 		encumbranceModifier += item.system.encumb
 	});
-	return encumbranceModifier
+
+	let relevantModifier = actor.getList("globalModifier")
+		.filter(modifier => modifier.system.isActive)
+		.filter(modifier => modifier.system.special?.length > 0)
+		.map(modifier => modifier.system.special)
+		.flat()
+		.map(modifier => CONFIG.WITCHER.specialModifier.find(special => special.id == modifier.special))
+		.filter(special => special.tags.includes("armorencumbarance"))
+
+	relevantModifier.forEach(modifier => encumbranceModifier += parseInt(modifier.formula))
+
+	return Math.max(encumbranceModifier, 0)
 }
 
 function rollSkillCheck(actor, skillMapEntry) {

@@ -532,7 +532,7 @@ export let itemMixin = {
               }
 
 
-              let skill = WITCHER.skillMap[attackSkill.name];
+              let skill = CONFIG.WITCHER.skillMap[attackSkill.name];
               attFormula += !displayRollDetails ?
                 `+${this.actor.system.stats[skill.attribute.name].current}+${this.actor.system.skills[skill.attribute.name][skill.name].value}` :
                 `+${this.actor.system.stats[skill.attribute.name].current}[${game.i18n.localize(skill.attribute.label)}]+${this.actor.system.skills[skill.attribute.name][skill.name].value}[${game.i18n.localize(skill.label)}]`;
@@ -602,7 +602,7 @@ export let itemMixin = {
       .filter(modifier => modifier.system.special?.length > 0)
       .map(modifier => modifier.system.special)
       .flat()
-      .map(modifier => WITCHER.specialModifier.find(special => special.id == modifier.special))
+      .map(modifier => CONFIG.WITCHER.specialModifier.find(special => special.id == modifier.special))
       .filter(special => special.tags.includes(action))
 
     relevantModifier.forEach(modifier => attFormula += `${modifier.formula}[${game.i18n.localize(modifier.label)}]`)
