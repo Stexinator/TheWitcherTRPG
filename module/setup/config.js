@@ -1389,6 +1389,10 @@ WITCHER.statMap = {
 }
 
 WITCHER.skillGroups = {
+    allSkills: {
+        label: "WITCHER.Skills.SkillGroups.allSkills",
+        name: "allSkills",
+    },
     meleeSkills: {
         label: "WITCHER.Skills.SkillGroups.meleeSkills",
         name: "meleeSkills",

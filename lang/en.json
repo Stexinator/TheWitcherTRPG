@@ -781,6 +781,7 @@
     "Notes": "Notes",
     "Skills": {
       "SkillGroups": {
+        "allSkills": "All Skills",
         "meleeSkills": "Melee Skills",
         "rangedSkills": "Ranged Skills",
         "magicSkills": "Magic Skills",

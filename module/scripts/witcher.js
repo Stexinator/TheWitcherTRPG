@@ -397,7 +397,7 @@ function addGlobalModifier(actor, skillName, rollFormula) {
 	let globalModifier = actor.getList("effect").concat(actor.getList("globalModifier")).filter(e => e.system.isActive);
 	globalModifier.forEach(modifier => {
 		modifier.system.skills?.forEach(modifierSkill => {
-			if (skillName == modifierSkill.skill || CONFIG.WITCHER[modifierSkill.skill]?.includes(skillName)) {
+			if (skillName == modifierSkill.skill || modifierSkill.skill == "allSkills" || CONFIG.WITCHER[modifierSkill.skill]?.includes(skillName)) {
 				if (modifierSkill.modifier.includes("/")) {
 					rollFormula += !displayRollDetails ? ` /${Number(modifierSkill.modifier.replace("/", ''))}` : ` /${Number(modifierSkill.modifier.replace("/", ''))}[${modifier.name}]`
 				}
