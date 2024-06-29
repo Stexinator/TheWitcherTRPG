@@ -1,15 +1,8 @@
-2024/06/04-18:03:12.351302 7f7cdfc20b38 Recovering log #63
-2024/06/04-18:03:12.368932 7f7cdfc20b38 Delete type=3 #61
-2024/06/04-18:03:12.370012 7f7cdfc20b38 Delete type=0 #63
-2024/06/04-18:13:14.596324 7f77dd7efb38 Level-0 table #68: started
-2024/06/04-18:13:14.605497 7f77dd7efb38 Level-0 table #68: 167374 bytes OK
-2024/06/04-18:13:14.609118 7f77dd7efb38 Delete type=0 #66
-2024/06/04-18:13:14.610207 7f77dd7efb38 Manual compaction at level-0 from '!adventures!ruIcxgVXNdcklH0A' @ 72057594037927935 : 1 .. '!adventures!ruIcxgVXNdcklH0A' @ 0 : 0; will stop at (end)
-2024/06/04-18:13:14.610321 7f77dd7efb38 Manual compaction at level-1 from '!adventures!ruIcxgVXNdcklH0A' @ 72057594037927935 : 1 .. '!adventures!ruIcxgVXNdcklH0A' @ 0 : 0; will stop at '!adventures!ruIcxgVXNdcklH0A' @ 6 : 1
-2024/06/04-18:13:14.610415 7f77dd7efb38 Compacting 1@1 + 1@2 files
-2024/06/04-18:13:14.631413 7f77dd7efb38 Generated table #69@1: 1 keys, 167374 bytes
-2024/06/04-18:13:14.631488 7f77dd7efb38 Compacted 1@1 + 1@2 files => 167374 bytes
-2024/06/04-18:13:14.718346 7f77dd7efb38 compacted to: files[ 0 0 1 0 0 0 0 ]
-2024/06/04-18:13:14.726004 7f77dd7efb38 Delete type=2 #24
-2024/06/04-18:13:14.726952 7f77dd7efb38 Delete type=2 #68
-2024/06/04-18:13:14.789604 7f77dd7efb38 Manual compaction at level-1 from '!adventures!ruIcxgVXNdcklH0A' @ 6 : 1 .. '!adventures!ruIcxgVXNdcklH0A' @ 0 : 0; will stop at (end)
+2024/06/26-16:55:47.725554 7f5d99f08b38 Recovering log #112
+2024/06/26-16:55:47.739189 7f5d99f08b38 Delete type=3 #110
+2024/06/26-16:55:47.740343 7f5d99f08b38 Delete type=0 #112
+2024/06/26-21:40:58.236593 7f5b15f77b38 Level-0 table #117: started
+2024/06/26-21:40:58.237581 7f5b15f77b38 Level-0 table #117: 0 bytes OK
+2024/06/26-21:40:58.242938 7f5b15f77b38 Delete type=0 #115
+2024/06/26-21:40:58.259291 7f5b15f77b38 Manual compaction at level-0 from '!adventures!ruIcxgVXNdcklH0A' @ 72057594037927935 : 1 .. '!adventures!ruIcxgVXNdcklH0A' @ 0 : 0; will stop at (end)
+2024/06/26-21:40:58.259525 7f5b15f77b38 Manual compaction at level-1 from '!adventures!ruIcxgVXNdcklH0A' @ 72057594037927935 : 1 .. '!adventures!ruIcxgVXNdcklH0A' @ 0 : 0; will stop at (end)
