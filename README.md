@@ -43,10 +43,26 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 
 ## Version History ##
 
-### 1.037 ###
+### 1.039 ###
+- added module support for weapon skills
+- added detailed hands config to weapon
+  - this allows to add the mechanical implications of broken arms for weapons in the future
+- added dead effect (by @pedroaugustobt)
+- added Crushing Force in item sheet (by @pedroaugustobt)
+- added support for bear, viper and manticore witcher school
+- updated compendium (by @Siryphas)
+- started re-styling of components
+- skill overview
+- character sheet top section
+- fix vigor not appear in character header (by @pedroaugustobt)
+- fixed deprecation in weapon sheet
+- fixed automated animations integration
+
+
+### 1.038 ###
 - small bug fixes (by @pedroaugustobt)
 - enhancement diagrams are now displayed under diagrams (by @pedroaugustobt)
-- improved ptBr translations (by (by @pedroaugustobt))
+- improved ptBr translations (by @pedroaugustobt)
 - fixing some deprecations
 - improve support for modules => data is now loaded dynamically from the config
   - everything in verbal combat (also adding new entries)

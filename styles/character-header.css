@@ -2,8 +2,7 @@
     display: flex;
 }
 
-.char-left-sidebar {
-    flex-basis: 180px;
+.char-image {
     flex: none;
 }
 
@@ -13,6 +12,11 @@
 
 .char-bottom-section table td {
     padding: 0.35em 0.35em 0.35em 0.5em;
+}
+
+.character-statistics {
+    flex-basis: 180px;
+    flex: none;
 }
 
 .char-stat-title label {
@@ -104,9 +108,19 @@ input.total-stats-show {
     margin-top: 2px;
 }
 
+.char-general {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.char-general > span > * {
+    border: none;
+}
+
 .witcher-actor-img {
     height: 225px;
     width: 225px;
+    margin-top: 20px;
 }
 
 .core-stats-list {
@@ -137,7 +151,7 @@ input.total-stats-show {
     float: left;
     margin: auto;
     width: 50%;
-    height: 90px;
+    height: 110px;
     text-align: center;
 }
 
@@ -190,7 +204,12 @@ input.right-value {
 .char-button-column {
     width: 115px;
     margin-left: 2.5px;
+
+    a {
+        margin: 5px;
+    }
 }
+
 
 .button-roll {
     display: flex;

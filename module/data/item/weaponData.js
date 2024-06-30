@@ -18,7 +18,7 @@ export default class WeaponData extends CommonItemData {
 
       conceal: new fields.StringField({ initial: '' }),
       avail: new fields.StringField({ initial: '' }),
-      hands: new fields.NumberField({ initial: 0 }),
+      hands: new fields.StringField({ initial: 'none' }),
       equipped: new fields.BooleanField({ initial: false }),
 
       reliable: new fields.NumberField({ initial: 0 }),
@@ -38,6 +38,7 @@ export default class WeaponData extends CommonItemData {
       armorPiercing: new fields.BooleanField({ initial: false }),
       improvedArmorPiercing: new fields.BooleanField({ initial: false }),
       ablating: new fields.BooleanField({ initial: false }),
+      crushingForce: new fields.BooleanField({ initial: false }),
 
       effects: new fields.ArrayField(new fields.SchemaField(itemEffect())),
     }

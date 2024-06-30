@@ -134,7 +134,13 @@
       "Short.Damage": "DMG",
       "Short.Reliability": "Rel.",
       "Short.MaxReliability": "Max. Rel.",
-      "Hands": "Hands",
+      "Hands": {
+        "title": "Hands",
+        "none": "None",
+        "left": "Left",
+        "right": "Right",
+        "both": "Both"
+      },
       "Short.Concealment": "Conc.",
       "Short.Enhancements": "EN",
       "Range": "Range",
@@ -156,7 +162,8 @@
       "useAmmo": "Use Ammunition",
       "armorPiercing": "Armor Piercing",
       "improvedArmorPiercing": "Improved Armor Piercing",
-      "ablating": "Ablating"
+      "ablating": "Ablating",
+      "crushingForce": "Crushing Force"
     },
     "Armor": {
       "ArmorEnhancement": "Armor Enhancement",
@@ -774,6 +781,7 @@
     "Notes": "Notes",
     "Skills": {
       "SkillGroups": {
+        "allSkills": "All Skills",
         "meleeSkills": "Melee Skills",
         "rangedSkills": "Ranged Skills",
         "magicSkills": "Magic Skills",
@@ -875,6 +883,7 @@
       "afterResistances": "Damage after resistances/vulnerabilities",
       "totalApplied": "Total Damage Applied",
       "ablated": "Armor was ablated for ",
+      "crushingForce": "Armor was double ablated for ",
       "NotEnough": "Not enough damage to pierce the armor",
       "ToMuchShield": "All damage was absorbed by shield or cover",
       "isVulnerable": "Vulnerable to the attack",
@@ -968,6 +977,10 @@
       "special": "Special Effects",
       "specialEffect": {
         "wolfstrike": "Wolf School Strong Strike",
+        "viperstrike": "Viper School Joint Strike",
+        "manticoreparry": "Manticore School Parry",
+        "manticoreparrythrown": "Manticore School Parry Thrown Weapon",
+        "armorEncumbarance": "-1 Armor Penalty",
         "armoredCaster": "Armored Caster",
         "meleeDamage": "+1 Melee Damage"
       }
@@ -1037,7 +1050,8 @@
       "aiming": "Aiming",
       "deaf": "Deaf",
       "reducedVision": "Reduced Vision",
-      "holdAction": "Hold Action"
+      "holdAction": "Hold Action",
+      "dead": "Dead"
     },
     "armorEffects": {
       "fireResistance": "Fire Resistance",

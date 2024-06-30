@@ -1,15 +1,8 @@
-2024/06/04-18:03:12.212139 7f7ce0c26b38 Recovering log #62
-2024/06/04-18:03:12.243490 7f7ce0c26b38 Delete type=0 #62
-2024/06/04-18:03:12.244456 7f7ce0c26b38 Delete type=3 #60
-2024/06/04-18:13:12.383540 7f77dd7efb38 Level-0 table #67: started
-2024/06/04-18:13:12.393041 7f77dd7efb38 Level-0 table #67: 1845 bytes OK
-2024/06/04-18:13:12.406851 7f77dd7efb38 Delete type=0 #65
-2024/06/04-18:13:12.415021 7f77dd7efb38 Manual compaction at level-0 from '!scenes!loiTa7MDb1aaQErp' @ 72057594037927935 : 1 .. '!scenes!loiTa7MDb1aaQErp' @ 0 : 0; will stop at (end)
-2024/06/04-18:13:12.415375 7f77dd7efb38 Manual compaction at level-1 from '!scenes!loiTa7MDb1aaQErp' @ 72057594037927935 : 1 .. '!scenes!loiTa7MDb1aaQErp' @ 0 : 0; will stop at '!scenes!loiTa7MDb1aaQErp' @ 2 : 1
-2024/06/04-18:13:12.415508 7f77dd7efb38 Compacting 1@1 + 1@2 files
-2024/06/04-18:13:12.421379 7f77dd7efb38 Generated table #68@1: 1 keys, 1845 bytes
-2024/06/04-18:13:12.421497 7f77dd7efb38 Compacted 1@1 + 1@2 files => 1845 bytes
-2024/06/04-18:13:12.431375 7f77dd7efb38 compacted to: files[ 0 0 1 0 0 0 0 ]
-2024/06/04-18:13:12.433435 7f77dd7efb38 Delete type=2 #67
-2024/06/04-18:13:12.434284 7f77dd7efb38 Delete type=2 #19
-2024/06/04-18:13:12.557499 7f77dd7efb38 Manual compaction at level-1 from '!scenes!loiTa7MDb1aaQErp' @ 2 : 1 .. '!scenes!loiTa7MDb1aaQErp' @ 0 : 0; will stop at (end)
+2024/06/26-16:55:47.677273 7f5d9af0eb38 Recovering log #111
+2024/06/26-16:55:47.693164 7f5d9af0eb38 Delete type=3 #109
+2024/06/26-16:55:47.694260 7f5d9af0eb38 Delete type=0 #111
+2024/06/26-21:40:58.191819 7f5b15f77b38 Level-0 table #116: started
+2024/06/26-21:40:58.192577 7f5b15f77b38 Level-0 table #116: 0 bytes OK
+2024/06/26-21:40:58.197598 7f5b15f77b38 Delete type=0 #114
+2024/06/26-21:40:58.198975 7f5b15f77b38 Manual compaction at level-0 from '!scenes!loiTa7MDb1aaQErp' @ 72057594037927935 : 1 .. '!scenes!loiTa7MDb1aaQErp' @ 0 : 0; will stop at (end)
+2024/06/26-21:40:58.199265 7f5b15f77b38 Manual compaction at level-1 from '!scenes!loiTa7MDb1aaQErp' @ 72057594037927935 : 1 .. '!scenes!loiTa7MDb1aaQErp' @ 0 : 0; will stop at (end)

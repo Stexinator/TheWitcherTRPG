@@ -75,6 +75,7 @@ function ExecuteDefense(actor, messageId, totalAttack) {
     let location = game.messages.get(messageId)?.getFlag('TheWitcherTRPG', 'damage').location
     let weapons = actor.items.filter(function (item) { return item.type == "weapon" && !item.system.isAmmo && CONFIG.WITCHER.meleeSkills.includes(item.system.attackSkill) });
     let shields = actor.items.filter(function (item) { return item.type == "armor" && item.system.location == "Shield" });
+
     let options = `<option value="brawling"> ${game.i18n.localize("WITCHER.SkRefBrawling")} </option>`;
     weapons.forEach(item => options += `<option value="${item.system.attackSkill}" itemId="${item.id}" type="Weapon"> ${item.name} (${game.i18n.localize(item.getItemAttackSkill().alias)})</option>`);
     shields.forEach(item => options += `<option value="melee" itemId="${item.id}" type="Shield"> ${item.name} (${game.i18n.localize("WITCHER.SkRefMelee")})</option>`);
@@ -152,6 +153,9 @@ async function defense(actor, skillName, modifier, totalAttack, attackLocation, 
     if (modifier < 0) {
         rollFormula += !displayRollDetails ? `${modifier}` : `${modifier}[${game.i18n.localize("WITCHER.Dialog." + buttonName)}]`;
     }
+    if (modifier > 0) {
+        rollFormula += !displayRollDetails ? `+${modifier}` : `+${modifier}[${game.i18n.localize("WITCHER.Dialog." + buttonName)}]`;
+    }
 
     let customDef = html.find("[name=customDef]")[0].value;
     if (customDef != "0") {
@@ -159,7 +163,7 @@ async function defense(actor, skillName, modifier, totalAttack, attackLocation, 
     }
 
     rollFormula = addAllModifiers(actor, skillName, rollFormula)
-    let config = createRollConfig(actor, skill, totalAttack)
+    rollFormula = handleSpecialModifier(actor, rollFormula, buttonName.replace("Button", "").toLowerCase(), html.find("[name=form]")[0].selectedOptions[0].getAttribute('type'))
 
     let messageData = {
         speaker: ChatMessage.getSpeaker({ actor: actor }),
@@ -167,7 +171,7 @@ async function defense(actor, skillName, modifier, totalAttack, attackLocation, 
     }
     messageData.flavor = `<h1>${game.i18n.localize("WITCHER.Dialog.Defense")}: ${game.i18n.localize("WITCHER.Dialog." + buttonName)}</h1><p>${displayFormula}</p>`;
 
-    let roll = await extendedRoll(rollFormula, messageData, config)
+    let roll = await extendedRoll(rollFormula, messageData, createRollConfig(actor, skill, totalAttack))
     let crit = checkForCrit(roll.total, totalAttack)
     if (crit) {
         messageData.flavor += `<h3 class='center-important crit-taken'>${game.i18n.localize("WITCHER.Defense.Crit")}: ${game.i18n.localize(CONFIG.WITCHER.CritGravity[crit.severity])}</h3>`
@@ -177,6 +181,21 @@ async function defense(actor, skillName, modifier, totalAttack, attackLocation, 
     let message = await roll.toMessage(messageData);
     message.setFlag('TheWitcherTRPG', 'crit', crit)
 
+}
+
+function handleSpecialModifier(actor, formula, action, additionalTag) {
+    let relevantModifier = actor.getList("globalModifier")
+        .filter(modifier => modifier.system.isActive)
+        .filter(modifier => modifier.system.special?.length > 0)
+        .map(modifier => modifier.system.special)
+        .flat()
+        .map(modifier => CONFIG.WITCHER.specialModifier.find(special => special.id == modifier.special))
+        .filter(special => special.tags.includes(action))
+        .filter(special => special.additionalTags?.includes(additionalTag?.toLowerCase()) ?? true)
+
+    relevantModifier.forEach(modifier => formula += `${modifier.formula}[${game.i18n.localize(modifier.label)}]`)
+
+    return formula;
 }
 
 function handleExtraDefense(html, actor) {

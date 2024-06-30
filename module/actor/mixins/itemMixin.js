@@ -532,7 +532,7 @@ export let itemMixin = {
               }
 
 
-              let skill = WITCHER.skillMap[attackSkill.name];
+              let skill = CONFIG.WITCHER.skillMap[attackSkill.name];
               attFormula += !displayRollDetails ?
                 `+${this.actor.system.stats[skill.attribute.name].current}+${this.actor.system.skills[skill.attribute.name][skill.name].value}` :
                 `+${this.actor.system.stats[skill.attribute.name].current}[${game.i18n.localize(skill.attribute.label)}]+${this.actor.system.skills[skill.attribute.name][skill.name].value}[${game.i18n.localize(skill.label)}]`;
@@ -578,18 +578,16 @@ export let itemMixin = {
               messageData.flavor += `<span>  ${game.i18n.localize("WITCHER.Armor.Location")}: ${touchedLocation.alias} = ${touchedLocation.locationFormula} </span>`;
 
               messageData.flavor += `<button class="damage">${game.i18n.localize("WITCHER.table.Damage")}</button>`;
-
-              let config = new RollConfig()
-              config.showResult = false
-              let roll = await extendedRoll(attFormula, messageData, config)
-
               if (item.system.rollOnlyDmg) {
                 rollDamage(item, damage)
               } else {
-                let message = await roll.toMessage(messageData);
-
-                message.setFlag('TheWitcherTRPG', 'attack', item.getAttackSkillFlags())
-                message.setFlag('TheWitcherTRPG', 'damage', damage)
+                messageData.flags = {
+                  TheWitcherTRPG: {
+                    attack: item.getAttackSkillFlags(),
+                    damage: damage
+                  }
+                }
+                await extendedRoll(attFormula, messageData, new RollConfig())
               }
             }
           }
@@ -598,14 +596,15 @@ export let itemMixin = {
     }, myDialogOptions).render(true)
   },
 
-  handleSpecialModifier(attFormula, action) {
+  handleSpecialModifier(attFormula, action, additionalTag) {
     let relevantModifier = this.actor.getList("globalModifier")
       .filter(modifier => modifier.system.isActive)
       .filter(modifier => modifier.system.special?.length > 0)
       .map(modifier => modifier.system.special)
       .flat()
-      .map(modifier => WITCHER.specialModifier.find(special => special.id == modifier.special))
+      .map(modifier => CONFIG.WITCHER.specialModifier.find(special => special.id == modifier.special))
       .filter(special => special.tags.includes(action))
+      .filter(special => special.additionalTags?.includes(additionalTag?.toLowerCase()) ?? true)
 
     relevantModifier.forEach(modifier => attFormula += `${modifier.formula}[${game.i18n.localize(modifier.label)}]`)
 
@@ -843,16 +842,19 @@ export let itemMixin = {
     await spellItem.createSpellVisualEffectIfApplicable();
     await spellItem.deleteSpellVisualEffect();
 
+    messageData.flags = {
+      TheWitcherTRPG: {
+        attack: spellItem.getSpellFlags(),
+        damage: damage,
+        effects: spellItem.system.effects
+      }
+    }
     let roll = await extendedRoll(rollFormula, messageData, config)
-    let message = await roll.toMessage(messageData);
+    await roll.toMessage(messageData);
 
     if (!roll.data.fumble) {
       await spellItem.system.globalModifiers.forEach(modifier => this._activateGlobalModifier(modifier))
     }
-
-    message.setFlag('TheWitcherTRPG', 'attack', spellItem.getSpellFlags())
-    message.setFlag('TheWitcherTRPG', 'damage', damage)
-    message.setFlag('TheWitcherTRPG', 'effects', spellItem.system.effects)
   },
 
   _onSpellDisplay(event) {

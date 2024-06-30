@@ -1,6 +1,20 @@
+.flex>div {
+    flex-grow: 1;
+}
+
 .skill-column {
     margin: 5px;
-    flex-grow: 1;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: darkgray;
+
+    h1 {
+        border: none;
+    }
+
+    summary {
+        border-bottom: 2px solid var(--color-underline-header);
+    }
 }
 
 .char-skill {
@@ -9,6 +23,9 @@
 
 .table-skills {
     min-width: 175px;
+
+    border: none;
+    background: none;
 }
 
 .char-skill a {
@@ -31,9 +48,11 @@
 .char-input-skill {
     width: 10px;
 }
+
 .char-input-skill-icon {
     width: 10px;
 }
+
 .char-input-skill input {
     font-weight: bold;
     width: 30px;
@@ -45,6 +64,7 @@
     margin: auto;
     border-radius: 10px;
     padding: 10px;
+    margin-top: 20px;
     color: white;
 }
 
@@ -63,7 +83,7 @@
     background-color: lightsteelblue !important;
 }
 
-.extra-skill-value {  
+.extra-skill-value {
     font-weight: bold;
     width: 30px !important;
     text-align: center !important;

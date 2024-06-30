@@ -77,6 +77,15 @@ WITCHER.Concealment = {
     NA: "WITCHER.Item.CantHide",
 }
 
+WITCHER.weapon = {
+    hands: {
+        none: "WITCHER.Weapon.Hands.none",
+        left: "WITCHER.Weapon.Hands.left",
+        right: "WITCHER.Weapon.Hands.right",
+        both: "WITCHER.Weapon.Hands.both"
+    }
+}
+
 WITCHER.MonsterTypes = {
     Humanoid: "WITCHER.Monster.Type.Humanoid",
     Necrophage: "WITCHER.Monster.Type.Necrophage",
@@ -1380,6 +1389,10 @@ WITCHER.statMap = {
 }
 
 WITCHER.skillGroups = {
+    allSkills: {
+        label: "WITCHER.Skills.SkillGroups.allSkills",
+        name: "allSkills",
+    },
     meleeSkills: {
         label: "WITCHER.Skills.SkillGroups.meleeSkills",
         name: "meleeSkills",
@@ -1914,6 +1927,11 @@ WITCHER.statusEffects = [
         label: 'WITCHER.statusEffects.holdAction',
         icon: 'systems/TheWitcherTRPG/assets/images/statusEffects/uncertainty.svg',
     },
+    {
+        id: 'dead',
+        label: 'WITCHER.statusEffects.dead',
+        icon: 'icons/svg/skull.svg',
+    },
 ]
 
 WITCHER.armorEffects = [
@@ -1950,15 +1968,42 @@ WITCHER.specialModifier = [
         formula: "+3"
     },
     {
-        id: "armored-caster",
-        label: "WITCHER.globalModifier.specialEffect.armoredCaster",
-        tags: ["magic-armorencumbarance"],
-        formula: "+1"
+        id: "viper-strike",
+        label: "WITCHER.globalModifier.specialEffect.viperstrike",
+        tags: ["attack", "joint"],
+        formula: "+3"
     },
     {
         id: "melee-damage",
         label: "WITCHER.globalModifier.specialEffect.meleeDamage",
         tags: ["melee-damage"],
         formula: "+1"
-    }
+    },
+    {
+        id: "manticore-parry",
+        label: "WITCHER.globalModifier.specialEffect.manticoreparry",
+        tags: ["parry"],
+        additionalTags: ["shield"],
+        formula: "+3"
+    },
+    {
+        id: "manticore-parry-thrown",
+        label: "WITCHER.globalModifier.specialEffect.manticoreparrythrown",
+        tags: ["parrythrown"],
+        additionalTags: ["shield"],
+        formula: "+5"
+    },
+    {
+        id: "armor-encumbarance",
+        label: "WITCHER.globalModifier.specialEffect.armorEncumbarance",
+        tags: ["armorencumbarance"],
+        formula: "-1"
+    },
+    {
+        id: "armored-caster",
+        label: "WITCHER.globalModifier.specialEffect.armoredCaster",
+        tags: ["magic-armorencumbarance"],
+        formula: "+1"
+    },
+
 ]

@@ -18,6 +18,8 @@ export default class WitcherWeaponSheet extends WitcherItemSheet {
       }
     });
 
+    data.config.attackSkills = CONFIG.WITCHER.meleeSkills.concat(CONFIG.WITCHER.rangedSkills).map(skill => CONFIG.WITCHER.skillMap[skill])
+
     return data;
   }
 
