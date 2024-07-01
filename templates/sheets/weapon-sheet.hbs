@@ -29,7 +29,7 @@
             {{#unless item.system.isAmmo}}
                 <label>{{localize "WITCHER.Weapon.AttackSkill"}}:</label>
                 <select name="system.attackSkill">
-                    {{selectOptions config.attackSkills selected=item.system.attackSkill valueAttr="name" localize=true}}
+                    {{selectOptions config.attackSkills selected=item.system.attackSkill valueAttr="name" nameAttr="name" labelAttr="label" localize=true}}
                 </select>
             {{/unless}}
         </div>
@@ -130,11 +130,10 @@
                 {{checked item.system.improvedArmorPiercing}} />
             <label for="improvedArmorPiercing">{{localize "WITCHER.Weapon.improvedArmorPiercing"}}</label>
 
-            <input type="checkbox" id="ablating" name="system.ablating" 
-                {{checked item.system.ablating}} />
+            <input type="checkbox" id="ablating" name="system.ablating" {{checked item.system.ablating}} />
             <label for="ablating">{{localize "WITCHER.Weapon.ablating"}}</label>
 
-            <input type="checkbox" id="crushingForce" name="system.crushingForce" 
+            <input type="checkbox" id="crushingForce" name="system.crushingForce"
                 {{checked item.system.crushingForce}} />
             <label for="crushingForce">{{localize "WITCHER.Weapon.crushingForce"}}</label>
         </div>
