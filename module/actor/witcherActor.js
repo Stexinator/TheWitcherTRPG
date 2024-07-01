@@ -1,6 +1,10 @@
 import { getRandomInt } from "../scripts/witcher.js";
 import { WITCHER } from "../setup/config.js";
 
+Array.prototype.weight = function () {
+
+}
+
 export default class WitcherActor extends Actor {
 
   prepareDerivedData() {
@@ -78,6 +82,29 @@ export default class WitcherActor extends Actor {
     } else {
       return false
     }
+  }
+
+  getTotalWeight() {
+    var total = 0
+    this.items.forEach(item => {
+      if (item.system.weight && item.system.quantity && item.system.isCarried && !item.system.isStored) {
+        total += item.system.quantity * item.system.weight + (item.system.storedWeight ?? 0)
+      }
+    })
+    return Math.ceil(total + this.calc_currency_weight())
+  }
+
+  calc_currency_weight() {
+    let currency = this.system.currency;
+    let totalPieces = 0;
+    totalPieces += Number(currency.bizant);
+    totalPieces += Number(currency.ducat);
+    totalPieces += Number(currency.lintar);
+    totalPieces += Number(currency.floren);
+    totalPieces += Number(currency.crown);
+    totalPieces += Number(currency.oren);
+    totalPieces += Number(currency.falsecoin);
+    return Number(totalPieces * 0.001)
   }
 
   getSubstance(name) {

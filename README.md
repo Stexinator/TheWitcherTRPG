@@ -43,6 +43,11 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 
 ## Version History ##
 
+### 1.042 ###
+- add field to show total weight of stored items and carry capacity of container
+- fix container not showing weight of stored items
+- re-work weight calculation
+
 ### 1.041 ###
 - fix different weapon skill behaviour between browser and electron
 
