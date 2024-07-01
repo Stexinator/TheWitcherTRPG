@@ -1,5 +1,4 @@
 import { buttonDialog } from "../../scripts/chat.js";
-import { calc_currency_weight } from "../../scripts/witcher.js";
 
 export default class WitcherMonsterSheet extends ActorSheet {
 
@@ -24,7 +23,7 @@ export default class WitcherMonsterSheet extends ActorSheet {
     context.enhancements = context.items?.filter(i => i.type == "enhancement" && !i.system.applied);
     context.loot = context.actor.getList("mount").concat(context.actor.getList("mutagens")).concat(context.actor.getList("container")).concat(context.actor.getList("alchemical")).concat(context.actor.getList("diagrams"));
 
-    context.totalWeight = context.items.weight() + calc_currency_weight(context.actor.system.currency);
+    context.totalWeight = context.actor.getTotalWeight();
     context.totalCost = context.items.cost();
 
     context.isGM = game.user.isGM
