@@ -43,6 +43,9 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 
 ## Version History ##
 
+### 1.040 ###
+- fix different weapon skill behaviour between browser and electron
+
 ### 1.039 ###
 - added module support for weapon skills
 - added detailed hands config to weapon
