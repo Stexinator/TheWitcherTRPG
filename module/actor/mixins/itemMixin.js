@@ -2,7 +2,6 @@ import { buttonDialog, extendedRoll } from "../../scripts/chat.js";
 import { rollDamage } from "../../scripts/attack.js";
 import { addAllModifiers, getArmorEcumbrance } from "../../scripts/witcher.js";
 import { RollConfig } from "../../scripts/rollConfig.js";
-import { WITCHER } from "../../setup/config.js";
 
 export let itemMixin = {
 
