@@ -808,7 +808,15 @@ export let itemMixin = {
       let dmg = spellItem.system.damage || "0"
       if (spellItem.system.staminaIsVar) {
         dmg = this.calcStaminaMulti(origStaCost, dmg)
+
+        spellItem.system.effects.forEach(effect => {
+          if (effect.varEffect) {
+            effect.percentage = this.calcStaminaMulti(origStaCost, effect.percentage)
+          }
+        })
       }
+
+
 
       damage.effects = spellItem.system.effects;
       damage.formula = dmg;

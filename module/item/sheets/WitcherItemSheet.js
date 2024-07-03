@@ -80,6 +80,10 @@ export default class WitcherItemSheet extends ItemSheet {
     let field = element.dataset.field;
     let value = element.value
 
+    if (value == "on") {
+      value = element.checked;
+    }
+
     let effects = this.item.system.effects
     let objIndex = effects.findIndex((obj => obj.id == itemId));
     effects[objIndex][field] = value

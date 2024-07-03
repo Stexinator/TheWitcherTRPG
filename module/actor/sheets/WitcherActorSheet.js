@@ -199,8 +199,12 @@ export default class WitcherActorSheet extends ActorSheet {
 
   calcStaminaMulti(origStaCost, value) {
     let staminaMulti = parseInt(origStaCost)
-    value = value.replace("/STA", '')
-    if (value.includes("d")) {
+
+    if (value.replace) {
+      value = value.replace("/STA", '')
+    }
+
+    if (value.includes && value.includes("d")) {
       let diceAmount = value.split('d')[0];
       let diceType = "d" + value.split('d')[1].replace("/STA", '')
       return (staminaMulti * diceAmount) + diceType;
