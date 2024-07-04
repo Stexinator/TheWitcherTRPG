@@ -35,8 +35,8 @@ export default class WitcherContainerSheet extends WitcherItemSheet {
 
     if (item && this.storableItems.includes(item.type) && !this.item.system.content.includes(item.uuid)) {
       this.item.system.content.push(item.uuid)
-      this.item.update({ 'system.content':  this.item.system.content});
-      item.update({ 'system.isStored':  true})
+      this.item.update({ 'system.content': this.item.system.content });
+      item.update({ 'system.isStored': true })
     }
   }
 

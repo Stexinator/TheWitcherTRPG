@@ -129,7 +129,7 @@ export let itemMixin = {
 
   async _addItem(actor, addItem, numberOfItem, forcecreate = false) {
     let foundItem = (actor.items).find(item => item.name == addItem.name && item.type == addItem.type);
-    if (foundItem && !forcecreate) {
+    if (foundItem && !forcecreate && !foundItem.system.isStored) {
       await foundItem.update({ 'system.quantity': Number(foundItem.system.quantity) + Number(numberOfItem) })
     }
     else {
