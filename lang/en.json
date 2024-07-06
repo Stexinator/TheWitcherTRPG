@@ -17,6 +17,7 @@
       "Weight": "Weight",
       "Cost": "Cost",
       "Carried": "Carried",
+      "isConsumable": "Is Consumable",
       "Effect": "Effects",
       "statusEffect": "Status Effect",
       "Quantity": "Quantity",
