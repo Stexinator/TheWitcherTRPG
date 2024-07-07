@@ -43,6 +43,16 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 
 ## Version History ##
 
+### 1.042 ###
+- add field to show total weight of stored items and carry capacity of container
+- added variable stamina scaling for effects in spells
+- added ability to drop Global Modifier on spell sheets
+- added a consumable checkbox to items
+- fix container not showing weight of stored items
+- fix that adding same item would automatically store it
+- re-work weight calculation
+- fixed an issue with loot sheet layout
+
 ### 1.041 ###
 - fix different weapon skill behaviour between browser and electron
 

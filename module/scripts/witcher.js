@@ -67,9 +67,7 @@ function updateDerived(actor) {
 	thisActor.system.coreStats.woundTreshold.modifiers.forEach(item => wtTotalModifiers += Number(item.value));
 
 	let curentEncumbrance = (thisActor.system.stats.body.max + bodyTotalModifiers) * 10 + encTotalModifiers
-	var totalWeights = 0
-	thisActor.items.forEach(item => { if (item.system.weight && item.system.quantity) { totalWeights += (Number(item.system.weight) * Number(item.system.quantity)) } })
-	totalWeights += calc_currency_weight(thisActor.system.currency);
+	var totalWeights = thisActor.getTotalWeight()
 	let encDiff = 0
 	if (curentEncumbrance < totalWeights) {
 		encDiff = Math.ceil((totalWeights - curentEncumbrance) / 5)
@@ -359,18 +357,6 @@ function genId() {
 	return randomID(16);
 };
 
-function calc_currency_weight(currency) {
-	let totalPieces = 0;
-	totalPieces += Number(currency.bizant);
-	totalPieces += Number(currency.ducat);
-	totalPieces += Number(currency.lintar);
-	totalPieces += Number(currency.floren);
-	totalPieces += Number(currency.crown);
-	totalPieces += Number(currency.oren);
-	totalPieces += Number(currency.falsecoin);
-	return Number(totalPieces * 0.001)
-}
-
 function addAllModifiers(actor, skillName, formula) {
 	formula = addSkillModifiers(actor, skillName, formula);
 	formula = addGlobalModifier(actor, skillName, formula);
@@ -432,4 +418,4 @@ function addWoundsModifier(actor, skillName, rollFormula) {
 	return rollFormula
 }
 
-export { updateDerived, rollSkillCheck, genId, calc_currency_weight, addAllModifiers, addSkillModifiers, addGlobalModifier, getArmorEcumbrance };
+export { updateDerived, rollSkillCheck, genId, addAllModifiers, addSkillModifiers, addGlobalModifier, getArmorEcumbrance };

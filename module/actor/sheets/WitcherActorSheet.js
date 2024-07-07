@@ -1,5 +1,5 @@
 import { extendedRoll } from "../../scripts/chat.js";
-import { calc_currency_weight, addAllModifiers } from "../../scripts/witcher.js";
+import { addAllModifiers } from "../../scripts/witcher.js";
 import { RollConfig } from "../../scripts/rollConfig.js";
 
 import { ExecuteDefense } from "../../scripts/defenses.js";
@@ -25,15 +25,7 @@ Array.prototype.sum = function (prop) {
   }
   return total
 }
-Array.prototype.weight = function () {
-  var total = 0
-  for (var i = 0, _len = this.length; i < _len; i++) {
-    if (this[i].system.weight && this[i].system.quantity && !this[i].system.isStored) {
-      total += Number(this[i].system.quantity) * Number(this[i].system.weight)
-    }
-  }
-  return Math.ceil(total)
-}
+
 Array.prototype.cost = function () {
   var total = 0
   for (var i = 0, _len = this.length; i < _len; i++) {
@@ -122,7 +114,7 @@ export default class WitcherActorSheet extends ActorSheet {
     context.glyphItems = context.enhancements.filter(e => e.system.type == "glyph");
     context.containers = items.filter(i => i.type == "container");
 
-    context.totalWeight = context.items.weight() + calc_currency_weight(context.actor.system.currency);
+    context.totalWeight = context.actor.getTotalWeight();
     context.totalCost = context.items.cost();
   }
 
@@ -207,8 +199,12 @@ export default class WitcherActorSheet extends ActorSheet {
 
   calcStaminaMulti(origStaCost, value) {
     let staminaMulti = parseInt(origStaCost)
-    value = value.replace("/STA", '')
-    if (value.includes("d")) {
+
+    if (value.replace) {
+      value = value.replace("/STA", '')
+    }
+
+    if (value.includes && value.includes("d")) {
       let diceAmount = value.split('d')[0];
       let diceType = "d" + value.split('d')[1].replace("/STA", '')
       return (staminaMulti * diceAmount) + diceType;
@@ -399,7 +395,6 @@ export default class WitcherActorSheet extends ActorSheet {
   _onFocusIn(event) {
     event.currentTarget.select();
   }
-
 
   _onLifeEventDisplay(event) {
     event.preventDefault();

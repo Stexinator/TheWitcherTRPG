@@ -2,16 +2,12 @@
     border-right: solid 1px;
     width: 150px;
     height: 100%;
-}  
+}
 
 .loot-img {
     max-width: 140px;
     margin-top: 10px;
     border-width: 0px;
-}
-
-.item-section{
-    flex: 1
 }
 
 table tr.hidden-view {

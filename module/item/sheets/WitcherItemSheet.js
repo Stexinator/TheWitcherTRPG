@@ -40,26 +40,6 @@ export default class WitcherItemSheet extends ItemSheet {
     html.find(".remove-global-modifier").on("click", this._oRemoveGlobalModifier.bind(this));
 
     html.find("input").focusin(ev => this._onFocusIn(ev));
-    html.find(".dragable").on("dragstart", (ev) => {
-      let itemId = ev.target.dataset.id
-      let item = this.actor.items.get(itemId);
-      ev.originalEvent.dataTransfer.setData(
-        "text/plain",
-        JSON.stringify({
-          item: item,
-          actor: this.actor,
-          type: "itemDrop",
-        }),
-      )
-    });
-
-    const newDragDrop = new DragDrop({
-      dragSelector: `.dragable`,
-      dropSelector: `.window-content`,
-      permissions: { dragstart: this._canDragStart.bind(this), drop: this._canDragDrop.bind(this) },
-      callbacks: { dragstart: this._onDragStart.bind(this), drop: this._onDrop.bind(this) }
-    })
-    this._dragDrop.push(newDragDrop);
   }
 
   _onAddEffect(event) {
@@ -79,6 +59,10 @@ export default class WitcherItemSheet extends ItemSheet {
 
     let field = element.dataset.field;
     let value = element.value
+
+    if (value == "on") {
+      value = element.checked;
+    }
 
     let effects = this.item.system.effects
     let objIndex = effects.findIndex((obj => obj.id == itemId));

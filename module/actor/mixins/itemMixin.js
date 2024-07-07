@@ -2,7 +2,6 @@ import { buttonDialog, extendedRoll } from "../../scripts/chat.js";
 import { rollDamage } from "../../scripts/attack.js";
 import { addAllModifiers, getArmorEcumbrance } from "../../scripts/witcher.js";
 import { RollConfig } from "../../scripts/rollConfig.js";
-import { WITCHER } from "../../setup/config.js";
 
 export let itemMixin = {
 
@@ -130,7 +129,7 @@ export let itemMixin = {
 
   async _addItem(actor, addItem, numberOfItem, forcecreate = false) {
     let foundItem = (actor.items).find(item => item.name == addItem.name && item.type == addItem.type);
-    if (foundItem && !forcecreate) {
+    if (foundItem && !forcecreate && !foundItem.system.isStored) {
       await foundItem.update({ 'system.quantity': Number(foundItem.system.quantity) + Number(numberOfItem) })
     }
     else {
@@ -808,7 +807,15 @@ export let itemMixin = {
       let dmg = spellItem.system.damage || "0"
       if (spellItem.system.staminaIsVar) {
         dmg = this.calcStaminaMulti(origStaCost, dmg)
+
+        spellItem.system.effects.forEach(effect => {
+          if (effect.varEffect) {
+            effect.percentage = this.calcStaminaMulti(origStaCost, effect.percentage)
+          }
+        })
       }
+
+
 
       damage.effects = spellItem.system.effects;
       damage.formula = dmg;

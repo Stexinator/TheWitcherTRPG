@@ -7,30 +7,35 @@
             <a class="item-delete"><i class="fas fa-trash-alt"></i></a>
         </h1>
         <div class="profession-layout">
-            <div class="profession-card defining-skill">
-                <div class="flex defining-skill-header profession-display"
-                    data-stat="{{profession.system.definingSkill.stat}}"
-                    data-level="{{profession.system.definingSkill.level}}"
-                    data-name="{{profession.system.definingSkill.skillName}}"
-                    data-effet="{{profession.system.definingSkill.definition}}">
-                    {{#unless (eq profession.system.definingSkill.stat "none")}}
-                        <a class="profession-roll"><i class="fas fa-dice-d6"></i></a>
-                    {{/unless}}
-                    <input class="inline-edit profession-skill-input" data-field="system.definingSkill.skillName"
-                        type="text" value="{{profession.system.definingSkill.skillName}}" placeholder="" />
-                    <select class="inline-edit defining-skill-select" data-field="system.definingSkill.stat">
-                        {{selectOptions config.statTypes selected=profession.system.definingSkill.stat localize=true}}
-                    </select>
-                    <label>{{localize "WITCHER.Actor.Profession.Level"}}</label>
-                    <input class="inline-edit profession-level" data-field="system.definingSkill.level" type="number"
-                        value="{{profession.system.definingSkill.level}}" placeholder="" />
+            <div class="profession-flex">
+                <div class="profession-card defining-skill">
+                    <div class="flex defining-skill-header profession-display"
+                        data-stat="{{profession.system.definingSkill.stat}}"
+                        data-level="{{profession.system.definingSkill.level}}"
+                        data-name="{{profession.system.definingSkill.skillName}}"
+                        data-effet="{{profession.system.definingSkill.definition}}">
+                        <input class="inline-edit profession-skill-input" data-field="system.definingSkill.skillName"
+                            type="text" value="{{profession.system.definingSkill.skillName}}" placeholder="" />
+                        <select class="inline-edit defining-skill-select" data-field="system.definingSkill.stat">
+                            {{selectOptions config.statTypes selected=profession.system.definingSkill.stat localize=true}}
+                        </select>
+                        <input class="inline-edit profession-level" data-field="system.definingSkill.level" type="number"
+                            value="{{profession.system.definingSkill.level}}" placeholder="" />
+                        {{#unless (eq profession.system.definingSkill.stat "none")}}
+                            <a class="profession-roll"><i class="fas fa-dice-d20"></i></a>
+                        {{/unless}}
+                    </div>
+                    {{editor profession.system.definingSkill.definition target="profession.system.definingSkill.definition"
+                            button=true editable=false}}
                 </div>
-                {{editor profession.system.definingSkill.definition target="profession.system.definingSkill.definition"
-                        button=true editable=false}}
+                <div class="profession-notes">
+                    <div class="profession-notes-header">{{localize "WITCHER.Notes"}}</div>
+                    {{editor profession.system.notes target="profession.system.notes" button=true editable=false}}
+                </div>
             </div>
             <div class="profession-path flex">
                 <div>
-                    <input class="inline-edit" data-field="system.skillPath1.pathName" type="text"
+                    <input class="inline-edit skill-path-name" data-field="system.skillPath1.pathName" type="text"
                         value="{{profession.system.skillPath1.pathName}}" placeholder="" />
                     <div class="profession-card first-path">
                         <div class="flex first-path-header profession-display"
@@ -38,18 +43,17 @@
                             data-level="{{profession.system.skillPath1.skill1.level}}"
                             data-name="{{profession.system.skillPath1.skill1.skillName}}"
                             data-effet="{{profession.system.skillPath1.skill1.definition}}">
-                            {{#unless (eq profession.system.skillPath1.skill1.stat "none")}}
-                                <a class="profession-roll"><i class="fas fa-dice-d6"></i></a>
-                            {{/unless}}
                             <input class="inline-edit profession-skill-input"
                                 data-field="system.skillPath1.skill1.skillName" type="text"
                                 value="{{profession.system.skillPath1.skill1.skillName}}" placeholder="" />
                             <select class="inline-edit first-path-select" data-field="system.skillPath1.skill1.stat">
                                 {{selectOptions config.statTypes selected=profession.system.skillPath1.skill1.stat localize=true}}
                             </select>
-                            <label>{{localize "WITCHER.Actor.Profession.Level"}}</label>
                             <input class="inline-edit profession-level" data-field="system.skillPath1.skill1.level"
                                 type="number" value="{{profession.system.skillPath1.skill1.level}}" placeholder="" />
+                            {{#unless (eq profession.system.skillPath1.skill1.stat "none")}}
+                                <a class="profession-roll"><i class="fas fa-dice-d20"></i></a>
+                            {{/unless}}
                         </div>
                         {{editor profession.system.skillPath1.skill1.definition
                                  target="profession.system.skillPath1.skill1.definition" button=true editable=false}}
@@ -60,18 +64,17 @@
                             data-level="{{profession.system.skillPath1.skill2.level}}"
                             data-name="{{profession.system.skillPath1.skill2.skillName}}"
                             data-effet="{{profession.system.skillPath1.skill2.definition}}">
-                            {{#unless (eq profession.system.skillPath1.skill2.stat "none")}}
-                                <a class="profession-roll"><i class="fas fa-dice-d6"></i></a>
-                            {{/unless}}
                             <input class="inline-edit profession-skill-input"
                                 data-field="system.skillPath1.skill2.skillName" type="text"
                                 value="{{profession.system.skillPath1.skill2.skillName}}" placeholder="" />
                             <select class="inline-edit first-path-select" data-field="system.skillPath1.skill2.stat">
                                 {{selectOptions config.statTypes selected=profession.system.skillPath1.skill2.stat localize=true}}
                             </select>
-                            <label>{{localize "WITCHER.Actor.Profession.Level"}}</label>
                             <input class="inline-edit profession-level" data-field="system.skillPath1.skill2.level"
                                 type="number" value="{{profession.system.skillPath1.skill2.level}}" placeholder="" />
+                            {{#unless (eq profession.system.skillPath1.skill2.stat "none")}}
+                                <a class="profession-roll"><i class="fas fa-dice-d20"></i></a>
+                            {{/unless}}
                         </div>
                         {{editor profession.system.skillPath1.skill2.definition
                                  target="profession.system.skillPath1.skill2.definition" button=true editable=false}}
@@ -82,25 +85,24 @@
                             data-level="{{profession.system.skillPath1.skill3.level}}"
                             data-name="{{profession.system.skillPath1.skill3.skillName}}"
                             data-effet="{{profession.system.skillPath1.skill3.definition}}">
-                            {{#unless (eq profession.system.skillPath1.skill3.stat "none")}}
-                                <a class="profession-roll"><i class="fas fa-dice-d6"></i></a>
-                            {{/unless}}
                             <input class="inline-edit profession-skill-input"
                                 data-field="system.skillPath1.skill3.skillName" type="text"
                                 value="{{profession.system.skillPath1.skill3.skillName}}" placeholder="" />
                             <select class="inline-edit first-path-select" data-field="system.skillPath1.skill3.stat">
                                 {{selectOptions config.statTypes selected=profession.system.skillPath1.skill3.stat localize=true}}
                             </select>
-                            <label>{{localize "WITCHER.Actor.Profession.Level"}}</label>
                             <input class="inline-edit profession-level" data-field="system.skillPath1.skill3.level"
                                 type="number" value="{{profession.system.skillPath1.skill3.level}}" placeholder="" />
+                            {{#unless (eq profession.system.skillPath1.skill3.stat "none")}}
+                                <a class="profession-roll"><i class="fas fa-dice-d20"></i></a>
+                            {{/unless}}
                         </div>
                         {{editor profession.system.skillPath1.skill3.definition
                                  target="profession.system.skillPath1.skill3.definition" button=true editable=false}}
                     </div>
                 </div>
                 <div>
-                    <input class="inline-edit" data-field="system.skillPath2.pathName" type="text"
+                    <input class="inline-edit skill-path-name" data-field="system.skillPath2.pathName" type="text"
                         value="{{profession.system.skillPath2.pathName}}" placeholder="" />
                     <div class="profession-card second-path">
                         <div class="flex second-path-header profession-display"
@@ -108,18 +110,17 @@
                             data-level="{{profession.system.skillPath2.skill1.level}}"
                             data-name="{{profession.system.skillPath2.skill1.skillName}}"
                             data-effet="{{profession.system.skillPath2.skill1.definition}}">
-                            {{#unless (eq profession.system.skillPath2.skill1.stat "none")}}
-                                <a class="profession-roll"><i class="fas fa-dice-d6"></i></a>
-                            {{/unless}}
                             <input class="inline-edit profession-skill-input"
                                 data-field="system.skillPath2.skill1.skillName" type="text"
                                 value="{{profession.system.skillPath2.skill1.skillName}}" placeholder="" />
                             <select class="inline-edit second-path-select" data-field="system.skillPath2.skill1.stat">
                                 {{selectOptions config.statTypes selected=profession.system.skillPath2.skill1.stat localize=true}}
                             </select>
-                            <label>{{localize "WITCHER.Actor.Profession.Level"}}</label>
                             <input class="inline-edit profession-level" data-field="system.skillPath2.skill1.level"
                                 type="number" value="{{profession.system.skillPath2.skill1.level}}" placeholder="" />
+                            {{#unless (eq profession.system.skillPath2.skill1.stat "none")}}
+                                <a class="profession-roll"><i class="fas fa-dice-d20"></i></a>
+                            {{/unless}}
                         </div>
                         {{editor profession.system.skillPath2.skill1.definition
                                  target="profession.system.skillPath2.skill1.definition" button=true editable=false}}
@@ -130,18 +131,17 @@
                             data-level="{{profession.system.skillPath2.skill2.level}}"
                             data-name="{{profession.system.skillPath2.skill2.skillName}}"
                             data-effet="{{profession.system.skillPath2.skill2.definition}}">
-                            {{#unless (eq profession.system.skillPath2.skill2.stat "none")}}
-                                <a class="profession-roll"><i class="fas fa-dice-d6"></i></a>
-                            {{/unless}}
                             <input class="inline-edit profession-skill-input"
                                 data-field="system.skillPath2.skill2.skillName" type="text"
                                 value="{{profession.system.skillPath2.skill2.skillName}}" placeholder="" />
                             <select class="inline-edit second-path-select" data-field="system.skillPath2.skill2.stat">
                                 {{selectOptions config.statTypes selected=profession.system.skillPath2.skill2.stat localize=true}}
                             </select>
-                            <label>{{localize "WITCHER.Actor.Profession.Level"}}</label>
                             <input class="inline-edit profession-level" data-field="system.skillPath2.skill2.level"
                                 type="number" value="{{profession.system.skillPath2.skill2.level}}" placeholder="" />
+                            {{#unless (eq profession.system.skillPath2.skill2.stat "none")}}
+                                <a class="profession-roll"><i class="fas fa-dice-d20"></i></a>
+                            {{/unless}}
                         </div>
                         {{editor profession.system.skillPath2.skill2.definition
                                  target="profession.system.skillPath2.skill2.definition" button=true editable=false}}
@@ -152,25 +152,24 @@
                             data-level="{{profession.system.skillPath2.skill3.level}}"
                             data-name="{{profession.system.skillPath2.skill3.skillName}}"
                             data-effet="{{profession.system.skillPath2.skill3.definition}}">
-                            {{#unless (eq profession.system.skillPath2.skill3.stat "none")}}
-                                <a class="profession-roll"><i class="fas fa-dice-d6"></i></a>
-                            {{/unless}}
                             <input class="inline-edit profession-skill-input"
                                 data-field="system.skillPath2.skill3.skillName" type="text"
                                 value="{{profession.system.skillPath2.skill3.skillName}}" placeholder="" />
                             <select class="inline-edit second-path-select" data-field="system.skillPath2.skill3.stat">
                                 {{selectOptions config.statTypes selected=profession.system.skillPath2.skill3.stat localize=true}}
                             </select>
-                            <label>{{localize "WITCHER.Actor.Profession.Level"}}</label>
                             <input class="inline-edit profession-level" data-field="system.skillPath2.skill3.level"
                                 type="number" value="{{profession.system.skillPath2.skill3.level}}" placeholder="" />
+                            {{#unless (eq profession.system.skillPath2.skill3.stat "none")}}
+                                <a class="profession-roll"><i class="fas fa-dice-d20"></i></a>
+                            {{/unless}}
                         </div>
                         {{editor profession.system.skillPath2.skill3.definition
                                  target="profession.system.skillPath2.skill3.definition" button=true editable=false}}
                     </div>
                 </div>
                 <div>
-                    <input class="inline-edit" data-field="system.skillPath3.pathName" type="text"
+                    <input class="inline-edit skill-path-name" data-field="system.skillPath3.pathName" type="text"
                         value="{{profession.system.skillPath3.pathName}}" placeholder="" />
                     <div class="profession-card third-path">
                         <div class="flex third-path-header profession-display"
@@ -178,18 +177,17 @@
                             data-level="{{profession.system.skillPath3.skill1.level}}"
                             data-name="{{profession.system.skillPath3.skill1.skillName}}"
                             data-effet="{{profession.system.skillPath3.skill1.definition}}">
-                            {{#unless (eq profession.system.skillPath3.skill1.stat "none")}}
-                                <a class="profession-roll"><i class="fas fa-dice-d6"></i></a>
-                            {{/unless}}
                             <input class="inline-edit profession-skill-input"
                                 data-field="system.skillPath3.skill1.skillName" type="text"
                                 value="{{profession.system.skillPath3.skill1.skillName}}" placeholder="" />
                             <select class="inline-edit third-path-select" data-field="system.skillPath3.skill1.stat">
                                 {{selectOptions config.statTypes selected=profession.system.skillPath3.skill1.stat localize=true}}
                             </select>
-                            <label>{{localize "WITCHER.Actor.Profession.Level"}}</label>
                             <input class="inline-edit profession-level" data-field="system.skillPath3.skill1.level"
                                 type="number" value="{{profession.system.skillPath3.skill1.level}}" placeholder="" />
+                            {{#unless (eq profession.system.skillPath3.skill1.stat "none")}}
+                                <a class="profession-roll"><i class="fas fa-dice-d20"></i></a>
+                            {{/unless}}
                         </div>
                         {{editor profession.system.skillPath3.skill1.definition
                                  target="profession.system.skillPath3.skill1.definition" button=true editable=false}}
@@ -200,18 +198,17 @@
                             data-level="{{profession.system.skillPath3.skill2.level}}"
                             data-name="{{profession.system.skillPath3.skill2.skillName}}"
                             data-effet="{{profession.system.skillPath3.skill2.definition}}">
-                            {{#unless (eq profession.system.skillPath3.skill2.stat "none")}}
-                                <a class="profession-roll"><i class="fas fa-dice-d6"></i></a>
-                            {{/unless}}
                             <input class="inline-edit profession-skill-input"
                                 data-field="system.skillPath3.skill2.skillName" type="text"
                                 value="{{profession.system.skillPath3.skill2.skillName}}" placeholder="" />
                             <select class="inline-edit third-path-select" data-field="system.skillPath3.skill2.stat">
                                 {{selectOptions config.statTypes selected=profession.system.skillPath3.skill2.stat localize=true}}
                             </select>
-                            <label>{{localize "WITCHER.Actor.Profession.Level"}}</label>
                             <input class="inline-edit profession-level" data-field="system.skillPath3.skill2.level"
                                 type="number" value="{{profession.system.skillPath3.skill2.level}}" placeholder="" />
+                            {{#unless (eq profession.system.skillPath3.skill2.stat "none")}}
+                                <a class="profession-roll"><i class="fas fa-dice-d20"></i></a>
+                            {{/unless}}
                         </div>
                         {{editor profession.system.skillPath3.skill2.definition
                                  target="profession.system.skillPath3.skill2.definition" button=true editable=false}}
@@ -222,27 +219,22 @@
                             data-level="{{profession.system.skillPath3.skill3.level}}"
                             data-name="{{profession.system.skillPath3.skill3.skillName}}"
                             data-effet="{{profession.system.skillPath3.skill3.definition}}">
-                            {{#unless (eq profession.system.skillPath3.skill3.stat "none")}}
-                                <a class="profession-roll"><i class="fas fa-dice-d6"></i></a>
-                            {{/unless}}
                             <input class="inline-edit profession-skill-input"
                                 data-field="system.skillPath3.skill3.skillName" type="text"
                                 value="{{profession.system.skillPath3.skill3.skillName}}" placeholder="" />
                             <select class="inline-edit third-path-select" data-field="system.skillPath3.skill3.stat">
                                 {{selectOptions config.statTypes selected=profession.system.skillPath3.skill3.stat localize=true}}
                             </select>
-                            <label>{{localize "WITCHER.Actor.Profession.Level"}}</label>
                             <input class="inline-edit profession-level" data-field="system.skillPath3.skill3.level"
                                 type="number" value="{{profession.system.skillPath3.skill3.level}}" placeholder="" />
+                            {{#unless (eq profession.system.skillPath3.skill3.stat "none")}}
+                                <a class="profession-roll"><i class="fas fa-dice-d20"></i></a>
+                            {{/unless}}
                         </div>
                         {{editor profession.system.skillPath3.skill3.definition
                                  target="profession.system.skillPath3.skill3.definition" button=true editable=false}}
                     </div>
                 </div>
-            </div>
-            <div class="profession-notes">
-                <label>{{localize "WITCHER.Notes"}}</label>
-                {{editor profession.system.notes target="profession.system.notes" button=true editable=false}}
             </div>
         </div>
     </div>

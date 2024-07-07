@@ -7,6 +7,11 @@ export default class WitcherSpellSheet extends WitcherItemSheet {
     return `systems/TheWitcherTRPG/templates/sheets/spell-sheet.hbs`;
   }
 
+  /** @inheritdoc */
+  _canDragDrop(selector) {
+    return true;
+  }
+
   /** @override */
   getData() {
     const data = super.getData();
@@ -63,6 +68,35 @@ export default class WitcherSpellSheet extends WitcherItemSheet {
         ray: "WITCHER.Spell.Ray",
       }
     }
+  }
+
+
+  async _onDrop(event) {
+    const data = TextEditor.getDragEventData(event);
+    // Handle different data types
+    switch (data.type) {
+      case "ActiveEffect":
+        return this._onDropActiveEffect(event, data);
+      case "Item":
+        return this._onDropItem(event, data);
+    }
+  }
+
+  async _onDropItem(event, data) {
+
+    let item = fromUuidSync(data.uuid)
+
+    if (item.type != "globalModifier") return;
+
+    let globalModifiers = this.item.system.globalModifiers
+    globalModifiers.push(item.name)
+
+    this.item.update({ 'system.globalModifiers': globalModifiers })
+
+  }
+
+  async _onDropActiveEffect(event, data) {
+    console.log("Not implemented")
   }
 
 }
