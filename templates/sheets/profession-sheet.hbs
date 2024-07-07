@@ -6,27 +6,32 @@
         </div>
     </header>
     <div class="profession-layout">
-        <div class="profession-card defining-skill">
-            <div class="flex defining-skill-header">
-                <input class="profession-skill-input" name="system.definingSkill.skillName" type="text"
-                       value="{{item.system.definingSkill.skillName}}" placeholder=""/>
-                <select class="defining-skill-select" name="system.definingSkill.stat">
-                    {{#select item.system.definingSkill.stat}}
-                        {{#each config.statTypes as |name type|}}
-                            <option value="{{type}}">{{localize name}}</option>
-                        {{/each}}
-                    {{/select}}
-                </select>
-                <label>{{localize "WITCHER.Actor.Profession.Level"}}</label>
-                <input class="profession-level" name="system.definingSkill.level" type="number"
-                       value="{{item.system.definingSkill.level}}" placeholder=""/>
+        <div class="profession-flex">
+            <div class="profession-card defining-skill">
+                <div class="flex defining-skill-header">
+                    <input class="profession-skill-input" name="system.definingSkill.skillName" type="text"
+                        value="{{item.system.definingSkill.skillName}}" placeholder=""/>
+                    <select class="defining-skill-select" name="system.definingSkill.stat">
+                        {{#select item.system.definingSkill.stat}}
+                            {{#each config.statTypes as |name type|}}
+                                <option value="{{type}}">{{localize name}}</option>
+                            {{/each}}
+                        {{/select}}
+                    </select>
+                    <input class="profession-level" name="system.definingSkill.level" type="number"
+                        value="{{item.system.definingSkill.level}}" placeholder=""/>
+                </div>
+                {{editor item.system.definingSkill.definition target="system.definingSkill.definition" button=true
+                        editable=editable}}
             </div>
-            {{editor item.system.definingSkill.definition target="system.definingSkill.definition" button=true
-                     editable=editable}}
+            <div class="profession-notes">
+                <div class="profession-notes-header">{{localize "WITCHER.Notes"}}</div>
+                {{editor item.system.notes target="system.notes" button=true editable=editable}}
+            </div>
         </div>
         <div class="profession-path flex">
             <div>
-                <input name="system.skillPath1.pathName" type="text" value="{{item.system.skillPath1.pathName}}"
+                <input class="skill-path-name" name="system.skillPath1.pathName" type="text" value="{{item.system.skillPath1.pathName}}"
                        placeholder=""/>
                 <div class="profession-card first-path">
                     <div class="flex first-path-header">
@@ -39,7 +44,6 @@
                                 {{/each}}
                             {{/select}}
                         </select>
-                        <label>{{localize "WITCHER.Actor.Profession.Level"}}</label>
                         <input class="profession-level" name="system.skillPath1.skill1.level" type="number"
                                value="{{item.system.skillPath1.skill1.level}}" placeholder=""/>
                     </div>
@@ -57,7 +61,6 @@
                                 {{/each}}
                             {{/select}}
                         </select>
-                        <label>{{localize "WITCHER.Actor.Profession.Level"}}</label>
                         <input class="profession-level" name="system.skillPath1.skill2.level" type="number"
                                value="{{item.system.skillPath1.skill2.level}}" placeholder=""/>
                     </div>
@@ -75,7 +78,6 @@
                                 {{/each}}
                             {{/select}}
                         </select>
-                        <label>{{localize "WITCHER.Actor.Profession.Level"}}</label>
                         <input class="profession-level" name="system.skillPath1.skill3.level" type="number"
                                value="{{item.system.skillPath1.skill3.level}}" placeholder=""/>
                     </div>
@@ -84,7 +86,7 @@
                 </div>
             </div>
             <div>
-                <input name="system.skillPath2.pathName" type="text" value="{{item.system.skillPath2.pathName}}"
+                <input class="skill-path-name" name="system.skillPath2.pathName" type="text" value="{{item.system.skillPath2.pathName}}"
                        placeholder=""/>
                 <div class="profession-card second-path">
                     <div class="flex second-path-header">
@@ -97,7 +99,6 @@
                                 {{/each}}
                             {{/select}}
                         </select>
-                        <label>{{localize "WITCHER.Actor.Profession.Level"}}</label>
                         <input class="profession-level" name="system.skillPath2.skill1.level" type="number"
                                value="{{item.system.skillPath2.skill1.level}}" placeholder=""/>
                     </div>
@@ -115,7 +116,6 @@
                                 {{/each}}
                             {{/select}}
                         </select>
-                        <label>{{localize "WITCHER.Actor.Profession.Level"}}</label>
                         <input class="profession-level" name="system.skillPath2.skill2.level" type="number"
                                value="{{item.system.skillPath2.skill2.level}}" placeholder=""/>
                     </div>
@@ -133,7 +133,6 @@
                                 {{/each}}
                             {{/select}}
                         </select>
-                        <label>{{localize "WITCHER.Actor.Profession.Level"}}</label>
                         <input class="profession-level" name="system.skillPath2.skill3.level" type="number"
                                value="{{item.system.skillPath2.skill3.level}}" placeholder=""/>
                     </div>
@@ -142,7 +141,7 @@
                 </div>
             </div>
             <div>
-                <input name="system.skillPath3.pathName" type="text" value="{{item.system.skillPath3.pathName}}"
+                <input class="skill-path-name" name="system.skillPath3.pathName" type="text" value="{{item.system.skillPath3.pathName}}"
                        placeholder=""/>
                 <div class="profession-card third-path">
                     <div class="flex third-path-header">
@@ -155,7 +154,6 @@
                                 {{/each}}
                             {{/select}}
                         </select>
-                        <label>{{localize "WITCHER.Actor.Profession.Level"}}</label>
                         <input class="profession-level" name="system.skillPath3.skill1.level" type="number"
                                value="{{item.system.skillPath3.skill1.level}}" placeholder=""/>
                     </div>
@@ -173,7 +171,6 @@
                                 {{/each}}
                             {{/select}}
                         </select>
-                        <label>{{localize "WITCHER.Actor.Profession.Level"}}</label>
                         <input class="profession-level" name="system.skillPath3.skill2.level" type="number"
                                value="{{item.system.skillPath3.skill2.level}}" placeholder=""/>
                     </div>
@@ -191,7 +188,6 @@
                                 {{/each}}
                             {{/select}}
                         </select>
-                        <label>{{localize "WITCHER.Actor.Profession.Level"}}</label>
                         <input class="profession-level" name="system.skillPath3.skill3.level" type="number"
                                value="{{item.system.skillPath3.skill3.level}}" placeholder=""/>
                     </div>
@@ -199,10 +195,6 @@
                              button=true editable=editable}}
                 </div>
             </div>
-        </div>
-        <div class="profession-notes">
-            <label>{{localize "WITCHER.Notes"}}</label>
-            {{editor item.system.notes target="system.notes" button=true editable=editable}}
         </div>
     </div>
 </form>
