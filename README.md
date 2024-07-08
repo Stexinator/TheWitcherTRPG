@@ -47,6 +47,7 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 - add context menu for items
   - only one entry yet -> consume which will remove one of the item
 - prepared backend data for more complex attack/damage interactions/calculations
+- fixed deprecations in diagrams sheet
 
 ### 1.042 ###
 - add field to show total weight of stored items and carry capacity of container
