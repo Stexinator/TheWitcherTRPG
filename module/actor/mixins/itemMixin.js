@@ -435,12 +435,12 @@ export let itemMixin = {
               });
             }
 
-            let allEffects = foundry.utils.deepClone(item.system.effects)
+            let allEffects = foundry.utils.deepClone(item.system.damageProperties.effects)
             if (ammunition) {
               let item = this.actor.items.get(ammunition);
               let newQuantity = item.system.quantity - 1;
               item.update({ "system.quantity": newQuantity })
-              allEffects.push(...item.system.effects)
+              allEffects.push(...item.system.damageProperties.effects)
               damage.ammunition = item;
             }
 
@@ -808,16 +808,14 @@ export let itemMixin = {
       if (spellItem.system.staminaIsVar) {
         dmg = this.calcStaminaMulti(origStaCost, dmg)
 
-        spellItem.system.effects.forEach(effect => {
+        spellItem.system.damageProperties.effects.forEach(effect => {
           if (effect.varEffect) {
             effect.percentage = this.calcStaminaMulti(origStaCost, effect.percentage)
           }
         })
       }
 
-
-
-      damage.effects = spellItem.system.effects;
+      damage.effects = spellItem.system.damageProperties.effects;
       damage.formula = dmg;
 
       messageData.flavor += `<button class="damage" data-img="${spellItem.img}" data-name="${spellItem.name}">${game.i18n.localize("WITCHER.table.Damage")}</button>`;
@@ -853,7 +851,7 @@ export let itemMixin = {
       TheWitcherTRPG: {
         attack: spellItem.getSpellFlags(),
         damage: damage,
-        effects: spellItem.system.effects
+        effects: spellItem.system.damageProperties.effects
       }
     }
     let roll = await extendedRoll(rollFormula, messageData, config)

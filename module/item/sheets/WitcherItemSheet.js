@@ -32,7 +32,7 @@ export default class WitcherItemSheet extends ItemSheet {
   activateListeners(html) {
     super.activateListeners(html);
     html.find(".add-effect").on("click", this._onAddEffect.bind(this));
-    html.find(".list-edit").on("blur", this._onEffectEdit.bind(this));
+    html.find(".edit-effect").on("blur", this._onEditComponent.bind(this));
     html.find(".remove-effect").on("click", this._oRemoveEffect.bind(this));
 
     html.find(".add-global-modifier").on("click", this._onAddGlobalModifier.bind(this));
@@ -44,15 +44,12 @@ export default class WitcherItemSheet extends ItemSheet {
 
   _onAddEffect(event) {
     event.preventDefault();
-    let newEffectList = []
-    if (this.item.system.effects) {
-      newEffectList = this.item.system.effects
-    }
-    newEffectList.push({ id: genId(), name: "effect", percentage: "" })
-    this.item.update({ 'system.effects': newEffectList });
+    let newEffectList = this.item.system.damageProperties.effects ?? []
+    newEffectList.push({ id: genId(), name: "effect", percentage: 0 })
+    this.item.update({ 'system.damageProperties.effects': newEffectList });
   }
 
-  _onEffectEdit(event) {
+  _onEditComponent(event) {
     event.preventDefault();
     let element = event.currentTarget;
     let itemId = element.closest(".list-item").dataset.id;
@@ -64,11 +61,11 @@ export default class WitcherItemSheet extends ItemSheet {
       value = element.checked;
     }
 
-    let effects = this.item.system.effects
+    let effects = this.item.system.damageProperties.effects
     let objIndex = effects.findIndex((obj => obj.id == itemId));
     effects[objIndex][field] = value
 
-    this.item.update({ 'system.effects': effects });
+    this.item.update({ 'system.damageProperties.effects': effects });
 
   }
 
@@ -76,8 +73,8 @@ export default class WitcherItemSheet extends ItemSheet {
     event.preventDefault();
     let element = event.currentTarget;
     let itemId = element.closest(".list-item").dataset.id;
-    let newEffectList = this.item.system.effects.filter(item => item.id !== itemId)
-    this.item.update({ 'system.effects': newEffectList });
+    let newEffectList = this.item.system.damageProperties.effects.filter(item => item.id !== itemId)
+    this.item.update({ 'system.damageProperties.effects': newEffectList });
   }
 
   _onAddGlobalModifier(event) {

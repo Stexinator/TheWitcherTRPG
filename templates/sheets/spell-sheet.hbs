@@ -153,23 +153,23 @@
             <th></th>
             <th>{{localize "WITCHER.Percentage"}}</th>
         </tr>
-        {{#each item.system.effects as |effect name|}}
+        {{#each item.system.damageProperties.effects as |effect name|}}
             <tr class="list-item" data-id="{{effect.id}}">
                 <td>
                     <a class="remove-effect" title="{{localize "WITCHER.Item.RemoveEffect"}}"><i
                             class="fas fa-minus"></i></a>
                 </td>
                 <td>
-                    <input class="list-edit item-effect" placeholder="{{localize "WITCHER.table.Name"}}"
+                    <input class="edit-effect item-effect" placeholder="{{localize "WITCHER.table.Name"}}"
                         data-field="name" type="text" value="{{effect.name}}" />
                 </td>
                 <td>
-                    <select class="list-edit item-effect" data-field="statusEffect">
+                    <select class="edit-effect item-effect" data-field="statusEffect">
                         {{selectOptions ../config.statusEffects blank='' selected=effect.statusEffect nameAttr='id' valueAttr="id" labelAttr="label" localize=true}}
                     </select>
                 </td>
                 <td>
-                    <input class="list-edit" placeholder="%" data-field="percentage" type="text"
+                    <input class="edit-effect" placeholder="%" data-field="percentage" type="text"
                         value="{{effect.percentage}}" data-dtype="Number" />
                 </td>
             </tr>
@@ -177,7 +177,7 @@
                 <tr class="list-item" data-id="{{effect.id}}">
                     <td>{{localize "WITCHER.Spell.variableEffect"}}</td>
                     <td>
-                        <input class="list-edit" type="checkbox" data-field="varEffect" {{checked effect.varEffect}} />
+                        <input class="edit-effect" type="checkbox" data-field="varEffect" {{checked effect.varEffect}} />
                     </td>
                 </tr>
             {{/if}}
