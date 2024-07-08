@@ -45,7 +45,11 @@
       "Tiny": "T",
       "Small": "S",
       "Large": "L",
-      "CantHide": "NA"
+      "CantHide": "NA",
+      "ContextMenu": {
+        "Consume": "Consume",
+        "NotConsumable": "The item is not configured as consumable"
+      }
     },
     "Dialog": {
       "NoComponents": "Not enough components for craft",
