@@ -46,9 +46,17 @@
       "Small": "S",
       "Large": "L",
       "CantHide": "NA",
+      "ConsumeProperties": {
+        "doesHeal": "Applies heal",
+        "heal": "Heals for",
+        "appliesGlobalModifier": "Applies Global Modifier"
+      },
       "ContextMenu": {
         "Consume": "Consume",
         "NotConsumable": "The item is not configured as consumable"
+      },
+      "Settings": {
+        "Alchemical": "Alchemical Settings"
       }
     },
     "Dialog": {

@@ -1,4 +1,3 @@
-import { genId } from "../../scripts/witcher.js";
 
 export default class WitcherItemSheet extends ItemSheet {
   /** @override */
@@ -36,6 +35,8 @@ export default class WitcherItemSheet extends ItemSheet {
     html.find(".edit-global-modifier").on("blur", this._onEditGlobalModifier.bind(this));
     html.find(".remove-global-modifier").on("click", this._oRemoveGlobalModifier.bind(this));
 
+    html.find(".configure-item").on("click", this._renderConfigureDialog.bind(this));
+
     html.find("input").focusin(ev => this._onFocusIn(ev));
   }
 
@@ -70,6 +71,30 @@ export default class WitcherItemSheet extends ItemSheet {
     let itemId = element.closest(".list-item").dataset.id;
     let newEffectList = this.item.system.globalModifiers.filter(modifier => modifier !== itemId)
     this.item.update({ 'system.globalModifiers': newEffectList });
+  }
+
+  async _renderConfigureDialog() {
+    //overwrite in sub-classes
+  }
+
+  _handleRender(html) {
+    html.find(".add-effect").on("click", (args) => { console.log(args.currentTarget.dataset) });
+  }
+
+  _handleConfiguration(html) {
+    const formElement = html[0].querySelector('form');
+    const formData = new FormDataExtended(formElement);
+
+    this._updateItem(formData.object);
+  }
+
+  _updateItem(formData) {
+    let updateData = {}
+    for (let [key, value] of Object.entries(formData)) {
+      updateData[key] = value
+    }
+
+    this.item.update(updateData);
   }
 
   _onFocusIn(event) {
