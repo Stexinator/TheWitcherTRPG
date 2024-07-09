@@ -49,6 +49,7 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 - prepared backend data for consumable item effects
 - prepared backend data for more complex attack/damage interactions/calculations
 - fixed deprecations in diagrams sheet
+- fixed error in item name when crafting failed
 
 ### 1.042 ###
 - add field to show total weight of stored items and carry capacity of container

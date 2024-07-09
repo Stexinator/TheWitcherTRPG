@@ -228,10 +228,10 @@ export default class WitcherItem extends Item {
         }
       });
 
+      craftedItemName = this.system.associatedItem?.name;
       if (result) {
         let craftedItem = await fromUuid(this.system.associatedItemUuid)
         Item.create(craftedItem, { parent: this.actor });
-        craftedItemName = craftedItem.name;
       }
     } else {
       craftedItemName = game.i18n.localize("WITCHER.craft.SuccessfulCraftForNothing");
