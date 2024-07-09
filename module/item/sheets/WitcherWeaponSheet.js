@@ -1,8 +1,8 @@
 
 import { genId } from "../../scripts/witcher.js";
-import WitcherItemSheet from "./WitcherItemSheet.js";
+import WitcherItemWithDamagePropertiesSheet from "./WitcherItemWithDamagePropertiesSheet.js";
 
-export default class WitcherWeaponSheet extends WitcherItemSheet {
+export default class WitcherWeaponSheet extends WitcherItemWithDamagePropertiesSheet {
 
   get template() {
     return `systems/TheWitcherTRPG/templates/sheets/weapon-sheet.hbs`;

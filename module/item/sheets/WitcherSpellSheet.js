@@ -1,7 +1,7 @@
 
-import WitcherItemSheet from "./WitcherItemSheet.js";
+import WitcherItemWithDamagePropertiesSheet from "./WitcherItemWithDamagePropertiesSheet.js";
 
-export default class WitcherSpellSheet extends WitcherItemSheet {
+export default class WitcherSpellSheet extends WitcherItemWithDamagePropertiesSheet {
 
   get template() {
     return `systems/TheWitcherTRPG/templates/sheets/spell-sheet.hbs`;
