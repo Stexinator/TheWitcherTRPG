@@ -55,14 +55,16 @@
                     </td>
                 {{/unless}}
             </tr>
-            <tr class="item-header-tablerow">
-                <td>
-                    <label>{{localize "WITCHER.Item.isConsumable"}}</label>
-                </td>
-                <td>
-                    <input type="checkbox" name="system.isConsumable" {{checked item.system.isConsumable}} />
-                </td>
-            </tr>
+            {{#if (eq item.type "alchemical")}}
+                <tr class="item-header-tablerow">
+                    <td>
+                        <label>{{localize "WITCHER.Item.isConsumable"}}</label>
+                    </td>
+                    <td>
+                        <input type="checkbox" name="system.isConsumable" {{checked item.system.isConsumable}} />
+                    </td>
+                </tr>
+            {{/if}}
         </table>
     </general>
 </header>
