@@ -42,8 +42,8 @@ async function ApplyNonLethalDamage(actor, totalDamage, messageId) {
 }
 
 async function applyDamage(actor, totalDamage, messageId, derivedStat) {
-  let damageOptions = game.messages.get(messageId).getFlag('TheWitcherTRPG', 'damageOptions')
   let damage = game.messages.get(messageId).getFlag('TheWitcherTRPG', 'damage')
+  let damageProperties = damage.damageProperties
   let armors = actor.getList("armor").filter(a => a.system.equipped);
 
   let headArmors = armors.filter(h => h.system.location == "Head" || h.system.location == "FullCover")
@@ -239,7 +239,7 @@ async function applyDamage(actor, totalDamage, messageId, derivedStat) {
     displaySP += `[${game.i18n.localize("WITCHER.Armor.Natural")}]`;
   })
 
-  if (damageOptions.improvedArmorPiercing) {
+  if (damageProperties.improvedArmorPiercing) {
     totalSP = totalSP / 2;
     displaySP = displaySP / 2;
   }
@@ -268,7 +268,7 @@ async function applyDamage(actor, totalDamage, messageId, derivedStat) {
   totalDamage *= location.locationFormula
   let infoAfterLocation = totalDamage
 
-  let ignoreArmorResistance = damageOptions.armorPiercing || damageOptions.improvedArmorPiercing;
+  let ignoreArmorResistance = damageProperties.armorPiercing || damageProperties.improvedArmorPiercing;
   if (!ignoreArmorResistance && (armorSet["lightArmor"]?.system[damage.type] || armorSet["mediumArmor"]?.system[damage.type] || armorSet["heavyArmor"]?.system[damage.type] || naturalArmors.find(armor => armor.system[damage.type]))) {
     totalDamage *= 0.5
   }
@@ -281,11 +281,11 @@ async function applyDamage(actor, totalDamage, messageId, derivedStat) {
   }
   let infoAfterResistance = totalDamage
 
-  let spDamage = damageOptions.crushingForce || damageOptions.ablating 
-    ? Math.floor((await new Roll("1d6/2+1").evaluate()).total) 
+  let spDamage = damageProperties.crushingForce || damageProperties.ablating
+    ? Math.floor((await new Roll("1d6/2+1").evaluate()).total)
     : 1
-    
-  if(damageOptions.crushingForce) {
+
+  if (damageProperties.crushingForce) {
     spDamage *= 2
   }
 
@@ -432,17 +432,17 @@ async function applyDamage(actor, totalDamage, messageId, derivedStat) {
   }
 
   let messageContent = `${game.i18n.localize("WITCHER.Damage.initial")}: <span class="error-display">${infoTotalDmg}</span> <br />
-    ${game.i18n.localize("WITCHER.Damage.totalSP")}: <span class="error-display">${displaySP} ${damageOptions.improvedArmorPiercing ? game.i18n.localize("WITCHER.Damage.improvedArmorPiercing") : ''}</span><br />
-    ${game.i18n.localize("WITCHER.Damage.afterSPReduct")}: <span class="error-display">${infoAfterSPReduction} ${(damageOptions.improvedArmorPiercing || damageOptions.armorPiercing) ? game.i18n.localize("WITCHER.Damage.armorPiercing") : ''}</span><br />
+    ${game.i18n.localize("WITCHER.Damage.totalSP")}: <span class="error-display">${displaySP} ${damageProperties.improvedArmorPiercing ? game.i18n.localize("WITCHER.Damage.improvedArmorPiercing") : ''}</span><br />
+    ${game.i18n.localize("WITCHER.Damage.afterSPReduct")}: <span class="error-display">${infoAfterSPReduction}</span><br />
     ${game.i18n.localize("WITCHER.Damage.afterLocationModifier")}: <span class="error-display">${infoAfterLocation}</span><br />
-    ${game.i18n.localize("WITCHER.Damage.afterResistances")}: <span class="error-display">${infoAfterResistance}</span><br /><br />
+    ${game.i18n.localize("WITCHER.Damage.afterResistances")}: <span class="error-display">${infoAfterResistance} ${(damageProperties.improvedArmorPiercing || damageProperties.armorPiercing) ? game.i18n.localize("WITCHER.Damage.armorPiercing") : ''}</span><br /><br />
     ${game.i18n.localize("WITCHER.Damage.totalApplied")}: <span class="error-display">${Math.floor(totalDamage)}</span>
     `;
-  if (damageOptions.ablating) {
+  if (damageProperties.ablating) {
     messageContent += `<br/>${game.i18n.localize("WITCHER.Damage.ablated")}: <span class="error-display">${spDamage}</span>`
   }
 
-  if (damageOptions.crushingForce) {
+  if (damageProperties.crushingForce) {
     messageContent += `<br/>${game.i18n.localize("WITCHER.Damage.crushingForce")}: <span class="error-display">${spDamage}</span>`
   }
 

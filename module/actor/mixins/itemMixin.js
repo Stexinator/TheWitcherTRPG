@@ -421,7 +421,8 @@ export let itemMixin = {
 
             let damage = {
               strike: strike,
-              type: damageType
+              type: damageType,
+              damageProperties: item.system.damageProperties
             };
 
             if (isExtraAttack) {

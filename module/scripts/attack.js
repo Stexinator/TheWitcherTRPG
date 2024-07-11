@@ -34,13 +34,6 @@ function onDamage(message) {
 }
 
 export async function rollDamage(item, damage) {
-    let damageOptions = {
-        armorPiercing: item.system.armorPiercing || damage.ammunition?.system.armorPiercing,
-        improvedArmorPiercing: item.system.improvedArmorPiercing || damage.ammunition?.system.improvedArmorPiercing,
-        ablating: item.system.ablating || damage.ammunition?.system.ablating,
-        crushingForce: item.system.crushingForce || damage.ammunition?.system.crushingForce,
-    }
-
     let messageData = {}
     messageData.flavor = `<div class="damage-message" <h1><img src="${item.img}" class="item-img" />${game.i18n.localize("WITCHER.table.Damage")}: ${item.name} </h1>`;
 
@@ -87,7 +80,6 @@ export async function rollDamage(item, damage) {
     }
 
     let message = await (await new Roll(damage.formula).evaluate()).toMessage(messageData)
-    message.setFlag('TheWitcherTRPG', 'damageOptions', damageOptions)
     message.setFlag('TheWitcherTRPG', 'damage', damage);
 }
 
