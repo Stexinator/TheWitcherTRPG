@@ -44,7 +44,7 @@ export default class WitcherItemSheet extends ItemSheet {
     event.preventDefault();
     let newList = []
     if (this.item.system.globalModifiers) {
-      newList = this.item.system.effects
+      newList = this.item.system.globalModifiers
     }
     newList.push("global modifier")
     this.item.update({ 'system.globalModifiers': newList });
@@ -69,8 +69,8 @@ export default class WitcherItemSheet extends ItemSheet {
     event.preventDefault();
     let element = event.currentTarget;
     let itemId = element.closest(".list-item").dataset.id;
-    let newEffectList = this.item.system.globalModifiers.filter(modifier => modifier !== itemId)
-    this.item.update({ 'system.globalModifiers': newEffectList });
+    let newList = this.item.system.globalModifiers.filter(modifier => modifier !== itemId)
+    this.item.update({ 'system.globalModifiers': newList });
   }
 
   async _renderConfigureDialog() {

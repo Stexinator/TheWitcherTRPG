@@ -83,7 +83,6 @@ export async function rollDamage(item, damage) {
     message.setFlag('TheWitcherTRPG', 'damage', damage);
 }
 
-
 async function onApplyStatus(event) {
     let statusId = event.currentTarget.dataset.status
     let target = getCurrentToken();

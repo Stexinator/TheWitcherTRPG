@@ -3,7 +3,6 @@ import { getInteractActor } from "./helper.js";
 
 export function addDamageMessageContextOptions(html, options) {
   let canApplyDamage = li => li.find(".damage-message").length
-  let canApplyVcDamage = li => li.find(".verbalcombat-damage-message").length
   options.push(
     {
       name: `${game.i18n.localize("WITCHER.Context.applyDmg")}`,

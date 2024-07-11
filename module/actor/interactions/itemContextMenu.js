@@ -29,6 +29,7 @@ export let itemContextMenu = {
             return ui.notifications.error(`${game.i18n.localize("WITCHER.Item.ContextMenu.NotConsumable")}`)
         }
 
+        item.consume();
         this._removeItem(this.actor, item.id, 1)
     }
 }

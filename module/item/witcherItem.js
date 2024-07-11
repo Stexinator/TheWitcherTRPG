@@ -304,4 +304,54 @@ export default class WitcherItem extends Item {
       return ui.notifications.error(`${game.i18n.localize("WITCHER.Monster.exportLootToManyRollTablesError")}`)
     }
   }
+
+  async consume() {
+    let properties = this.system.consumeProperties
+    if (properties.doesHeal) {
+      let heal = parseInt(await this.calculateHealValue(properties.heal, this.actor));
+      this.actor?.update({ 'system.derivedStats.hp.value': this.actor.system.derivedStats.hp.value + heal });
+    }
+
+    if (properties.appliesGlobalModifier) {
+      properties.consumeGlobalModifiers.forEach(modifier => this._activateGlobalModifier(modifier))
+    }
+
+    this.applyStatus(this.actor, properties.effects)
+  }
+
+  async calculateHealValue(value, actor) {
+    let heal = value;
+    if (value.includes && value.includes("d")) {
+      heal = (await new Roll(value).evaluate()).total
+    }
+    return (parseInt(actor?.system.derivedStats.hp.value) + parseInt(heal)) > actor?.system.derivedStats.hp.max ? (parseInt(actor?.system.derivedStats.hp.max) - parseInt(actor?.system.derivedStats.hp.value)) : heal;
+  }
+
+  async _activateGlobalModifier(name) {
+    let toActivate = this.actor.items.find(item => item.type == "globalModifier" && item.name == name)
+
+    if (!toActivate) {
+      let compendium = game.packs.get("TheWitcherTRPG.modifiers-and-conditions")
+      let newGlobalModifier = await compendium.getDocuments({ name: name })
+      toActivate = (await Item.create(newGlobalModifier, { parent: this.actor })).shift();
+    }
+
+    if (!toActivate || toActivate.system.isActive) return;
+
+    toActivate.update({
+      'system.isActive': true
+    });
+  }
+
+  async applyStatus(actor, effects) {
+
+    //v12 only functionality
+    if (actor.toggleStatusEffect) {
+      effects.forEach(effect => {
+        if (!actor.statuses.find(status => status == effect.statusEffect)) {
+          actor.toggleStatusEffect(effect.statusEffect);
+        }
+      });
+    }
+  }
 }

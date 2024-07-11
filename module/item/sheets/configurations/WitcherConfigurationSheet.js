@@ -15,7 +15,6 @@ export default class WitcherConfigurationSheet extends ItemSheet {
     });
   }
 
-
   get template() {
     return `systems/TheWitcherTRPG/templates/sheets/item/configuration/${this.object.type}Configuration.hbs`;
   }

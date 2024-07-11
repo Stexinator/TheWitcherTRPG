@@ -14,9 +14,9 @@ export default class WitcherItemWithDamagePropertiesSheet extends WitcherItemShe
 
   _onAddEffect(event) {
     event.preventDefault();
-    let newEffectList = this.item.system.damageProperties.effects ?? []
-    newEffectList.push({ id: genId(), name: "effect", percentage: 0 })
-    this.item.update({ 'system.damageProperties.effects': newEffectList });
+    let newList = this.item.system.damageProperties.effects ?? []
+    newList.push({ id: genId(), percentage: 0 })
+    this.item.update({ 'system.damageProperties.effects': newList });
   }
 
   _onEditEffect(event) {
@@ -43,8 +43,8 @@ export default class WitcherItemWithDamagePropertiesSheet extends WitcherItemShe
     event.preventDefault();
     let element = event.currentTarget;
     let itemId = element.closest(".list-item").dataset.id;
-    let newEffectList = this.item.system.damageProperties.effects.filter(item => item.id !== itemId)
-    this.item.update({ 'system.damageProperties.effects': newEffectList });
+    let newList = this.item.system.damageProperties.effects.filter(item => item.id !== itemId)
+    this.item.update({ 'system.damageProperties.effects': newList });
   }
 
 }
