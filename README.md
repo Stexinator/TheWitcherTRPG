@@ -49,6 +49,8 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 - added ability to consume items and apply configured values (effects are applied on v12 only)
 - added configuration sheets for weapon and spells
 - prepared backend data for more complex attack/damage interactions/calculations
+- reworked silver damage calculation
+  - fixed silver damaged being halved due to resistance to non-silver weapons
 - fixed deprecations in diagrams sheet
 - fixed error in item name when crafting failed
 
