@@ -288,20 +288,21 @@ function getLocationArmor(actor, location) {
   switch (location.name) {
     case "head":
       armorSet = getArmors(headArmors)
-      totalSP += actor.system.armorHead;
+      totalSP += actor.system.armorHead ?? 0;
       displaySP += actor.system.armorHead > 0 ? actor.system.armorHead + " + " : "";
       break;
     case "torso":
     case "rightArm":
     case "leftArm":
       armorSet = getArmors(torsoArmors)
-      totalSP += actor.system.armorUpper;
+      totalSP += actor.system.armorUpper ?? 0;
+      console.log("armorUpper", totalSP)
       displaySP += actor.system.armorUpper > 0 ? actor.system.armorUpper + " + " : "";
       break;
     case "rightLeg":
     case "leftLeg":
       armorSet = getArmors(legArmors)
-      totalSP += actor.system.armorLower;
+      totalSP += actor.system.armorLower ?? 0;
       displaySP += actor.system.armorLower > 0 ? actor.system.armorLower + " + " : "";
       break;
   }
