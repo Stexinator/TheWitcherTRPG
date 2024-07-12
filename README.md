@@ -47,6 +47,7 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 - add context menu for items
   - only one entry yet -> consume which will remove one of the item
 - added ability to consume items and apply configured values (effects are applied on v12 only)
+- added configuration sheets for weapon and spells
 - prepared backend data for more complex attack/damage interactions/calculations
 - fixed deprecations in diagrams sheet
 - fixed error in item name when crafting failed

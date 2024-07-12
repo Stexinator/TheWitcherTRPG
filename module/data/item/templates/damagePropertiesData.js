@@ -21,6 +21,7 @@ export default function damageProperties() {
         damagedGlobalModifiers: new fields.ArrayField(new fields.StringField({ initial: '' })),
 
         defenseDifferenceMultiplier: new fields.BooleanField({ initial: false }),
+        defenseMultiplierCap: new fields.NumberField({ initial: 5 }),
 
         effects: new fields.ArrayField(new fields.SchemaField(itemEffect())),
     };

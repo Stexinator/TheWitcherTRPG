@@ -1,6 +1,6 @@
+import { migrateDamageProperties } from "../migrations/damagePropertiesMigration.js";
 import CommonItemData from "./commonItemData.js";
 import damageProperties from "./templates/damagePropertiesData.js";
-import itemEffect from "./templates/itemEffectData.js";
 
 const fields = foundry.data.fields;
 
@@ -62,5 +62,8 @@ export default class SpellData extends CommonItemData {
     }
 
     this.effects?.forEach(effect => effect.percentage = parseInt(effect.percentage))
+
+    migrateDamageProperties(source);
   }
+
 }

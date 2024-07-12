@@ -121,55 +121,5 @@
                 </tr>
             </table>
         {{/unless}}
-        <div>
-            <input type="checkbox" id="damageProperties.armorPiercing" name="system.damageProperties.armorPiercing"
-                {{checked item.system.damageProperties.armorPiercing}} />
-            <label for="armorPiercing">{{localize "WITCHER.Weapon.armorPiercing"}}</label>
-
-            <input type="checkbox" id="damageProperties.improvedArmorPiercing"
-                name="system.damageProperties.improvedArmorPiercing"
-                {{checked item.system.damageProperties.improvedArmorPiercing}} />
-            <label for="improvedArmorPiercing">{{localize "WITCHER.Weapon.improvedArmorPiercing"}}</label>
-
-            <input type="checkbox" id="damageProperties.ablating" name="system.damageProperties.ablating"
-                {{checked item.system.damageProperties.ablating}} />
-            <label for="ablating">{{localize "WITCHER.Weapon.ablating"}}</label>
-
-            <input type="checkbox" id="damageProperties.crushingForce" name="system.damageProperties.crushingForce"
-                {{checked item.system.damageProperties.crushingForce}} />
-            <label for="crushingForce">{{localize "WITCHER.Weapon.crushingForce"}}</label>
-        </div>
-    </div>
-    <div class="flex">
-        <table class="item-bottom-table">
-            <tr>
-                <th><a class="add-effect" title="{{localize 'WITCHER.Item.AddEffect'}}"><i class="fas fa-plus"></i></a>
-                </th>
-                <th>{{localize "WITCHER.Item.Effect"}}</th>
-                <th>{{localize "WITCHER.Item.statusEffect"}}</th>
-                <th><label>{{localize "WITCHER.Percentage"}}</label></th>
-            </tr>
-            {{#each item.system.damageProperties.effects as |effect name|}}
-                <tr>
-                    <th class="list-item" data-id="{{effect.id}}">
-                        <a class="remove-effect" title="{{localize 'WITCHER.Item.RemoveEffect'}}"><i
-                                class="fas fa-minus"></i></a>
-                    </th>
-                    <td class="list-item" data-id="{{effect.id}}">
-                        <input class="edit-effect" data-field="name" placeholder="{{localize 'WITCHER.table.Name'}}"
-                            type="text" value="{{effect.name}}" />
-                    </td>
-                    <td class="list-item" data-id="{{effect.id}}">
-                        <select class="edit-effect" data-field="statusEffect">
-                            {{selectOptions ../config.statusEffects blank='' selected=effect.statusEffect nameAttr='id' valueAttr="id" labelAttr="label" localize=true}}
-                        </select>
-                    </td>
-                    <td class="list-item" data-id="{{effect.id}}">
-                        <input class="edit-effect" data-field="percentage" type="number" placeholder="0"
-                            value="{{effect.percentage}}" data-dtype="Number" />
-                    </td>
-                </tr>
-            {{/each}}
-        </table>
     </div>
 </form>

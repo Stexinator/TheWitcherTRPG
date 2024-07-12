@@ -145,44 +145,6 @@
             </tr>
         </table>
     </div>
-    <table class="item-bottom-table">
-        <tr>
-            <th><a class="add-effect" title="{{localize "WITCHER.Item.AddEffect"}}"><i class="fas fa-plus"></i></a>
-            </th>
-            <th>{{localize "WITCHER.Item.Effect"}}</th>
-            <th></th>
-            <th>{{localize "WITCHER.Percentage"}}</th>
-        </tr>
-        {{#each item.system.damageProperties.effects as |effect name|}}
-            <tr class="list-item" data-id="{{effect.id}}">
-                <td>
-                    <a class="remove-effect" title="{{localize "WITCHER.Item.RemoveEffect"}}"><i
-                            class="fas fa-minus"></i></a>
-                </td>
-                <td>
-                    <input class="edit-effect item-effect" placeholder="{{localize "WITCHER.table.Name"}}"
-                        data-field="name" type="text" value="{{effect.name}}" />
-                </td>
-                <td>
-                    <select class="edit-effect item-effect" data-field="statusEffect">
-                        {{selectOptions ../config.statusEffects blank='' selected=effect.statusEffect nameAttr='id' valueAttr="id" labelAttr="label" localize=true}}
-                    </select>
-                </td>
-                <td>
-                    <input class="edit-effect" placeholder="%" data-field="percentage" type="text"
-                        value="{{effect.percentage}}" data-dtype="Number" />
-                </td>
-            </tr>
-            {{#if ../item.system.staminaIsVar }}
-                <tr class="list-item" data-id="{{effect.id}}">
-                    <td>{{localize "WITCHER.Spell.variableEffect"}}</td>
-                    <td>
-                        <input class="edit-effect" type="checkbox" data-field="varEffect" {{checked effect.varEffect}} />
-                    </td>
-                </tr>
-            {{/if}}
-        {{/each}}
-    </table>
     <div class='globalModifiers'>
         <table>
             <tr>

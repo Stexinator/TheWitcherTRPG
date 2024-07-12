@@ -1,8 +1,11 @@
 
 import { genId } from "../../scripts/witcher.js";
-import WitcherItemWithDamagePropertiesSheet from "./WitcherItemWithDamagePropertiesSheet.js";
+import WitcherDamagePropertiesConfigurationSheet from "./configurations/WitcherDamagePropertiesConfigurationSheet.js";
+import WitcherItemSheet from "./WitcherItemSheet.js";
 
-export default class WitcherWeaponSheet extends WitcherItemWithDamagePropertiesSheet {
+export default class WitcherWeaponSheet extends WitcherItemSheet {
+
+  configuration = new WitcherDamagePropertiesConfigurationSheet(this.item);
 
   get template() {
     return `systems/TheWitcherTRPG/templates/sheets/weapon-sheet.hbs`;
@@ -41,6 +44,10 @@ export default class WitcherWeaponSheet extends WitcherItemWithDamagePropertiesS
     if (newval.elemental) types.push(game.i18n.localize("WITCHER.Armor.elemental"))
     newval.text = types.join(", ")
     this.item.update({ 'system.type': newval });
+  }
+
+  async _renderConfigureDialog() {
+    this.configuration._render(true)
   }
 
 }

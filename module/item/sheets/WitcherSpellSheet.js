@@ -1,7 +1,10 @@
 
-import WitcherItemWithDamagePropertiesSheet from "./WitcherItemWithDamagePropertiesSheet.js";
+import WitcherDamagePropertiesConfigurationSheet from "./configurations/WitcherDamagePropertiesConfigurationSheet.js";
+import WitcherItemSheet from "./WitcherItemSheet.js";
 
-export default class WitcherSpellSheet extends WitcherItemWithDamagePropertiesSheet {
+export default class WitcherSpellSheet extends WitcherItemSheet {
+
+  configuration = new WitcherDamagePropertiesConfigurationSheet(this.item);
 
   get template() {
     return `systems/TheWitcherTRPG/templates/sheets/spell-sheet.hbs`;
@@ -97,6 +100,10 @@ export default class WitcherSpellSheet extends WitcherItemWithDamagePropertiesSh
 
   async _onDropActiveEffect(event, data) {
     console.log("Not implemented")
+  }
+
+  async _renderConfigureDialog() {
+    this.configuration._render(true)
   }
 
 }
