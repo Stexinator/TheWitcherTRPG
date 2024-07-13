@@ -158,10 +158,61 @@ async function applyDamage(actor, totalDamage, messageId, derivedStat) {
     totalDamage -= shield;
   }
 
-  applyDamageToLocation(actor, dialogData, damage, totalDamage, infoTotalDmg, location, derivedStat)
+  if (damage.damageProperties.damageToAllLocations) {
+    applyDamageToAllLocations(actor, dialogData, damage, totalDamage, infoTotalDmg, derivedStat)
+  }
+  else {
+    applyDamageToLocation(actor, dialogData, damage, totalDamage, infoTotalDmg, location, derivedStat)
+  }
+
 }
 
 async function applyDamageToLocation(actor, dialogData, damage, totalDamage, infoTotalDmg, location, derivedStat) {
+  let damageResult = await calculateDamageWithLocation(actor, dialogData, damage, totalDamage, infoTotalDmg, location)
+
+  if (damageResult.blockedBySp) {
+    createDamageBlockedBySp(actor, damageResult.infoTotalDmg, damageResult.displaySP, damageResult.infoAfterSPReduction)
+  }
+
+  createResultMessage(actor, damageResult)
+
+  actor?.update({
+    [`system.derivedStats.${derivedStat}.value`]: actor.system.derivedStats[derivedStat].value - Math.floor(totalDamage)
+  });
+}
+
+async function applyDamageToAllLocations(actor, dialogData, damage, totalDamage, infoTotalDmg, derivedStat) {
+
+  let locations = actor.getAllLocations().map(location => actor.getLocationObject(location))
+
+  let resultPromises = []
+  locations.forEach(location => resultPromises.push(calculateDamageWithLocation(actor, dialogData, damage, totalDamage, infoTotalDmg, location)))
+
+  let results = await Promise.all(resultPromises);
+
+  let totalAppliedDamage = results.reduce((acc, result) => acc + Math.floor(result.totalDamage), 0)
+
+  const messageTemplate = 'systems/TheWitcherTRPG/templates/chat/damage/damageToAllLocations.hbs'
+  const templateContext = {
+    results,
+    totalAppliedDamage
+  }
+
+  const content = await renderTemplate(messageTemplate, templateContext)
+  const chatData = {
+    user: game.user._id,
+    content: content,
+    type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+  }
+
+  let message = await ChatMessage.create(chatData)
+
+  actor?.update({
+    [`system.derivedStats.${derivedStat}.value`]: actor.system.derivedStats[derivedStat].value - totalAppliedDamage
+  });
+}
+
+async function calculateDamageWithLocation(actor, dialogData, damage, totalDamage, infoTotalDmg, location) {
   let damageProperties = damage.damageProperties
 
   let locationArmor = getLocationArmor(actor, location, damageProperties)
@@ -192,8 +243,14 @@ async function applyDamageToLocation(actor, dialogData, damage, totalDamage, inf
   }
 
   if (totalDamage <= 0 && silverDamage <= 0) {
-    createDamageBlockedBySp(actor, infoTotalDmg, displaySP, infoAfterSPReduction)
-    return
+    return {
+      blockedBySp: true,
+      totalDamage: 0,
+      infoTotalDmg,
+      displaySP,
+      infoAfterSPReduction,
+      location
+    }
   }
 
   totalDamage = Math.floor(location.locationFormula * totalDamage);
@@ -221,12 +278,18 @@ async function applyDamageToLocation(actor, dialogData, damage, totalDamage, inf
 
   let spDamage = await applySpDamage(location, damageProperties, armorSet)
 
-  createResultMessage(actor, infoTotalDmg, displaySP, damageProperties, infoAfterSPReduction, infoAfterLocation, infoAfterResistance, totalDamage, spDamage)
-
-  actor?.update({
-    [`system.derivedStats.${derivedStat}.value`]: actor.system.derivedStats[derivedStat].value - Math.floor(totalDamage)
-  });
-
+  return {
+    totalDamage,
+    infoTotalDmg,
+    displaySP,
+    damageProperties,
+    infoAfterSPReduction,
+    infoAfterLocation,
+    infoAfterResistance,
+    totalDamage,
+    spDamage,
+    location
+  }
 }
 
 async function createDamageBlockedBySp(actor, infoTotalDmg, displaySP, infoAfterSPReduction) {
@@ -245,30 +308,19 @@ async function createDamageBlockedBySp(actor, infoTotalDmg, displaySP, infoAfter
   rollResult.toMessage(messageData)
 }
 
-async function createResultMessage(actor, infoTotalDmg, displaySP, damageProperties, infoAfterSPReduction, infoAfterLocation, infoAfterResistance, totalDamage, spDamage) {
-  let messageContent = `${game.i18n.localize("WITCHER.Damage.initial")}: <span class="error-display">${infoTotalDmg}</span> <br />
-    ${game.i18n.localize("WITCHER.Damage.totalSP")}: <span class="error-display">${displaySP} ${damageProperties.improvedArmorPiercing ? game.i18n.localize("WITCHER.Damage.improvedArmorPiercing") : ''}</span><br />
-    ${game.i18n.localize("WITCHER.Damage.afterSPReduct")}: <span class="error-display">${infoAfterSPReduction}</span><br />
-    ${game.i18n.localize("WITCHER.Damage.afterLocationModifier")}: <span class="error-display">${infoAfterLocation}</span><br />
-    ${game.i18n.localize("WITCHER.Damage.afterResistances")}: <span class="error-display">${infoAfterResistance} ${(damageProperties.improvedArmorPiercing || damageProperties.armorPiercing) ? game.i18n.localize("WITCHER.Damage.armorPiercing") : ''}</span><br /><br />
-    ${game.i18n.localize("WITCHER.Damage.totalApplied")}: <span class="error-display">${Math.floor(totalDamage)}</span>
-    `;
-  if (damageProperties.ablating) {
-    messageContent += `<br/>${game.i18n.localize("WITCHER.Damage.ablated")}: <span class="error-display">${spDamage}</span>`
-  }
+async function createResultMessage(actor, damageResult) {
+  const messageTemplate = 'systems/TheWitcherTRPG/templates/chat/damage/damageToLocation.hbs'
 
-  if (damageProperties.crushingForce) {
-    messageContent += `<br/>${game.i18n.localize("WITCHER.Damage.crushingForce")}: <span class="error-display">${spDamage}</span>`
-  }
-
-  let messageData = {
+  const content = await renderTemplate(messageTemplate, damageResult)
+  const chatData = {
     user: game.user.id,
-    content: messageContent,
+    content: content,
     speaker: ChatMessage.getSpeaker({ actor: actor }),
     flags: actor.getDamageFlags(),
+    type: CONST.CHAT_MESSAGE_TYPES.OTHER,
   }
-  let rollResult = await new Roll("1").evaluate()
-  rollResult.toMessage(messageData)
+
+  let message = await ChatMessage.create(chatData)
 }
 
 function getLocationArmor(actor, location, damageProperties) {
@@ -293,7 +345,6 @@ function getLocationArmor(actor, location, damageProperties) {
     case "leftArm":
       armorSet = getArmors(torsoArmors)
       totalSP += actor.system.armorUpper ?? 0;
-      console.log("armorUpper", totalSP)
       displaySP += actor.system.armorUpper > 0 ? actor.system.armorUpper + " + " : "";
       break;
     case "rightLeg":
@@ -301,6 +352,11 @@ function getLocationArmor(actor, location, damageProperties) {
       armorSet = getArmors(legArmors)
       totalSP += actor.system.armorLower ?? 0;
       displaySP += actor.system.armorLower > 0 ? actor.system.armorLower + " + " : "";
+      break;
+    case "tailWing":
+      armorSet = getArmors([])
+      totalSP += actor.system.armorTailWing ?? 0;
+      displaySP += actor.system.armorTailWing > 0 ? actor.system.armorTailWing + " + " : "";
       break;
   }
 

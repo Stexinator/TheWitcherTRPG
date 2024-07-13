@@ -45,6 +45,7 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 
 ### 1.044 ###
 - added functionality for damage to ignore armor
+- added functionality for damage to apply to all locations
 
 ### 1.043 ###
 - add context menu for items

@@ -158,6 +158,24 @@ export default class WitcherActor extends Actor {
     }
   }
 
+  getAllLocations() {
+    let locations = [
+      "head",
+      "torso",
+      "rightArm",
+      "leftArm",
+      "rightLeg",
+      "leftLeg",
+    ]
+
+    if (this.type == "monster") {
+      locations.push("tailWing")
+    }
+
+    return locations
+
+  }
+
   getLocationObject(location) {
     let alias = "";
     let modifier = `+0`;

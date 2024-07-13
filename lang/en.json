@@ -55,7 +55,7 @@
         "appliesGlobalModifierToHit": "Applies Global Modifier to Hit (not functional)",
         "appliesGlobalModifierToDamaged": "Applies Global Modifier to Damaged (not functional)",
         "damageIsAblation": "Treat damage as ablation (not functional)",
-        "damageToAllLocations": "Damages all locations (not functional)",
+        "damageToAllLocations": "Damages all locations",
         "bypassesWornArmor": "Bypasses worn armor",
         "bypassesNaturalArmor": "Bypasses natural armor",
         "defenseDifferenceMultiplier": "Damage is multiplied by difference of defense (not functional)",
