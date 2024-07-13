@@ -43,6 +43,9 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 
 ## Version History ##
 
+### 1.044 ###
+- added functionality for damage to ignore armor
+
 ### 1.043 ###
 - add context menu for items
   - only one entry yet -> consume which will remove one of the item
