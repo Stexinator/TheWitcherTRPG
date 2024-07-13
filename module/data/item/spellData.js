@@ -1,5 +1,6 @@
+import { migrateDamageProperties } from "../migrations/damagePropertiesMigration.js";
 import CommonItemData from "./commonItemData.js";
-import itemEffect from "./templates/itemEffectData.js";
+import damageProperties from "./templates/damagePropertiesData.js";
 
 const fields = foundry.data.fields;
 
@@ -39,12 +40,14 @@ export default class SpellData extends CommonItemData {
 
       causeDamages: new fields.BooleanField({ initial: false }),
       damage: new fields.StringField({ nullable: true, initial: null }),
+      damageProperties: new fields.SchemaField(damageProperties()),
+
       createsShield: new fields.BooleanField({ initial: false }),
       shield: new fields.StringField({ initial: '' }),
+
       doesHeal: new fields.BooleanField({ initial: false }),
       heal: new fields.StringField({ initial: '' }),
 
-      effects: new fields.ArrayField(new fields.SchemaField(itemEffect())),
       globalModifiers: new fields.ArrayField(new fields.StringField({ initial: '' })),
     }
   }
@@ -59,5 +62,8 @@ export default class SpellData extends CommonItemData {
     }
 
     this.effects?.forEach(effect => effect.percentage = parseInt(effect.percentage))
+
+    migrateDamageProperties(source);
   }
+
 }

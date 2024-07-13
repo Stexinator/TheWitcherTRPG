@@ -1,4 +1,6 @@
+import { migrateDamageProperties } from "../migrations/damagePropertiesMigration.js";
 import CommonItemData from "./commonItemData.js";
+import damageProperties from "./templates/damagePropertiesData.js";
 import itemEffect from "./templates/itemEffectData.js";
 import weaponType from "./templates/weaponTypeData.js";
 
@@ -35,12 +37,7 @@ export default class WeaponData extends CommonItemData {
       enhancements: new fields.NumberField({ initial: 0 }),
       enhancementItemIds: new fields.ArrayField(new fields.StringField({ initial: '' })),
 
-      armorPiercing: new fields.BooleanField({ initial: false }),
-      improvedArmorPiercing: new fields.BooleanField({ initial: false }),
-      ablating: new fields.BooleanField({ initial: false }),
-      crushingForce: new fields.BooleanField({ initial: false }),
-
-      effects: new fields.ArrayField(new fields.SchemaField(itemEffect())),
+      damageProperties: new fields.SchemaField(damageProperties()),
     }
 
   }
@@ -82,5 +79,7 @@ export default class WeaponData extends CommonItemData {
     }
 
     this.effects?.forEach(effect => effect.percentage = parseInt(effect.percentage))
+
+    migrateDamageProperties(source);
   }
 }

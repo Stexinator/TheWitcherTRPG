@@ -11,13 +11,39 @@ export default class WitcherDiagramSheet extends WitcherItemSheet {
   /** @override */
   getData() {
     const data = super.getData();
+
+    data.selects = this.createSelects();
+
     return data;
+  }
+
+  createSelects() {
+    return {
+      formulaTypes: {
+        alchemical: "WITCHER.Alchemy.Alchemical",
+        potion: "WITCHER.Alchemy.Potion",
+        decoction: "WITCHER.Alchemy.Decoction",
+        oil: "WITCHER.Alchemy.Oil",
+      },
+      diagramTypes: {
+        "ingredients": "WITCHER.Diagram.Ingredient",
+        "weapon": "WITCHER.Diagram.Weapon",
+        "armor": "WITCHER.Diagram.Armor",
+        "armor-enhancement": "WITCHER.Diagram.ArmorEnhancement",
+        "elderfolk-weapon": "WITCHER.Diagram.ElderFolkWeapon",
+        "elderfolk-armor": "WITCHER.Diagram.ElderFolkArmor",
+        "ammunition": "WITCHER.Diagram.Ammunition",
+        "bomb": "WITCHER.Diagram.Bomb",
+        "traps": "WITCHER.Diagram.Traps",
+      }
+    }
   }
 
   activateListeners(html) {
     super.activateListeners(html);
 
     html.find(".add-component").on("click", this._onAddComponent.bind(this));
+    html.find(".edit-component").on("blur", this._onEditComponent.bind(this));
     html.find(".remove-component").on("click", this._onRemoveComponent.bind(this));
 
     html.find(".add-associated-item").on("click", this._onAddAssociatedItem.bind(this))
@@ -39,7 +65,7 @@ export default class WitcherDiagramSheet extends WitcherItemSheet {
     }
   }
 
-  _onEffectEdit(event) {
+  _onEditComponent(event) {
     event.preventDefault();
     let element = event.currentTarget;
     let itemId = element.closest(".list-item").dataset.id;

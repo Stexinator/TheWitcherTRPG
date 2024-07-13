@@ -45,7 +45,30 @@
       "Tiny": "T",
       "Small": "S",
       "Large": "L",
-      "CantHide": "NA"
+      "CantHide": "NA",
+      "ConsumeProperties": {
+        "doesHeal": "Applies heal",
+        "heal": "Heals for",
+        "appliesGlobalModifier": "Applies Global Modifier"
+      },
+      "DamageProperties": {
+        "appliesGlobalModifierToHit": "Applies Global Modifier to Hit (not functional)",
+        "appliesGlobalModifierToDamaged": "Applies Global Modifier to Damaged (not functional)",
+        "damageIsAblation": "Treat damage as ablation (not functional)",
+        "damageToAllLocations": "Damages all locations (not functional)",
+        "bypassesWornArmor": "Bypasses worn armor (not functional)",
+        "bypassesNaturalArmor": "Bypasses natural armor (not functional)",
+        "defenseDifferenceMultiplier": "Damage is multiplied by difference of defense (not functional)",
+        "defenseMultiplierCap": "Multiplier is capped at (not functional)"
+      },
+      "ContextMenu": {
+        "Consume": "Consume",
+        "NotConsumable": "The item is not configured as consumable"
+      },
+      "Settings": {
+        "Alchemical": "Alchemical Settings",
+        "DamageProperties": "Damage Properties"
+      }
     },
     "Dialog": {
       "NoComponents": "Not enough components for craft",

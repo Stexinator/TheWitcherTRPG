@@ -77,6 +77,14 @@ WITCHER.Concealment = {
     NA: "WITCHER.Item.CantHide",
 }
 
+WITCHER.craftingLevels = {
+    novice: "WITCHER.Diagram.Novice",
+    journeyman: "WITCHER.Diagram.Journeyman",
+    master: "WITCHER.Diagram.Master",
+    "grand-master": "WITCHER.Diagram.GrandMaster",
+    witcher: "WITCHER.Diagram.Witcher",
+}
+
 WITCHER.weapon = {
     hands: {
         none: "WITCHER.Weapon.Hands.none",

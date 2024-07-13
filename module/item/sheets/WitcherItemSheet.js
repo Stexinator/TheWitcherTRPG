@@ -1,4 +1,3 @@
-import { genId } from "../../scripts/witcher.js";
 
 export default class WitcherItemSheet extends ItemSheet {
   /** @override */
@@ -31,60 +30,21 @@ export default class WitcherItemSheet extends ItemSheet {
 
   activateListeners(html) {
     super.activateListeners(html);
-    html.find(".add-effect").on("click", this._onAddEffect.bind(this));
-    html.find(".list-edit").on("blur", this._onEffectEdit.bind(this));
-    html.find(".remove-effect").on("click", this._oRemoveEffect.bind(this));
 
     html.find(".add-global-modifier").on("click", this._onAddGlobalModifier.bind(this));
     html.find(".edit-global-modifier").on("blur", this._onEditGlobalModifier.bind(this));
     html.find(".remove-global-modifier").on("click", this._oRemoveGlobalModifier.bind(this));
 
+    html.find(".configure-item").on("click", this._renderConfigureDialog.bind(this));
+
     html.find("input").focusin(ev => this._onFocusIn(ev));
-  }
-
-  _onAddEffect(event) {
-    event.preventDefault();
-    let newEffectList = []
-    if (this.item.system.effects) {
-      newEffectList = this.item.system.effects
-    }
-    newEffectList.push({ id: genId(), name: "effect", percentage: "" })
-    this.item.update({ 'system.effects': newEffectList });
-  }
-
-  _onEffectEdit(event) {
-    event.preventDefault();
-    let element = event.currentTarget;
-    let itemId = element.closest(".list-item").dataset.id;
-
-    let field = element.dataset.field;
-    let value = element.value
-
-    if (value == "on") {
-      value = element.checked;
-    }
-
-    let effects = this.item.system.effects
-    let objIndex = effects.findIndex((obj => obj.id == itemId));
-    effects[objIndex][field] = value
-
-    this.item.update({ 'system.effects': effects });
-
-  }
-
-  _oRemoveEffect(event) {
-    event.preventDefault();
-    let element = event.currentTarget;
-    let itemId = element.closest(".list-item").dataset.id;
-    let newEffectList = this.item.system.effects.filter(item => item.id !== itemId)
-    this.item.update({ 'system.effects': newEffectList });
   }
 
   _onAddGlobalModifier(event) {
     event.preventDefault();
     let newList = []
     if (this.item.system.globalModifiers) {
-      newList = this.item.system.effects
+      newList = this.item.system.globalModifiers
     }
     newList.push("global modifier")
     this.item.update({ 'system.globalModifiers': newList });
@@ -109,8 +69,32 @@ export default class WitcherItemSheet extends ItemSheet {
     event.preventDefault();
     let element = event.currentTarget;
     let itemId = element.closest(".list-item").dataset.id;
-    let newEffectList = this.item.system.globalModifiers.filter(modifier => modifier !== itemId)
-    this.item.update({ 'system.globalModifiers': newEffectList });
+    let newList = this.item.system.globalModifiers.filter(modifier => modifier !== itemId)
+    this.item.update({ 'system.globalModifiers': newList });
+  }
+
+  async _renderConfigureDialog() {
+    //overwrite in sub-classes
+  }
+
+  _handleRender(html) {
+    html.find(".add-effect").on("click", (args) => { console.log(args.currentTarget.dataset) });
+  }
+
+  _handleConfiguration(html) {
+    const formElement = html[0].querySelector('form');
+    const formData = new FormDataExtended(formElement);
+
+    this._updateItem(formData.object);
+  }
+
+  _updateItem(formData) {
+    let updateData = {}
+    for (let [key, value] of Object.entries(formData)) {
+      updateData[key] = value
+    }
+
+    this.item.update(updateData);
   }
 
   _onFocusIn(event) {

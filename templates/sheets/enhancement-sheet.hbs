@@ -50,19 +50,19 @@
     {{#each item.system.effects as |effect name|}}
         <div class="flex list-item" data-id="{{effect.id}}">
             <a class="remove-effect"><i class="fas fa-minus"></i></a>
-            <textarea class="list-edit" rows=3 data-field="name">{{effect.name}}</textarea>
+            <textarea class="edit-effect" rows=3 data-field="name">{{effect.name}}</textarea>
             {{#if (or (eq ../item.system.type "weapon") (eq ../item.system.type "rune"))}}
-                <select class="list-edit item-effect" data-field="statusEffect">
+                <select class="edit-effect item-effect" data-field="statusEffect">
                     {{selectOptions ../config.statusEffects blank='' selected=effect.statusEffect nameAttr='id' valueAttr="id" labelAttr="label" localize=true}}
                 </select>
             {{else}}
-                <select class="list-edit item-effect" data-field="statusEffect">
+                <select class="edit-effect item-effect" data-field="statusEffect">
                     {{selectOptions ../config.armorEffects blank='' selected=effect.statusEffect nameAttr='id' valueAttr="id" labelAttr="label" localize=true}}
                 </select>
             {{/if}}
             <div class="flex">
                 <label>{{localize "WITCHER.Percentage"}}:</label>
-                <input class="list-edit" data-field="percentage" type="text" value="{{effect.percentage}}"
+                <input class="edit-effect" data-field="percentage" type="text" value="{{effect.percentage}}"
                     data-dtype="Number" />
                 %
             </div>

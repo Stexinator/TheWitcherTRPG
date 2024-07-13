@@ -43,6 +43,17 @@ Those could be anything, maybe notes on specific NPC that they encounter, your c
 
 ## Version History ##
 
+### 1.043 ###
+- add context menu for items
+  - only one entry yet -> consume which will remove one of the item
+- added ability to consume items and apply configured values (effects are applied on v12 only)
+- added configuration sheets for weapon and spells
+- prepared backend data for more complex attack/damage interactions/calculations
+- reworked silver damage calculation
+  - fixed silver damaged being halved due to resistance to non-silver weapons
+- fixed deprecations in diagrams sheet
+- fixed error in item name when crafting failed
+
 ### 1.042 ###
 - add field to show total weight of stored items and carry capacity of container
 - added variable stamina scaling for effects in spells
