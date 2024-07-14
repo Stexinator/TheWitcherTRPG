@@ -55,7 +55,8 @@ async function preloadHandlebarsTemplates() {
 
         "systems/TheWitcherTRPG/templates/dialog/verbal-combat.hbs",
 
-        "systems/TheWitcherTRPG/templates/chat/weapon-attack.hbs"
+        "systems/TheWitcherTRPG/templates/chat/weapon-attack.hbs",
+        "systems/TheWitcherTRPG/templates/chat/damage/damageToLocation.hbs"
     ];
     return loadTemplates(templatePath);
 }
